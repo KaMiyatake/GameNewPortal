@@ -1,47 +1,55 @@
-import { NextPage } from 'next';
-import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
+import Layout from '../components/Layout/Layout';
+import NewsSection from '../components/NewsSection/NewsSection';
+import { getLatestNews, getCategories } from '../utils/api';
+import { NewsItem, Category } from '../types';
 import styles from '../styles/Home.module.css';
 
-const Home: NextPage = () => {
+const Home: React.FC = () => {
+  const [latestNews, setLatestNews] = useState<NewsItem[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [newsData, categoriesData] = await Promise.all([
+          getLatestNews(),
+          getCategories(),
+        ]);
+        setLatestNews(newsData);
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.spinner}></div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Game News Portal</title>
-        <meta name="description" content="Latest gaming news and updates" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <span className={styles.highlight}>Game News Portal</span>
-        </h1>
-
-        <p className={styles.description}>
-          最新のゲームニュースをチェックしよう！
-        </p>
-
-        <div className={styles.grid}>
-          <div className={styles.card}>
-            <h2>最新ニュース</h2>
-            <p>ゲーム業界の最新情報をお届けします。</p>
-          </div>
-
-          <div className={styles.card}>
-            <h2>レビュー</h2>
-            <p>新作ゲームのレビューを掲載しています。</p>
-          </div>
-
-          <div className={styles.card}>
-            <h2>発売予定</h2>
-            <p>今後発売予定のゲームをチェック！</p>
-          </div>
+    <Layout categories={categories}>
+      <div className={styles.hero}>
+        <div className={styles.container}>
+          <h1 className={styles.heroTitle}>最新ゲームニュース</h1>
+          <p className={styles.heroSubtitle}>
+            ゲーム業界の最新情報、レビュー、発売情報をお届けします
+          </p>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <p>© 2025 Game News Portal</p>
-      </footer>
-    </div>
+      </div>
+      <NewsSection title="最新ニュース" newsItems={latestNews} />
+    </Layout>
   );
 };
 
