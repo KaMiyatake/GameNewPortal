@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styles from './Footer.module.css';
 
 const Footer: React.FC = () => {
@@ -15,19 +16,51 @@ const Footer: React.FC = () => {
           <div className={styles.footerSection}>
             <h3 className={styles.footerTitle}>カテゴリー</h3>
             <ul className={styles.footerLinks}>
-              <li><a href="/category/console">コンソール</a></li>
-              <li><a href="/category/pc">PC</a></li>
-              <li><a href="/category/mobile">モバイル</a></li>
-              <li><a href="/category/indie">インディー</a></li>
+              <li>
+                <Link href="/category/console" passHref>
+                  <span>コンソール</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/category/pc" passHref>
+                  <span>PC</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/category/mobile" passHref>
+                  <span>モバイル</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/category/indie" passHref>
+                  <span>インディー</span>
+                </Link>
+              </li>
             </ul>
           </div>
           <div className={styles.footerSection}>
             <h3 className={styles.footerTitle}>サイト情報</h3>
             <ul className={styles.footerLinks}>
-              <li><a href="/about">サイトについて</a></li>
-              <li><a href="/contact">お問い合わせ</a></li>
-              <li><a href="/privacy">プライバシーポリシー</a></li>
-              <li><a href="/terms">利用規約</a></li>
+              <li>
+                <Link href="/about" passHref>
+                  <span>サイトについて</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" passHref>
+                  <span>お問い合わせ</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" passHref>
+                  <span>プライバシーポリシー</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" passHref>
+                  <span>利用規約</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

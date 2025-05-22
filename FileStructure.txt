@@ -1,0 +1,25 @@
+src/
+├── components/
+│   ├── Header/
+│   │   ├── Header.tsx
+│   │   └── Header.module.css
+│   ├── NewsSection/
+│   │   ├── NewsSection.tsx
+│   │   ├── NewsCard.tsx
+│   │   └── News.module.css
+│   ├── Footer/
+│   │   ├── Footer.tsx
+│   │   └── Footer.module.css
+│   └── Layout/
+│       ├── Layout.tsx
+│       └── Layout.module.css
+├── pages/
+│   ├── _app.tsx
+│   └── index.tsx
+├── styles/
+│   ├── globals.css
+│   └── Home.module.css
+├── types/
+│   └── index.ts
+└── utils/
+    └── api.ts

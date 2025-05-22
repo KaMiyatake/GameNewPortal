@@ -1,4 +1,4 @@
-import { NewsItem, Category } from '../types';
+import { NewsItem, NewsItemDetail, Category } from '../types';
 
 // 仮のニュースデータ（後でAPIに置き換え）
 export const getLatestNews = (): Promise<NewsItem[]> => {
@@ -7,56 +7,21 @@ export const getLatestNews = (): Promise<NewsItem[]> => {
       id: 1,
       title: '『ゼルダの伝説』最新作、発売日が決定',
       summary: '任天堂は本日、『ゼルダの伝説』シリーズの最新作の発売日を正式に発表しました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=Zelda',
+      imageUrl: 'https://placehold.co/400x250?text=Zelda&font=montserrat',
       category: 'コンソール',
       date: '2025-05-21',
-      url: '/news/1',
+      slug: 'zelda-new-release-date',
     },
     {
       id: 2,
       title: '『Elden Ring』大型DLCの詳細が明らかに',
       summary: 'フロムソフトウェアは『Elden Ring』の大型DLCについての新情報を公開しました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=Elden+Ring',
+      imageUrl: 'https://placehold.co/400x250?text=Elden+Ring&font=montserrat',
       category: 'PC',
       date: '2025-05-20',
-      url: '/news/2',
+      slug: 'elden-ring-dlc-details',
     },
-    {
-      id: 3,
-      title: '新型PlayStation 6の噂、性能と発売時期',
-      summary: 'ソニーの次世代ゲーム機に関する情報がリークされ、業界に衝撃を与えています。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=PlayStation+6',
-      category: 'コンソール',
-      date: '2025-05-19',
-      url: '/news/3',
-    },
-    {
-      id: 4,
-      title: '『Fortnite』新シーズン開始、大幅なマップ変更',
-      summary: 'Epic Gamesは人気バトルロイヤルゲーム『Fortnite』の新シーズンを開始し、ゲームマップに大幅な変更を加えました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=Fortnite',
-      category: 'マルチプラットフォーム',
-      date: '2025-05-18',
-      url: '/news/4',
-    },
-    {
-      id: 5,
-      title: '『GTA VI』開発の進捗状況、Rockstarがコメント',
-      summary: 'Rockstar Gamesは待望の『Grand Theft Auto VI』の開発状況について珍しくコメントを発表しました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=GTA+VI',
-      category: 'コンソール',
-      date: '2025-05-17',
-      url: '/news/5',
-    },
-    {
-      id: 6,
-      title: '『Cyberpunk 2077』新DLC「Phantom Liberty」のレビュー',
-      summary: 'CD Projekt REDの『Cyberpunk 2077』の新DLC「Phantom Liberty」のレビューが解禁されました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=Cyberpunk',
-      category: 'PC',
-      date: '2025-05-16',
-      url: '/news/6',
-    },
+    // 他の記事も同様...
   ]);
 };
 
@@ -69,4 +34,68 @@ export const getCategories = (): Promise<Category[]> => {
     { id: 4, name: 'インディー', slug: 'indie' },
     { id: 5, name: 'マルチプラットフォーム', slug: 'multi' },
   ]);
+};
+
+// 記事詳細データを取得する関数
+export const getNewsDetail = (slug: string): Promise<NewsItemDetail> => {
+  // 仮のデータ（本来はAPIから取得）
+  const newsDetails: { [key: string]: NewsItemDetail } = {
+    'zelda-new-release-date': {
+      id: 1,
+      title: '『ゼルダの伝説』最新作、発売日が決定',
+      summary: '任天堂は本日、『ゼルダの伝説』シリーズの最新作の発売日を正式に発表しました。',
+      imageUrl: 'https://placehold.co/400x250?text=Zelda&font=montserrat',
+      category: 'コンソール',
+      date: '2025-05-21',
+      slug: 'zelda-new-release-date',
+      author: '山田太郎',
+      content: `<p>任天堂は本日、『ゼルダの伝説』シリーズの最新作の発売日を発表しました。</p><p>詳細な情報は後日公開される予定です。</p>`,
+      tags: ['ゼルダの伝説', '任天堂', 'Switch'],
+      relatedNews: [
+        {
+          id: 3,
+          title: '新型PlayStation 6の噂、性能と発売時期',
+          summary: 'ソニーの次世代ゲーム機に関する情報がリークされました。',
+          imageUrl: 'https://placehold.co/80x50?text=Playstation+6&font=montserrat',
+          category: 'コンソール',
+          date: '2025-05-19',
+          slug: 'playstation-6-rumors',
+        }
+      ]
+    },
+    'elden-ring-dlc-details': {
+      id: 2,
+      title: '『Elden Ring』大型DLCの詳細が明らかに',
+      summary: 'フロムソフトウェアは『Elden Ring』の大型DLCについての新情報を公開しました。',
+      imageUrl: 'https://placehold.co/400x250?text=Elden+Ring&font=montserrat',
+      category: 'PC',
+      date: '2025-05-20',
+      slug: 'elden-ring-dlc-details',
+      author: '鈴木一郎',
+      content: `<p>フロムソフトウェアは『Elden Ring』の大型DLCについての詳細を発表しました。</p><p>新たなボスや武器が追加される予定です。</p>`,
+      tags: ['Elden Ring', 'フロムソフトウェア', 'DLC'],
+      relatedNews: [
+        {
+          id: 6,
+          title: '『Cyberpunk 2077』新DLCのレビュー',
+          summary: 'CD Projekt REDの『Cyberpunk 2077』の新DLCのレビューが解禁されました。',
+          imageUrl: 'https://placehold.co/80x50?text=Cyberpunk&font=montserrat',
+          category: 'PC',
+          date: '2025-05-16',
+          slug: 'cyberpunk-phantom-liberty-review',
+        }
+      ]
+    }
+  };
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const newsDetail = newsDetails[slug];
+      if (newsDetail) {
+        resolve(newsDetail);
+      } else {
+        reject(new Error('記事が見つかりませんでした'));
+      }
+    }, 500); // 0.5秒の遅延を追加して非同期処理をシミュレート
+  });
 };
