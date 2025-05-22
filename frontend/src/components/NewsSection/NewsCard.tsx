@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './News.module.css';
 import { NewsItem } from '../../types';
+import Image from 'next/image';
 
 interface NewsCardProps {
   news: NewsItem;
@@ -10,7 +11,14 @@ const NewsCard: React.FC<NewsCardProps> = ({ news }) => {
   return (
     <article className={styles.newsCard}>
       <div className={styles.imageContainer}>
-        <img src={news.imageUrl} alt={news.title} className={styles.newsImage} />
+        <Image
+          src={news.imageUrl}
+          alt={news.title}
+          width={400}
+          height={225}
+          className={styles.newsImage}
+          loading="lazy"
+        />
         <span className={styles.category}>{news.category}</span>
       </div>
       <div className={styles.contentContainer}>

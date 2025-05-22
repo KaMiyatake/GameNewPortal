@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Header.module.css';
 import { Category } from '../../types';
+import Link from 'next/link';
 
 interface HeaderProps {
   categories: Category[];
@@ -16,17 +17,21 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <a href="/" className={styles.navLink}>ホーム</a>
+              <Link href="/" className={styles.navLink}>
+                ホーム
+              </Link>
             </li>
             {categories.map((category) => (
               <li key={category.id} className={styles.navItem}>
-                <a href={`/category/${category.slug}`} className={styles.navLink}>
+                <Link href={`/category/${category.slug}`} className={styles.navLink}>
                   {category.name}
-                </a>
+                </Link>
               </li>
             ))}
             <li className={styles.navItem}>
-              <a href="/about" className={styles.navLink}>サイトについて</a>
+              <Link href="/about" className={styles.navLink}>
+                サイトについて
+              </Link>
             </li>
           </ul>
         </nav>
