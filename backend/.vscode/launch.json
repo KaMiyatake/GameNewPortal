@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Express (TypeScript)",
+        "type": "node",
+        "request": "launch",
+        "runtimeArgs": [
+          "-r",
+          "ts-node/register"
+        ],
+        "args": [
+          "${workspaceFolder}/src/index.ts"
+        ],
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+        },
+        "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+      }
+    ]
+  }
+  

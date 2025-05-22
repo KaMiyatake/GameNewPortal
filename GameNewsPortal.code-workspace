@@ -1,0 +1,73 @@
+{
+	"folders": [
+	  {
+		"name": "frontend",
+		"path": "frontend"
+	  },
+	  {
+		"name": "backend",
+		"path": "backend"
+	  },
+	  {
+		"path": "shared"
+	  }
+	],
+	"settings": {
+		"javascript.preferences.importModuleSpecifier": "non-relative"
+	},
+	"launch": {
+	  "version": "0.2.0",
+	  "configurations": [
+		{
+		  "name": "Backend: Debug Express (TypeScript)",
+		  "type": "node",
+		  "request": "launch",
+		  "runtimeArgs": [
+			"-r",
+			"ts-node/register"
+		  ],
+		  "args": [
+			"${workspaceFolder:backend}/src/index.ts"
+		  ],
+		  "cwd": "${workspaceFolder:backend}",
+		  "env": {
+			"TS_NODE_PROJECT": "${workspaceFolder:backend}/tsconfig.json"
+		  },
+		  "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
+		},
+		{
+		  "name": "Frontend: Next.js サーバーサイドデバッグ",
+		  "type": "node-terminal",
+		  "request": "launch",
+		  "command": "npm run dev",
+		  "cwd": "${workspaceFolder:frontend}"
+		},
+		{
+		  "name": "Frontend: Next.js クライアントサイドデバッグ",
+		  "type": "chrome",
+		  "request": "launch",
+		  "url": "http://localhost:3000",
+		  "webRoot": "${workspaceFolder:frontend}"
+		},
+		{
+		  "name": "Frontend: Next.js フルスタックデバッグ",
+		  "type": "node",
+		  "request": "launch",
+		  "program": "${workspaceFolder:frontend}/node_modules/next/dist/bin/next",
+		  "args": ["dev"],
+		  "runtimeArgs": ["--inspect"],
+		  "skipFiles": ["<node_internals>/**"],
+		  "cwd": "${workspaceFolder:frontend}",
+		  "console": "integratedTerminal",
+		  "serverReadyAction": {
+			"action": "debugWithChrome",
+			"killOnServerStop": true,
+			"pattern": "- Local:.+(https?://.+)",
+			"uriFormat": "%s",
+			"webRoot": "${workspaceFolder:frontend}"
+		  }
+		}
+	  ]
+	}
+  }
+  
