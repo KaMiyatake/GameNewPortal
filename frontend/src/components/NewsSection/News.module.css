@@ -232,7 +232,16 @@
   color: var(--secondary-color);
 }
 
+/* もっと見るボタンを削除 */
 .loadMoreContainer {
+  display: none;
+}
+
+.loadMoreButton {
+  display: none;
+}
+
+/* .loadMoreContainer {
   text-align: center;
   margin-top: 2rem;
 }
@@ -245,7 +254,7 @@
   font-weight: 500;
   transition: background-color 0.3s ease;
   cursor: pointer;
-}
+} */
 
 .loadMoreButton:hover {
   background-color: var(--accent-color);

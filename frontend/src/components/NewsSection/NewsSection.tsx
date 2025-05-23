@@ -1,18 +1,27 @@
 import React from 'react';
 import styles from './News.module.css';
 import NewsCard from './NewsCard';
+import Pagination from '../Pagination/Pagination';
 import { NewsItem } from '../../types';
 
 interface NewsSectionProps {
   title: string;
   newsItems: NewsItem[];
-  layout?: 'grid' | 'list'; // レイアウトタイプを追加
+  layout?: 'grid' | 'list';
+  showPagination?: boolean;
+  currentPage?: number;
+  totalPages?: number;
+  onPageChange?: (page: number) => void;
 }
 
 const NewsSection: React.FC<NewsSectionProps> = ({ 
   title, 
   newsItems, 
-  layout = 'grid' 
+  layout = 'grid',
+  showPagination = false,
+  currentPage = 1,
+  totalPages = 1,
+  onPageChange
 }) => {
   return (
     <section className={styles.newsSection}>
@@ -23,9 +32,15 @@ const NewsSection: React.FC<NewsSectionProps> = ({
             <NewsCard key={news.id} news={news} layout={layout} />
           ))}
         </div>
-        <div className={styles.loadMoreContainer}>
-          <button className={styles.loadMoreButton}>もっと見る</button>
-        </div>
+        
+        {/* ページネーション */}
+        {showPagination && totalPages > 1 && onPageChange && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
+        )}
       </div>
     </section>
   );

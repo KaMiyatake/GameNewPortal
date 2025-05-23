@@ -1,0 +1,138 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 1rem 0;
+}
+
+.pageButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  color: var(--text-color);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.pageButton:hover:not(.disabled) {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+.pageButton:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.numberButton {
+  min-width: 40px;
+}
+
+.prevButton,
+.nextButton {
+  padding: 0 0.5rem;
+  font-weight: 600;
+}
+
+.active {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
+}
+
+.active:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.disabled {
+  background-color: #f5f5f5;
+  color: #ccc;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.disabled:hover {
+  background-color: #f5f5f5;
+  color: #ccc;
+  border-color: #e0e0e0;
+}
+
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  color: #666;
+  font-weight: 500;
+  user-select: none;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .pagination {
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+
+  .pageButton {
+    min-width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+
+  .numberButton {
+    min-width: 36px;
+  }
+
+  .ellipsis {
+    min-width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 0.2rem;
+  }
+
+  .pageButton {
+    min-width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .numberButton {
+    min-width: 32px;
+  }
+
+  .ellipsis {
+    min-width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  /* 小さな画面では省略記号を短くする */
+  .ellipsis::before {
+    content: '⋯';
+  }
+  
+  .ellipsis {
+    font-size: 1rem;
+  }
+}
