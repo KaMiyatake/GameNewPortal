@@ -4,8 +4,9 @@ import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import RelatedNews from '../../components/NewsDetail/RelatedNews';
 import NewsContent from '../../components/NewsDetail/NewsContent';
-import { getNewsDetail, getCategories } from '../../utils/api';
-import { NewsItemDetail, Category } from '../../types';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import { getNewsDetail, getCategories, getPopularNews } from '../../utils/api';
+import { NewsItemDetail, Category, NewsItem } from '../../types';
 import styles from '../../styles/NewsDetail.module.css';
 
 const NewsDetailPage: React.FC = () => {
@@ -14,6 +15,7 @@ const NewsDetailPage: React.FC = () => {
   
   const [newsDetail, setNewsDetail] = useState<NewsItemDetail | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [popularNews, setPopularNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -22,13 +24,15 @@ const NewsDetailPage: React.FC = () => {
       
       try {
         setLoading(true);
-        const [newsData, categoriesData] = await Promise.all([
+        const [newsData, categoriesData, popularNewsData] = await Promise.all([
           getNewsDetail(slug as string),
           getCategories(),
+          getPopularNews(),
         ]);
         
         setNewsDetail(newsData);
         setCategories(categoriesData);
+        setPopularNews(popularNewsData);
       } catch (error) {
         console.error('Error fetching news detail:', error);
       } finally {
@@ -103,10 +107,14 @@ const NewsDetailPage: React.FC = () => {
                 </Link>
               ))}
             </div>
+            
+            <div className={styles.relatedNewsSection}>
+              <RelatedNews news={newsDetail.relatedNews} />
+            </div>
           </div>
           
           <div className={styles.sidebar}>
-            <RelatedNews news={newsDetail.relatedNews} />
+            <Sidebar popularNews={popularNews} categories={categories} />
           </div>
         </div>
       </div>

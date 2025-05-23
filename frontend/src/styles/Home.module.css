@@ -27,6 +27,13 @@
   opacity: 0.9;
 }
 
+.mainContent {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
 .loadingContainer {
   display: flex;
   flex-direction: column;
@@ -48,6 +55,12 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 992px) {
+  .mainContent {
+    grid-template-columns: 1fr;
   }
 }
 

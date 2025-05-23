@@ -55,10 +55,10 @@
 }
 
 .relatedNews {
-  background-color: white;
+  background-color: #f8f9fa;
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: var(--card-shadow);
+  margin-top: 2rem;
 }
 
 .relatedTitle {
@@ -80,47 +80,47 @@
 }
 
 .relatedList {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
 .relatedItem {
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.relatedItem:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+.relatedItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .relatedLink {
-  display: flex;
-  gap: 0.8rem;
+  display: block;
   cursor: pointer;
 }
 
 .relatedImageContainer {
-  width: 80px;
-  height: 60px;
-  flex-shrink: 0;
+  width: 100%;
+  height: 120px;
 }
 
 .relatedImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
 }
 
 .relatedContent {
-  flex: 1;
+  padding: 1rem;
 }
 
 .relatedItemTitle {
-  font-size: 0.9rem;
-  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem;
   line-height: 1.4;
   color: var(--text-color);
   transition: color 0.3s ease;
@@ -133,4 +133,10 @@
 .relatedDate {
   font-size: 0.8rem;
   color: #888;
+}
+
+@media (max-width: 768px) {
+  .relatedList {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,0 +1,168 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sidebarTitle {
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+  color: var(--primary-color);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.sidebarTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--accent-color);
+}
+
+/* 人気記事 */
+.popularNews {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+.popularList {
+  display: flex;
+  flex-direction: column;
+}
+
+.popularItem {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.popularItem:last-child {
+  border-bottom: none;
+}
+
+.popularLink {
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.popularRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.popularContent {
+  flex: 1;
+}
+
+.popularTitle {
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.popularLink:hover .popularTitle {
+  color: var(--secondary-color);
+}
+
+.popularInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+
+.popularCategory {
+  color: var(--secondary-color);
+}
+
+.popularDate {
+  color: #888;
+}
+
+/* カテゴリーリスト */
+.categoryList {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+.categoryItems {
+  list-style: none;
+}
+
+.categoryItem {
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.categoryItem:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.categoryLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.categoryLink:hover {
+  color: var(--secondary-color);
+}
+
+.categoryLink::after {
+  content: '→';
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.categoryLink:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 広告バナー */
+.adBanner {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+}
+
+.adContent {
+  border: 2px dashed #ccc;
+  padding: 2rem;
+  border-radius: 4px;
+}
+
+.adContent p {
+  color: #999;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    margin-top: 2rem;
+  }
+}

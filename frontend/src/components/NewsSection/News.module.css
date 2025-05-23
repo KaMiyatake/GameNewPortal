@@ -3,9 +3,9 @@
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .sectionTitle {
@@ -28,7 +28,7 @@
 
 .newsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
@@ -54,6 +54,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .category {
@@ -66,6 +67,12 @@
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.category:hover {
+  background-color: var(--accent-color);
 }
 
 .contentContainer {
@@ -77,12 +84,13 @@
   margin-bottom: 0.5rem;
 }
 
-.newsTitle a {
+.newsTitle span {
   color: var(--text-color);
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
-.newsTitle a:hover {
+.newsTitle span:hover {
   color: var(--secondary-color);
 }
 
@@ -109,6 +117,13 @@
 .readMore {
   font-size: 0.8rem;
   font-weight: 500;
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.readMore:hover {
+  color: var(--accent-color);
 }
 
 .loadMoreContainer {
@@ -119,18 +134,28 @@
 .loadMoreButton {
   background-color: var(--secondary-color);
   color: white;
-  padding: 0.5rem 1.5rem;
+  padding: 0.8rem 2rem;
   border-radius: 4px;
   font-weight: 500;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .loadMoreButton:hover {
   background-color: var(--accent-color);
 }
 
+/* サイドバーなしのページでのスタイル */
+.fullWidth .newsGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 @media (max-width: 992px) {
   .newsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fullWidth .newsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -138,5 +163,13 @@
 @media (max-width: 576px) {
   .newsGrid {
     grid-template-columns: 1fr;
+  }
+  
+  .fullWidth .newsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .imageContainer {
+    height: 200px;
   }
 }

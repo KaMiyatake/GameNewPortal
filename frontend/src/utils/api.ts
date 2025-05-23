@@ -99,3 +99,54 @@ export const getNewsDetail = (slug: string): Promise<NewsItemDetail> => {
     }, 500); // 0.5秒の遅延を追加して非同期処理をシミュレート
   });
 };
+
+// 人気記事を取得する関数
+export const getPopularNews = (): Promise<NewsItem[]> => {
+  return Promise.resolve([
+    {
+      id: 5,
+      title: '『GTA VI』開発の進捗状況、Rockstarがコメント',
+      summary: 'Rockstar Gamesは待望の『Grand Theft Auto VI』の開発状況について珍しくコメントを発表しました。',
+      imageUrl: 'https://via.placeholder.com/400x250?text=GTA+VI',
+      category: 'コンソール',
+      date: '2025-05-17',
+      slug: 'gta-vi-development-update',
+    },
+    {
+      id: 2,
+      title: '『Elden Ring』大型DLCの詳細が明らかに',
+      summary: 'フロムソフトウェアは『Elden Ring』の大型DLCについての新情報を公開しました。',
+      imageUrl: 'https://via.placeholder.com/400x250?text=Elden+Ring',
+      category: 'PC',
+      date: '2025-05-20',
+      slug: 'elden-ring-dlc-details',
+    },
+    {
+      id: 7,
+      title: '『ファイナルファンタジーVII Rebirth』追加コンテンツ発表',
+      summary: 'スクウェア・エニックスは『ファイナルファンタジーVII Rebirth』の追加コンテンツを発表しました。',
+      imageUrl: 'https://via.placeholder.com/400x250?text=FFVII',
+      category: 'コンソール',
+      date: '2025-05-15',
+      slug: 'ffvii-rebirth-dlc',
+    },
+    {
+      id: 4,
+      title: '『Fortnite』新シーズン開始、大幅なマップ変更',
+      summary: 'Epic Gamesは人気バトルロイヤルゲーム『Fortnite』の新シーズンを開始しました。',
+      imageUrl: 'https://via.placeholder.com/400x250?text=Fortnite',
+      category: 'マルチプラットフォーム',
+      date: '2025-05-18',
+      slug: 'fortnite-new-season',
+    },
+    {
+      id: 10,
+      title: '『Minecraft』大型アップデート「Wild Update」配信開始',
+      summary: 'Mojangは『Minecraft』の大型アップデート「Wild Update」の配信を開始しました。',
+      imageUrl: 'https://via.placeholder.com/400x250?text=Minecraft',
+      category: 'マルチプラットフォーム',
+      date: '2025-05-10',
+      slug: 'minecraft-wild-update',
+    },
+  ]);
+};

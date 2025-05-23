@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import NewsSection from '../components/NewsSection/NewsSection';
-import { getLatestNews, getCategories } from '../utils/api';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { getLatestNews, getCategories, getPopularNews } from '../utils/api';
 import { NewsItem, Category } from '../types';
 import styles from '../styles/Home.module.css';
 
 const Home: React.FC = () => {
   const [latestNews, setLatestNews] = useState<NewsItem[]>([]);
+  const [popularNews, setPopularNews] = useState<NewsItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [newsData, categoriesData] = await Promise.all([
+        const [newsData, categoriesData, popularNewsData] = await Promise.all([
           getLatestNews(),
           getCategories(),
+          getPopularNews(),
         ]);
         setLatestNews(newsData);
         setCategories(categoriesData);
+        setPopularNews(popularNewsData);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -48,7 +52,17 @@ const Home: React.FC = () => {
           </p>
         </div>
       </div>
-      <NewsSection title="最新ニュース" newsItems={latestNews} />
+      
+      <div className={styles.container}>
+        <div className={styles.mainContent}>
+          <div className={styles.newsContent}>
+            <NewsSection title="最新ニュース" newsItems={latestNews} />
+          </div>
+          <div className={styles.sidebarContent}>
+            <Sidebar popularNews={popularNews} categories={categories} />
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 };
