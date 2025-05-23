@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
+import HeroSlider from '../components/HeroSlider/HeroSlider';
 import NewsSection from '../components/NewsSection/NewsSection';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { getLatestNews, getCategories, getPopularNews } from '../utils/api';
+import { getLatestNews, getCategories, getPopularNews, getFeaturedNews } from '../utils/api';
 import { NewsItem, Category } from '../types';
 import styles from '../styles/Home.module.css';
 
 const Home: React.FC = () => {
   const [latestNews, setLatestNews] = useState<NewsItem[]>([]);
+  const [featuredNews, setFeaturedNews] = useState<NewsItem[]>([]);
   const [popularNews, setPopularNews] = useState<NewsItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -15,14 +17,16 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [newsData, categoriesData, popularNewsData] = await Promise.all([
+        const [newsData, categoriesData, popularNewsData, featuredNewsData] = await Promise.all([
           getLatestNews(),
           getCategories(),
           getPopularNews(),
+          getFeaturedNews(),
         ]);
         setLatestNews(newsData);
         setCategories(categoriesData);
         setPopularNews(popularNewsData);
+        setFeaturedNews(featuredNewsData);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -44,14 +48,8 @@ const Home: React.FC = () => {
 
   return (
     <Layout categories={categories}>
-      <div className={styles.hero}>
-        <div className={styles.container}>
-          <h1 className={styles.heroTitle}>最新ゲームニュース</h1>
-          <p className={styles.heroSubtitle}>
-            ゲーム業界の最新情報、レビュー、発売情報をお届けします
-          </p>
-        </div>
-      </div>
+      {/* 元のheroセクションをHeroSliderに置き換え */}
+      <HeroSlider featuredNews={featuredNews} />
       
       <div className={styles.container}>
         <div className={styles.mainContent}>

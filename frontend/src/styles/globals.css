@@ -52,3 +52,15 @@ button {
 button:hover {
   background-color: var(--accent-color);
 }
+
+/* 新しく追加：スムーズスクロール */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 新しく追加：フォーカス表示の改善 */
+button:focus,
+a:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}

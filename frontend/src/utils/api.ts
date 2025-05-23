@@ -107,7 +107,7 @@ export const getPopularNews = (): Promise<NewsItem[]> => {
       id: 5,
       title: '『GTA VI』開発の進捗状況、Rockstarがコメント',
       summary: 'Rockstar Gamesは待望の『Grand Theft Auto VI』の開発状況について珍しくコメントを発表しました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=GTA+VI',
+      imageUrl: 'https://placehold.co/80x50?text=GTA&font=montserrat',
       category: 'コンソール',
       date: '2025-05-17',
       slug: 'gta-vi-development-update',
@@ -116,7 +116,7 @@ export const getPopularNews = (): Promise<NewsItem[]> => {
       id: 2,
       title: '『Elden Ring』大型DLCの詳細が明らかに',
       summary: 'フロムソフトウェアは『Elden Ring』の大型DLCについての新情報を公開しました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=Elden+Ring',
+      imageUrl: 'https://placehold.co/80x50?text=Elden+Ring&font=montserrat',
       category: 'PC',
       date: '2025-05-20',
       slug: 'elden-ring-dlc-details',
@@ -125,7 +125,7 @@ export const getPopularNews = (): Promise<NewsItem[]> => {
       id: 7,
       title: '『ファイナルファンタジーVII Rebirth』追加コンテンツ発表',
       summary: 'スクウェア・エニックスは『ファイナルファンタジーVII Rebirth』の追加コンテンツを発表しました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=FFVII',
+      imageUrl: 'https://placehold.co/80x50?text=FF7&font=montserrat',
       category: 'コンソール',
       date: '2025-05-15',
       slug: 'ffvii-rebirth-dlc',
@@ -134,7 +134,7 @@ export const getPopularNews = (): Promise<NewsItem[]> => {
       id: 4,
       title: '『Fortnite』新シーズン開始、大幅なマップ変更',
       summary: 'Epic Gamesは人気バトルロイヤルゲーム『Fortnite』の新シーズンを開始しました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=Fortnite',
+      imageUrl: 'https://placehold.co/80x50?text=Fortnite&font=montserrat',
       category: 'マルチプラットフォーム',
       date: '2025-05-18',
       slug: 'fortnite-new-season',
@@ -143,10 +143,61 @@ export const getPopularNews = (): Promise<NewsItem[]> => {
       id: 10,
       title: '『Minecraft』大型アップデート「Wild Update」配信開始',
       summary: 'Mojangは『Minecraft』の大型アップデート「Wild Update」の配信を開始しました。',
-      imageUrl: 'https://via.placeholder.com/400x250?text=Minecraft',
+      imageUrl: 'https://placehold.co/80x50?text=Minecraft&font=montserrat',
       category: 'マルチプラットフォーム',
       date: '2025-05-10',
       slug: 'minecraft-wild-update',
     },
+  ]);
+};
+
+// 注目記事を取得する関数（スライダー用）
+export const getFeaturedNews = (): Promise<NewsItem[]> => {
+  return Promise.resolve([
+    {
+      id: 1,
+      title: '『ゼルダの伝説』最新作、発売日が決定',
+      summary: '任天堂は本日、『ゼルダの伝説』シリーズの最新作の発売日を正式に発表しました。新たなハイラルの冒険が待っています。',
+      imageUrl: 'https://placehold.co/1200x600?text=Zerda&font=montserrat',
+      category: 'コンソール',
+      date: '2025-05-21',
+      slug: 'zelda-new-release-date',
+    },
+    {
+      id: 2,
+      title: '『Elden Ring』大型DLC「Shadow of the Erdtree」詳細発表',
+      summary: 'フロムソフトウェアは『Elden Ring』の大型DLCについて新情報を公開。新たなボスや武器が多数追加されます。',
+      imageUrl: 'https://placehold.co/1200x600?text=Elden+Ring&font=montserrat',
+      category: 'PC',
+      date: '2025-05-20',
+      slug: 'elden-ring-dlc-details',
+    },
+    {
+      id: 5,
+      title: '『GTA VI』開発の進捗状況、Rockstarが公式コメント',
+      summary: 'Rockstar Gamesは待望の『Grand Theft Auto VI』の開発状況について珍しくコメントを発表しました。',
+      imageUrl: 'https://placehold.co/1200x600?text=GTA&font=montserrat',
+      category: 'コンソール',
+      date: '2025-05-17',
+      slug: 'gta-vi-development-update',
+    },
+    {
+      id: 4,
+      title: '『Fortnite』新シーズン開始、マップが大幅リニューアル',
+      summary: 'Epic Gamesは人気バトルロイヤルゲーム『Fortnite』の新シーズンを開始し、ゲームマップに大幅な変更を加えました。',
+      imageUrl: 'https://placehold.co/1200x600?text=Fortnite&font=montserrat',
+      category: 'マルチプラットフォーム',
+      date: '2025-05-18',
+      slug: 'fortnite-new-season',
+    },
+    {
+      id: 8,
+      title: '次世代ニンテンドースイッチ、開発が最終段階に突入',
+      summary: '任天堂の次世代ゲーム機「Nintendo Switch 2（仮称）」の開発が最終段階に入ったとの報道がありました。',
+      imageUrl: 'https://placehold.co/1200x600?text=Switch&font=montserrat',
+      category: 'コンソール',
+      date: '2025-05-12',
+      slug: 'next-gen-nintendo-switch',
+    }
   ]);
 };
