@@ -9,8 +9,10 @@ import {
 import { categories } from '../data/categories/categories';
 import { NewsItem, NewsItemDetail, Category } from '../types';
 
+import { ArticleDetail } from '../data/utils/types';
+
 // 記事データをNewsItem形式に変換
-const convertToNewsItem = (article: any): NewsItem => ({
+const convertToNewsItem = (article: ArticleDetail): NewsItem => ({
   id: article.id,
   title: article.title,
   summary: article.summary,
@@ -21,7 +23,7 @@ const convertToNewsItem = (article: any): NewsItem => ({
 });
 
 // 記事データをNewsItemDetail形式に変換
-const convertToNewsItemDetail = (article: any): NewsItemDetail => ({
+const convertToNewsItemDetail = (article: ArticleDetail): NewsItemDetail => ({
   ...convertToNewsItem(article),
   content: article.content || '',
   author: article.author,
