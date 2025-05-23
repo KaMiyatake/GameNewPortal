@@ -1,101 +1,83 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation } from 'swiper/modules';
 import styles from './HeroSlider.module.css';
 import { NewsItem } from '../../types';
+
+// Swiperのスタイルをインポート
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 interface HeroSliderProps {
   featuredNews: NewsItem[];
 }
 
 const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoSliding, setIsAutoSliding] = useState(true);
-
-  // 自動スライド機能
-  useEffect(() => {
-    if (!isAutoSliding || featuredNews.length <= 1) return;
-
-    const interval = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % featuredNews.length);
-    }, 5000); // 5秒ごとにスライド
-
-    return () => clearInterval(interval);
-  }, [isAutoSliding, featuredNews.length]);
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-    setIsAutoSliding(false);
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide(prev => (prev + 1) % featuredNews.length);
-    setIsAutoSliding(false);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide(prev => (prev - 1 + featuredNews.length) % featuredNews.length);
-    setIsAutoSliding(false);
-  };
-
-  if (!featuredNews.length) return null;
-
   return (
     <div className={styles.heroSlider}>
       <div className={styles.sliderContainer}>
-        <div 
-          className={styles.slidesWrapper}
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        <Swiper
+          modules={[Autoplay, Navigation]}
+          spaceBetween={24}
+          slidesPerView={3}
+          loop={true}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true, // マウスホバー時に自動再生を停止
+          }}
+          navigation={{
+            nextEl: `.${styles.swiperButtonNext}`,
+            prevEl: `.${styles.swiperButtonPrev}`,
+          }}
+          speed={600}
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 16,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 24,
+            },
+          }}
+          className={styles.swiper}
         >
-          {featuredNews.map((news, index) => (
-            <div key={news.id} className={styles.slide}>
-              <Link href={`/news/${news.slug}`} passHref>
-                <div className={styles.slideContent}>
-                  <div className={styles.slideImage}>
-                    <img src={news.imageUrl} alt={news.title} />
-                    <div className={styles.imageOverlay}></div>
-                  </div>
-                  <div className={styles.slideInfo}>
-                    <span className={styles.slideCategory}>{news.category}</span>
-                    <h2 className={styles.slideTitle}>{news.title}</h2>
-                    <p className={styles.slideSummary}>{news.summary}</p>
-                    <div className={styles.slideFooter}>
-                      <span className={styles.slideDate}>{news.date}</span>
-                      <span className={styles.readMoreText}>続きを読む →</span>
+          {featuredNews.map((news) => (
+            <SwiperSlide key={news.id}>
+              <div className={styles.newsItem}>
+                <Link href={`/news/${news.slug}`} passHref>
+                  <div className={styles.newsCard}>
+                    <div className={styles.imageContainer}>
+                      <img src={news.imageUrl} alt={news.title} />
+                      <div className={styles.imageOverlay}></div>
+                      <div className={styles.newsInfo}>
+                        <span className={styles.newsCategory}>{news.category}</span>
+                        <h3 className={styles.newsTitle}>{news.title}</h3>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </div>
+                </Link>
+              </div>
+            </SwiperSlide>
           ))}
+        </Swiper>
+
+        {/* カスタムナビゲーションボタン */}
+        <div className={styles.swiperButtonPrev}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
-
-        {/* ナビゲーションボタン */}
-        <button 
-          className={`${styles.navButton} ${styles.prevButton}`}
-          onClick={prevSlide}
-          aria-label="前のスライド"
-        >
-          &#8249;
-        </button>
-        
-        <button 
-          className={`${styles.navButton} ${styles.nextButton}`}
-          onClick={nextSlide}
-          aria-label="次のスライド"
-        >
-          &#8250;
-        </button>
-
-        {/* インジケーター */}
-        <div className={styles.indicators}>
-          {featuredNews.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.indicator} ${index === currentSlide ? styles.active : ''}`}
-              onClick={() => goToSlide(index)}
-              aria-label={`スライド ${index + 1} に移動`}
-            />
-          ))}
+        <div className={styles.swiperButtonNext}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
       </div>
     </div>
