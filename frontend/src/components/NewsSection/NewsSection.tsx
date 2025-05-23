@@ -6,16 +6,21 @@ import { NewsItem } from '../../types';
 interface NewsSectionProps {
   title: string;
   newsItems: NewsItem[];
+  layout?: 'grid' | 'list'; // レイアウトタイプを追加
 }
 
-const NewsSection: React.FC<NewsSectionProps> = ({ title, newsItems }) => {
+const NewsSection: React.FC<NewsSectionProps> = ({ 
+  title, 
+  newsItems, 
+  layout = 'grid' 
+}) => {
   return (
     <section className={styles.newsSection}>
       <div className={styles.container}>
         <h2 className={styles.sectionTitle}>{title}</h2>
-        <div className={styles.newsGrid}>
+        <div className={layout === 'list' ? styles.newsListContainer : styles.newsGrid}>
           {newsItems.map((news) => (
-            <NewsCard key={news.id} news={news} />
+            <NewsCard key={news.id} news={news} layout={layout} />
           ))}
         </div>
         <div className={styles.loadMoreContainer}>

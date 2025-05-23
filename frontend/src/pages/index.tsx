@@ -48,13 +48,13 @@ const Home: React.FC = () => {
 
   return (
     <Layout categories={categories}>
-      {/* 元のheroセクションをHeroSliderに置き換え */}
       <HeroSlider featuredNews={featuredNews} />
       
       <div className={styles.container}>
         <div className={styles.mainContent}>
           <div className={styles.newsContent}>
-            <NewsSection title="最新ニュース" newsItems={latestNews} />
+            {/* layout="list"を指定して1列表示にする */}
+            <NewsSection title="最新ニュース" newsItems={latestNews} layout="list" />
           </div>
           <div className={styles.sidebarContent}>
             <Sidebar popularNews={popularNews} categories={categories} />

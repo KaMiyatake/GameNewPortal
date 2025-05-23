@@ -21,6 +21,24 @@ export const getLatestNews = (): Promise<NewsItem[]> => {
       date: '2025-05-20',
       slug: 'elden-ring-dlc-details',
     },
+    {
+      id: 13,
+      title: '『Final Fantasy VII Rebirth』PC版が発表',
+      summary: 'スクウェア・エニックスがPC版の開発を正式に発表しました。',
+      imageUrl: 'https://placehold.co/400x250?text=FF7+Rebirth&font=montserrat',
+      category: 'PC',
+      date: '2025-05-06',
+      slug: 'final-fantasy-vii-rebirth-pc',
+    },
+    {
+      id: 14,
+      title: '『Street Fighter 6』大型アップデート配信',
+      summary: 'CAPCOMが新キャラクターと新モードを含む大型アップデートを発表。',
+      imageUrl: 'https://placehold.co/400x250?text=SF6&font=montserrat',
+      category: 'コンソール',
+      date: '2025-05-05',
+      slug: 'street-fighter-6-update',
+    },
     // 他の記事も同様...
   ]);
 };
@@ -60,6 +78,52 @@ export const getNewsDetail = (slug: string): Promise<NewsItemDetail> => {
           category: 'コンソール',
           date: '2025-05-19',
           slug: 'playstation-6-rumors',
+        }
+      ]
+    },
+    'final-fantasy-vii-rebirth-pc': {
+      id: 13,
+      title: '『Final Fantasy VII Rebirth』PC版が発表',
+      summary: 'スクウェア・エニックスがPC版の開発を正式に発表しました。',
+      imageUrl: 'https://placehold.co/400x250?text=FF7+Rebirth&font=montserrat',
+      category: 'PC',
+      date: '2025-05-06',
+      slug: 'final-fantasy-vii-rebirth-pc',
+      author: '佐藤花子',
+      content: `<p>スクウェア・エニックスは本日、人気RPG『Final Fantasy VII Rebirth』のPC版を正式発表しました。</p><p>PS5版で好評を博した高品質なグラフィックスはPC版でさらに進化し、mod対応も予定されているとのことです。</p><p>発売は2025年冬を予定しています。</p>`,
+      tags: ['Final Fantasy', 'スクウェア・エニックス', 'PC', 'RPG'],
+      relatedNews: [
+        {
+          id: 7,
+          title: '『FF7 Rebirth』追加コンテンツ発表',
+          summary: 'スクウェア・エニックスが新たなDLCの詳細を公開。',
+          imageUrl: 'https://placehold.co/80x50?text=FF7+DLC&font=montserrat',
+          category: 'コンソール',
+          date: '2025-05-15',
+          slug: 'ff7-rebirth-dlc',
+        }
+      ]
+    },
+    'street-fighter-6-update': {
+      id: 14,
+      title: '『Street Fighter 6』大型アップデート配信',
+      summary: 'CAPCOMが新キャラクターと新モードを含む大型アップデートを発表。',
+      imageUrl: 'https://placehold.co/400x250?text=SF6&font=montserrat',
+      category: 'コンソール',
+      date: '2025-05-05',
+      slug: 'street-fighter-6-update',
+      author: '中村剛',
+      content: `<p>CAPCOMは『Street Fighter 6』の大型アップデートを発表しました。</p><p>新キャラクター「橘」の参戦や、新たなバトルモード「Team Battle」の追加など、多数の新コンテンツが含まれています。</p><p>アップデートは来週配信予定で、無料で提供されます。</p>`,
+      tags: ['Street Fighter', 'CAPCOM', '格闘ゲーム', 'アップデート'],
+      relatedNews: [
+        {
+          id: 15,
+          title: '『鉄拳8』発売日決定',
+          summary: 'バンダイナムコが『鉄拳8』の発売日を発表。',
+          imageUrl: 'https://placehold.co/80x50?text=Tekken8&font=montserrat',
+          category: 'コンソール',
+          date: '2025-05-03',
+          slug: 'tekken-8-release-date',
         }
       ]
     },
