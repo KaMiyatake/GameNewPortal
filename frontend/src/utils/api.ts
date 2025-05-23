@@ -158,7 +158,7 @@ export const getFeaturedNews = (): Promise<NewsItem[]> => {
       id: 1,
       title: '『ゼルダの伝説』最新作、発売日が2025年10月15日に決定',
       summary: '任天堂は本日、『ゼルダの伝説』シリーズの最新作の発売日を正式に発表しました。',
-      imageUrl: 'https://placehold.co/400x250?text=Zelda&font=montserrat',
+      imageUrl: 'https://via.placeholder.com/600x338?text=Zelda+最新作',
       category: 'コンソール',
       date: '2025-05-21',
       slug: 'zelda-new-release-date',
@@ -234,6 +234,33 @@ export const getFeaturedNews = (): Promise<NewsItem[]> => {
       category: 'PC',
       date: '2025-05-08',
       slug: 'dragon-age-veilguard-gameplay',
+    },
+    {
+      id: 12,
+      title: '『Call of Duty』新作が2025年秋にリリース予定',
+      summary: 'Activisionが『Call of Duty』シリーズの新作を発表しました。',
+      imageUrl: 'https://via.placeholder.com/600x338?text=Call+of+Duty',
+      category: 'マルチプラットフォーム',
+      date: '2025-05-07',
+      slug: 'call-of-duty-new-release',
+    },
+    {
+      id: 13,
+      title: '『Final Fantasy VII Rebirth』PC版が2025年に登場',
+      summary: 'スクウェア・エニックスがPC版の開発を正式に発表しました。',
+      imageUrl: 'https://via.placeholder.com/600x338?text=FF7+Rebirth+PC',
+      category: 'PC',
+      date: '2025-05-06',
+      slug: 'ff7-rebirth-pc-version',
+    },
+    {
+      id: 14,
+      title: '『Street Fighter 6』新キャラクター「橘」が参戦',
+      summary: 'CAPCOMが『Street Fighter 6』に新たなファイターを追加。',
+      imageUrl: 'https://via.placeholder.com/600x338?text=Street+Fighter+6',
+      category: 'コンソール',
+      date: '2025-05-05',
+      slug: 'street-fighter-6-new-character',
     }
   ]);
 };

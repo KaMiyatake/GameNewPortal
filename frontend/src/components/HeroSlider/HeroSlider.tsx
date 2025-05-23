@@ -19,13 +19,13 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
       <div className={styles.sliderContainer}>
         <Swiper
           modules={[Autoplay, Navigation]}
-          spaceBetween={24}
-          slidesPerView={3}
+          spaceBetween={12} // 画像間の距離を短く
+          slidesPerView={4} // 4記事表示
           loop={true}
           autoplay={{
             delay: 4000,
             disableOnInteraction: false,
-            pauseOnMouseEnter: true, // マウスホバー時に自動再生を停止
+            pauseOnMouseEnter: true,
           }}
           navigation={{
             nextEl: `.${styles.swiperButtonNext}`,
@@ -35,15 +35,19 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
           breakpoints={{
             320: {
               slidesPerView: 1,
-              spaceBetween: 16,
+              spaceBetween: 8,
+            },
+            576: {
+              slidesPerView: 2,
+              spaceBetween: 10,
             },
             768: {
-              slidesPerView: 2,
-              spaceBetween: 20,
+              slidesPerView: 3,
+              spaceBetween: 12,
             },
             1024: {
-              slidesPerView: 3,
-              spaceBetween: 24,
+              slidesPerView: 4,
+              spaceBetween: 12,
             },
           }}
           className={styles.swiper}
