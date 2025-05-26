@@ -1,20 +1,16 @@
-// カテゴリ名からスラッグへの変換マップ
-const categoryToSlugMap: { [key: string]: string } = {
-  'コンソール': 'console',
-  'PC': 'pc',
-  'モバイル': 'mobile',
-  'インディー': 'indie',
-  'マルチプラットフォーム': 'multi'
-};
+import { categories } from '../data/categories/categories';
 
-// スラッグからカテゴリ名への変換マップ
-const slugToCategoryMap: { [key: string]: string } = {
-  'console': 'コンソール',
-  'pc': 'PC',
-  'mobile': 'モバイル',
-  'indie': 'インディー',
-  'multi': 'マルチプラットフォーム'
-};
+// カテゴリ名からスラッグへの変換マップを動的に生成
+const categoryToSlugMap = categories.reduce<{ [key: string]: string }>((acc, category) => {
+  acc[category.name] = category.slug;
+  return acc;
+}, {});
+
+// スラッグからカテゴリ名への変換マップを動的に生成
+const slugToCategoryMap = categories.reduce<{ [key: string]: string }>((acc, category) => {
+  acc[category.slug] = category.name;
+  return acc;
+}, {});
 
 // カテゴリ名からスラッグへ変換
 export const getCategorySlug = (categoryName: string): string => {
