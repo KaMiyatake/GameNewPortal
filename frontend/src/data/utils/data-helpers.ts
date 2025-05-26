@@ -49,12 +49,12 @@ export const getArticleBySlug = (slug: string): ArticleDetail | null => {
   return articlesBySlug[slug] || null;
 };
 
-// タグ別記事取得
-export const getArticlesByTag = (tag: string) => {
-  return allArticles.filter(article => 
-    article.tags.some(t => t.toLowerCase() === tag.toLowerCase())
-  );
-};
+// // タグ別記事取得
+// export const getArticlesByTag = (tag: string) => {
+//   return allArticles.filter(article => 
+//     article.tags.some(t => t.toLowerCase() === tag.toLowerCase())
+//   );
+// };
 
 // 検索機能
 export const searchArticles = (query: string) => {
@@ -64,4 +64,50 @@ export const searchArticles = (query: string) => {
     article.summary.toLowerCase().includes(lowerQuery) ||
     article.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
   );
+};
+
+// タグ別記事取得
+export const getArticlesByTag = (tag: string) => {
+  return allArticles.filter(article => 
+    article.tags.some(t => t.toLowerCase() === tag.toLowerCase())
+  );
+};
+
+// 全タグ取得（使用回数順）
+export const getAllTags = () => {
+  const tagCounts: Record<string, number> = {};
+  
+  allArticles.forEach(article => {
+    article.tags.forEach(tag => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+  
+  return Object.entries(tagCounts)
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count);
+};
+
+// 人気タグ取得（上位N個）
+export const getPopularTags = (limit: number = 10) => {
+  return getAllTags().slice(0, limit);
+};
+
+// 関連タグ取得（指定したタグと一緒に使われることが多いタグ）
+export const getRelatedTags = (targetTag: string, limit: number = 5) => {
+  const articlesWithTag = getArticlesByTag(targetTag);
+  const relatedTagCounts: Record<string, number> = {};
+  
+  articlesWithTag.forEach(article => {
+    article.tags.forEach(tag => {
+      if (tag.toLowerCase() !== targetTag.toLowerCase()) {
+        relatedTagCounts[tag] = (relatedTagCounts[tag] || 0) + 1;
+      }
+    });
+  });
+  
+  return Object.entries(relatedTagCounts)
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
 };

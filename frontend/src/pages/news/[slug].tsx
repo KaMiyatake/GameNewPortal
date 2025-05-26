@@ -102,7 +102,7 @@ const NewsDetailPage: React.FC = () => {
 
             <div className={styles.tagContainer}>
               {newsDetail.tags.map((tag, index) => (
-                <Link key={index} href={`/tag/${tag.toLowerCase()}`} passHref>
+                <Link key={index} href={`/tag/${encodeURIComponent(tag)}`} passHref>
                   <span className={styles.tag}>#{tag}</span>
                 </Link>
               ))}

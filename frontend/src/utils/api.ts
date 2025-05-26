@@ -4,7 +4,8 @@ import {
   getFeaturedArticles,
   getPopularArticles,
   getArticleBySlug,
-  getRelatedArticles 
+  getRelatedArticles,
+  getArticlesByTag
 } from '../data/utils/data-helpers';
 import { categories } from '../data/categories/categories';
 import { NewsItem, NewsItemDetail, Category } from '../types';
@@ -93,3 +94,9 @@ export interface PaginatedResponse<T> {
     itemsPerPage: number;
   };
 }
+
+// タグ別記事取得
+export const getNewsByTag = async (tag: string): Promise<NewsItem[]> => {
+  const articles = getArticlesByTag(tag);
+  return articles.map(convertToNewsItem);
+};

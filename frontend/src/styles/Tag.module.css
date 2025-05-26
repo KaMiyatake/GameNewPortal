@@ -1,0 +1,177 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 15px;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--secondary-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.breadcrumbs span {
+  cursor: pointer;
+}
+
+.breadcrumbs span:hover {
+  color: var(--secondary-color);
+}
+
+.separator {
+  margin: 0 0.5rem;
+  color: #999;
+  cursor: default !important;
+}
+
+.current {
+  color: #333;
+  font-weight: 500;
+  cursor: default !important;
+}
+
+.current:hover {
+  color: #333 !important;
+}
+
+.tagHeader {
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  text-align: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.tagTitle {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tagIcon {
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.tagDescription {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.tagLayout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.noResults {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+}
+
+.noResults h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.noResults p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.backToHome {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.backToHome:hover {
+  background-color: var(--accent-color);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 992px) {
+  .tagLayout {
+    grid-template-columns: 1fr;
+  }
+  
+  .tagTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tagHeader {
+    padding: 1.5rem 1rem;
+  }
+  
+  .tagTitle {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .tagDescription {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 1.5rem 15px;
+  }
+  
+  .tagTitle {
+    font-size: 1.6rem;
+  }
+  
+  .breadcrumbs {
+    font-size: 0.8rem;
+  }
+  
+  .noResults {
+    padding: 3rem 1rem;
+  }
+}
