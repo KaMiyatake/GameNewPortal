@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link href="/" passHref>
-            <h1>Game News Portal</h1>
+            <h1>Game News Portal テスト中</h1>
           </Link>
         </div>
         <nav className={styles.nav}>
