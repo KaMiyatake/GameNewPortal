@@ -61,7 +61,7 @@
 }
 
 .tagHeader {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem; /* 2remから1.5remに縮小 */
   padding: 2rem 0;
   text-align: center;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -145,6 +145,7 @@
 @media (max-width: 768px) {
   .tagHeader {
     padding: 1.5rem 1rem;
+    margin-bottom: 1.2rem;
   }
   
   .tagTitle {
@@ -155,6 +156,10 @@
   
   .tagDescription {
     font-size: 1rem;
+  }
+
+  .container {
+    padding: 1.5rem 15px;
   }
 }
 
@@ -173,5 +178,9 @@
   
   .noResults {
     padding: 3rem 1rem;
+  }
+
+  .tagHeader {
+    margin-bottom: 1rem;
   }
 }

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import NewsSection from '../../components/NewsSection/NewsSection';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import { getLatestNews, getCategories, getPopularNews } from '../../utils/api';
+import { getNewsByCategory, getCategories, getPopularNews } from '../../utils/api';
 import { NewsItem, Category } from '../../types';
 import styles from '../../styles/Category.module.css';
 
@@ -25,7 +25,7 @@ const CategoryPage: React.FC = () => {
       try {
         setLoading(true);
         const [newsData, categoriesData, popularNewsData] = await Promise.all([
-          getLatestNews(),
+          getNewsByCategory(slug as string),
           getCategories(),
           getPopularNews(),
         ]);
@@ -36,12 +36,7 @@ const CategoryPage: React.FC = () => {
           setCurrentCategory(category.name);
         }
         
-        // カテゴリに一致する記事をフィルタリング
-        const filteredNews = newsData.filter(
-          item => item.category.toLowerCase() === currentCategory.toLowerCase()
-        );
-        
-        setNews(filteredNews.length > 0 ? filteredNews : newsData);
+        setNews(newsData);
         setCategories(categoriesData);
         setPopularNews(popularNewsData);
       } catch (error) {
@@ -52,7 +47,7 @@ const CategoryPage: React.FC = () => {
     };
 
     fetchData();
-  }, [slug, currentCategory]);
+  }, [slug]);
 
   if (loading) {
     return (
@@ -78,10 +73,21 @@ const CategoryPage: React.FC = () => {
         
         <div className={styles.categoryLayout}>
           <div className={styles.mainContent}>
-            <NewsSection
-              title={`${currentCategory || 'カテゴリー'}の最新記事`}
-              newsItems={news}
-            />
+            {news.length > 0 ? (
+              <NewsSection
+                title={`${currentCategory || 'カテゴリー'}の記事一覧`}
+                newsItems={news}
+                layout="list" // リストレイアウトを指定
+              />
+            ) : (
+              <div className={styles.noResults}>
+                <h2>該当する記事が見つかりませんでした</h2>
+                <p>「{currentCategory}」カテゴリーの記事は現在ありません。</p>
+                <Link href="/" passHref>
+                  <span className={styles.backToHome}>ホームに戻る</span>
+                </Link>
+              </div>
+            )}
           </div>
           <div className={styles.sidebarContent}>
             <Sidebar popularNews={popularNews} categories={categories} />

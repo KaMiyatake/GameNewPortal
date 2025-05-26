@@ -78,7 +78,7 @@ const TagPage: React.FC = () => {
               <NewsSection 
                 title={`「${tag}」の記事一覧`}
                 newsItems={news}
-                layout="list"
+                layout="list" // リストレイアウトを指定
               />
             ) : (
               <div className={styles.noResults}>

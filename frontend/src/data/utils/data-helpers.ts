@@ -19,9 +19,26 @@ export const getPaginatedArticles = (page: number, limit: number) => {
 
 // カテゴリ別記事取得
 export const getArticlesByCategory = (categorySlug: string) => {
-  return allArticles.filter(article => 
-    article.category.toLowerCase() === categorySlug.toLowerCase()
-  );
+  // カテゴリスラッグとカテゴリ名の対応表
+  const categoryMap: { [key: string]: string } = {
+    'console': 'コンソール',
+    'pc': 'PC',
+    'mobile': 'モバイル',
+    'indie': 'インディー',
+    'multi': 'マルチプラットフォーム'
+  };
+  
+  // スラッグを小文字に変換してマッピング
+  const normalizedSlug = categorySlug.toLowerCase();
+  const targetCategory = categoryMap[normalizedSlug];
+  
+  if (!targetCategory) {
+    console.warn(`未知のカテゴリスラッグ: ${categorySlug}`);
+    return [];
+  }
+  
+  // 完全一致で検索
+  return allArticles.filter(article => article.category === targetCategory);
 };
 
 // 注目記事取得

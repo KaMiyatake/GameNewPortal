@@ -38,7 +38,7 @@
 
 .categoryTitle {
   font-size: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem; /* 2remから1.5remに縮小 */
   color: var(--primary-color);
   position: relative;
   padding-bottom: 0.5rem;
@@ -58,6 +58,41 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
+}
+
+.noResults {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+}
+
+.noResults h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.noResults p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.backToHome {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.backToHome:hover {
+  background-color: var(--accent-color);
 }
 
 .loadingContainer {
@@ -97,6 +132,11 @@
 @media (max-width: 768px) {
   .categoryTitle {
     font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .container {
+    padding: 1.5rem 15px;
   }
 }
 
@@ -107,9 +147,14 @@
   
   .categoryTitle {
     font-size: 1.6rem;
+    margin-bottom: 1rem;
   }
   
   .breadcrumbs {
     font-size: 0.8rem;
+  }
+
+  .noResults {
+    padding: 3rem 1rem;
   }
 }
