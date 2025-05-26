@@ -40,7 +40,7 @@
   gap: 1.5rem;
 }
 
-/* 既存のグリッド用カードスタイル - 固定高さに変更 */
+/* グリッド用カードスタイル - レイアウト調整 */
 .newsCard {
   background-color: white;
   border-radius: 8px;
@@ -49,7 +49,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  height: 380px; /* 固定高さを設定 */
+  height: 380px;
 }
 
 .newsCard:hover {
@@ -59,33 +59,35 @@
 
 .imageContainer {
   position: relative;
-  height: 180px; /* 固定高さ */
+  height: 180px;
   width: 100%;
-  overflow: hidden; /* はみ出た部分を隠す */
-  flex-shrink: 0; /* サイズを固定 */
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .newsImage {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 縦横比を保ちながらコンテナに合わせる */
-  object-position: center; /* 中央部分を表示 */
+  object-fit: cover;
+  object-position: center;
   cursor: pointer;
 }
 
 .category {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8px;
+  left: 8px;
   background-color: var(--secondary-color);
   color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 0.65rem; /* より小さく */
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
   z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .category:hover {
@@ -93,17 +95,49 @@
 }
 
 .contentContainer {
-  padding: 1rem;
-  flex: 1; /* 残りのスペースを使用 */
+  padding: 0.8rem; /* パディングを小さく */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.newsTitle {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+/* カテゴリと日付のヘッダー部分 */
+.newsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem; /* マージンを小さく */
   flex-shrink: 0;
+}
+
+.newsHeaderCategory {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 0.65rem; /* 小さく */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.newsHeaderCategory:hover {
+  background-color: var(--accent-color);
+}
+
+.newsHeaderDate {
+  font-size: 0.7rem; /* 小さく */
+  color: #888;
+}
+
+.newsTitle {
+  font-size: 1.1rem; /* 少し小さく */
+  margin-bottom: 0.8rem;
+  flex-shrink: 0;
+  line-height: 1.3; /* 行間を調整 */
 }
 
 .newsTitle span {
@@ -111,10 +145,10 @@
   transition: color 0.3s ease;
   cursor: pointer;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* 2行に制限 */
+  -webkit-line-clamp: 3; /* 3行に変更 */
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .newsTitle span:hover {
@@ -123,12 +157,12 @@
 
 .newsSummary {
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.85rem; /* 少し小さく */
   margin-bottom: 1rem;
-  line-height: 1.5;
-  flex: 1; /* 残りのスペースを使用 */
+  line-height: 1.4;
+  flex: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* 3行に制限 */
+  -webkit-line-clamp: 2; /* 2行に制限 */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -139,17 +173,17 @@
   align-items: center;
   border-top: 1px solid var(--border-color);
   padding-top: 0.5rem;
-  margin-top: auto; /* 下部に固定 */
+  margin-top: auto;
   flex-shrink: 0;
 }
 
 .newsDate {
-  font-size: 0.8rem;
+  font-size: 0.75rem; /* 小さく */
   color: #888;
 }
 
 .readMore {
-  font-size: 0.8rem;
+  font-size: 0.75rem; /* 小さく */
   font-weight: 500;
   color: var(--secondary-color);
   cursor: pointer;
@@ -160,14 +194,14 @@
   color: var(--accent-color);
 }
 
-/* リスト用カードスタイル - 固定高さに変更 */
+/* リスト用カードスタイル - レイアウト調整 */
 .newsCardList {
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: var(--card-shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 120px; /* 固定高さを設定 */
+  height: 120px;
 }
 
 .newsCardList:hover {
@@ -179,12 +213,12 @@
   display: flex;
   align-items: stretch;
   cursor: pointer;
-  height: 100%; /* 親の高さに合わせる */
+  height: 100%;
 }
 
 .imageContainerList {
   width: 200px;
-  height: 120px; /* 固定高さ */
+  height: 120px;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
@@ -193,8 +227,8 @@
 .newsImageList {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 縦横比を保ちながらコンテナに合わせる */
-  object-position: center; /* 中央部分を表示 */
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.6s ease;
 }
 
@@ -204,32 +238,32 @@
 
 .contentContainerList {
   flex: 1;
-  padding: 1.5rem;
+  padding: 1rem; /* パディングを小さく */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: hidden; /* はみ出しを防ぐ */
+  overflow: hidden;
 }
 
 .newsHeaderList {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem; /* マージンを小さく */
   flex-shrink: 0;
 }
 
 .categoryList {
   background-color: var(--secondary-color);
   color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  padding: 3px 8px; /* パディングを小さく */
+  border-radius: 3px;
+  font-size: 0.65rem; /* より小さく */
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   white-space: nowrap;
 }
 
@@ -238,15 +272,15 @@
 }
 
 .newsDateList {
-  font-size: 0.85rem;
+  font-size: 0.7rem; /* 小さく */
   color: #888;
   white-space: nowrap;
 }
 
 .newsTitleList {
-  font-size: 1.3rem;
+  font-size: 1.1rem; /* 適切なサイズ */
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.3;
   margin: 0;
   flex: 1;
   overflow: hidden;
@@ -257,9 +291,10 @@
   transition: color 0.3s ease;
   cursor: pointer;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* 2行に制限 */
+  -webkit-line-clamp: 3; /* 3行に変更 */
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-height: 1.3;
 }
 
 .newsCardList:hover .newsTitleList span {
@@ -290,24 +325,19 @@
   }
 
   .newsCard {
-    height: 360px; /* モバイルでは少し小さく */
+    height: 360px;
   }
 
-  .newsCardListContent {
-    min-height: 100px;
-  }
-
-  .imageContainerList {
-    width: 150px;
-    height: 100px;
-  }
-
-  .contentContainerList {
-    padding: 1.2rem;
+  .newsTitle {
+    font-size: 1rem;
   }
 
   .newsTitleList {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+
+  .contentContainerList {
+    padding: 0.8rem;
   }
 }
 
@@ -317,12 +347,12 @@
   }
 
   .imageContainer {
-    height: 160px; /* モバイルでは画像を少し小さく */
+    height: 160px;
   }
 
   .newsCardListContent {
     flex-direction: column;
-    height: auto; /* 縦並びの場合は高さを自動に */
+    height: auto;
   }
 
   .imageContainerList {
@@ -331,15 +361,19 @@
   }
 
   .newsHeaderList {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
   }
 
   .newsTitleList {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .contentContainerList {
     padding: 1rem;
+  }
+
+  .newsTitle {
+    font-size: 1rem;
   }
 }
 
@@ -369,19 +403,23 @@
   }
 
   .newsTitleList {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
-  .categoryList {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.6rem;
+  .newsTitle {
+    font-size: 0.95rem;
   }
 
-  .newsDateList {
-    font-size: 0.8rem;
+  .categoryList, .newsHeaderCategory {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+
+  .newsDateList, .newsHeaderDate {
+    font-size: 0.65rem;
   }
 
   .contentContainer {
-    padding: 0.8rem;
+    padding: 0.7rem;
   }
 }

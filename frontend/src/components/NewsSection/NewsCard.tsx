@@ -61,12 +61,25 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
         </Link>
       </div>
       <div className={styles.contentContainer}>
+        {/* カテゴリと日付のヘッダー */}
+        <div className={styles.newsHeader}>
+          <Link href={`/category/${news.category.toLowerCase()}`} passHref>
+            <span className={styles.newsHeaderCategory}>{news.category}</span>
+          </Link>
+          <span className={styles.newsHeaderDate}>{news.date}</span>
+        </div>
+        
+        {/* タイトル */}
         <h3 className={styles.newsTitle}>
           <Link href={`/news/${news.slug}`} passHref>
             <span>{news.title}</span>
           </Link>
         </h3>
+        
+        {/* サマリ */}
         <p className={styles.newsSummary}>{news.summary}</p>
+        
+        {/* フッター */}
         <div className={styles.newsFooter}>
           <span className={styles.newsDate}>{news.date}</span>
           <Link href={`/news/${news.slug}`} passHref>
