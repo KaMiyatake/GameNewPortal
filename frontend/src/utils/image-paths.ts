@@ -28,7 +28,7 @@ export const getCommonImagePath = (filename: string): string => {
 
 // プレースホルダー画像のパス
 export const getPlaceholderImage = (width: number = 600, height: number = 338): string => {
-  return `${IMAGE_BASE_PATH}/common/placeholder.jpg`;
+  return `${IMAGE_BASE_PATH}/common/placeholder-${width}x${height}.jpg`;
 };
 
 // 画像の存在チェック（開発用）
