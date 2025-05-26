@@ -1,8 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from './Header.module.css';
+import { Category } from '../../types';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  categories: Category[];
+}
+
+const Header: React.FC<HeaderProps> = ({ categories: _categories }) => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -13,6 +18,18 @@ const Header: React.FC = () => {
         </div>
         <nav className={styles.nav}>
           <ul className={styles.navList}>
+            {/* <li className={styles.navItem}>
+              <Link href="/" passHref>
+                <span className={styles.navLink}>ホーム</span>
+              </Link>
+            </li> */}
+            {/* {categories.map((category) => (
+              <li key={category.id} className={styles.navItem}>
+                <Link href={`/category/${category.slug}`} passHref>
+                  <span className={styles.navLink}>{category.name}</span>
+                </Link>
+              </li>
+            ))} */}
             <li className={styles.navItem}>
               <Link href="/about" passHref>
                 <span className={styles.navLink}>サイトについて</span>
