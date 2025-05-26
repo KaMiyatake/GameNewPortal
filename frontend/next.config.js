@@ -3,16 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      'via.placeholder.com',  // プレースホルダー画像用のドメイン
-      // 必要に応じて他の画像ドメインを追加
+      'placehold.co',
+      'via.placeholder.com',
     ],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'via.placeholder.com',
-        pathname: '/**',
-      },
-    ],
+    dangerouslyAllowSVG: true,  // SVG画像を許可
+    contentDispositionType: 'attachment',  // セキュリティ対策
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",  // セキュリティポリシーの設定
   },
 };
 

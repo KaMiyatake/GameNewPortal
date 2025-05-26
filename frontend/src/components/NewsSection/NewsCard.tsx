@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import ArticleImage from '../Image/ArticleImage';
 import styles from './News.module.css';
 import { NewsItem } from '../../types';
 
@@ -16,7 +17,13 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
         <Link href={`/news/${news.slug}`} passHref>
           <div className={styles.newsCardListContent}>
             <div className={styles.imageContainerList}>
-              <img src={news.imageUrl} alt={news.title} className={styles.newsImageList} />
+              <ArticleImage
+                src={news.imageUrl}
+                alt={news.title}
+                width={200}
+                height={113}
+                className={styles.newsImageList}
+              />
             </div>
             <div className={styles.contentContainerList}>
               <div className={styles.newsHeaderList}>
@@ -42,7 +49,13 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
     <article className={styles.newsCard}>
       <div className={styles.imageContainer}>
         <Link href={`/news/${news.slug}`} passHref>
-          <img src={news.imageUrl} alt={news.title} className={styles.newsImage} />
+          <ArticleImage
+            src={news.imageUrl}
+            alt={news.title}
+            width={400}
+            height={225}
+            className={styles.newsImage}
+          />
         </Link>
         <Link href={`/category/${news.category.toLowerCase()}`} passHref>
           <span className={styles.category}>{news.category}</span>
