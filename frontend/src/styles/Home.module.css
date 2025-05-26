@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
-  padding: 1.5rem 0; /* 2remから1.5remに縮小 */
+  padding: 0.75rem 0; /* 1.5remから0.75remに半分に変更 */
 }
 
 .loadingContainer {
@@ -47,12 +47,12 @@
   }
   
   .mainContent {
-    padding: 1rem 0; /* モバイルでは更に小さく */
+    padding: 0.5rem 0; /* 1remから0.5remに半分に変更 */
   }
 }
 
 @media (max-width: 576px) {
   .mainContent {
-    padding: 0.8rem 0; /* 最小画面では更に詰める */
+    padding: 0.4rem 0; /* 0.8remから0.4remに半分に変更 */
   }
 }
