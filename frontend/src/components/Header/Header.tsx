@@ -18,11 +18,11 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
         </div>
         <nav className={styles.nav}>
           <ul className={styles.navList}>
-            {/* <li className={styles.navItem}>
+            <li className={styles.navItem}>
               <Link href="/" passHref>
                 <span className={styles.navLink}>ホーム</span>
               </Link>
-            </li> */}
+            </li>
             {/* {categories.map((category) => (
               <li key={category.id} className={styles.navItem}>
                 <Link href={`/category/${category.slug}`} passHref>
