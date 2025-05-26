@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import ArticleImage from '../Image/ArticleImage';
+import { getCategoryUrl } from '../../utils/category-utils';
 import styles from './News.module.css';
 import { NewsItem } from '../../types';
 
@@ -26,7 +27,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
             </div>
             <div className={styles.contentContainerList}>
               <div className={styles.newsHeaderList}>
-                <Link href={`/category/${news.category.toLowerCase()}`} passHref>
+                <Link href={getCategoryUrl(news.category)} passHref>
                   <span className={styles.categoryList}>{news.category}</span>
                 </Link>
                 <span className={styles.newsDateList}>{news.date}</span>
@@ -56,14 +57,14 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
             objectPosition="center"
           />
         </Link>
-        <Link href={`/category/${news.category.toLowerCase()}`} passHref>
+        <Link href={getCategoryUrl(news.category)} passHref>
           <span className={styles.category}>{news.category}</span>
         </Link>
       </div>
       <div className={styles.contentContainer}>
         {/* カテゴリと日付のヘッダー */}
         <div className={styles.newsHeader}>
-          <Link href={`/category/${news.category.toLowerCase()}`} passHref>
+          <Link href={getCategoryUrl(news.category)} passHref>
             <span className={styles.newsHeaderCategory}>{news.category}</span>
           </Link>
           <span className={styles.newsHeaderDate}>{news.date}</span>

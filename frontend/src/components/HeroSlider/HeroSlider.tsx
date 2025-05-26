@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
+import { getCategoryUrl } from '../../utils/category-utils';
 import styles from './HeroSlider.module.css';
 import { NewsItem } from '../../types';
 
@@ -19,8 +20,8 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
       <div className={styles.sliderContainer}>
         <Swiper
           modules={[Autoplay, Navigation]}
-          spaceBetween={12} // 画像間の距離を短く
-          slidesPerView={4} // 4記事表示
+          spaceBetween={12}
+          slidesPerView={4}
           loop={true}
           autoplay={{
             delay: 4000,
@@ -61,7 +62,9 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
                       <img src={news.imageUrl} alt={news.title} />
                       <div className={styles.imageOverlay}></div>
                       <div className={styles.newsInfo}>
-                        <span className={styles.newsCategory}>{news.category}</span>
+                        <Link href={getCategoryUrl(news.category)} passHref>
+                          <span className={styles.newsCategory}>{news.category}</span>
+                        </Link>
                         <h3 className={styles.newsTitle}>{news.title}</h3>
                       </div>
                     </div>

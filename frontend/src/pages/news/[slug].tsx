@@ -6,6 +6,7 @@ import RelatedNews from '../../components/NewsDetail/RelatedNews';
 import NewsContent from '../../components/NewsDetail/NewsContent';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import { getNewsDetail, getCategories, getPopularNews } from '../../utils/api';
+import { getCategoryUrl } from '../../utils/category-utils';
 import { NewsItemDetail, Category, NewsItem } from '../../types';
 import styles from '../../styles/NewsDetail.module.css';
 
@@ -74,7 +75,7 @@ const NewsDetailPage: React.FC = () => {
             <span>ホーム</span>
           </Link>
           <span className={styles.separator}>&gt;</span>
-          <Link href={`/category/${newsDetail.category.toLowerCase()}`} passHref>
+          <Link href={getCategoryUrl(newsDetail.category)} passHref>
             <span>{newsDetail.category}</span>
           </Link>
           <span className={styles.separator}>&gt;</span>
@@ -88,7 +89,7 @@ const NewsDetailPage: React.FC = () => {
               <div className={styles.newsInfo}>
                 <span className={styles.newsDate}>{newsDetail.date}</span>
                 <span className={styles.newsAuthor}>by {newsDetail.author}</span>
-                <Link href={`/category/${newsDetail.category.toLowerCase()}`} passHref>
+                <Link href={getCategoryUrl(newsDetail.category)} passHref>
                   <span className={styles.newsCategory}>{newsDetail.category}</span>
                 </Link>
               </div>

@@ -1,4 +1,5 @@
 import { allArticles, articlesById, articlesBySlug } from '../articles';
+import { getCategoryName } from '../../utils/category-utils';
 import { ArticleDetail } from './types';
 
 // ページネーション用
@@ -17,20 +18,10 @@ export const getPaginatedArticles = (page: number, limit: number) => {
   };
 };
 
-// カテゴリ別記事取得
+// カテゴリ別記事取得（修正版）
 export const getArticlesByCategory = (categorySlug: string) => {
-  // カテゴリスラッグとカテゴリ名の対応表
-  const categoryMap: { [key: string]: string } = {
-    'console': 'コンソール',
-    'pc': 'PC',
-    'mobile': 'モバイル',
-    'indie': 'インディー',
-    'multi': 'マルチプラットフォーム'
-  };
-  
-  // スラッグを小文字に変換してマッピング
-  const normalizedSlug = categorySlug.toLowerCase();
-  const targetCategory = categoryMap[normalizedSlug];
+  // スラッグからカテゴリ名に変換
+  const targetCategory = getCategoryName(categorySlug);
   
   if (!targetCategory) {
     console.warn(`未知のカテゴリスラッグ: ${categorySlug}`);
