@@ -1,5 +1,5 @@
 .newsSection {
-  padding: 1rem 0; /* 上下のパディングを2remから1remに縮小 */
+  padding: 1rem 0;
 }
 
 .container {
@@ -9,8 +9,8 @@
 }
 
 .sectionTitle {
-  font-size: 1.3rem; /* 2remから1.3remに縮小（サイドバーの人気記事と同じサイズ） */
-  margin-bottom: 1rem; /* 1.5remから1remに縮小 */
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
   color: var(--primary-color);
   position: relative;
   padding-bottom: 0.5rem;
@@ -21,7 +21,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 40px; /* 60pxから40pxに縮小（サイドバーと同じサイズ） */
+  width: 40px;
   height: 3px;
   background-color: var(--accent-color);
 }
@@ -37,7 +37,7 @@
 .newsListContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem; /* 1.5remから1.2remに縮小 */
+  gap: 1.2rem;
 }
 
 /* グリッド用カードスタイル */
@@ -193,7 +193,7 @@
   color: var(--accent-color);
 }
 
-/* リスト用カードスタイル */
+/* リスト用カードスタイル - 左右配置を維持 */
 .newsCardList {
   background-color: white;
   border-radius: 8px;
@@ -313,7 +313,7 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* レスポンシブ対応 */
+/* レスポンシブ対応 - 左右配置を維持しながら画像サイズ調整 */
 @media (max-width: 992px) {
   .newsGrid {
     grid-template-columns: 1fr;
@@ -339,8 +339,10 @@
     padding: 0.8rem;
   }
 
-  .newsSection {
-    padding: 0.8rem 0; /* モバイルでも上部パディングを小さく */
+  /* 画像サイズを少し縮小 */
+  .imageContainerList {
+    width: 160px; /* 200pxから160pxに縮小 */
+    height: 120px;
   }
 }
 
@@ -353,26 +355,31 @@
     height: 160px;
   }
 
+  /* 左右配置を維持、画像をより小さく */
+  .newsCardList {
+    height: 100px; /* 高さを少し縮小 */
+  }
+
   .newsCardListContent {
-    flex-direction: column;
-    height: auto;
+    display: flex; /* 左右配置を維持 */
+    align-items: stretch;
+    height: 100%;
   }
 
   .imageContainerList {
-    width: 100%;
-    height: 180px;
-  }
-
-  .newsHeaderList {
-    margin-bottom: 0.6rem;
-  }
-
-  .newsTitleList {
-    font-size: 1.1rem;
+    width: 25%; /* 4分の1に設定 */
+    height: 100px;
+    min-width: 80px; /* 最小幅を保証 */
   }
 
   .contentContainerList {
-    padding: 1rem;
+    flex: 1; /* 残りの4分の3を使用 */
+    padding: 0.8rem;
+    width: 75%; /* 明示的に4分の3を指定 */
+  }
+
+  .newsTitleList {
+    font-size: 1rem;
   }
 
   .newsTitle {
@@ -380,12 +387,12 @@
   }
 
   .sectionTitle {
-    font-size: 1.2rem; /* モバイルでは少し小さく */
+    font-size: 1.2rem;
     margin-bottom: 0.8rem;
   }
 
   .newsSection {
-    padding: 0.5rem 0; /* モバイルでは更に小さく */
+    padding: 0.5rem 0;
   }
 }
 
@@ -410,12 +417,24 @@
     gap: 1rem;
   }
 
+  /* 小画面でも左右配置維持 */
+  .newsCardList {
+    height: 90px; /* さらに高さを縮小 */
+  }
+
   .imageContainerList {
-    height: 160px;
+    width: 25%; /* 4分の1維持 */
+    height: 90px;
+    min-width: 70px; /* 最小幅を調整 */
+  }
+
+  .contentContainerList {
+    padding: 0.6rem;
+    width: 75%; /* 4分の3維持 */
   }
 
   .newsTitleList {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .newsTitle {
@@ -441,6 +460,82 @@
   }
 
   .newsSection {
-    padding: 0.3rem 0; /* 最小画面では更に詰める */
+    padding: 0.3rem 0;
+  }
+}
+
+/* 極小画面対応 - 4分の1と4分の3の比率を維持 */
+@media (max-width: 480px) {
+  .newsCardList {
+    height: 80px; /* 高さをさらに縮小 */
+  }
+
+  .imageContainerList {
+    width: 25%; /* 4分の1維持 */
+    height: 80px;
+    min-width: 60px; /* 最小幅を調整 */
+  }
+
+  .contentContainerList {
+    padding: 0.5rem;
+    width: 75%; /* 4分の3維持 */
+  }
+
+  .newsTitleList {
+    font-size: 0.85rem;
+    -webkit-line-clamp: 2; /* 2行に制限 */
+  }
+
+  .newsListContainer {
+    gap: 0.8rem;
+  }
+
+  .newsHeaderList {
+    margin-bottom: 0.3rem;
+  }
+
+  .categoryList {
+    font-size: 0.55rem;
+    padding: 1px 4px;
+  }
+
+  .newsDateList {
+    font-size: 0.6rem;
+  }
+}
+
+/* 非常に狭い画面対応 */
+@media (max-width: 360px) {
+  .newsCardList {
+    height: 75px; /* 最小高さ */
+  }
+
+  .imageContainerList {
+    width: 25%; /* 4分の1維持 */
+    height: 75px;
+    min-width: 55px; /* 最小幅 */
+  }
+
+  .contentContainerList {
+    padding: 0.4rem;
+    width: 75%; /* 4分の3維持 */
+  }
+
+  .newsTitleList {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2; /* 2行制限 */
+  }
+
+  .categoryList {
+    font-size: 0.5rem;
+    padding: 1px 3px;
+  }
+
+  .newsDateList {
+    font-size: 0.55rem;
+  }
+
+  .newsHeaderList {
+    margin-bottom: 0.2rem;
   }
 }
