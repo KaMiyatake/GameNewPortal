@@ -6,12 +6,11 @@ import { NewsItem } from '../../types';
 
 interface NewsCardProps {
   news: NewsItem;
-  layout?: 'grid' | 'list'; // レイアウトタイプを追加
+  layout?: 'grid' | 'list';
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
   if (layout === 'list') {
-    // 1列表示用の横長レイアウト
     return (
       <article className={styles.newsCardList}>
         <Link href={`/news/${news.slug}`} passHref>
@@ -20,9 +19,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
               <ArticleImage
                 src={news.imageUrl}
                 alt={news.title}
-                width={200}
-                height={113}
-                className={styles.newsImageList}
+                fill={true}
+                objectFit="cover"
+                objectPosition="center"
               />
             </div>
             <div className={styles.contentContainerList}>
@@ -44,7 +43,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
     );
   }
 
-  // 既存のグリッド表示用レイアウト
+  // グリッド表示の場合
   return (
     <article className={styles.newsCard}>
       <div className={styles.imageContainer}>
@@ -52,9 +51,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
           <ArticleImage
             src={news.imageUrl}
             alt={news.title}
-            width={400}
-            height={225}
-            className={styles.newsImage}
+            fill={true}
+            objectFit="cover"
+            objectPosition="center"
           />
         </Link>
         <Link href={`/category/${news.category.toLowerCase()}`} passHref>

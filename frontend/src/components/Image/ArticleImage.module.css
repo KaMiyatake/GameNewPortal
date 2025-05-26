@@ -1,8 +1,23 @@
 .image {
   border-radius: 8px;
   transition: transform 0.3s ease;
+  display: block;
 }
 
 .image:hover {
   transform: scale(1.02);
+}
+
+/* 画像がエラーの場合のスタイル */
+.image[data-error="true"] {
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.image[data-error="true"]::before {
+  content: "画像を読み込めませんでした";
 }

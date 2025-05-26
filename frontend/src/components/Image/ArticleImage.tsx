@@ -11,6 +11,8 @@ interface ArticleImageProps {
   priority?: boolean;
   className?: string;
   fill?: boolean;
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
+  objectPosition?: string;
 }
 
 const ArticleImage: React.FC<ArticleImageProps> = ({
@@ -20,7 +22,9 @@ const ArticleImage: React.FC<ArticleImageProps> = ({
   height = 338,
   priority = false,
   className = '',
-  fill = false
+  fill = false,
+  objectFit = 'cover',
+  objectPosition = 'center'
 }) => {
   const [imageSrc, setImageSrc] = useState(src);
   const [isError, setIsError] = useState(false);
@@ -32,7 +36,7 @@ const ArticleImage: React.FC<ArticleImageProps> = ({
     }
   };
 
-  const imageProps = {
+  const baseImageProps = {
     src: imageSrc,
     alt,
     onError: handleError,
@@ -42,19 +46,30 @@ const ArticleImage: React.FC<ArticleImageProps> = ({
 
   if (fill) {
     return (
-      <Image
-        {...imageProps}
-        fill
-        style={{ objectFit: 'cover' }}
-      />
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <Image
+          {...baseImageProps}
+          fill
+          style={{ 
+            objectFit,
+            objectPosition
+          }}
+        />
+      </div>
     );
   }
 
   return (
     <Image
-      {...imageProps}
+      {...baseImageProps}
       width={width}
       height={height}
+      style={{ 
+        objectFit,
+        objectPosition,
+        width: '100%',
+        height: '100%'
+      }}
     />
   );
 };
