@@ -18,7 +18,8 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <aside className={styles.sidebar}>
-      <PopularNews popularNews={popularNews} />
+      {/* 人気記事（最大10件まで表示） */}
+      <PopularNews popularNews={popularNews.slice(0, 10)} />
       
       {popularTags.length > 0 && (
         <TagList tags={popularTags} title="人気タグ" maxTags={8} />

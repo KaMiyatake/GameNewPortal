@@ -29,9 +29,11 @@ export const getFeaturedArticles = () => {
   return allArticles.filter(article => article.featured);
 };
 
-// 人気記事取得
-export const getPopularArticles = () => {
-  return allArticles.filter(article => article.popular);
+// 人気記事取得（件数制限を追加）
+export const getPopularArticles = (limit: number = 10) => {
+  return allArticles
+    .filter(article => article.popular)
+    .slice(0, limit); // 指定された件数で制限
 };
 
 // 関連記事取得

@@ -54,9 +54,9 @@ export const getFeaturedNews = async (): Promise<NewsItem[]> => {
   return articles.map(convertToNewsItem);
 };
 
-// 人気記事取得
+// 人気記事取得（最大10件に制限）
 export const getPopularNews = async (): Promise<NewsItem[]> => {
-  const articles = getPopularArticles();
+  const articles = getPopularArticles(10); // 最大10件に制限
   return articles.map(convertToNewsItem);
 };
 
