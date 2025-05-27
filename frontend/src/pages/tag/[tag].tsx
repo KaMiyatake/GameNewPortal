@@ -1,102 +1,126 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import React from 'react';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import NewsSection from '../../components/NewsSection/NewsSection';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import { getCategories, getPopularNews, getNewsByTag } from '../../utils/api';
+import SEOHead from '../../components/SEO/SEOHead';
+import { getNewsByTagSync, getCategoriesSync, getPopularNewsSync } from '../../utils/api-server';
+import { getAllTags } from '../../data/utils/data-helpers';
 import { NewsItem, Category } from '../../types';
 import styles from '../../styles/Tag.module.css';
 
-const TagPage: React.FC = () => {
-  const router = useRouter();
-  const { tag } = router.query;
-  
-  const [news, setNews] = useState<NewsItem[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [popularNews, setPopularNews] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+interface TagPageProps {
+  news: NewsItem[];
+  categories: Category[];
+  popularNews: NewsItem[];
+  currentTag: string;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!tag) return;
-      
-      try {
-        setLoading(true);
-        const [newsData, categoriesData, popularNewsData] = await Promise.all([
-          getNewsByTag(tag as string),
-          getCategories(),
-          getPopularNews(),
-        ]);
-        
-        setNews(newsData);
-        setCategories(categoriesData);
-        setPopularNews(popularNewsData);
-      } catch (error) {
-        console.error('Error fetching tag data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [tag]);
-
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.spinner}></div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
+const TagPage: React.FC<TagPageProps> = ({
+  news,
+  categories,
+  popularNews,
+  currentTag
+}) => {
   return (
-    <Layout>
-      <div className={styles.container}>
-        <div className={styles.breadcrumbs}>
-          <Link href="/" passHref>
-            <span>ホーム</span>
-          </Link>
-          <span className={styles.separator}>&gt;</span>
-          <span className={styles.current}>タグ: {tag}</span>
-        </div>
-        
-        <div className={styles.tagHeader}>
-          <h1 className={styles.tagTitle}>
-            <span className={styles.tagIcon}>#</span>
-            {tag}
-          </h1>
-          <p className={styles.tagDescription}>
-            「{tag}」に関連する記事 {news.length}件
-          </p>
-        </div>
-        
-        <div className={styles.tagLayout}>
-          <div className={styles.mainContent}>
-            {news.length > 0 ? (
-              <NewsSection 
-                title={`「${tag}」の記事一覧`}
-                newsItems={news}
-                layout="list" // リストレイアウトを指定
-              />
-            ) : (
-              <div className={styles.noResults}>
-                <h2>該当する記事が見つかりませんでした</h2>
-                <p>「{tag}」に関連する記事は現在ありません。</p>
-                <Link href="/" passHref>
-                  <span className={styles.backToHome}>ホームに戻る</span>
-                </Link>
-              </div>
-            )}
+    <>
+      <SEOHead
+        title={`${currentTag}の記事一覧 | Game News Portal`}
+        description={`「${currentTag}」に関連するゲーム記事の一覧です。最新のゲーム情報をお届けします。`}
+        keywords={[currentTag, 'ゲーム', 'ニュース', 'ゲーム情報']}
+        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/tag/${encodeURIComponent(currentTag)}`}
+      />
+      <Layout>
+        <div className={styles.container}>
+          <div className={styles.breadcrumbs}>
+            <Link href="/">
+              <span>ホーム</span>
+            </Link>
+            <span className={styles.separator}>&gt;</span>
+            <span className={styles.current}>タグ: {currentTag}</span>
           </div>
-          <div className={styles.sidebarContent}>
-            <Sidebar popularNews={popularNews} categories={categories} />
+          
+          <div className={styles.tagHeader}>
+            <h1 className={styles.tagTitle}>
+              <span className={styles.tagIcon}>#</span>
+              {currentTag}
+            </h1>
+            <p className={styles.tagDescription}>
+              「{currentTag}」に関連する記事 {news.length}件
+            </p>
+          </div>
+          
+          <div className={styles.tagLayout}>
+            <div className={styles.mainContent}>
+              {news.length > 0 ? (
+                <NewsSection 
+                  title={`「${currentTag}」の記事一覧`}
+                  newsItems={news}
+                  layout="list"
+                />
+              ) : (
+                <div className={styles.noResults}>
+                  <h2>該当する記事が見つかりませんでした</h2>
+                  <p>「{currentTag}」に関連する記事は現在ありません。</p>
+                  <Link href="/">
+                    <span className={styles.backToHome}>ホームに戻る</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+            <div className={styles.sidebarContent}>
+              <Sidebar popularNews={popularNews} categories={categories} />
+            </div>
           </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
+};
+
+// SSG: 人気タグのパスを事前生成
+export const getStaticPaths: GetStaticPaths = async () => {
+  // 人気タグ上位30個のみを事前生成（SEO効果が高いもの）
+  const popularTags = getAllTags().slice(0, 30);
+  
+  const paths = popularTags.map(({ tag }) => ({
+    params: { tag: encodeURIComponent(tag) },
+  }));
+
+  return {
+    paths,
+    fallback: 'blocking', // 他のタグは初回アクセス時に動的生成
+  };
+};
+
+// SSG: ビルド時に各タグのデータを取得
+export const getStaticProps: GetStaticProps<TagPageProps> = async ({ params }) => {
+  try {
+    const tag = decodeURIComponent(params?.tag as string);
+    
+    const [news, categories, popularNews] = await Promise.all([
+      Promise.resolve(getNewsByTagSync(tag)),
+      Promise.resolve(getCategoriesSync()),
+      Promise.resolve(getPopularNewsSync()),
+    ]);
+
+    return {
+      props: {
+        news,
+        categories,
+        popularNews,
+        currentTag: tag,
+      },
+      revalidate: 1800, // 30分ごとに再生成（タグページは更新頻度が低い）
+    };
+  } catch (error) {
+    console.error('Error fetching tag data:', error);
+    
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default TagPage;

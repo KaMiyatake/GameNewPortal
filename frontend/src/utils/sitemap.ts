@@ -49,8 +49,8 @@ export const generateSitemap = (baseUrl: string): SitemapUrl[] => {
     });
   });
 
-  // 5. タグページ（人気タグのみ）
-  const popularTags = getAllTags().slice(0, 20); // 上位20タグのみ
+  // 5. タグページ（人気タグ上位30個のみ）
+  const popularTags = getAllTags().slice(0, 30);
   popularTags.forEach(({ tag }) => {
     sitemap.push({
       loc: `${baseUrl}/tag/${encodeURIComponent(tag)}`,
