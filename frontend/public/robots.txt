@@ -1,0 +1,23 @@
+# Game News Portal - Robots.txt
+
+User-agent: *
+Allow: /
+
+# サイトマップの場所を指定
+# Sitemap: https://gamesanpi.com/sitemap.xml
+Sitemap: https://game-new-portal.vercel.app/sitemap.xml
+
+# クロール頻度の調整（オプション）
+Crawl-delay: 1
+
+# 不要なページをブロック（必要に応じて）
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+
+# 検索エンジン最適化
+Allow: /news/
+Allow: /category/
+Allow: /tag/
+Allow: /about/

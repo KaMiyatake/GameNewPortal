@@ -13,6 +13,7 @@ import {
 } from '../utils/api';
 import { NewsItem, Category } from '../types';
 import styles from '../styles/Home.module.css';
+import SEOHead from '../components/SEO/SEOHead';
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -70,28 +71,36 @@ const Home: React.FC = () => {
   }
 
   return (
-    <Layout>
-      <HeroSlider featuredNews={featuredNews} />
-      
-      <div className={styles.container}>
-        <div className={styles.mainContent}>
-          <div className={styles.newsContent}>
-            <NewsSection 
-              title="最新ニュース" 
-              newsItems={newsData.data}
-              layout="list"
-              showPagination={true}
-              currentPage={newsData.pagination.currentPage}
-              totalPages={newsData.pagination.totalPages}
-              onPageChange={handlePageChange}
-            />
-          </div>
-          <div className={styles.sidebarContent}>
-            <Sidebar popularNews={popularNews} categories={categories} />
+    <>
+      <SEOHead
+        title="Game News Portal - 最新ゲーム情報をお届け"
+        description="ゲーム業界の最新情報、レビュー、発売情報をお届けするニュースポータルサイトです。"
+        keywords={['ゲーム', 'ニュース', 'ゲーム情報', 'レビュー']}
+        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}`}
+      />
+      <Layout>
+        <HeroSlider featuredNews={featuredNews} />
+        
+        <div className={styles.container}>
+          <div className={styles.mainContent}>
+            <div className={styles.newsContent}>
+              <NewsSection 
+                title="最新ニュース" 
+                newsItems={newsData.data}
+                layout="list"
+                showPagination={true}
+                currentPage={newsData.pagination.currentPage}
+                totalPages={newsData.pagination.totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+            <div className={styles.sidebarContent}>
+              <Sidebar popularNews={popularNews} categories={categories} />
+            </div>
           </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 };
 
