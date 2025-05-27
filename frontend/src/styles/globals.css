@@ -15,6 +15,14 @@
   padding: 0;
 }
 
+/* 全体的なフォーカスアウトライン除去 */
+*:focus,
+*:active,
+*:focus-visible {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
 body {
   font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   background-color: var(--background-color);
@@ -30,6 +38,17 @@ a {
 
 a:hover {
   color: var(--accent-color);
+}
+
+/* リンクのフォーカス状態をリセット */
+a,
+a:focus,
+a:active,
+a:visited,
+a:focus-visible {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  text-decoration: none;
 }
 
 .container {
@@ -53,14 +72,25 @@ button:hover {
   background-color: var(--accent-color);
 }
 
-/* 新しく追加：スムーズスクロール */
+/* ボタンのフォーカス状態をリセット */
+button:focus,
+button:active,
+button:focus-visible {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* スムーズスクロール */
 html {
   scroll-behavior: smooth;
 }
 
-/* 新しく追加：フォーカス表示の改善 */
-button:focus,
-a:focus {
-  outline: 2px solid var(--accent-color);
-  outline-offset: 2px;
+/* リンク内のカテゴリボタンスタイルを保護 */
+a[href*="/category/"] span {
+  text-decoration: none !important;
+}
+
+/* カテゴリボタンのホバー効果を確実に適用 */
+a[href*="/category/"]:hover span {
+  text-decoration: none !important;
 }
