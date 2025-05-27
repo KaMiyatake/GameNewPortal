@@ -55,7 +55,7 @@ const NewsDetailPage: React.FC = () => {
 
   if (!newsDetail) {
     return (
-      <Layout categories={categories}>
+      <Layout>
         <div className={styles.errorContainer}>
           <h1>記事が見つかりませんでした</h1>
           <p>お探しの記事は存在しないか、削除された可能性があります。</p>
