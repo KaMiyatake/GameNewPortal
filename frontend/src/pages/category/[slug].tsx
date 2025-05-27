@@ -131,7 +131,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
       revalidate: 300, // 5分ごとに再生成
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       notFound: true,
     };

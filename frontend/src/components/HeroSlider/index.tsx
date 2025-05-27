@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { NewsItem } from '../../types';
 
 const HeroSlider = dynamic(
   () => import('./HeroSlider'),

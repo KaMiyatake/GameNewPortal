@@ -1,15 +1,15 @@
 // サーバーサイド用の同期API関数
 import { 
   getPaginatedArticles,
-  getArticlesByCategory,
   getFeaturedArticles,
   getPopularArticles,
   getArticleBySlug,
 } from '../data/utils/data-helpers';
 import { categories } from '../data/categories/categories';
+import { ArticleDetail } from '../data/utils/types';
 
 // NewsItem形式に変換する関数
-const convertToNewsItem = (article: any) => ({
+const convertToNewsItem = (article: ArticleDetail) => ({
   id: article.id,
   title: article.title,
   summary: article.summary,
