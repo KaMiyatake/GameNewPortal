@@ -184,7 +184,16 @@
   }
 }
 
-@media (max-width: 576px) {
+/* モバイル表示時にbreadcrumbsを非表示 */
+@media (max-width: 768px) {
+  .breadcrumbs {
+    display: none; /* モバイル表示時は非表示 */
+  }
+
+  .container {
+    padding: 1.5rem 15px;
+  }
+
   .mainContent {
     padding: 1.5rem;
   }
@@ -192,8 +201,47 @@
   .newsTitle {
     font-size: 1.5rem;
   }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem 10px;
+  }
+
+  .mainContent {
+    padding: 1rem;
+  }
   
-  .breadcrumbs {
+  .newsTitle {
+    font-size: 1.3rem;
+  }
+  
+  .newsInfo {
     font-size: 0.8rem;
+    gap: 0.5rem;
+  }
+
+  .newsCategory {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .featuredImage {
+    margin: 1rem 0;
+  }
+
+  .tagContainer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  .relatedNewsSection {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
   }
 }

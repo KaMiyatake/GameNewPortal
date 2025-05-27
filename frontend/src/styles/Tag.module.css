@@ -142,7 +142,12 @@
   }
 }
 
+/* モバイル表示時にbreadcrumbsを非表示 */
 @media (max-width: 768px) {
+  .breadcrumbs {
+    display: none; /* モバイル表示時は非表示 */
+  }
+
   .tagHeader {
     padding: 1.5rem 1rem;
     margin-bottom: 1.2rem;
@@ -170,10 +175,6 @@
   
   .tagTitle {
     font-size: 1.6rem;
-  }
-  
-  .breadcrumbs {
-    font-size: 0.8rem;
   }
   
   .noResults {

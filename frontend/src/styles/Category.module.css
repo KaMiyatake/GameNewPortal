@@ -129,7 +129,12 @@
   }
 }
 
+/* モバイル表示時にbreadcrumbsを非表示 */
 @media (max-width: 768px) {
+  .breadcrumbs {
+    display: none; /* モバイル表示時は非表示 */
+  }
+
   .categoryTitle {
     font-size: 1.8rem;
     margin-bottom: 1.2rem;
@@ -148,10 +153,6 @@
   .categoryTitle {
     font-size: 1.6rem;
     margin-bottom: 1rem;
-  }
-  
-  .breadcrumbs {
-    font-size: 0.8rem;
   }
 
   .noResults {
