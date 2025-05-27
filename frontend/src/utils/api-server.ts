@@ -5,19 +5,9 @@ import {
   getPopularArticles,
   getArticleBySlug,
   getArticlesByTag,
-  getRelatedArticles,
 } from '../data/utils/data-helpers';
 import { categories } from '../data/categories/categories';
 import { ArticleDetail } from '../data/utils/types';
-
-// 記事データをNewsItemDetail形式に変換
-const convertToNewsItemDetail = (article: any) => ({
-  ...convertToNewsItem(article),
-  content: article.content || '',
-  author: article.author,
-  tags: article.tags,
-  relatedNews: getRelatedArticles(article.id).map(convertToNewsItem),
-});
 
 // NewsItem形式に変換する関数
 const convertToNewsItem = (article: ArticleDetail) => ({
