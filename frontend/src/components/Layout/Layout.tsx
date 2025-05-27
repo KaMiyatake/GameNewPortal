@@ -2,17 +2,15 @@ import React, { ReactNode } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import styles from './Layout.module.css';
-import { Category } from '../../types';
 
 interface LayoutProps {
   children: ReactNode;
-  categories: Category[];
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, categories }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={styles.layout}>
-      <Header categories={categories} />
+      <Header />
       <main className={styles.main}>{children}</main>
       <Footer />
     </div>

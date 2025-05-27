@@ -22,14 +22,13 @@ const Home: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   
-  // URLクエリからページ番号を取得
   const currentPage = parseInt(router.query.page as string) || 1;
 
   const fetchNews = async (page: number) => {
     setLoading(true);
     try {
       const [newsResponse, categoriesData, popularNewsData, featuredNewsData] = await Promise.all([
-        getLatestNewsPaginated(page, 10), // 1ページあたり10記事
+        getLatestNewsPaginated(page, 10),
         getCategories(),
         getPopularNews(),
         getFeaturedNews(),
@@ -51,7 +50,6 @@ const Home: React.FC = () => {
   }, [currentPage]);
 
   const handlePageChange = (page: number) => {
-    // URLを更新してページ変更
     router.push({
       pathname: '/',
       query: page > 1 ? { page } : {},
@@ -72,7 +70,7 @@ const Home: React.FC = () => {
   }
 
   return (
-    <Layout categories={categories}>
+    <Layout>
       <HeroSlider featuredNews={featuredNews} />
       
       <div className={styles.container}>

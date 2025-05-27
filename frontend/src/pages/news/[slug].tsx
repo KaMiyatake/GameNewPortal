@@ -68,7 +68,7 @@ const NewsDetailPage: React.FC = () => {
   }
 
   return (
-    <Layout categories={categories}>
+    <Layout>
       <div className={styles.container}>
         <div className={styles.breadcrumbs}>
           <Link href="/" passHref>

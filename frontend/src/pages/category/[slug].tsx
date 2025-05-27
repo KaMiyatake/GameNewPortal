@@ -30,7 +30,6 @@ const CategoryPage: React.FC = () => {
           getPopularNews(),
         ]);
         
-        // カテゴリ名を取得
         const category = categoriesData.find(cat => cat.slug === slug);
         if (category) {
           setCurrentCategory(category.name);
@@ -59,7 +58,7 @@ const CategoryPage: React.FC = () => {
   }
 
   return (
-    <Layout categories={categories}>
+    <Layout>
       <div className={styles.container}>
         <div className={styles.breadcrumbs}>
           <Link href="/" passHref>
@@ -77,7 +76,7 @@ const CategoryPage: React.FC = () => {
               <NewsSection
                 title={`${currentCategory || 'カテゴリー'}の記事一覧`}
                 newsItems={news}
-                layout="list" // リストレイアウトを指定
+                layout="list"
               />
             ) : (
               <div className={styles.noResults}>
