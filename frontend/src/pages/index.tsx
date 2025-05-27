@@ -1,75 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { GetStaticProps } from 'next';
 import Layout from '../components/Layout/Layout';
-import HeroSlider from '../components/HeroSlider/HeroSlider';
+//import HeroSlider from '../components/HeroSlider/HeroSlider';
+import HeroSlider from '../components/HeroSlider'; // index.tsxを自動的に読み込む
 import NewsSection from '../components/NewsSection/NewsSection';
 import Sidebar from '../components/Sidebar/Sidebar';
+import SEOHead from '../components/SEO/SEOHead';
 import { 
   getLatestNewsPaginated, 
   getCategories, 
   getPopularNews, 
   getFeaturedNews,
-  PaginatedResponse 
+  PaginatedResponse
 } from '../utils/api';
 import { NewsItem, Category } from '../types';
 import styles from '../styles/Home.module.css';
-import SEOHead from '../components/SEO/SEOHead';
 
-const Home: React.FC = () => {
-  const router = useRouter();
-  const [newsData, setNewsData] = useState<PaginatedResponse<NewsItem> | null>(null);
-  const [featuredNews, setFeaturedNews] = useState<NewsItem[]>([]);
-  const [popularNews, setPopularNews] = useState<NewsItem[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  
-  const currentPage = parseInt(router.query.page as string) || 1;
+interface HomeProps {
+  initialNewsData: PaginatedResponse<NewsItem>;
+  featuredNews: NewsItem[];
+  popularNews: NewsItem[];
+  categories: Category[];
+}
 
-  const fetchNews = async (page: number) => {
-    setLoading(true);
-    try {
-      const [newsResponse, categoriesData, popularNewsData, featuredNewsData] = await Promise.all([
-        getLatestNewsPaginated(page, 10),
-        getCategories(),
-        getPopularNews(),
-        getFeaturedNews(),
-      ]);
-      
-      setNewsData(newsResponse);
-      setCategories(categoriesData);
-      setPopularNews(popularNewsData);
-      setFeaturedNews(featuredNewsData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchNews(currentPage);
-  }, [currentPage]);
-
-  const handlePageChange = (page: number) => {
-    router.push({
-      pathname: '/',
-      query: page > 1 ? { page } : {},
-    }, undefined, { shallow: true });
-  };
-
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.spinner}></div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  if (!newsData) {
-    return <div>エラーが発生しました。</div>;
-  }
-
+const Home: React.FC<HomeProps> = ({
+  initialNewsData,
+  featuredNews,
+  popularNews,
+  categories
+}) => {
   return (
     <>
       <SEOHead
@@ -86,12 +44,15 @@ const Home: React.FC = () => {
             <div className={styles.newsContent}>
               <NewsSection 
                 title="最新ニュース" 
-                newsItems={newsData.data}
+                newsItems={initialNewsData.data}
                 layout="list"
                 showPagination={true}
-                currentPage={newsData.pagination.currentPage}
-                totalPages={newsData.pagination.totalPages}
-                onPageChange={handlePageChange}
+                currentPage={initialNewsData.pagination.currentPage}
+                totalPages={initialNewsData.pagination.totalPages}
+                onPageChange={(page) => {
+                  // クライアントサイドでのページ変更
+                  window.location.href = page > 1 ? `/?page=${page}` : '/';
+                }}
               />
             </div>
             <div className={styles.sidebarContent}>
@@ -102,6 +63,35 @@ const Home: React.FC = () => {
       </Layout>
     </>
   );
+};
+
+// SSG: ビルド時にデータを取得してHTMLを生成
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  try {
+    const [newsData, categoriesData, popularNewsData, featuredNewsData] = await Promise.all([
+      getLatestNewsPaginated(1, 10),
+      getCategories(),
+      getPopularNews(),
+      getFeaturedNews(),
+    ]);
+
+    return {
+      props: {
+        initialNewsData: newsData,
+        featuredNews: featuredNewsData,
+        popularNews: popularNewsData,
+        categories: categoriesData,
+      },
+      // 60秒ごとに再生成（ISR: Incremental Static Regeneration）
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error('Error fetching data for home page:', error);
+    
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default Home;

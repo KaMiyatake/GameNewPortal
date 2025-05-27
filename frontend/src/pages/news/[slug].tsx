@@ -1,73 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
 import RelatedNews from '../../components/NewsDetail/RelatedNews';
 import NewsContent from '../../components/NewsDetail/NewsContent';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import SEOHead from '../../components/SEO/SEOHead';
 import { getNewsDetail, getCategories, getPopularNews } from '../../utils/api';
+import { allArticles } from '../../data/articles';
 import { getCategoryUrl } from '../../utils/category-utils';
 import { NewsItemDetail, Category, NewsItem } from '../../types';
 import styles from '../../styles/NewsDetail.module.css';
-import SEOHead from '../../components/SEO/SEOHead';
 
-const NewsDetailPage: React.FC = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-  
-  const [newsDetail, setNewsDetail] = useState<NewsItemDetail | null>(null);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [popularNews, setPopularNews] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+interface NewsDetailPageProps {
+  newsDetail: NewsItemDetail;
+  categories: Category[];
+  popularNews: NewsItem[];
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!slug) return;
-      
-      try {
-        setLoading(true);
-        const [newsData, categoriesData, popularNewsData] = await Promise.all([
-          getNewsDetail(slug as string),
-          getCategories(),
-          getPopularNews(),
-        ]);
-        
-        setNewsDetail(newsData);
-        setCategories(categoriesData);
-        setPopularNews(popularNewsData);
-      } catch (error) {
-        console.error('Error fetching news detail:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.spinner}></div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  if (!newsDetail) {
-    return (
-      <Layout>
-        <div className={styles.errorContainer}>
-          <h1>記事が見つかりませんでした</h1>
-          <p>お探しの記事は存在しないか、削除された可能性があります。</p>
-          <Link href="/" passHref>
-            <span className={styles.backButton}>ホームに戻る</span>
-          </Link>
-        </div>
-      </Layout>
-    );
-  }
-
+const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
+  newsDetail,
+  categories,
+  popularNews
+}) => {
   return (
     <>
       <SEOHead
@@ -134,6 +88,46 @@ const NewsDetailPage: React.FC = () => {
       </Layout>
     </>
   );
+};
+
+// SSG: 全記事のパスを事前生成
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = allArticles.map((article) => ({
+    params: { slug: article.slug },
+  }));
+
+  return {
+    paths,
+    fallback: 'blocking', // 新しい記事は動的に生成
+  };
+};
+
+// SSG: ビルド時に各記事のデータを取得
+export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ params }) => {
+  try {
+    const slug = params?.slug as string;
+    
+    const [newsDetail, categories, popularNews] = await Promise.all([
+      getNewsDetail(slug),
+      getCategories(),
+      getPopularNews(),
+    ]);
+
+    return {
+      props: {
+        newsDetail,
+        categories,
+        popularNews,
+      },
+      revalidate: 3600, // 1時間ごとに再生成
+    };
+  } catch (error) {
+    console.error('Error fetching news detail:', error);
+    
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default NewsDetailPage;

@@ -7,6 +7,8 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import { getNewsByCategory, getCategories, getPopularNews } from '../../utils/api';
 import { NewsItem, Category } from '../../types';
 import styles from '../../styles/Category.module.css';
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { categories } from '../../data/categories/categories';
 
 const CategoryPage: React.FC = () => {
   const router = useRouter();
@@ -95,6 +97,45 @@ const CategoryPage: React.FC = () => {
       </div>
     </Layout>
   );
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = categories.map((category) => ({
+    params: { slug: category.slug },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  try {
+    const slug = params?.slug as string;
+    
+    const [news, categoriesData, popularNews] = await Promise.all([
+      getNewsByCategory(slug),
+      getCategories(),
+      getPopularNews(),
+    ]);
+
+    const currentCategory = categoriesData.find(cat => cat.slug === slug);
+
+    return {
+      props: {
+        news,
+        categories: categoriesData,
+        popularNews,
+        currentCategory: currentCategory?.name || '',
+      },
+      revalidate: 300, // 5分ごとに再生成
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default CategoryPage;

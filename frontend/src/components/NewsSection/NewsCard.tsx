@@ -14,9 +14,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
   if (layout === 'list') {
     return (
       <article className={styles.newsCardList}>
-        <Link href={`/news/${news.slug}`} passHref>
-          <div className={styles.newsCardListContent}>
-            <div className={styles.imageContainerList}>
+        <div className={styles.newsCardListContent}>
+          <div className={styles.imageContainerList}>
+            <Link href={`/news/${news.slug}`}>
               <ArticleImage
                 src={news.imageUrl}
                 alt={news.title}
@@ -24,22 +24,22 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
                 objectFit="cover"
                 objectPosition="center"
               />
-            </div>
-            <div className={styles.contentContainerList}>
-              <div className={styles.newsHeaderList}>
-                <Link href={getCategoryUrl(news.category)} passHref>
-                  <span className={styles.categoryList}>{news.category}</span>
-                </Link>
-                <span className={styles.newsDateList}>{news.date}</span>
-              </div>
-              <h3 className={styles.newsTitleList}>
-                <Link href={`/news/${news.slug}`} passHref>
-                  <span>{news.title}</span>
-                </Link>
-              </h3>
-            </div>
+            </Link>
           </div>
-        </Link>
+          <div className={styles.contentContainerList}>
+            <div className={styles.newsHeaderList}>
+              <Link href={getCategoryUrl(news.category)}>
+                {news.category}
+              </Link>
+              <span className={styles.newsDateList}>{news.date}</span>
+            </div>
+            <h3 className={styles.newsTitleList}>
+              <Link href={`/news/${news.slug}`}>
+                {news.title}
+              </Link>
+            </h3>
+          </div>
+        </div>
       </article>
     );
   }
@@ -48,7 +48,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
   return (
     <article className={styles.newsCard}>
       <div className={styles.imageContainer}>
-        <Link href={`/news/${news.slug}`} passHref>
+        <Link href={`/news/${news.slug}`}>
           <ArticleImage
             src={news.imageUrl}
             alt={news.title}
@@ -57,14 +57,14 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
             objectPosition="center"
           />
         </Link>
-        <Link href={getCategoryUrl(news.category)} passHref>
+        <Link href={getCategoryUrl(news.category)}>
           <span className={styles.category}>{news.category}</span>
         </Link>
       </div>
       <div className={styles.contentContainer}>
         {/* カテゴリと日付のヘッダー */}
         <div className={styles.newsHeader}>
-          <Link href={getCategoryUrl(news.category)} passHref>
+          <Link href={getCategoryUrl(news.category)}>
             <span className={styles.newsHeaderCategory}>{news.category}</span>
           </Link>
           <span className={styles.newsHeaderDate}>{news.date}</span>
@@ -72,7 +72,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
         
         {/* タイトル */}
         <h3 className={styles.newsTitle}>
-          <Link href={`/news/${news.slug}`} passHref>
+          <Link href={`/news/${news.slug}`}>
             <span>{news.title}</span>
           </Link>
         </h3>
@@ -83,7 +83,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
         {/* フッター */}
         <div className={styles.newsFooter}>
           <span className={styles.newsDate}>{news.date}</span>
-          <Link href={`/news/${news.slug}`} passHref>
+          <Link href={`/news/${news.slug}`}>
             <span className={styles.readMore}>続きを読む</span>
           </Link>
         </div>
