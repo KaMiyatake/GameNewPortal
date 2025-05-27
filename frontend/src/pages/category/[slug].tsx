@@ -122,16 +122,24 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const currentCategory = categoriesData.find(cat => cat.slug === slug);
 
+    // カテゴリーが見つからない場合は404を返す
+    if (!currentCategory) {
+      return {
+        notFound: true,
+      };
+    }
+
     return {
       props: {
         news,
         categories: categoriesData,
         popularNews,
-        currentCategory: currentCategory?.name || '',
+        currentCategory: currentCategory.name,
       },
       revalidate: 300, // 5分ごとに再生成
     };
-  } catch (_error) {
+  } catch {
+    // エラー引数を削除して、直接notFoundを返す
     return {
       notFound: true,
     };
