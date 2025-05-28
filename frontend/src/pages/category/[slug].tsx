@@ -37,6 +37,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
       />
       <Layout>
         <div className={styles.container}>
+          {/* カテゴリーヘッダー */}
           <div className={styles.categoryHeader}>
             <h1 
               className={styles.categoryTitle}
@@ -47,6 +48,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
             <p className={styles.categoryDescription}>{category.description}</p>
           </div>
 
+          {/* メインコンテンツ */}
           <div className={styles.mainContent}>
             <div className={styles.newsContent}>
               <NewsSection 
