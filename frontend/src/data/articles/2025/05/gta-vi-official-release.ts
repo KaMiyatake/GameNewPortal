@@ -28,7 +28,7 @@ export const gtaVIOfficialRelease: ArticleDetail = {
     <p>価格は8,980円（税込）。デジタルデラックス版も用意され、こちらには早期アクセスや特別なゲーム内コンテンツが含まれます。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=GTA+VI+Release&font=montserrat',
-  category: 'コンソール',
+  category: 'PlayStation',
   tags: ['GTA', 'ロックスター・ゲームズ', 'オープンワールド', 'アクション', 'PS5', 'Xbox Series X'],
   publishedAt: '2025-05-23',
   slug: 'gta-vi-official-release',

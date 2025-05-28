@@ -1,11 +1,9 @@
-/* frontend/src/components/HeroSlider/HeroSlider.module.css */
-
 .header {
   background-color: var(--primary-color);
   color: var(--light-text);
   padding: 1rem 0;
-  position: static;
-  z-index: 100;
+  position: relative;
+  z-index: 1000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -21,6 +19,7 @@
 .logo {
   cursor: pointer;
   transition: opacity 0.3s ease;
+  z-index: 1001;
 }
 
 .logo:hover {
@@ -51,6 +50,7 @@
   letter-spacing: 0.5px;
 }
 
+/* デスクトップナビゲーション */
 .nav {
   display: flex;
 }
@@ -58,7 +58,9 @@
 .navList {
   display: flex;
   list-style: none;
-  gap: 1.5rem;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 .navItem {
@@ -69,36 +71,188 @@
   color: var(--light-text);
   text-decoration: none;
   font-weight: 500;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  position: relative;
   cursor: pointer;
+  display: block;
 }
 
 .navLink:hover {
-  color: var(--accent-color);
+  background-color: var(--category-color, var(--accent-color));
+  color: white;
+  transform: translateY(-1px);
 }
 
-.navLink::after {
-  content: '';
+/* ドロップダウンメニュー */
+.dropdown {
+  position: relative;
+}
+
+.dropdownContent {
+  display: none;
   position: absolute;
-  bottom: -2px;
+  top: 100%;
   left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--accent-color);
-  transition: width 0.3s ease;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
 }
 
-.navLink:hover::after {
-  width: 100%;
+.dropdown:hover .dropdownContent {
+  display: block;
 }
 
+.dropdownItem {
+  display: block;
+  padding: 0.8rem 1rem;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background-color: #f8f9fa;
+  color: var(--secondary-color);
+}
+
+/* モバイルハンバーガーメニューボタン */
+.mobileMenuButton {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  transition: transform 0.3s ease;
+}
+
+.mobileMenuButton:hover {
+  transform: scale(1.1);
+}
+
+.hamburgerLine {
+  width: 25px;
+  height: 3px;
+  background-color: var(--light-text);
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* ハンバーガーメニューのアニメーション */
+.mobileMenuButton.active .hamburgerLine:nth-child(1) {
+  transform: rotate(45deg) translate(9px, 9px);
+}
+
+.mobileMenuButton.active .hamburgerLine:nth-child(2) {
+  opacity: 0;
+}
+
+.mobileMenuButton.active .hamburgerLine:nth-child(3) {
+  transform: rotate(-45deg) translate(9px, -9px);
+}
+
+/* モバイルメニューオーバーレイ */
+.mobileMenuOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* モバイルメニュー */
+.mobileMenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: var(--primary-color);
+  z-index: 1000;
+  transition: right 0.3s ease-in-out;
+  padding-top: 80px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.mobileMenu.open {
+  right: 0;
+}
+
+.mobileNavList {
+  list-style: none;
+  padding: 1rem 0;
+  margin: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.mobileNavItem {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileNavItem:last-child {
+  border-bottom: none;
+}
+
+.mobileNavLink {
+  display: flex;
+  align-items: center;
+  color: var(--light-text);
+  text-decoration: none;
+  padding: 1.2rem 1.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mobileNavLink:hover,
+.mobileNavLink:active {
+  background-color: var(--category-color, rgba(255, 255, 255, 0.1));
+  color: white;
+}
+
+.categoryIcon {
+  margin-right: 0.8rem;
+  font-size: 1.2rem;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* レスポンシブ対応 */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  .nav {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: flex;
+  }
+
+  .mobileMenuOverlay {
+    display: block;
+  }
+
+  .mobileMenu {
+    display: block;
   }
 
   .siteName {
@@ -108,23 +262,15 @@
   .tagline {
     font-size: 0.65rem;
   }
-
-  .nav {
-    margin-top: 0;
-  }
-
-  .navList {
-    padding-bottom: 0;
-  }
-
-  .navLink {
-    font-size: 0.9rem;
-  }
 }
 
 @media (max-width: 576px) {
   .header {
     padding: 0.8rem 0;
+  }
+
+  .container {
+    padding: 0 10px;
   }
 
   .siteName {
@@ -135,11 +281,12 @@
     font-size: 0.6rem;
   }
 
-  .navLink {
-    font-size: 0.85rem;
+  .mobileMenu {
+    width: 260px;
   }
+}
 
-  .container {
-    padding: 0 10px;
-  }
+/* スクロール無効化（メニュー開時） */
+body.menu-open {
+  overflow: hidden;
 }

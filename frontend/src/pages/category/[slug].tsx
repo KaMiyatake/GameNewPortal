@@ -1,103 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import React from 'react';
+import { GetServerSideProps } from 'next';
 import Layout from '../../components/Layout/Layout';
 import NewsSection from '../../components/NewsSection/NewsSection';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import SEOHead from '../../components/SEO/SEOHead';
 import { getNewsByCategory, getCategories, getPopularNews } from '../../utils/api';
+import { categories } from '../../data/categories/categories';
 import { NewsItem, Category } from '../../types';
 import styles from '../../styles/Category.module.css';
-import { GetStaticProps, GetStaticPaths } from 'next';
-import { categories } from '../../data/categories/categories';
-import SEOHead from '../../components/SEO/SEOHead';
-import { getCategorySlug } from '../../utils/category-utils';
 
-const CategoryPage: React.FC = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-  
-  const [news, setNews] = useState<NewsItem[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [popularNews, setPopularNews] = useState<NewsItem[]>([]);
-  const [currentCategory, setCurrentCategory] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
+interface CategoryPageProps {
+  newsItems: NewsItem[];
+  category: {
+    name: string;
+    slug: string;
+    description: string;
+    color?: string;
+  };
+  categories: Category[];
+  popularNews: NewsItem[];
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!slug) return;
-      
-      try {
-        setLoading(true);
-        const [newsData, categoriesData, popularNewsData] = await Promise.all([
-          getNewsByCategory(slug as string),
-          getCategories(),
-          getPopularNews(),
-        ]);
-        
-        const category = categoriesData.find(cat => cat.slug === slug);
-        if (category) {
-          setCurrentCategory(category.name);
-        }
-        
-        setNews(newsData);
-        setCategories(categoriesData);
-        setPopularNews(popularNewsData);
-      } catch (error) {
-        console.error('Error fetching category data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.spinner}></div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
+const CategoryPage: React.FC<CategoryPageProps> = ({
+  newsItems,
+  category,
+  categories,
+  popularNews
+}) => {
   return (
     <>
       <SEOHead
-        title={`${currentCategory}の記事一覧 | ゲーム賛否`}
-        description={`「${currentCategory}」カテゴリーのゲーム記事一覧です。賛否両論の視点で最新ゲーム情報をお届けします。`}
-        keywords={[currentCategory, 'ゲーム賛否', 'ゲームレビュー', '賛否両論', '最新ゲーム']}
-        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/category/${getCategorySlug(currentCategory)}`}
+        title={`${category.name} | ゲーム賛否`}
+        description={category.description}
+        keywords={[category.name, 'ゲーム賛否', 'ゲームレビュー', '賛否両論']}
+        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/category/${category.slug}`}
       />
       <Layout>
         <div className={styles.container}>
-          <div className={styles.breadcrumbs}>
-            <Link href="/" passHref>
-              <span>ホーム</span>
-            </Link>
-            <span className={styles.separator}>&gt;</span>
-            <span className={styles.current}>{currentCategory || 'カテゴリー'}</span>
+          <div className={styles.categoryHeader}>
+            <h1 
+              className={styles.categoryTitle}
+              style={{ '--category-color': category.color } as React.CSSProperties}
+            >
+              {category.name}
+            </h1>
+            <p className={styles.categoryDescription}>{category.description}</p>
           </div>
-          
-          <h1 className={styles.categoryTitle}>{currentCategory || 'すべての記事'}</h1>
-          
-          <div className={styles.categoryLayout}>
-            <div className={styles.mainContent}>
-              {news.length > 0 ? (
-                <NewsSection
-                  title={`${currentCategory || 'カテゴリー'}の記事一覧`}
-                  newsItems={news}
-                  layout="list"
-                />
-              ) : (
-                <div className={styles.noResults}>
-                  <h2>該当する記事が見つかりませんでした</h2>
-                  <p>「{currentCategory}」カテゴリーの記事は現在ありません。</p>
-                  <Link href="/" passHref>
-                    <span className={styles.backToHome}>ホームに戻る</span>
-                  </Link>
-                </div>
-              )}
+
+          <div className={styles.mainContent}>
+            <div className={styles.newsContent}>
+              <NewsSection 
+                title={`${category.name}の記事`}
+                newsItems={newsItems}
+                layout="list"
+              />
             </div>
             <div className={styles.sidebarContent}>
               <Sidebar popularNews={popularNews} categories={categories} />
@@ -109,50 +65,37 @@ const CategoryPage: React.FC = () => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = categories.map((category) => ({
-    params: { slug: category.slug },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<CategoryPageProps> = async ({ params }) => {
   try {
     const slug = params?.slug as string;
     
-    const [news, categoriesData, popularNews] = await Promise.all([
+    const categoryData = categories.find(cat => cat.slug === slug);
+    if (!categoryData) {
+      return { notFound: true };
+    }
+
+    const [newsItems, categoriesData, popularNewsData] = await Promise.all([
       getNewsByCategory(slug),
       getCategories(),
       getPopularNews(),
     ]);
 
-    const currentCategory = categoriesData.find(cat => cat.slug === slug);
-
-    // カテゴリーが見つからない場合は404を返す
-    if (!currentCategory) {
-      return {
-        notFound: true,
-      };
-    }
-
     return {
       props: {
-        news,
+        newsItems,
+        category: {
+          name: categoryData.name,
+          slug: categoryData.slug,
+          description: categoryData.description,
+          color: categoryData.color,
+        },
         categories: categoriesData,
-        popularNews,
-        currentCategory: currentCategory.name,
+        popularNews: popularNewsData,
       },
-      revalidate: 300, // 5分ごとに再生成
     };
-  } catch {
-    // エラー引数を削除して、直接notFoundを返す
-    return {
-      notFound: true,
-    };
+  } catch (error) {
+    console.error('Error fetching category page data:', error);
+    return { notFound: true };
   }
 };
 
