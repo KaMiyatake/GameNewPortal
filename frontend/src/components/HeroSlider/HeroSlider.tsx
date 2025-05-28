@@ -1,3 +1,5 @@
+// frontend/src/components/HeroSlider/index.tsx
+
 import React from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';

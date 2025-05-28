@@ -1,3 +1,5 @@
+// frontend/src/components/HeroSlider/index.tsx
+
 import React from 'react';
 import Link from 'next/link';
 import styles from './Footer.module.css';
@@ -10,7 +12,7 @@ const Footer: React.FC = () => {
           <div className={styles.footerSection}>
             <h3 className={styles.footerTitle}>ゲーム賛否</h3>
             <p className={styles.footerDescription}>
-              賛否両論で読む最新ゲームニュース＆レビューメディア
+              賛否両論で読む最新ゲームニュースとレビューサイトです。最新のゲーム情報を、様々な視点からお届けします。
             </p>
           </div>
           <div className={styles.footerSection}>

@@ -1,3 +1,5 @@
+/* frontend/src/components/HeroSlider/HeroSlider.module.css */
+
 .heroSlider {
   position: relative;
   width: 100vw; /* ビューポート幅いっぱい */

@@ -1,3 +1,5 @@
+// frontend/src/components/HeroSlider/index.tsx
+
 import dynamic from 'next/dynamic';
 
 const HeroSlider = dynamic(
