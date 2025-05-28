@@ -16,7 +16,7 @@ export const metroidPrime4Update: ArticleDetail = {
     </ul>
   `,
   imageUrl: 'https://placehold.co/800x450?text=Metroid+Prime+4&font=montserrat',
-  category: 'コンソール',
+  category: 'Nintendo Switch',
   tags: ['メトロイド', '任天堂', 'FPS', 'アクション'],
   publishedAt: '2025-04-25',
   slug: 'metroid-prime-4-update',

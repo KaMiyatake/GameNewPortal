@@ -34,7 +34,7 @@ export const pokemonLegends2Reveal: ArticleDetail = {
     <p>また、コレクターズエディションには「アートブック」「サウンドトラックCD」「特製スチールブック」が同梱されます。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=Pokemon+Legends+2&font=montserrat',
-  category: 'コンソール',
+  category: 'Nintendo Switch',
   tags: ['ポケモン', '任天堂', 'RPG', 'オープンワールド', 'Nintendo Switch 2'],
   publishedAt: '2025-04-15',
   slug: 'pokemon-legends-2-reveal',

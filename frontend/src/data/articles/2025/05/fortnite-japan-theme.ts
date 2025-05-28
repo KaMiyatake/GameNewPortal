@@ -28,7 +28,7 @@ export const fortniteJapanTheme: ArticleDetail = {
     <p>新シーズンは本日より開始。バトルパスは1,500 V-Bucksで購入可能です。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=Fortnite+Japan&font=montserrat',
-  category: 'eスポーツ',
+  category: 'マルチプラットフォーム',
   tags: ['フォートナイト', 'Epic Games', 'バトルロイヤル', '日本文化', 'アップデート'],
   publishedAt: '2025-05-20',
   slug: 'fortnite-chapter5-season3-japan',

@@ -22,7 +22,7 @@ export const streetFighter6Update: ArticleDetail = {
     <p>アップデートは2025年5月30日に無料配信予定です。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=SF6+Update&font=montserrat',
-  category: 'コンソール',
+  category: 'マルチプラットフォーム',
   tags: ['Street Fighter', 'CAPCOM', '格闘ゲーム', 'アップデート'],
   publishedAt: '2025-05-15',
   slug: 'street-fighter-6-update',

@@ -5,56 +5,63 @@ export const categories: CategoryData[] = [
     id: 1,
     name: 'PlayStation',
     slug: 'playstation',
-    description: 'PS5・PS4の最新ゲーム情報、独占タイトル、アップデート情報',
+    description: 'PS5・PS4独占、先行配信タイトル中心',
     color: '#0070f3'
   },
   {
     id: 2,
     name: 'Nintendo Switch',
     slug: 'switch',
-    description: 'Nintendo Switch・Switch Liteの最新ゲーム情報、任天堂タイトル',
+    description: 'Nintendo Switch独占、任天堂ファーストパーティ中心',
     color: '#e60012'
   },
   {
     id: 3,
     name: 'PC',
     slug: 'pc',
-    description: 'PCゲーム、Steam、Epic Games Store、MOD情報',
+    description: 'PC独占、Steam先行、MOD対応タイトル中心',
     color: '#333333'
   },
   {
     id: 4,
-    name: 'モバイル',
-    slug: 'mobile',
-    description: 'スマートフォン・タブレット向けゲーム、アプリゲーム情報',
-    color: '#00a86b'
+    name: 'マルチプラットフォーム',
+    slug: 'multi',
+    description: '複数機種対応の大型タイトル、クロスプレイ対応',
+    color: '#8e44ad'
   },
   {
     id: 5,
-    name: 'eスポーツ',
-    slug: 'esports',
-    description: '競技ゲーム、プロゲーマー、大会情報、ストリーミング',
-    color: '#ff6b35'
+    name: 'モバイル',
+    slug: 'mobile',
+    description: 'スマートフォン・タブレット専用ゲーム',
+    color: '#00a86b'
   },
   {
     id: 6,
     name: 'ゲーム賛否',
     slug: 'pros-cons',
-    description: '話題のゲームを賛否両論で深掘り分析、レビュー',
+    description: '話題のゲームを賛否両論で深掘り分析',
     color: '#6c5ce7'
   },
   {
     id: 7,
-    name: 'エンタメ',
-    slug: 'entertainment',
-    description: 'アニメ・マンガ、Vtuber、ゲーム関連エンタメ情報',
-    color: '#fd79a8'
+    name: 'eスポーツ',
+    slug: 'esports',
+    description: '競技ゲーム、プロシーン、大会情報',
+    color: '#ff6b35'
   },
   {
     id: 8,
+    name: 'エンタメ',
+    slug: 'entertainment',
+    description: 'アニメ・マンガ、Vtuber、ゲーム関連エンタメ',
+    color: '#fd79a8'
+  },
+  {
+    id: 9,
     name: '業界ニュース',
     slug: 'industry',
-    description: 'ゲーム業界動向、企業情報、市場分析、開発者情報',
+    description: 'ゲーム業界動向、企業情報、市場分析',
     color: '#00b894'
   }
 ];

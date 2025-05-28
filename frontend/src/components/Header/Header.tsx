@@ -176,13 +176,15 @@ const getCategoryIcon = (slug: string): string => {
     'playstation': '🎮',
     'switch': '🕹️',
     'pc': '💻',
+    'multi': '🌐', // マルチプラットフォーム追加
     'mobile': '📱',
-    'esports': '🏆',
     'pros-cons': '⚖️',
+    'esports': '🏆',
     'entertainment': '🎭',
     'industry': '📰'
   };
   return icons[slug] || '🎯';
 };
+
 
 export default Header;
