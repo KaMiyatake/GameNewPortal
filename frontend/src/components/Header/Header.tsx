@@ -7,14 +7,17 @@ const Header: React.FC = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <Link href="/" passHref>
-            <h1>Game News Portal (Test)</h1>
+          <Link href="/">
+            <div className={styles.logoContent}>
+              <h1 className={styles.siteName}>ゲーム賛否</h1>
+              <p className={styles.tagline}>賛否両論で読むゲームメディア</p>
+            </div>
           </Link>
         </div>
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
-              <Link href="/about" passHref>
+              <Link href="/about">
                 <span className={styles.navLink}>サイトについて</span>
               </Link>
             </li>

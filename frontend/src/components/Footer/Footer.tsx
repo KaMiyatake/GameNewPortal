@@ -8,9 +8,9 @@ const Footer: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.footerContent}>
           <div className={styles.footerSection}>
-            <h3 className={styles.footerTitle}>Game News Portal</h3>
+            <h3 className={styles.footerTitle}>ゲーム賛否</h3>
             <p className={styles.footerDescription}>
-              最新のゲーム情報やニュースをお届けするポータルサイトです。
+              賛否両論で読む最新ゲームニュース＆レビューメディア
             </p>
           </div>
           <div className={styles.footerSection}>
@@ -49,16 +49,6 @@ const Footer: React.FC = () => {
               <li>
                 <Link href="/contact" passHref>
                   <span>お問い合わせ</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" passHref>
-                  <span>プライバシーポリシー</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" passHref>
-                  <span>利用規約</span>
                 </Link>
               </li>
             </ul>

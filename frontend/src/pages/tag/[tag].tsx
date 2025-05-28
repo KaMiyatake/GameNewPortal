@@ -26,9 +26,9 @@ const TagPage: React.FC<TagPageProps> = ({
   return (
     <>
       <SEOHead
-        title={`${currentTag}の記事一覧 | Game News Portal`}
-        description={`「${currentTag}」に関連するゲーム記事の一覧です。最新のゲーム情報をお届けします。`}
-        keywords={[currentTag, 'ゲーム', 'ニュース', 'ゲーム情報']}
+        title={`${currentTag}の記事一覧 | ゲーム賛否`}
+        description={`「${currentTag}」に関連するゲーム記事の一覧です。賛否両論の視点で最新ゲーム情報をお届けします。`}
+        keywords={[currentTag, 'ゲーム賛否', 'ゲームレビュー', '賛否両論', '最新ゲーム']}
         canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/tag/${encodeURIComponent(currentTag)}`}
       />
       <Layout>

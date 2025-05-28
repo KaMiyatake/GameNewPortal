@@ -1,4 +1,4 @@
-# Game News Portal - Robots.txt
+# ゲーム賛否 - Robots.txt
 
 User-agent: *
 Allow: /

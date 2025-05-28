@@ -9,6 +9,8 @@ import { NewsItem, Category } from '../../types';
 import styles from '../../styles/Category.module.css';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { categories } from '../../data/categories/categories';
+import SEOHead from '../../components/SEO/SEOHead';
+import { getCategorySlug } from '../../utils/category-utils';
 
 const CategoryPage: React.FC = () => {
   const router = useRouter();
@@ -60,42 +62,50 @@ const CategoryPage: React.FC = () => {
   }
 
   return (
-    <Layout>
-      <div className={styles.container}>
-        <div className={styles.breadcrumbs}>
-          <Link href="/" passHref>
-            <span>ホーム</span>
-          </Link>
-          <span className={styles.separator}>&gt;</span>
-          <span className={styles.current}>{currentCategory || 'カテゴリー'}</span>
-        </div>
-        
-        <h1 className={styles.categoryTitle}>{currentCategory || 'すべての記事'}</h1>
-        
-        <div className={styles.categoryLayout}>
-          <div className={styles.mainContent}>
-            {news.length > 0 ? (
-              <NewsSection
-                title={`${currentCategory || 'カテゴリー'}の記事一覧`}
-                newsItems={news}
-                layout="list"
-              />
-            ) : (
-              <div className={styles.noResults}>
-                <h2>該当する記事が見つかりませんでした</h2>
-                <p>「{currentCategory}」カテゴリーの記事は現在ありません。</p>
-                <Link href="/" passHref>
-                  <span className={styles.backToHome}>ホームに戻る</span>
-                </Link>
-              </div>
-            )}
+    <>
+      <SEOHead
+        title={`${currentCategory}の記事一覧 | ゲーム賛否`}
+        description={`「${currentCategory}」カテゴリーのゲーム記事一覧です。賛否両論の視点で最新ゲーム情報をお届けします。`}
+        keywords={[currentCategory, 'ゲーム賛否', 'ゲームレビュー', '賛否両論', '最新ゲーム']}
+        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/category/${getCategorySlug(currentCategory)}`}
+      />
+      <Layout>
+        <div className={styles.container}>
+          <div className={styles.breadcrumbs}>
+            <Link href="/" passHref>
+              <span>ホーム</span>
+            </Link>
+            <span className={styles.separator}>&gt;</span>
+            <span className={styles.current}>{currentCategory || 'カテゴリー'}</span>
           </div>
-          <div className={styles.sidebarContent}>
-            <Sidebar popularNews={popularNews} categories={categories} />
+          
+          <h1 className={styles.categoryTitle}>{currentCategory || 'すべての記事'}</h1>
+          
+          <div className={styles.categoryLayout}>
+            <div className={styles.mainContent}>
+              {news.length > 0 ? (
+                <NewsSection
+                  title={`${currentCategory || 'カテゴリー'}の記事一覧`}
+                  newsItems={news}
+                  layout="list"
+                />
+              ) : (
+                <div className={styles.noResults}>
+                  <h2>該当する記事が見つかりませんでした</h2>
+                  <p>「{currentCategory}」カテゴリーの記事は現在ありません。</p>
+                  <Link href="/" passHref>
+                    <span className={styles.backToHome}>ホームに戻る</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+            <div className={styles.sidebarContent}>
+              <Sidebar popularNews={popularNews} categories={categories} />
+            </div>
           </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 };
 

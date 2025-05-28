@@ -25,9 +25,9 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   return (
     <>
       <SEOHead
-        title={`${newsDetail.title} | Game News Portal`}
+        title={`${newsDetail.title} | ゲーム賛否`}
         description={newsDetail.summary}
-        keywords={newsDetail.tags}
+        keywords={[...newsDetail.tags, 'ゲーム賛否', 'ゲームレビュー', '賛否両論']}
         ogImage={newsDetail.imageUrl}
         ogType="article"
         publishedTime={newsDetail.date}

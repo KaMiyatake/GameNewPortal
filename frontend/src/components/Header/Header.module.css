@@ -2,7 +2,7 @@
   background-color: var(--primary-color);
   color: var(--light-text);
   padding: 1rem 0;
-  position: static; /* sticky から static に変更して固定解除 */
+  position: static;
   z-index: 100;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -16,19 +16,37 @@
   padding: 0 15px;
 }
 
-.logo h1 {
+.logo {
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.logoContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.siteName {
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
   background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
+  line-height: 1.2;
 }
 
-.logo h1:hover {
-  opacity: 0.8;
+.tagline {
+  font-size: 0.7rem;
+  margin: -2px 0 0 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 .nav {
@@ -38,7 +56,7 @@
 .navList {
   display: flex;
   list-style: none;
-  gap: 1.5rem; /* 1つのリンクのみなのでギャップは維持 */
+  gap: 1.5rem;
 }
 
 .navItem {
@@ -76,21 +94,25 @@
 
 @media (max-width: 768px) {
   .container {
-    flex-direction: row; /* 横並びを維持 */
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
 
-  .logo h1 {
+  .siteName {
     font-size: 1.5rem;
   }
 
+  .tagline {
+    font-size: 0.65rem;
+  }
+
   .nav {
-    margin-top: 0; /* マージンを削除 */
+    margin-top: 0;
   }
 
   .navList {
-    padding-bottom: 0; /* パディングを削除 */
+    padding-bottom: 0;
   }
 
   .navLink {
@@ -103,8 +125,12 @@
     padding: 0.8rem 0;
   }
 
-  .logo h1 {
+  .siteName {
     font-size: 1.3rem;
+  }
+
+  .tagline {
+    font-size: 0.6rem;
   }
 
   .navLink {
