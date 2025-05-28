@@ -71,6 +71,7 @@ const Header: React.FC = () => {
         </div>
 
         {/* デスクトップナビゲーション */}
+        {!isMobile && (
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             {categories.slice(0, 6).map((category) => (
@@ -108,8 +109,10 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
+        )}
 
         {/* モバイルハンバーガーメニューボタン */}
+        {isMobile && (
         <button 
           className={`${styles.mobileMenuButton} ${isMenuOpen ? styles.active : ''}`}
           onClick={toggleMenu}
@@ -120,6 +123,7 @@ const Header: React.FC = () => {
           <span className={styles.hamburgerLine}></span>
           <span className={styles.hamburgerLine}></span>
         </button>
+        )}
       </div>
 
       {/* モバイルメニューオーバーレイ */}
