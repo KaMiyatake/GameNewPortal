@@ -27,7 +27,7 @@ export const categories: CategoryData[] = [
     name: 'モバイル',
     slug: 'mobile',
     description: 'スマートフォン・タブレット向けゲーム、アプリゲーム情報',
-    color: '#00a86b'
+    color: '#48d1cc'  // ミディアムターコイズ
   },
   {
     id: 5,
