@@ -1,96 +1,12 @@
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.sidebarTitle {
-  font-size: 1.3rem;
-  margin-bottom: 1.2rem;
-  color: var(--primary-color);
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.sidebarTitle::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background-color: var(--accent-color);
-}
-
-/* 人気記事 */
-.popularNews {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: var(--card-shadow);
-}
-
-.popularList {
-  display: flex;
-  flex-direction: column;
-}
-
-.popularItem {
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.popularItem:last-child {
-  border-bottom: none;
-}
-
-/* popularLink のホバー効果を調整 */
-.popularLink {
-  display: flex;
-  gap: 0.8rem;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  text-decoration: none;
-  color: inherit;
-}
-
-.popularRank {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2rem;
-  height: 2rem;
-  background-color: var(--secondary-color);
-  color: white;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.popularContent {
-  flex: 1;
-}
-
-.popularTitle {
-  font-size: 0.95rem;
-  margin: 0 0 0.5rem;
-  line-height: 1.4;
-  color: var(--text-color);
-  transition: color 0.3s ease;
-}
-
-.popularLink:hover {
-  transform: translateX(3px);
-}
-
-.popularTitle {
-  color: var(--secondary-color);
-}
+/* 既存のスタイルを維持し、以下の部分を修正 */
 
 .popularInfo {
   display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
+  align-items: center;
+  justify-content: space-between; /* カテゴリを左、日付を右に配置 */
+  gap: 0.5rem;
+  flex-wrap: nowrap; /* 改行を防ぐ */
+  width: 100%; /* 幅を100%に設定 */
 }
 
 .popularCategory {
@@ -100,113 +16,138 @@
   border-radius: 3px;
   font-size: 0.7rem;
   font-weight: 500;
-  cursor: pointer; /* クリック可能を示す */
+  cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
-  /* リンクスタイルを削除 */
   text-decoration: none;
+  white-space: nowrap; /* テキストの改行を防ぐ */
+  flex-shrink: 0; /* カテゴリタグが縮まないように */
+}
+
+.popularCategory:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.multiCategoryIndicator {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  font-size: 0.6rem;
+  margin-left: 0.2rem;
 }
 
 .popularDate {
+  font-size: 0.7rem;
   color: #888;
+  white-space: nowrap;
+  flex-shrink: 0; /* 日付が縮まないように */
+  margin-left: auto; /* 右端に寄せる */
 }
 
-/* カテゴリーリスト */
-.categoryList {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: var(--card-shadow);
-}
-
-.categoryItems {
-  list-style: none;
-}
-
-.categoryItem {
-  margin-bottom: 0.8rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.categoryItem:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.categoryLink {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--text-color);
-  transition: color 0.3s ease;
-}
-
-.categoryLink:hover {
-  color: var(--secondary-color);
-}
-
-.categoryLink::after {
-  content: '→';
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.categoryLink:hover::after {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* 広告バナー */
-.adBanner {
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-align: center;
-  box-shadow: var(--card-shadow);
-}
-
-.adContent {
-  border: 2px dashed #ccc;
-  padding: 2rem;
-  border-radius: 4px;
-}
-
-.adContent p {
-  color: #999;
-  font-size: 1.2rem;
-}
-
+/* レスポンシブ対応 */
 @media (max-width: 992px) {
   .sidebar {
+    position: static;
     margin-top: 2rem;
   }
 }
 
-.newsCount {
-  font-size: 0.9rem;
-  color: #666;
-  font-weight: 400;
-  margin-left: 0.5rem;
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 1rem;
+  }
+  
+  .popularRank {
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+  }
+  
+  .popularTitle {
+    font-size: 0.85rem;
+  }
+  
+  .popularCategory {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+  }
+  
+  .multiCategoryIndicator {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.2rem;
+  }
+  
+  .popularDate {
+    font-size: 0.65rem;
+  }
+  
+  .popularInfo {
+    justify-content: space-between; /* 左右配置を維持 */
+    gap: 0.4rem; /* ギャップを少し狭める */
+  }
 }
 
-.noPopularNews {
-  text-align: center;
-  padding: 2rem 1rem;
-  color: #999;
-  font-size: 0.9rem;
+@media (max-width: 576px) {
+  .popularInfo {
+    justify-content: space-between; /* 左右配置を維持 */
+    flex-wrap: nowrap; /* 最小サイズでも改行しない */
+    gap: 0.3rem; /* ギャップをさらに狭める */
+  }
+  
+  .popularCategory {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.25rem;
+    min-width: auto; /* 最小幅制限を解除 */
+  }
+  
+  .multiCategoryIndicator {
+    font-size: 0.5rem;
+    padding: 0.05rem 0.15rem;
+  }
+  
+  .popularDate {
+    font-size: 0.6rem;
+    margin-left: auto; /* 右端寄せを維持 */
+  }
+  
+  .sidebarTitle {
+    font-size: 1.1rem;
+  }
+  
+  .popularTitle {
+    font-size: 0.8rem;
+    margin-bottom: 0.4rem;
+  }
 }
 
-.noPopularNews p {
-  margin: 0;
+/* 極小画面（360px以下）での調整 */
+@media (max-width: 360px) {
+  .popularInfo {
+    justify-content: space-between; /* 左右配置を維持 */
+    gap: 0.2rem;
+  }
+  
+  .popularCategory {
+    font-size: 0.55rem;
+    padding: 0.08rem 0.2rem;
+  }
+  
+  .popularDate {
+    font-size: 0.55rem;
+    margin-left: auto; /* 右端寄せを維持 */
+  }
+  
+  .multiCategoryIndicator {
+    font-size: 0.45rem;
+    padding: 0.03rem 0.1rem;
+  }
 }
 
-/* 既存のスタイルに以下を追加・修正 */
-
+/* その他の既存スタイルは維持 */
 .sidebar {
   background: white;
   border-radius: 8px;
@@ -244,7 +185,6 @@
   font-weight: normal;
 }
 
-/* 人気記事スタイル */
 .popularNews {
   margin-bottom: 2rem;
 }
@@ -270,6 +210,8 @@
   gap: 0.8rem;
   cursor: pointer;
   transition: transform 0.2s ease;
+  text-decoration: none;
+  color: inherit;
 }
 
 .popularLink:hover {
@@ -312,49 +254,6 @@
   color: var(--secondary-color);
 }
 
-.popularInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.popularCategory {
-  background-color: var(--category-color, var(--secondary-color));
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-.popularCategory:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-  /* ホバー時の視覚的フィードバック */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.multiCategoryIndicator {
-  background-color: rgba(255, 255, 255, 0.3);
-  padding: 0.1rem 0.3rem;
-  border-radius: 2px;
-  font-size: 0.6rem;
-  margin-left: 0.2rem;
-}
-
-.popularDate {
-  font-size: 0.7rem;
-  color: #888;
-  white-space: nowrap;
-}
-
 .noPopularNews {
   text-align: center;
   color: #666;
@@ -362,7 +261,6 @@
   padding: 1rem 0;
 }
 
-/* カテゴリーリストスタイル */
 .categoryList {
   margin-bottom: 2rem;
 }
@@ -397,7 +295,6 @@
   transform: translateX(5px);
 }
 
-/* 広告バナー */
 .adBanner {
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   border: 2px dashed #dee2e6;
@@ -411,54 +308,4 @@
   color: #6c757d;
   font-size: 0.9rem;
   margin: 0;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 992px) {
-  .sidebar {
-    position: static;
-    margin-top: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    padding: 1rem;
-  }
-  
-  .popularRank {
-    width: 20px;
-    height: 20px;
-    font-size: 0.7rem;
-  }
-  
-  .popularTitle {
-    font-size: 0.85rem;
-  }
-  
-  .popularCategory {
-    font-size: 0.65rem;
-    padding: 0.15rem 0.3rem;
-  }
-  
-  .multiCategoryIndicator {
-    font-size: 0.55rem;
-    padding: 0.1rem 0.2rem;
-  }
-  
-  .popularDate {
-    font-size: 0.65rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .popularInfo {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-  }
-  
-  .sidebarTitle {
-    font-size: 1.1rem;
-  }
 }

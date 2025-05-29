@@ -47,6 +47,13 @@ const PopularNews: React.FC<PopularNewsProps> = ({ popularNews }) => {
                             className={styles.popularCategory}
                             style={{ '--category-color': getCategoryColor(primaryCategory) } as React.CSSProperties}
                             onClick={(e) => handleCategoryClick(e, getCategoryUrl(primaryCategory))}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                handleCategoryClick(e as unknown as React.MouseEvent, getCategoryUrl(primaryCategory));
+                              }
+                            }}
                           >
                             {primaryCategory}
                             {/* 複数カテゴリがある場合のインジケーター */}
