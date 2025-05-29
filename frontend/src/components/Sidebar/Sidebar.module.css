@@ -44,10 +44,14 @@
   border-bottom: none;
 }
 
+/* popularLink のホバー効果を調整 */
 .popularLink {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   cursor: pointer;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  color: inherit;
 }
 
 .popularRank {
@@ -75,7 +79,11 @@
   transition: color 0.3s ease;
 }
 
-.popularLink:hover .popularTitle {
+.popularLink:hover {
+  transform: translateX(3px);
+}
+
+.popularTitle {
   color: var(--secondary-color);
 }
 
@@ -86,7 +94,19 @@
 }
 
 .popularCategory {
-  color: var(--secondary-color);
+  background-color: var(--category-color, var(--secondary-color));
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer; /* クリック可能を示す */
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  /* リンクスタイルを削除 */
+  text-decoration: none;
 }
 
 .popularDate {
@@ -183,4 +203,262 @@
 
 .noPopularNews p {
   margin: 0;
+}
+
+/* 既存のスタイルに以下を追加・修正 */
+
+.sidebar {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.sidebarTitle {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebarTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+}
+
+.newsCount {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: normal;
+}
+
+/* 人気記事スタイル */
+.popularNews {
+  margin-bottom: 2rem;
+}
+
+.popularList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.popularItem {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.popularItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.popularLink {
+  display: flex;
+  gap: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.popularLink:hover {
+  transform: translateX(3px);
+}
+
+.popularRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.popularContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.popularTitle {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.popularLink:hover .popularTitle {
+  color: var(--secondary-color);
+}
+
+.popularInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.popularCategory {
+  background-color: var(--category-color, var(--secondary-color));
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.popularCategory:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+  /* ホバー時の視覚的フィードバック */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.multiCategoryIndicator {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  font-size: 0.6rem;
+  margin-left: 0.2rem;
+}
+
+.popularDate {
+  font-size: 0.7rem;
+  color: #888;
+  white-space: nowrap;
+}
+
+.noPopularNews {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+/* カテゴリーリストスタイル */
+.categoryList {
+  margin-bottom: 2rem;
+}
+
+.categoryItems {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.categoryItem {
+  margin-bottom: 0.5rem;
+}
+
+.categoryItem:last-child {
+  margin-bottom: 0;
+}
+
+.categoryLink {
+  display: block;
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  padding-left: 0.8rem;
+}
+
+.categoryLink:hover {
+  color: var(--secondary-color);
+  border-left-color: var(--accent-color);
+  transform: translateX(5px);
+}
+
+/* 広告バナー */
+.adBanner {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  padding: 2rem 1rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.adContent p {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 992px) {
+  .sidebar {
+    position: static;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 1rem;
+  }
+  
+  .popularRank {
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+  }
+  
+  .popularTitle {
+    font-size: 0.85rem;
+  }
+  
+  .popularCategory {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+  }
+  
+  .multiCategoryIndicator {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.2rem;
+  }
+  
+  .popularDate {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .popularInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  
+  .sidebarTitle {
+    font-size: 1.1rem;
+  }
 }
