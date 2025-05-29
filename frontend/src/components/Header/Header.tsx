@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { categories } from '../../data/categories/categories';
 import styles from './Header.module.css';
 
@@ -64,16 +65,29 @@ const Header: React.FC = () => {
         <div className={styles.logo}>
           <Link href="/" onClick={closeMenu}>
             <div className={styles.logoContent}>
-              <h1 className={styles.siteName}>ゲーム賛否</h1>
-              <p className={styles.tagline}>賛否両論で読むゲームメディア</p>
+              {/* ロゴ画像を追加 */}
+              <div className={styles.logoImageContainer}>
+                <Image
+                  src="/GameSanpiLogo.png"
+                  alt="ゲーム賛否 ロゴ"
+                  width={200}
+                  height={60}
+                  priority
+                  className={styles.logoImage}
+                />
+              </div>
+              {/* フォールバック用のテキストロゴ（必要に応じてコメントアウト） */}
+              <div className={styles.textLogo}>
+                <h1 className={styles.siteName}>ゲーム賛否</h1>
+                <p className={styles.tagline}>賛否両論で読むゲームメディア</p>
+              </div>
             </div>
           </Link>
         </div>
         
-        {/* デスクトップナビゲーション - ロゴの右側に配置 */}
+        {/* デスクトップナビゲーション */}
         <nav className={styles.nav}>
           <ul className={styles.navList}>
-            {/* 最初の6つを表示（主要プラットフォーム） */}
             {categories.slice(0, 6).map((category) => (
               <li key={category.id} className={styles.navItem}>
                 <Link href={`/category/${category.slug}`}>
@@ -86,7 +100,6 @@ const Header: React.FC = () => {
                 </Link>
               </li>
             ))}
-            {/* 残りは「その他」ドロップダウンに */}
             {categories.length > 6 && (
               <li className={styles.navItem}>
                 <div className={styles.dropdown}>
@@ -113,16 +126,16 @@ const Header: React.FC = () => {
 
         {/* モバイルハンバーガーメニューボタン */}
         {isMobile && (
-        <button 
-          className={`${styles.mobileMenuButton} ${isMenuOpen ? styles.active : ''}`}
-          onClick={toggleMenu}
-          aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
-          aria-expanded={isMenuOpen}
-        >
-          <span className={styles.hamburgerLine}></span>
-          <span className={styles.hamburgerLine}></span>
-          <span className={styles.hamburgerLine}></span>
-        </button>
+          <button 
+            className={`${styles.mobileMenuButton} ${isMenuOpen ? styles.active : ''}`}
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
+            aria-expanded={isMenuOpen}
+          >
+            <span className={styles.hamburgerLine}></span>
+            <span className={styles.hamburgerLine}></span>
+            <span className={styles.hamburgerLine}></span>
+          </button>
         )}
       </div>
 
@@ -175,16 +188,15 @@ const getCategoryIcon = (slug: string): string => {
   const icons: { [key: string]: string } = {
     'playstation': '🎮',
     'switch': '🕹️',
-    'xbox': '🎯', // Xbox用アイコン
     'pc': '💻',
-    'vr': '🥽', // VR用アイコン
     'mobile': '📱',
+    'xbox': '🎯',
     'pros-cons': '⚖️',
+    'vr': '🥽',
     'entertainment': '🎭',
     'industry': '📰'
   };
   return icons[slug] || '🎯';
 };
-
 
 export default Header;

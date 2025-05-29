@@ -30,6 +30,33 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+}
+
+/* ロゴ画像コンテナ */
+.logoImageContainer {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.logoImageContainer:hover {
+  transform: scale(1.02);
+}
+
+.logoImage {
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* テキストロゴ（フォールバックまたは併用） */
+.textLogo {
+  display: none; /* 画像ロゴ使用時は非表示 */
+}
+
+/* 画像ロゴが読み込めない場合のフォールバック */
+.logoImage[data-error="true"] + .textLogo {
+  display: block;
 }
 
 .siteName {
@@ -50,7 +77,53 @@
   letter-spacing: 0.5px;
 }
 
-/* デスクトップナビゲーション */
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logoImageContainer {
+    /* モバイル時のロゴサイズ調整 */
+    transform: scale(0.8);
+    transform-origin: left center;
+  }
+
+  .siteName {
+    font-size: 1.5rem;
+  }
+
+  .tagline {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .header {
+    padding: 0.8rem 0;
+  }
+
+  .logoImageContainer {
+    transform: scale(0.7);
+    transform-origin: left center;
+  }
+
+  .siteName {
+    font-size: 1.3rem;
+  }
+
+  .tagline {
+    font-size: 0.6rem;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+}
+
+/* 既存のナビゲーション、ハンバーガーメニューのスタイルは維持 */
 .nav {
   display: flex;
 }
@@ -86,19 +159,18 @@
   transform: translateY(-1px);
 }
 
-/* ドロップダウンメニュー - 修正版 */
+/* ドロップダウンメニュー */
 .dropdown {
   position: relative;
 }
 
-/* ドロップダウンメニューのトリガーエリアを拡張 */
 .dropdown::before {
   content: '';
   position: absolute;
   top: 100%;
   left: -10px;
   right: -10px;
-  height: 10px; /* ホバー可能な隙間を作る */
+  height: 10px;
   background: transparent;
   z-index: 999;
 }
@@ -106,21 +178,19 @@
 .dropdownContent {
   display: none;
   position: absolute;
-  top: calc(100% + 8px); /* 間隔を少し減らす */
-  left: -10px; /* 左側を少し拡張 */
+  top: calc(100% + 8px);
+  left: -10px;
   background: white;
   border-radius: 8px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   min-width: 180px;
   z-index: 1000;
   padding: 0.5rem 0;
-  /* アニメーション追加 */
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* ドロップダウンを表示 */
 .dropdown:hover .dropdownContent,
 .dropdown:focus-within .dropdownContent {
   display: block;
@@ -128,7 +198,6 @@
   transform: translateY(0);
 }
 
-/* ドロップダウンのホバー維持 */
 .dropdownContent:hover {
   display: block;
   opacity: 1;
@@ -152,7 +221,6 @@
   transform: translateX(5px);
 }
 
-/* ドロップダウンの矢印追加 */
 .dropdown .navLink::after {
   content: '▼';
   font-size: 0.7rem;
@@ -193,7 +261,6 @@
   transform-origin: center;
 }
 
-/* ハンバーガーメニューのアニメーション */
 .mobileMenuButton.active .hamburgerLine:nth-child(1) {
   transform: rotate(45deg) translate(9px, 9px);
 }
@@ -278,7 +345,6 @@
   text-align: center;
 }
 
-/* レスポンシブ対応 */
 @media (max-width: 768px) {
   .nav {
     display: none;
@@ -295,39 +361,14 @@
   .mobileMenu {
     display: block;
   }
-
-  .siteName {
-    font-size: 1.5rem;
-  }
-
-  .tagline {
-    font-size: 0.65rem;
-  }
 }
 
 @media (max-width: 576px) {
-  .header {
-    padding: 0.8rem 0;
-  }
-
-  .container {
-    padding: 0 10px;
-  }
-
-  .siteName {
-    font-size: 1.3rem;
-  }
-
-  .tagline {
-    font-size: 0.6rem;
-  }
-
   .mobileMenu {
     width: 260px;
   }
 }
 
-/* スクロール無効化（メニュー開時） */
 body.menu-open {
   overflow: hidden;
 }
