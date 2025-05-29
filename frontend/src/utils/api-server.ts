@@ -6,6 +6,7 @@ import {
   getArticleBySlug,
   getArticlesByTag,
   getRelatedArticles,
+  getArticlesByCategory,  // 追加
 } from '../data/utils/data-helpers';
 import { categories } from '../data/categories/categories';
 import { ArticleDetail } from '../data/utils/types';
@@ -72,8 +73,6 @@ export const getNewsDetailSync = (slug: string) => {
 
 // カテゴリ別記事取得（同期版）
 export const getNewsByCategorySync = (categorySlug: string) => {
-  // data-helpersのgetArticlesByCategoryを使用
-  const { getArticlesByCategory } = require('../data/utils/data-helpers');
   const articles = getArticlesByCategory(categorySlug);
   return articles.map(convertToNewsItem);
 };
