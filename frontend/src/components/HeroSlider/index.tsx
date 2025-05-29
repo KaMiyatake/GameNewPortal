@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
+import { getCategoryColor } from '../../utils/category-utils';
 import { NewsItem } from '../../types';
 import styles from './HeroSlider.module.css';
 
