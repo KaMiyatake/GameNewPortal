@@ -18,7 +18,7 @@ export const articleTemplate: ArticleDetail = {
     </ul>
   `,
   imageUrl: 'https://placehold.co/800x450?text=New+Article&font=montserrat',
-  category: '', // 'コンソール', 'PC', 'モバイル', 'インディー', 'マルチプラットフォーム'
+  categories: [], // ['コンソール', 'PC', 'モバイル', 'インディー', 'マルチプラットフォーム']
   tags: [],
   publishedAt: '', // YYYY-MM-DD形式
   slug: '',
