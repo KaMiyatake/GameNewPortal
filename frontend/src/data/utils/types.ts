@@ -1,20 +1,19 @@
-// 既存の型定義に color プロパティを追加
 export interface CategoryData {
   id: number;
   name: string;
   slug: string;
   description: string;
-  color?: string; // 新規追加
+  color?: string;
 }
 
-// その他の既存型定義はそのまま維持
+// ArticleDetailを複数カテゴリ対応に変更
 export interface ArticleDetail {
   id: number;
   title: string;
   summary: string;
   content: string;
   imageUrl: string;
-  category: string;
+  categories: string[]; // string から string[] に変更
   tags: string[];
   publishedAt: string;
   slug: string;

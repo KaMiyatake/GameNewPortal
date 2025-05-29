@@ -1,10 +1,8 @@
-// frontend/src/components/HeroSlider/index.tsx
-
 import React from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
-import { getCategoryUrl } from '../../utils/category-utils';
+import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
 import styles from './HeroSlider.module.css';
 import { NewsItem } from '../../types';
 
@@ -64,9 +62,24 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
                       <img src={news.imageUrl} alt={news.title} />
                       <div className={styles.imageOverlay}></div>
                       <div className={styles.newsInfo}>
-                        <Link href={getCategoryUrl(news.category)} passHref>
-                          <span className={styles.newsCategory}>{news.category}</span>
-                        </Link>
+                        {/* 複数カテゴリ表示 */}
+                        <div className={styles.categoriesContainer}>
+                          {news.categories.slice(0, 2).map((category, index) => (
+                            <Link key={index} href={getCategoryUrl(category)} passHref>
+                              <span 
+                                className={styles.newsCategory}
+                                style={{ '--category-color': getCategoryColor(category) } as React.CSSProperties}
+                              >
+                                {category}
+                              </span>
+                            </Link>
+                          ))}
+                          {news.categories.length > 2 && (
+                            <span className={styles.moreCategoriesIndicator}>
+                              +{news.categories.length - 2}
+                            </span>
+                          )}
+                        </div>
                         <h3 className={styles.newsTitle}>{news.title}</h3>
                       </div>
                     </div>

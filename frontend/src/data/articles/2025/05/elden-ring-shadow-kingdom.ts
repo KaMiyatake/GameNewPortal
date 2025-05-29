@@ -22,7 +22,7 @@ export const eldenRingShadowKingdom: ArticleDetail = {
     <p>価格は4,980円（税込）で、既存のセーブデータからシームレスにアクセス可能。追加エンディングも用意されているとのことです。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=Elden+Ring+DLC&font=montserrat',
-  category: 'マルチプラットフォーム',
+  categories: ['PlayStation', 'PC'],
   tags: ['Elden Ring', 'フロムソフトウェア', 'DLC', 'アクションRPG', 'ダークファンタジー'],
   publishedAt: '2025-05-23',
   slug: 'elden-ring-shadow-kingdom',

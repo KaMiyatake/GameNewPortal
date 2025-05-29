@@ -17,7 +17,7 @@ export const zeldaTOTKNewDLC: ArticleDetail = {
   `,
   // メイン画像
   imageUrl: getArticleImagePath('2025', '05', 'zelda-totk-new-dlc'),
-  category: 'Nintendo Switch',
+  categories: ['Switch'],
   tags: ['ゼルダの伝説', '任天堂', 'DLC', 'Switch', 'アクション'],
   publishedAt: '2025-05-23',
   slug: 'zelda-totk-new-dlc',

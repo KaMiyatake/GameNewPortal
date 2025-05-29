@@ -31,7 +31,7 @@ export const personaClassicCollection: ArticleDetail = {
     <p>発売日は2025年8月予定。価格は通常版が7,980円（税込）、デジタルデラックス版が9,980円（税込）となっています。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=Persona+Classic+Collection&font=montserrat',
-  category: 'マルチプラットフォーム',
+  categories: ['PlayStation', 'PC'],
   tags: ['ペルソナ', 'アトラス', 'リマスター', 'RPG', 'コレクション'],
   publishedAt: '2025-04-22',
   slug: 'persona-classic-collection',

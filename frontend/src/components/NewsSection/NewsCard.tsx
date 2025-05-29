@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import ArticleImage from '../Image/ArticleImage';
-import { getCategoryUrl } from '../../utils/category-utils';
+import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
 import styles from './News.module.css';
 import { NewsItem } from '../../types';
 
@@ -11,6 +11,25 @@ interface NewsCardProps {
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
+  // カテゴリーコンポーネント
+  const CategoryTags: React.FC<{ categories: string[]; size?: 'small' | 'normal' }> = ({ 
+    categories, 
+    size = 'normal' 
+  }) => (
+    <div className={size === 'small' ? styles.categoriesSmall : styles.categories}>
+      {categories.map((category, index) => (
+        <Link key={index} href={getCategoryUrl(category)}>
+          <span 
+            className={size === 'small' ? styles.categoryTagSmall : styles.categoryTag}
+            style={{ '--category-color': getCategoryColor(category) } as React.CSSProperties}
+          >
+            {category}
+          </span>
+        </Link>
+      ))}
+    </div>
+  );
+
   if (layout === 'list') {
     return (
       <article className={styles.newsCardList}>
@@ -25,12 +44,21 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
                 objectPosition="center"
               />
             </Link>
+            {/* 画像上に最初のカテゴリのみ表示 */}
+            {news.categories.length > 0 && (
+              <Link href={getCategoryUrl(news.categories[0])}>
+                <span 
+                  className={styles.categoryOverlay}
+                  style={{ '--category-color': getCategoryColor(news.categories[0]) } as React.CSSProperties}
+                >
+                  {news.categories[0]}
+                </span>
+              </Link>
+            )}
           </div>
           <div className={styles.contentContainerList}>
             <div className={styles.newsHeaderList}>
-              <Link href={getCategoryUrl(news.category)} className={styles.categoryLink}>
-                <span className={styles.categoryList}>{news.category}</span>
-              </Link>
+              <CategoryTags categories={news.categories} size="small" />
               <time className={styles.newsDateList}>{news.date}</time>
             </div>
             <Link href={`/news/${news.slug}`} className={styles.titleLink}>
@@ -55,17 +83,22 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
             objectPosition="center"
           />
         </Link>
-        {/* 画像上のカテゴリボタン */}
-        <Link href={getCategoryUrl(news.category)}>
-          <span className={styles.category}>{news.category}</span>
-        </Link>
+        {/* 画像上に最初のカテゴリのみ表示 */}
+        {news.categories.length > 0 && (
+          <Link href={getCategoryUrl(news.categories[0])}>
+            <span 
+              className={styles.category}
+              style={{ '--category-color': getCategoryColor(news.categories[0]) } as React.CSSProperties}
+            >
+              {news.categories[0]}
+            </span>
+          </Link>
+        )}
       </div>
       <div className={styles.contentContainer}>
-        {/* カテゴリと日付のヘッダー */}
+        {/* 複数カテゴリと日付のヘッダー */}
         <div className={styles.newsHeader}>
-          <Link href={getCategoryUrl(news.category)}>
-            <span className={styles.newsHeaderCategory}>{news.category}</span>
-          </Link>
+          <CategoryTags categories={news.categories} size="small" />
           <span className={styles.newsHeaderDate}>{news.date}</span>
         </div>
         

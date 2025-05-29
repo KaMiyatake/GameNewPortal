@@ -18,7 +18,7 @@ const convertToNewsItem = (article: ArticleDetail): NewsItem => ({
   title: article.title,
   summary: article.summary,
   imageUrl: article.imageUrl,
-  category: article.category,
+  categories: article.categories, // 複数カテゴリ対応
   date: article.publishedAt,
   slug: article.slug,
 });

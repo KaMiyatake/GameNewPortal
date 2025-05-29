@@ -33,7 +33,7 @@ export const diabloIVExpansion: ArticleDetail = {
     <p>また、拡張パック発売に先駆けて、基本システムの大規模アップデートが実施される予定です。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=Diablo+IV+Expansion&font=montserrat',
-  category: 'PC',
+  categories: ['PlayStation', 'PC'],
   tags: ['ディアブロ', 'Blizzard', 'アクションRPG', '拡張パック', 'オンラインゲーム'],
   publishedAt: '2025-04-18',
   slug: 'diablo-iv-expansion',

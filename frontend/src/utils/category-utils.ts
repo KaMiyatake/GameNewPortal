@@ -12,18 +12,33 @@ const slugToCategoryMap = categories.reduce<{ [key: string]: string }>((acc, cat
   return acc;
 }, {});
 
+// カテゴリ名から色への変換マップを動的に生成
+const categoryToColorMap = categories.reduce<{ [key: string]: string }>((acc, category) => {
+  acc[category.name] = category.color || '#666';
+  return acc;
+}, {});
+
 // カテゴリ名からスラッグへ変換
-export const getCategorySlug = (categoryName: string): string => {
+export const getCategorySlug = (categoryName?: string): string => {
+  if (!categoryName) return '';
   return categoryToSlugMap[categoryName] || categoryName.toLowerCase();
 };
 
 // スラッグからカテゴリ名へ変換
-export const getCategoryName = (slug: string): string => {
+export const getCategoryName = (slug?: string): string => {
+  if (!slug) return '';
   return slugToCategoryMap[slug.toLowerCase()] || slug;
 };
 
+// カテゴリ名から色を取得
+export const getCategoryColor = (categoryName?: string): string => {
+  if (!categoryName) return '#666';
+  return categoryToColorMap[categoryName] || '#666';
+};
+
 // カテゴリリンクのURLを生成
-export const getCategoryUrl = (categoryName: string): string => {
+export const getCategoryUrl = (categoryName?: string): string => {
+  if (!categoryName) return '/category/all';
   const slug = getCategorySlug(categoryName);
   return `/category/${slug}`;
 };

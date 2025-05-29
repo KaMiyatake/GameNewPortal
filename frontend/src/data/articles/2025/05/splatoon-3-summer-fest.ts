@@ -22,7 +22,7 @@ export const splatoon3SummerFest: ArticleDetail = {
     <p>イベントは2025年5月25日から開催予定です。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=Splatoon+3+Fest&font=montserrat',
-  category: 'Nintendo Switch',
+  categories: ['Switch'],
   tags: ['スプラトゥーン', '任天堂', 'イベント', 'Switch'],
   publishedAt: '2025-05-10',
   slug: 'splatoon-3-summer-fest',

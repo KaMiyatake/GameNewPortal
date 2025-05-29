@@ -33,7 +33,7 @@ export const ff7RebirthPC: ArticleDetail = {
     <p>価格は8,800円（税込）。デジタルデラックス版は11,800円で、追加コスチュームやサミングマテリアが含まれます。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=FF7+Rebirth+PC&font=montserrat',
-  category: 'PC',
+  categories: ['PlayStation', 'PC'],
   tags: ['ファイナルファンタジー', 'スクウェア・エニックス', 'RPG', 'リメイク', 'Steam'],
   publishedAt: '2025-05-19',
   slug: 'ff7-rebirth-pc-version',

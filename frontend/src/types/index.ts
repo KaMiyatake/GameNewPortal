@@ -3,9 +3,9 @@ export interface NewsItem {
   title: string;
   summary: string;
   imageUrl: string;
-  category: string;
+  categories: string[]; // string から string[] に変更
   date: string;
-  slug: string; // URLスラッグ用
+  slug: string;
 }
 
 export interface NewsItemDetail extends NewsItem {

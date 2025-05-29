@@ -34,7 +34,7 @@ export const monsterHunterUpdate: ArticleDetail = {
     <p>アップデートは2025年4月30日に配信開始。全プラットフォームで無料でダウンロード可能です。</p>
   `,
   imageUrl: 'https://placehold.co/800x450?text=Monster+Hunter+Next&font=montserrat',
-  category: 'マルチプラットフォーム',
+  categories: ['PlayStation', 'PC'],
   tags: ['モンスターハンター', 'カプコン', 'アクション', 'アップデート', 'オンラインゲーム'],
   publishedAt: '2025-04-20',
   slug: 'monster-hunter-next-update',
