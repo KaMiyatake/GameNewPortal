@@ -675,12 +675,91 @@
   z-index: 2;
 }
 
+/* 複数カテゴリ用スタイル */
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.categoriesSmall {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.categoryTag {
+  background-color: var(--category-color, var(--secondary-color));
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.categoryTagSmall {
+  background-color: var(--category-color, var(--secondary-color));
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* "+N" 形式のカテゴリタグ */
+.categoryTagMore {
+  background-color: var(--category-color, var(--secondary-color));
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+}
+
+.categoryTagMoreSmall {
+  background-color: var(--category-color, var(--secondary-color));
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+}
+
+.categoryTag:hover,
+.categoryTagSmall:hover,
+.categoryTagMore:hover,
+.categoryTagMoreSmall:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
 /* ヘッダー部分の調整 */
 .newsHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 0.8rem;
+  min-height: 28px; /* 一定の高さを確保 */
 }
 
 .newsHeaderList {
@@ -688,6 +767,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 0.5rem;
+  min-height: 24px; /* 一定の高さを確保 */
 }
 
 .newsHeaderDate,
@@ -696,16 +776,46 @@
   color: #888;
   white-space: nowrap;
   margin-left: 0.5rem;
+  flex-shrink: 0; /* 日付が縮まないように */
 }
 
 /* レスポンシブ対応 */
-@media (max-width: 576px) {
-  .categoryTagSmall {
+@media (max-width: 768px) {
+  .categoriesSmall {
+    gap: 0.2rem;
+    max-width: calc(100% - 60px); /* 日付用のスペースを確保 */
+  }
+  
+  .categoryTagSmall,
+  .categoryTagMoreSmall {
     font-size: 0.65rem;
     padding: 0.15rem 0.3rem;
   }
   
+  .newsHeader {
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .newsHeaderList {
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
   .categoriesSmall {
-    gap: 0.2rem;
+    max-width: calc(100% - 50px); /* より狭い画面での調整 */
+  }
+  
+  .categoryTagSmall,
+  .categoryTagMoreSmall {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.25rem;
+  }
+  
+  .newsHeaderDate,
+  .newsDateList {
+    font-size: 0.7rem;
   }
 }
