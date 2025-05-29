@@ -5,19 +5,29 @@ import {
   getPopularArticles,
   getArticleBySlug,
   getArticlesByTag,
+  getRelatedArticles,
 } from '../data/utils/data-helpers';
 import { categories } from '../data/categories/categories';
 import { ArticleDetail } from '../data/utils/types';
 
-// NewsItem形式に変換する関数
+// NewsItem形式に変換する関数（複数カテゴリ対応）
 const convertToNewsItem = (article: ArticleDetail) => ({
   id: article.id,
   title: article.title,
   summary: article.summary,
   imageUrl: article.imageUrl,
-  category: article.category,
+  categories: article.categories, // category → categories に変更
   date: article.publishedAt,
   slug: article.slug,
+});
+
+// NewsItemDetail形式に変換する関数
+const convertToNewsItemDetail = (article: ArticleDetail) => ({
+  ...convertToNewsItem(article),
+  content: article.content || '',
+  author: article.author,
+  tags: article.tags,
+  relatedNews: getRelatedArticles(article.id).map(convertToNewsItem),
 });
 
 // タグ別記事取得（同期版）
@@ -57,11 +67,13 @@ export const getNewsDetailSync = (slug: string) => {
   const article = getArticleBySlug(slug);
   if (!article) throw new Error('記事が見つかりませんでした');
   
-  return {
-    ...convertToNewsItem(article),
-    content: article.content || '',
-    author: article.author,
-    tags: article.tags,
-    relatedNews: [], // 関連記事は別途取得
-  };
+  return convertToNewsItemDetail(article);
+};
+
+// カテゴリ別記事取得（同期版）
+export const getNewsByCategorySync = (categorySlug: string) => {
+  // data-helpersのgetArticlesByCategoryを使用
+  const { getArticlesByCategory } = require('../data/utils/data-helpers');
+  const articles = getArticlesByCategory(categorySlug);
+  return articles.map(convertToNewsItem);
 };

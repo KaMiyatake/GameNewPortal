@@ -18,7 +18,7 @@ export const getPaginatedArticles = (page: number, limit: number) => {
   };
 };
 
-// カテゴリ別記事取得（修正版）
+// カテゴリ別記事取得（複数カテゴリ対応版）
 export const getArticlesByCategory = (categorySlug: string) => {
   // スラッグからカテゴリ名に変換
   const targetCategory = getCategoryName(categorySlug);
@@ -28,8 +28,10 @@ export const getArticlesByCategory = (categorySlug: string) => {
     return [];
   }
   
-  // 完全一致で検索
-  return allArticles.filter(article => article.category === targetCategory);
+  // 複数カテゴリ配列内での検索
+  return allArticles.filter(article => 
+    article.categories && article.categories.includes(targetCategory)
+  );
 };
 
 // 注目記事取得
@@ -41,7 +43,7 @@ export const getFeaturedArticles = () => {
 export const getPopularArticles = (limit: number = 10) => {
   return allArticles
     .filter(article => article.popular)
-    .slice(0, limit); // 指定された件数で制限
+    .slice(0, limit);
 };
 
 // 関連記事取得
@@ -59,20 +61,14 @@ export const getArticleBySlug = (slug: string): ArticleDetail | null => {
   return articlesBySlug[slug] || null;
 };
 
-// // タグ別記事取得
-// export const getArticlesByTag = (tag: string) => {
-//   return allArticles.filter(article => 
-//     article.tags.some(t => t.toLowerCase() === tag.toLowerCase())
-//   );
-// };
-
-// 検索機能
+// 検索機能（複数カテゴリ対応）
 export const searchArticles = (query: string) => {
   const lowerQuery = query.toLowerCase();
   return allArticles.filter(article => 
     article.title.toLowerCase().includes(lowerQuery) ||
     article.summary.toLowerCase().includes(lowerQuery) ||
-    article.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
+    article.tags.some(tag => tag.toLowerCase().includes(lowerQuery)) ||
+    (article.categories && article.categories.some(cat => cat.toLowerCase().includes(lowerQuery)))
   );
 };
 
@@ -120,4 +116,21 @@ export const getRelatedTags = (targetTag: string, limit: number = 5) => {
     .map(([tag, count]) => ({ tag, count }))
     .sort((a, b) => b.count - a.count)
     .slice(0, limit);
+};
+
+// カテゴリ統計取得（複数カテゴリ対応）
+export const getCategoryStats = () => {
+  const categoryStats: Record<string, number> = {};
+  
+  allArticles.forEach(article => {
+    if (article.categories) {
+      article.categories.forEach(category => {
+        categoryStats[category] = (categoryStats[category] || 0) + 1;
+      });
+    }
+  });
+  
+  return Object.entries(categoryStats)
+    .map(([category, count]) => ({ category, count }))
+    .sort((a, b) => b.count - a.count);
 };

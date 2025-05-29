@@ -9,10 +9,9 @@ import {
 } from '../data/utils/data-helpers';
 import { categories } from '../data/categories/categories';
 import { NewsItem, NewsItemDetail, Category } from '../types';
-
 import { ArticleDetail } from '../data/utils/types';
 
-// 記事データをNewsItem形式に変換
+// 記事データをNewsItem形式に変換（複数カテゴリ対応）
 const convertToNewsItem = (article: ArticleDetail): NewsItem => ({
   id: article.id,
   title: article.title,
@@ -56,7 +55,7 @@ export const getFeaturedNews = async (): Promise<NewsItem[]> => {
 
 // 人気記事取得（最大10件に制限）
 export const getPopularNews = async (): Promise<NewsItem[]> => {
-  const articles = getPopularArticles(10); // 最大10件に制限
+  const articles = getPopularArticles(10);
   return articles.map(convertToNewsItem);
 };
 
