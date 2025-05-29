@@ -7,7 +7,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import SEOHead from '../../components/SEO/SEOHead';
 import { getNewsDetail, getCategories, getPopularNews } from '../../utils/api';
 import { allArticles } from '../../data/articles';
-import { getCategoryUrl } from '../../utils/category-utils';
+import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
 import { NewsItemDetail, Category, NewsItem } from '../../types';
 import styles from '../../styles/NewsDetail.module.css';
 
@@ -22,6 +22,11 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   categories,
   popularNews
 }) => {
+  // 主要カテゴリ（最初のカテゴリ）を取得
+  const primaryCategory = newsDetail.categories && newsDetail.categories.length > 0 
+    ? newsDetail.categories[0] 
+    : null;
+
   return (
     <>
       <SEOHead
@@ -36,15 +41,20 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
       />
       <Layout>
         <div className={styles.container}>
+          {/* Breadcrumbs - 主要カテゴリのみ表示 */}
           <div className={styles.breadcrumbs}>
-            <Link href="/" passHref>
+            <Link href="/">
               <span>ホーム</span>
             </Link>
             <span className={styles.separator}>&gt;</span>
-            <Link href={getCategoryUrl(newsDetail.category)} passHref>
-              <span>{newsDetail.category}</span>
-            </Link>
-            <span className={styles.separator}>&gt;</span>
+            {primaryCategory ? (
+              <>
+                <Link href={getCategoryUrl(primaryCategory)}>
+                  <span>{primaryCategory}</span>
+                </Link>
+                <span className={styles.separator}>&gt;</span>
+              </>
+            ) : null}
             <span className={styles.current}>{newsDetail.title}</span>
           </div>
 
@@ -55,9 +65,20 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
                 <div className={styles.newsInfo}>
                   <span className={styles.newsDate}>{newsDetail.date}</span>
                   <span className={styles.newsAuthor}>by {newsDetail.author}</span>
-                  <Link href={getCategoryUrl(newsDetail.category)} passHref>
-                    <span className={styles.newsCategory}>{newsDetail.category}</span>
-                  </Link>
+                  
+                  {/* 複数カテゴリ表示 */}
+                  <div className={styles.categoriesContainer}>
+                    {newsDetail.categories && newsDetail.categories.map((category, index) => (
+                      <Link key={index} href={getCategoryUrl(category)}>
+                        <span 
+                          className={styles.newsCategory}
+                          style={{ '--category-color': getCategoryColor(category) } as React.CSSProperties}
+                        >
+                          {category}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -69,7 +90,7 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
 
               <div className={styles.tagContainer}>
                 {newsDetail.tags.map((tag, index) => (
-                  <Link key={index} href={`/tag/${encodeURIComponent(tag)}`} passHref>
+                  <Link key={index} href={`/tag/${encodeURIComponent(tag)}`}>
                     <span className={styles.tag}>#{tag}</span>
                   </Link>
                 ))}
@@ -90,7 +111,7 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   );
 };
 
-// SSG: 全記事のパスを事前生成
+// 既存のgetStaticPathsとgetStaticPropsはそのまま
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = allArticles.map((article) => ({
     params: { slug: article.slug },
@@ -98,11 +119,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: 'blocking', // 新しい記事は動的に生成
+    fallback: 'blocking',
   };
 };
 
-// SSG: ビルド時に各記事のデータを取得
 export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ params }) => {
   try {
     const slug = params?.slug as string;
@@ -119,7 +139,7 @@ export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ para
         categories,
         popularNews,
       },
-      revalidate: 3600, // 1時間ごとに再生成
+      revalidate: 3600,
     };
   } catch (error) {
     console.error('Error fetching news detail:', error);
