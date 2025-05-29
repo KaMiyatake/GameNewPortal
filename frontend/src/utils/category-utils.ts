@@ -42,3 +42,13 @@ export const getCategoryUrl = (categoryName?: string): string => {
   const slug = getCategorySlug(categoryName);
   return `/category/${slug}`;
 };
+
+// 全カテゴリ一覧を取得（デバッグ用）
+export const getAllCategories = () => {
+  return categories;
+};
+
+// カテゴリが存在するかチェック
+export const isCategoryExists = (categoryName: string): boolean => {
+  return categoryToSlugMap.hasOwnProperty(categoryName);
+};

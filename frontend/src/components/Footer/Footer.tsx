@@ -91,14 +91,15 @@ const getCategoryIcon = (slug: string): string => {
     'playstation': '🎮',
     'switch': '🕹️',
     'pc': '💻',
-    'multi': '🌐',
     'mobile': '📱',
-    'esports': '🏆',
+    'xbox': '🎯',
     'pros-cons': '⚖️',
+    'vr': '🥽',
     'entertainment': '🎭',
     'industry': '📰'
   };
   return icons[slug] || '🎯';
 };
+
 
 export default Footer;

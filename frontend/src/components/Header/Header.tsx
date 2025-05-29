@@ -69,11 +69,11 @@ const Header: React.FC = () => {
             </div>
           </Link>
         </div>
-
-        {/* デスクトップナビゲーション */}
-        {!isMobile && (
+        
+        {/* デスクトップナビゲーション - ロゴの右側に配置 */}
         <nav className={styles.nav}>
           <ul className={styles.navList}>
+            {/* 最初の6つを表示（主要プラットフォーム） */}
             {categories.slice(0, 6).map((category) => (
               <li key={category.id} className={styles.navItem}>
                 <Link href={`/category/${category.slug}`}>
@@ -86,6 +86,7 @@ const Header: React.FC = () => {
                 </Link>
               </li>
             ))}
+            {/* 残りは「その他」ドロップダウンに */}
             {categories.length > 6 && (
               <li className={styles.navItem}>
                 <div className={styles.dropdown}>
@@ -94,7 +95,7 @@ const Header: React.FC = () => {
                     {categories.slice(6).map((category) => (
                       <Link key={category.id} href={`/category/${category.slug}`}>
                         <span className={styles.dropdownItem}>
-                          {category.name}
+                          {getCategoryIcon(category.slug)} {category.name}
                         </span>
                       </Link>
                     ))}
@@ -109,7 +110,6 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-        )}
 
         {/* モバイルハンバーガーメニューボタン */}
         {isMobile && (
@@ -175,11 +175,11 @@ const getCategoryIcon = (slug: string): string => {
   const icons: { [key: string]: string } = {
     'playstation': '🎮',
     'switch': '🕹️',
+    'xbox': '🎯', // Xbox用アイコン
     'pc': '💻',
-    'multi': '🌐', // マルチプラットフォーム追加
+    'vr': '🥽', // VR用アイコン
     'mobile': '📱',
     'pros-cons': '⚖️',
-    'esports': '🏆',
     'entertainment': '🎭',
     'industry': '📰'
   };

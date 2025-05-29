@@ -31,20 +31,34 @@ export const categories: CategoryData[] = [
   },
   {
     id: 5,
+    name: 'Xbox',
+    slug: 'xbox',
+    description: 'Xbox Series X|S・Xbox Oneの最新ゲーム情報、Game Pass',
+    color: '#107c10'
+  },
+  {
+    id: 6,
     name: 'ゲーム賛否',
     slug: 'pros-cons',
     description: '話題のゲームを賛否両論で深掘り分析、レビュー',
     color: '#6c5ce7'
   },
   {
-    id: 6,
+    id: 7,
+    name: 'VR',
+    slug: 'vr',
+    description: 'VRゲーム、Meta Quest、PlayStation VR、VRChatなど',
+    color: '#ff6b35'
+  },
+  {
+    id: 8,
     name: 'エンタメ',
     slug: 'entertainment',
     description: 'アニメ・マンガ、Vtuber、ゲーム関連エンタメ情報',
     color: '#fd79a8'
   },
   {
-    id: 7,
+    id: 9,
     name: '業界ニュース',
     slug: 'industry',
     description: 'ゲーム業界動向、企業情報、市場分析、開発者情報',
