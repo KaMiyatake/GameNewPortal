@@ -1,69 +1,5 @@
 /* frontend/src/components/HeroSlider/HeroSlider.module.css */
 
-/* 複数カテゴリー表示コンテナ */
-.categoriesContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-  margin-bottom: 0.5rem;
-}
-
-.newsCategory {
-  background-color: var(--category-color, var(--secondary-color));
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  opacity: 0.9;
-}
-
-.newsCategory:hover {
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-.moreCategoriesIndicator {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-size: 0.6rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* 静的表示用カテゴリースタイル */
-.staticCategories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-  margin-bottom: 0.5rem;
-}
-
-.staticCategory {
-  background-color: var(--category-color, var(--secondary-color));
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  opacity: 0.9;
-}
-
-.staticMoreIndicator {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-size: 0.6rem;
-  font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
 .heroSlider {
   position: relative;
   width: 100vw; /* ビューポート幅いっぱい */
@@ -169,11 +105,11 @@
 }
 
 .newsTitle {
-  font-size: 0.9rem;
+  font-size: 1rem; /* サイズを少し大きくして視認性向上 */
   margin: 0;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3; /* 3行まで表示可能に */
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 600;
@@ -472,11 +408,11 @@
 }
 
 .cardContent .title {
-  font-size: 0.9rem;
+  font-size: 1rem; /* サイズを少し大きくして視認性向上 */
   margin: 0;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3; /* 3行まで表示可能に */
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 600;
@@ -484,30 +420,16 @@
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
-  .heroGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .newsCategory,
-  .staticCategory {
-    font-size: 0.6rem;
-    padding: 0.15rem 0.3rem;
-  }
-  
-  .moreCategoriesIndicator,
-  .staticMoreIndicator {
-    font-size: 0.55rem;
-    padding: 0.15rem 0.3rem;
+  .newsTitle,
+  .cardContent .title {
+    font-size: 0.9rem;
+    -webkit-line-clamp: 2; /* モバイルでは2行に制限 */
   }
 }
 
 @media (max-width: 480px) {
-  .heroGrid {
-    grid-template-columns: 1fr;
-  }
-  
-  .categoriesContainer,
-  .staticCategories {
-    gap: 0.2rem;
+  .newsTitle,
+  .cardContent .title {
+    font-size: 0.85rem;
   }
 }

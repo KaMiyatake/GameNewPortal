@@ -44,17 +44,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
                 objectPosition="center"
               />
             </Link>
-            {/* 画像上に最初のカテゴリのみ表示 */}
-            {news.categories.length > 0 && (
-              <Link href={getCategoryUrl(news.categories[0])}>
-                <span 
-                  className={styles.categoryOverlay}
-                  style={{ '--category-color': getCategoryColor(news.categories[0]) } as React.CSSProperties}
-                >
-                  {news.categories[0]}
-                </span>
-              </Link>
-            )}
+            {/* 画像上のカテゴリ表示を削除 */}
           </div>
           <div className={styles.contentContainerList}>
             <div className={styles.newsHeaderList}>
@@ -83,17 +73,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
             objectPosition="center"
           />
         </Link>
-        {/* 画像上に最初のカテゴリのみ表示 */}
-        {news.categories.length > 0 && (
-          <Link href={getCategoryUrl(news.categories[0])}>
-            <span 
-              className={styles.category}
-              style={{ '--category-color': getCategoryColor(news.categories[0]) } as React.CSSProperties}
-            >
-              {news.categories[0]}
-            </span>
-          </Link>
-        )}
+        {/* 画像上のカテゴリ表示を削除 */}
       </div>
       <div className={styles.contentContainer}>
         {/* 複数カテゴリと日付のヘッダー */}

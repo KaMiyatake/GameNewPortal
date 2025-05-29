@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { getCategoryColor } from '../../utils/category-utils';
 import { NewsItem } from '../../types';
 import styles from './HeroSlider.module.css';
 
@@ -29,7 +28,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
     setMounted(true);
   }, []);
 
-  // サーバーサイドでは簡易版を表示（複数カテゴリ対応）
+  // サーバーサイドでは簡易版を表示（カテゴリ表示削除）
   if (!mounted) {
     return (
       <div className={styles.heroSlider}>
@@ -41,23 +40,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
                   <div className={styles.imageContainer}>
                     <img src={news.imageUrl} alt={news.title} />
                     <div className={styles.cardContent}>
-                      {/* 複数カテゴリ表示（静的版） */}
-                      <div className={styles.staticCategories}>
-                        {news.categories.slice(0, 2).map((category, index) => (
-                          <span 
-                            key={index}
-                            className={styles.staticCategory}
-                            style={{ '--category-color': getCategoryColor(category) } as React.CSSProperties}
-                          >
-                            {category}
-                          </span>
-                        ))}
-                        {news.categories.length > 2 && (
-                          <span className={styles.staticMoreIndicator}>
-                            +{news.categories.length - 2}
-                          </span>
-                        )}
-                      </div>
+                      {/* カテゴリ表示を削除し、タイトルのみ表示 */}
                       <h3 className={styles.title}>{news.title}</h3>
                     </div>
                   </div>
