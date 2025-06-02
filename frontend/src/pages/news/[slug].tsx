@@ -7,6 +7,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import SEOHead from '../../components/SEO/SEOHead';
 import { getNewsDetail, getCategories, getPopularNews } from '../../utils/api';
 import { allArticles } from '../../data/articles';
+import { getPopularTags } from '../../data/utils/data-helpers'; // 追加
 import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
 import { NewsItemDetail, Category, NewsItem } from '../../types';
 import styles from '../../styles/NewsDetail.module.css';
@@ -15,12 +16,14 @@ interface NewsDetailPageProps {
   newsDetail: NewsItemDetail;
   categories: Category[];
   popularNews: NewsItem[];
+  popularTags: { tag: string; count: number }[]; // 追加
 }
 
 const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   newsDetail,
   categories,
-  popularNews
+  popularNews,
+  popularTags // 追加
 }) => {
   // 主要カテゴリ（最初のカテゴリ）を取得
   const primaryCategory = newsDetail.categories && newsDetail.categories.length > 0 
@@ -102,7 +105,11 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
             </div>
             
             <div className={styles.sidebar}>
-              <Sidebar popularNews={popularNews} categories={categories} />
+              <Sidebar 
+                popularNews={popularNews} 
+                categories={categories} 
+                popularTags={popularTags} // 追加
+              />
             </div>
           </div>
         </div>
@@ -111,7 +118,6 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   );
 };
 
-// 既存のgetStaticPathsとgetStaticPropsはそのまま
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = allArticles.map((article) => ({
     params: { slug: article.slug },
@@ -127,10 +133,11 @@ export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ para
   try {
     const slug = params?.slug as string;
     
-    const [newsDetail, categories, popularNews] = await Promise.all([
+    const [newsDetail, categories, popularNews, popularTagsData] = await Promise.all([
       getNewsDetail(slug),
       getCategories(),
       getPopularNews(),
+      Promise.resolve(getPopularTags(15)), // 人気タグ15個を取得
     ]);
 
     return {
@@ -138,6 +145,7 @@ export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ para
         newsDetail,
         categories,
         popularNews,
+        popularTags: popularTagsData, // 追加
       },
       revalidate: 3600,
     };

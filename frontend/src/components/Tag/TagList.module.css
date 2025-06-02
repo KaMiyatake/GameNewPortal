@@ -41,8 +41,10 @@
   border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
+  z-index: 1; /* z-indexを追加 */
 }
 
+/* ホバー時の背景アニメーションを修正 */
 .tagItem::before {
   content: '';
   position: absolute;
@@ -52,7 +54,7 @@
   height: 100%;
   background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
   transition: left 0.3s ease;
-  z-index: 0;
+  z-index: -1; /* 背景を後ろに配置 */
 }
 
 .tagItem:hover::before {
@@ -60,15 +62,23 @@
 }
 
 .tagItem:hover {
-  color: white;
+  color: white; /* テキスト色を明示的に白に設定 */
   border-color: var(--secondary-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
 }
 
-.tagItem > * {
+/* テキストとカウント部分を前面に配置 */
+.tagItem span,
+.tagCount {
   position: relative;
-  z-index: 1;
+  z-index: 2; /* テキストを最前面に */
+  color: inherit; /* 親の色を継承 */
+}
+
+.tagItem:hover span,
+.tagItem:hover .tagCount {
+  color: white !important; /* ホバー時は確実に白色 */
 }
 
 .tagCount {
@@ -78,9 +88,29 @@
   font-weight: 400;
 }
 
-/* タグが多い場合の表示制限 */
-.tags:not(.expanded) .tagItem:nth-child(n+9) {
+/* タグが多い場合の表示制限（拡張可能にする場合） */
+.tags:not(.expanded) .tagItem:nth-child(n+13) {
   display: none;
+}
+
+/* 展開ボタン（オプション） */
+.expandButton {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--secondary-color);
+  padding: 0.4rem 0.8rem;
+  border: 1px dashed var(--secondary-color);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.expandButton:hover {
+  background: var(--secondary-color);
+  color: white;
 }
 
 /* レスポンシブ対応 */
@@ -97,6 +127,11 @@
   .tagListTitle {
     font-size: 1.1rem;
   }
+  
+  /* モバイルでは12個まで表示 */
+  .tags:not(.expanded) .tagItem:nth-child(n+13) {
+    display: none;
+  }
 }
 
 @media (max-width: 576px) {
@@ -111,5 +146,10 @@
   
   .tagCount {
     font-size: 0.6rem;
+  }
+  
+  /* 最小画面では10個まで表示 */
+  .tags:not(.expanded) .tagItem:nth-child(n+11) {
+    display: none;
   }
 }

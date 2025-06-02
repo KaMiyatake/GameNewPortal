@@ -4,6 +4,7 @@ import Layout from '../../components/Layout/Layout';
 import NewsSection from '../../components/NewsSection/NewsSection';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import SEOHead from '../../components/SEO/SEOHead';
+import { getPopularTags } from '../../data/utils/data-helpers'; // 追加
 import { getNewsByCategory, getCategories, getPopularNews } from '../../utils/api';
 import { categories } from '../../data/categories/categories';
 import { NewsItem, Category } from '../../types';
@@ -67,6 +68,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
   );
 };
 
+// getServerSideProps に popularTags を追加
 export const getServerSideProps: GetServerSideProps<CategoryPageProps> = async ({ params }) => {
   try {
     const slug = params?.slug as string;
@@ -76,10 +78,11 @@ export const getServerSideProps: GetServerSideProps<CategoryPageProps> = async (
       return { notFound: true };
     }
 
-    const [newsItems, categoriesData, popularNewsData] = await Promise.all([
+    const [newsItems, categoriesData, popularNewsData, popularTagsData] = await Promise.all([
       getNewsByCategory(slug),
       getCategories(),
       getPopularNews(),
+      Promise.resolve(getPopularTags(15)), // 追加
     ]);
 
     return {
@@ -93,6 +96,7 @@ export const getServerSideProps: GetServerSideProps<CategoryPageProps> = async (
         },
         categories: categoriesData,
         popularNews: popularNewsData,
+        popularTags: popularTagsData, // 追加
       },
     };
   } catch (error) {
@@ -100,5 +104,6 @@ export const getServerSideProps: GetServerSideProps<CategoryPageProps> = async (
     return { notFound: true };
   }
 };
+
 
 export default CategoryPage;
