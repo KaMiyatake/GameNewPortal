@@ -72,7 +72,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       {author && <meta property="article:author" content={author} />}
       
       {/* ファビコン（RealFaviconGenerator対応） */}
-      <link rel="icon" href="/favicon.ico" sizes="32x32" />
+      <link rel="icon" href="/favicon-v2.ico" sizes="32x32" />
       <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
