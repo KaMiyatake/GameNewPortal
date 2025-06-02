@@ -1,14 +1,11 @@
 .tagList {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: var(--card-shadow);
+  margin-bottom: 2rem;
 }
 
 .tagListTitle {
   font-size: 1.3rem;
-  margin-bottom: 1.2rem;
   color: var(--primary-color);
+  margin-bottom: 1rem;
   position: relative;
   padding-bottom: 0.5rem;
 }
@@ -20,7 +17,7 @@
   left: 0;
   width: 40px;
   height: 3px;
-  background-color: var(--accent-color);
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
 }
 
 .tags {
@@ -32,24 +29,87 @@
 .tagItem {
   display: inline-flex;
   align-items: center;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   color: var(--text-color);
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid transparent;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.tagItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+  transition: left 0.3s ease;
+  z-index: 0;
+}
+
+.tagItem:hover::before {
+  left: 0;
 }
 
 .tagItem:hover {
-  background-color: var(--secondary-color);
   color: white;
-  transform: translateY(-1px);
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+}
+
+.tagItem > * {
+  position: relative;
+  z-index: 1;
 }
 
 .tagCount {
   margin-left: 0.3rem;
-  opacity: 0.7;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+/* タグが多い場合の表示制限 */
+.tags:not(.expanded) .tagItem:nth-child(n+9) {
+  display: none;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .tagItem {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .tagCount {
+    font-size: 0.65rem;
+  }
+  
+  .tagListTitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .tags {
+    gap: 0.3rem;
+  }
+  
+  .tagItem {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .tagCount {
+    font-size: 0.6rem;
+  }
 }

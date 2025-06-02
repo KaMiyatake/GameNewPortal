@@ -13,6 +13,7 @@ import {
   getFeaturedNews,
   PaginatedResponse
 } from '../utils/api';
+import { getPopularTags } from '../data/utils/data-helpers'; // 追加
 import { NewsItem, Category } from '../types';
 import styles from '../styles/Home.module.css';
 
@@ -22,6 +23,7 @@ interface HomeProps {
   popularNews: NewsItem[];
   categories: Category[];
   currentPage: number;
+  popularTags: { tag: string; count: number }[]; // 追加
 }
 
 const Home: React.FC<HomeProps> = ({
@@ -29,7 +31,8 @@ const Home: React.FC<HomeProps> = ({
   featuredNews,
   popularNews,
   categories,
-  currentPage
+  currentPage,
+  popularTags // 追加
 }) => {
   const router = useRouter();
 
@@ -67,7 +70,11 @@ const Home: React.FC<HomeProps> = ({
               />
             </div>
             <div className={styles.sidebarContent}>
-              <Sidebar popularNews={popularNews} categories={categories} />
+              <Sidebar 
+              popularNews={popularNews} 
+              categories={categories}
+              popularTags={popularTags} // 追加
+               />
             </div>
           </div>
         </div>
@@ -82,11 +89,12 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query 
     const page = parseInt(query.page as string) || 1;
     const limit = 10;
 
-    const [newsData, categoriesData, popularNewsData, featuredNewsData] = await Promise.all([
+    const [newsData, categoriesData, popularNewsData, featuredNewsData, popularTagsData] = await Promise.all([
       getLatestNewsPaginated(page, limit),
       getCategories(),
       getPopularNews(),
       getFeaturedNews(),
+      Promise.resolve(getPopularTags(15)), // 人気タグ15個を取得
     ]);
 
     // ページ番号が範囲外の場合は404
@@ -103,6 +111,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query 
         popularNews: popularNewsData,
         categories: categoriesData,
         currentPage: page,
+        popularTags: popularTagsData, // 追加
       },
     };
   } catch (error) {

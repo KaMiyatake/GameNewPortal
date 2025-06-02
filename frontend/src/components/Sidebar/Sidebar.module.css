@@ -89,6 +89,16 @@
     justify-content: space-between; /* 左右配置を維持 */
     gap: 0.4rem; /* ギャップを少し狭める */
   }
+
+  .categoryLink {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .categoryIcon {
+    font-size: 1rem;
+    margin-right: 0.6rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -121,6 +131,16 @@
   .popularTitle {
     font-size: 0.8rem;
     margin-bottom: 0.4rem;
+  }
+
+  .categoryLink {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .categoryIcon {
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
   }
 }
 
@@ -280,19 +300,57 @@
 }
 
 .categoryLink {
-  display: block;
+  display: flex;
+  align-items: center;
   color: var(--text-color);
   text-decoration: none;
-  padding: 0.5rem 0;
+  padding: 0.6rem 0.8rem;
   transition: all 0.3s ease;
   border-left: 3px solid transparent;
-  padding-left: 0.8rem;
+  border-radius: 4px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+.categoryLink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--category-color, var(--secondary-color));
+  opacity: 0.1;
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.categoryLink:hover::before {
+  width: 100%;
 }
 
 .categoryLink:hover {
-  color: var(--secondary-color);
-  border-left-color: var(--accent-color);
+  color: var(--category-color, var(--secondary-color));
+  border-left-color: var(--category-color, var(--accent-color));
   transform: translateX(5px);
+}
+
+.categoryLink > * {
+  position: relative;
+  z-index: 1;
+}
+
+.categoryIcon {
+  margin-right: 0.8rem;
+  font-size: 1.1rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* タグセクション */
+.tagSection {
+  margin-bottom: 2rem;
 }
 
 .adBanner {
