@@ -6,7 +6,7 @@ import NewsSection from '../../components/NewsSection/NewsSection';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import SEOHead from '../../components/SEO/SEOHead';
 import { getNewsByTagSync, getCategoriesSync, getPopularNewsSync } from '../../utils/api-server';
-import { getAllTags } from '../../data/utils/data-helpers';
+import { getAllTags, getPopularTags } from '../../data/utils/data-helpers'; // getPopularTags追加
 import { NewsItem, Category } from '../../types';
 import styles from '../../styles/Tag.module.css';
 
@@ -14,6 +14,7 @@ interface TagPageProps {
   news: NewsItem[];
   categories: Category[];
   popularNews: NewsItem[];
+  popularTags: { tag: string; count: number }[]; // 追加
   currentTag: string;
 }
 
@@ -21,6 +22,7 @@ const TagPage: React.FC<TagPageProps> = ({
   news,
   categories,
   popularNews,
+  popularTags, // 追加
   currentTag
 }) => {
   return (
@@ -70,7 +72,11 @@ const TagPage: React.FC<TagPageProps> = ({
               )}
             </div>
             <div className={styles.sidebarContent}>
-              <Sidebar popularNews={popularNews} categories={categories} />
+              <Sidebar 
+                popularNews={popularNews} 
+                categories={categories}
+                popularTags={popularTags} // 追加
+              />
             </div>
           </div>
         </div>
@@ -99,10 +105,11 @@ export const getStaticProps: GetStaticProps<TagPageProps> = async ({ params }) =
   try {
     const tag = decodeURIComponent(params?.tag as string);
     
-    const [news, categories, popularNews] = await Promise.all([
+    const [news, categories, popularNews, popularTags] = await Promise.all([
       Promise.resolve(getNewsByTagSync(tag)),
       Promise.resolve(getCategoriesSync()),
       Promise.resolve(getPopularNewsSync()),
+      Promise.resolve(getPopularTags(15)), // 追加
     ]);
 
     return {
@@ -110,6 +117,7 @@ export const getStaticProps: GetStaticProps<TagPageProps> = async ({ params }) =
         news,
         categories,
         popularNews,
+        popularTags, // 追加
         currentTag: tag,
       },
       revalidate: 1800, // 30分ごとに再生成（タグページは更新頻度が低い）

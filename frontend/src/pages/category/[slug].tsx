@@ -20,13 +20,15 @@ interface CategoryPageProps {
   };
   categories: Category[];
   popularNews: NewsItem[];
+  popularTags: { tag: string; count: number }[]; // 追加
 }
 
 const CategoryPage: React.FC<CategoryPageProps> = ({
   newsItems,
   category,
   categories,
-  popularNews
+  popularNews,
+  popularTags // 追加
 }) => {
   return (
     <>
@@ -59,7 +61,11 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
               />
             </div>
             <div className={styles.sidebarContent}>
-              <Sidebar popularNews={popularNews} categories={categories} />
+              <Sidebar 
+                popularNews={popularNews} 
+                categories={categories}
+                popularTags={popularTags} // 追加
+              />
             </div>
           </div>
         </div>
@@ -104,6 +110,5 @@ export const getServerSideProps: GetServerSideProps<CategoryPageProps> = async (
     return { notFound: true };
   }
 };
-
 
 export default CategoryPage;
