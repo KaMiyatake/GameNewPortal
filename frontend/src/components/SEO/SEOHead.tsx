@@ -71,12 +71,20 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
       {author && <meta property="article:author" content={author} />}
       
-      {/* Favicon */}
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      {/* ファビコン（RealFaviconGenerator対応） */}
+      <link rel="icon" href="/favicon.ico" sizes="32x32" />
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
       <link rel="manifest" href="/site.webmanifest" />
+      
+      {/* PWA用メタタグ */}
+      <meta name="theme-color" content="#6c5ce7" />
+      <meta name="application-name" content="ゲーム賛否" />
+      <meta name="apple-mobile-web-app-title" content="ゲーム賛否" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      <meta name="mobile-web-app-capable" content="yes" />
       
       {/* JSON-LD構造化データ */}
       <script
@@ -94,7 +102,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
               "name": siteName,
               "logo": {
                 "@type": "ImageObject",
-                "url": `${baseUrl}/images/common/logo.png`
+                "url": `${baseUrl}/apple-touch-icon.png` // 高解像度アイコンを使用
               }
             },
             ...(ogType === 'website' && {
