@@ -1,9 +1,9 @@
-// src/features/articles/2025/06/sf6-elena-y12.ts
+// src/data/articles/2025/06/sf6-elena-y12.ts
 import { ArticleDetail } from '../../../utils/types';
 import { getArticleImagePath } from '../../../../utils/image-paths';
 
 export const sf6ElenaY12: ArticleDetail = {
-  id: 25060501,
+  id: 25060301,
   title: '『ストリートファイター6』にエレナ参戦、“Years 1-2 Fighters Edition”も発売決定',
   summary:
     'カプコンは『ストリートファイター6』にシリーズ人気キャラ「エレナ」を6月5日に追加すると発表。同日にはYear1とYear2の全追加キャラ＆ステージを収録した完全版“Years 1-2 Fighters Edition”も発売される。',
@@ -34,6 +34,6 @@ export const sf6ElenaY12: ArticleDetail = {
   slug: 'sf6-elena-y12',
   author: 'ゲーム賛否編集部',
   featured: true,
-  popular: false,
-  relatedArticleIds: [25060304, 25052802]
+  popular: true,
+  relatedArticleIds: [25060302, 25060303]
 };
