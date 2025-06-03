@@ -8,7 +8,8 @@ export const allArticles: ArticleDetail[] = [
   ...articles202504,
   ...articles202505,
   ...articles202506
-].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+].sort((a, b) => b.id - a.id); // ID順にソート
+//].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()); // 日付順にソート
 
 // ID別の記事マップ
 export const articlesById = allArticles.reduce((acc, article) => {
