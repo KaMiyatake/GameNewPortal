@@ -5,9 +5,11 @@ import { fortniteJapanTheme } from './fortnite-japan-theme';
 import { ff7RebirthPC } from './ff7-rebirth-pc';
 import { streetFighter6Update } from './street-fighter-6-update';
 import { splatoon3SummerFest } from './splatoon-3-summer-fest';
+import { eldenRingNightreignLaunch } from './elden-ring-nightreign-launch';
 
 export const articles202505 = [
   zeldaTOTKNewDLC,
+  eldenRingNightreignLaunch,
   eldenRingShadowKingdom,
   gtaVIOfficialRelease,
   fortniteJapanTheme,
