@@ -10,8 +10,6 @@ export const sf6ElenaY12: ArticleDetail = {
   content: `
     <p>カプコンは2025年6月5日（木）、『ストリートファイター6』のDLC第6弾キャラクターとして「<strong>エレナ</strong>」を実装し、同時に<strong>“Years 1-2 Fighters Edition”</strong>（以下Y12FE）を発売すると発表しました。</p>
 
-    <img src="${getArticleImagePath('2025','06','sf6-elena-y12','main.jpg')}" alt="Years 1-2 Fighters Edition キービジュアル" />
-
     <h2>エレナの特徴とバトルスタイル</h2>
     <p>『ストIII』シリーズ以来の参戦となるエレナは、<em>長いリーチの足技</em>とリズミカルな連撃が持ち味。<br />
     シリーズおなじみの回復スーパーアーツ「Healing」も<strong>Driveシステムに最適化</strong>され再登場します。</p>
@@ -29,8 +27,8 @@ export const sf6ElenaY12: ArticleDetail = {
 
     <img src="${getArticleImagePath('2025','06','sf6-elena-y12','screenshot-2.jpg')}" alt="Y12FE パッケージアート" />
   `,
-  imageUrl: getArticleImagePath('2025', '06', 'sf6-elena-y12'),
-  categories: ['PS5', 'Xbox', 'PC', 'Switch'],
+  imageUrl: getArticleImagePath('2025', '06', 'sf6-elena-y12', 'main.jpg'),
+  categories: ['PlayStation', 'Xbox', 'PC', 'Switch'],
   tags: ['ストリートファイター6', 'エレナ', 'DLC', 'Fighting', 'カプコン'],
   publishedAt: '2025-06-05',
   slug: 'sf6-elena-y12',
