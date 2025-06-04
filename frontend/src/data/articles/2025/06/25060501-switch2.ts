@@ -29,11 +29,9 @@ export const comp25060501: ArticleDetail = {
     <h2>ローンチタイトル一覧（一部）</h2>
     <ol>
       <li>『マリオカート ワールド』</li>
-      <li>『ゼルダの伝説 時の王女』</li>
-      <li>『ポケットモンスター クリスタルダスク』</li>
-      <li>『メトロイド プライム4』</li>
-      <li>『スプラトゥーン3 Turbo』</li>
-      <li>『ELDEN RING: Nightreign』（Switch2最適化版）</li>
+      <li>『ゼルダの伝説 ブレスオブザワイルドSwich2 edition』</li>
+      <li>『ゼルダの伝説 ティアーズオブキングダムSwich2 edition』</li>
+      <li>『DELTARUNE』</li>
     </ol>
 
     <h2>旧Switch からの移行も簡単</h2>
