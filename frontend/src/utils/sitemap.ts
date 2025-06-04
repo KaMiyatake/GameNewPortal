@@ -9,7 +9,14 @@ export interface SitemapUrl {
   priority?: number;
 }
 
-// サイトマップインデックスの生成
+// URL結合の安全な関数を追加
+const joinUrl = (baseUrl: string, path: string): string => {
+  const base = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const route = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${route}`;
+};
+
+// サイトマップインデックスの修正
 export const generateSitemapIndex = (baseUrl: string): string => {
   const availableMonths = getAvailableMonths();
   const currentDate = new Date().toISOString();
@@ -17,14 +24,14 @@ export const generateSitemapIndex = (baseUrl: string): string => {
   const sitemaps = [
     // 固定ページサイトマップ
     `<sitemap>
-      <loc>${baseUrl}/sitemap-pages.xml</loc>
+      <loc>${joinUrl(baseUrl, '/sitemap-pages.xml')}</loc>
       <lastmod>${currentDate}</lastmod>
     </sitemap>`,
     
     // 年月別記事サイトマップ
     ...availableMonths.map(({ year, month }) => 
       `<sitemap>
-        <loc>${baseUrl}/sitemap-articles-${year}-${month}.xml</loc>
+        <loc>${joinUrl(baseUrl, `/sitemap-articles-${year}-${month}.xml`)}</loc>
         <lastmod>${getLastModForMonth(year, month)}</lastmod>
       </sitemap>`
     )
@@ -37,6 +44,7 @@ ${sitemaps.join('\n')}
 };
 
 // 固定ページサイトマップの生成
+// 修正された生成関数
 export const generatePagesSitemap = (baseUrl: string): string => {
   const currentDate = new Date().toISOString();
   const urls: SitemapUrl[] = [];
@@ -51,14 +59,14 @@ export const generatePagesSitemap = (baseUrl: string): string => {
 
   // 固定ページ
   urls.push({
-    loc: `${baseUrl}/about`,
+    loc: joinUrl(baseUrl, '/about'),
     lastmod: currentDate,
     changefreq: 'monthly',
     priority: 0.8,
   });
 
   urls.push({
-    loc: `${baseUrl}/contact`,
+    loc: joinUrl(baseUrl, '/contact'),
     lastmod: currentDate,
     changefreq: 'monthly',
     priority: 0.8,
@@ -67,7 +75,7 @@ export const generatePagesSitemap = (baseUrl: string): string => {
   // カテゴリページ
   categories.forEach((category) => {
     urls.push({
-      loc: `${baseUrl}/category/${category.slug}`,
+      loc: joinUrl(baseUrl, `/category/${category.slug}`),
       lastmod: currentDate,
       changefreq: 'daily',
       priority: 0.8,
@@ -78,7 +86,7 @@ export const generatePagesSitemap = (baseUrl: string): string => {
   const popularTags = getAllTags().slice(0, 30);
   popularTags.forEach(({ tag }) => {
     urls.push({
-      loc: `${baseUrl}/tag/${encodeURIComponent(tag)}`,
+      loc: joinUrl(baseUrl, `/tag/${encodeURIComponent(tag)}`),
       lastmod: currentDate,
       changefreq: 'weekly',
       priority: 0.6,
@@ -88,7 +96,8 @@ export const generatePagesSitemap = (baseUrl: string): string => {
   return generateSitemapXML(urls);
 };
 
-// 年月別記事サイトマップの生成
+
+// 年月別記事サイトマップの修正
 export const generateArticleSitemap = (baseUrl: string, year: string, month: string): string => {
   const targetYearMonth = `${year}-${month.padStart(2, '0')}`;
   
@@ -98,7 +107,7 @@ export const generateArticleSitemap = (baseUrl: string, year: string, month: str
   });
 
   const urls: SitemapUrl[] = articles.map(article => ({
-    loc: `${baseUrl}/news/${article.slug}`,
+    loc: joinUrl(baseUrl, `/news/${article.slug}`),
     lastmod: article.publishedAt,
     changefreq: 'weekly',
     priority: 0.9,
