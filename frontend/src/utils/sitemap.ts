@@ -185,53 +185,53 @@ ${urlElements}
 </urlset>`;
 };
 
-// 既存の単一サイトマップ関数（後方互換性のため保持）
-export const generateSitemap = (baseUrl: string): SitemapUrl[] => {
-  // 既存の実装をそのまま維持
-  const sitemap: SitemapUrl[] = [];
-  const currentDate = new Date().toISOString();
+// 既存の単一サイトマップ関数（削除予定 - 旧システム用）
+// export const generateSitemap = (baseUrl: string): SitemapUrl[] => {
+//   // 既存の実装をそのまま維持
+//   const sitemap: SitemapUrl[] = [];
+//   const currentDate = new Date().toISOString();
 
-  sitemap.push({
-    loc: baseUrl,
-    lastmod: currentDate,
-    changefreq: 'daily',
-    priority: 1.0,
-  });
+//   sitemap.push({
+//     loc: baseUrl,
+//     lastmod: currentDate,
+//     changefreq: 'daily',
+//     priority: 1.0,
+//   });
 
-  sitemap.push({
-    loc: `${baseUrl}/about`,
-    lastmod: currentDate,
-    changefreq: 'monthly',
-    priority: 0.8,
-  });
+//   sitemap.push({
+//     loc: `${baseUrl}/about`,
+//     lastmod: currentDate,
+//     changefreq: 'monthly',
+//     priority: 0.8,
+//   });
 
-  allArticles.forEach((article) => {
-    sitemap.push({
-      loc: `${baseUrl}/news/${article.slug}`,
-      lastmod: article.publishedAt,
-      changefreq: 'weekly',
-      priority: 0.9,
-    });
-  });
+//   allArticles.forEach((article) => {
+//     sitemap.push({
+//       loc: `${baseUrl}/news/${article.slug}`,
+//       lastmod: article.publishedAt,
+//       changefreq: 'weekly',
+//       priority: 0.9,
+//     });
+//   });
 
-  categories.forEach((category) => {
-    sitemap.push({
-      loc: `${baseUrl}/category/${category.slug}`,
-      lastmod: currentDate,
-      changefreq: 'daily',
-      priority: 0.8,
-    });
-  });
+//   categories.forEach((category) => {
+//     sitemap.push({
+//       loc: `${baseUrl}/category/${category.slug}`,
+//       lastmod: currentDate,
+//       changefreq: 'daily',
+//       priority: 0.8,
+//     });
+//   });
 
-  const popularTags = getAllTags().slice(0, 30);
-  popularTags.forEach(({ tag }) => {
-    sitemap.push({
-      loc: `${baseUrl}/tag/${encodeURIComponent(tag)}`,
-      lastmod: currentDate,
-      changefreq: 'weekly',
-      priority: 0.6,
-    });
-  });
+//   const popularTags = getAllTags().slice(0, 30);
+//   popularTags.forEach(({ tag }) => {
+//     sitemap.push({
+//       loc: `${baseUrl}/tag/${encodeURIComponent(tag)}`,
+//       lastmod: currentDate,
+//       changefreq: 'weekly',
+//       priority: 0.6,
+//     });
+//   });
 
-  return sitemap;
-};
+//   return sitemap;
+// };
