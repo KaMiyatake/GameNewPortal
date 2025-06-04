@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { generateArticleSitemap } from '../../utils/sitemap';
 
 export default function ArticleSitemap() {
   return null;
@@ -45,38 +46,36 @@ export const getServerSideProps: GetServerSideProps = async ({ params, res }) =>
   
   console.log(`Parsed - Year: ${year}, Month: ${month}`);
   
-  // テスト用サイトマップ（動的コンテンツ付き）
-  const testSitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://game-new-portal.vercel.app/news/test-${yearmonth}-article-1</loc>
-    <lastmod>${year}-${month.padStart(2, '0')}-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://game-new-portal.vercel.app/news/test-${yearmonth}-article-2</loc>
-    <lastmod>${year}-${month.padStart(2, '0')}-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://game-new-portal.vercel.app/news/test-${yearmonth}-article-3</loc>
-    <lastmod>${year}-${month.padStart(2, '0')}-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-</urlset>`;
-
   try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://game-new-portal.vercel.app';
+    
+    // 実際の記事サイトマップを生成
+    const sitemapXML = generateArticleSitemap(baseUrl, year, month);
+    
+    if (!sitemapXML || sitemapXML.trim() === '') {
+      console.warn(`No articles found for ${yearmonth}`);
+      // 空のサイトマップを返す
+      const emptySitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+</urlset>`;
+      
+      res.setHeader('Content-Type', 'text/xml; charset=utf-8');
+      res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate');
+      res.write(emptySitemap);
+      res.end();
+      return { props: {} };
+    }
+    
+    console.log(`Generated sitemap for ${yearmonth}, length: ${sitemapXML.length}`);
+    
     res.setHeader('Content-Type', 'text/xml; charset=utf-8');
     res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate');
-    res.write(testSitemap);
+    res.write(sitemapXML);
     res.end();
 
     return { props: {} };
   } catch (error) {
-    console.error('Test sitemap error:', error);
+    console.error('Article sitemap generation error:', error);
     res.statusCode = 500;
     res.end();
     return { props: {} };
