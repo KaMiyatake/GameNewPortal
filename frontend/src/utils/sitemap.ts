@@ -20,18 +20,19 @@ const joinUrl = (baseUrl: string, path: string): string => {
 export const generateSitemapIndex = (baseUrl: string): string => {
   const availableMonths = getAvailableMonths();
   const currentDate = new Date().toISOString();
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
   const sitemaps = [
     // 固定ページサイトマップ
     `<sitemap>
-      <loc>${joinUrl(baseUrl, '/sitemap-pages.xml')}</loc>
+      <loc>${cleanBaseUrl}/sitemap-pages.xml</loc>
       <lastmod>${currentDate}</lastmod>
     </sitemap>`,
     
-    // 年月別記事サイトマップ
+    // 年月別記事サイトマップ（新しい命名規則）
     ...availableMonths.map(({ year, month }) => 
       `<sitemap>
-        <loc>${joinUrl(baseUrl, `/sitemap-articles-${year}-${month}.xml`)}</loc>
+        <loc>${cleanBaseUrl}/sitemap-articles-${year}-${month}.xml</loc>
         <lastmod>${getLastModForMonth(year, month)}</lastmod>
       </sitemap>`
     )
@@ -101,13 +102,24 @@ export const generatePagesSitemap = (baseUrl: string): string => {
 export const generateArticleSitemap = (baseUrl: string, year: string, month: string): string => {
   const targetYearMonth = `${year}-${month.padStart(2, '0')}`;
   
+  console.log(`Generating sitemap for: ${targetYearMonth}`);
+  console.log(`Total articles available: ${allArticles.length}`);
+  
   const articles = allArticles.filter(article => {
     const articleYearMonth = article.publishedAt.substring(0, 7); // YYYY-MM
     return articleYearMonth === targetYearMonth;
   });
 
+  console.log(`Articles found for ${targetYearMonth}: ${articles.length}`);
+  
+  if (articles.length === 0) {
+    console.warn(`No articles found for ${targetYearMonth}`);
+    return generateSitemapXML([]); // 空のサイトマップを返す
+  }
+
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
   const urls: SitemapUrl[] = articles.map(article => ({
-    loc: joinUrl(baseUrl, `/news/${article.slug}`),
+    loc: `${cleanBaseUrl}/news/${article.slug}`,
     lastmod: article.publishedAt,
     changefreq: 'weekly',
     priority: 0.9,
