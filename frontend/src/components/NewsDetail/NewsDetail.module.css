@@ -21,11 +21,24 @@
   color: var(--primary-color);
 }
 
+/* 記事内画像のサイズ制限を追加 */
 .content img {
   max-width: 100%;
+  max-height: 500px; /* 最大垂直長を500pxに制限 */
   height: auto;
+  width: auto;
   border-radius: 8px;
-  margin: 1.5rem 0;
+  margin: 1.5rem auto; /* 中央寄せのために auto を追加 */
+  display: block; /* 中央寄せのために block 表示 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽いシャドウを追加 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* ホバー効果用 */
+}
+
+/* 画像ホバー効果（オプション） */
+.content img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 }
 
 .content a {
@@ -54,6 +67,26 @@
   margin-bottom: 0.5rem;
 }
 
+/* レスポンシブ対応：モバイルでは画像サイズをさらに制限 */
+@media (max-width: 768px) {
+  .content img {
+    max-height: 350px; /* モバイルでは350pxに制限 */
+    margin: 1rem auto;
+  }
+  
+  .content img:hover {
+    transform: none; /* モバイルではホバー効果を無効化 */
+  }
+}
+
+@media (max-width: 576px) {
+  .content img {
+    max-height: 280px; /* 小画面では280pxに制限 */
+    margin: 0.8rem auto;
+  }
+}
+
+/* 以下既存のスタイルは変更なし */
 .relatedNews {
   background-color: #f8f9fa;
   border-radius: 8px;
