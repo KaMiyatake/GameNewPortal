@@ -9,39 +9,64 @@ export interface SitemapUrl {
   priority?: number;
 }
 
-export const generateSitemap = (baseUrl: string): SitemapUrl[] => {
-  const sitemap: SitemapUrl[] = [];
+// サイトマップインデックスの生成
+export const generateSitemapIndex = (baseUrl: string): string => {
+  const availableMonths = getAvailableMonths();
   const currentDate = new Date().toISOString();
 
-  // 1. ホームページ
-  sitemap.push({
+  const sitemaps = [
+    // 固定ページサイトマップ
+    `<sitemap>
+      <loc>${baseUrl}/sitemap-pages.xml</loc>
+      <lastmod>${currentDate}</lastmod>
+    </sitemap>`,
+    
+    // 年月別記事サイトマップ
+    ...availableMonths.map(({ year, month }) => 
+      `<sitemap>
+        <loc>${baseUrl}/sitemap-articles-${year}-${month}.xml</loc>
+        <lastmod>${getLastModForMonth(year, month)}</lastmod>
+      </sitemap>`
+    )
+  ];
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemaps.join('\n')}
+</sitemapindex>`;
+};
+
+// 固定ページサイトマップの生成
+export const generatePagesSitemap = (baseUrl: string): string => {
+  const currentDate = new Date().toISOString();
+  const urls: SitemapUrl[] = [];
+
+  // ホームページ
+  urls.push({
     loc: baseUrl,
     lastmod: currentDate,
     changefreq: 'daily',
     priority: 1.0,
   });
 
-  // 2. 固定ページ
-  sitemap.push({
+  // 固定ページ
+  urls.push({
     loc: `${baseUrl}/about`,
     lastmod: currentDate,
     changefreq: 'monthly',
     priority: 0.8,
   });
 
-  // 3. 記事ページ
-  allArticles.forEach((article) => {
-    sitemap.push({
-      loc: `${baseUrl}/news/${article.slug}`,
-      lastmod: article.publishedAt,
-      changefreq: 'weekly',
-      priority: 0.9,
-    });
+  urls.push({
+    loc: `${baseUrl}/contact`,
+    lastmod: currentDate,
+    changefreq: 'monthly',
+    priority: 0.8,
   });
 
-  // 4. カテゴリページ
+  // カテゴリページ
   categories.forEach((category) => {
-    sitemap.push({
+    urls.push({
       loc: `${baseUrl}/category/${category.slug}`,
       lastmod: currentDate,
       changefreq: 'daily',
@@ -49,10 +74,10 @@ export const generateSitemap = (baseUrl: string): SitemapUrl[] => {
     });
   });
 
-  // 5. タグページ（人気タグ上位30個のみ）
+  // 人気タグページ（上位30個）
   const popularTags = getAllTags().slice(0, 30);
   popularTags.forEach(({ tag }) => {
-    sitemap.push({
+    urls.push({
       loc: `${baseUrl}/tag/${encodeURIComponent(tag)}`,
       lastmod: currentDate,
       changefreq: 'weekly',
@@ -60,9 +85,69 @@ export const generateSitemap = (baseUrl: string): SitemapUrl[] => {
     });
   });
 
-  return sitemap;
+  return generateSitemapXML(urls);
 };
 
+// 年月別記事サイトマップの生成
+export const generateArticleSitemap = (baseUrl: string, year: string, month: string): string => {
+  const targetYearMonth = `${year}-${month.padStart(2, '0')}`;
+  
+  const articles = allArticles.filter(article => {
+    const articleYearMonth = article.publishedAt.substring(0, 7); // YYYY-MM
+    return articleYearMonth === targetYearMonth;
+  });
+
+  const urls: SitemapUrl[] = articles.map(article => ({
+    loc: `${baseUrl}/news/${article.slug}`,
+    lastmod: article.publishedAt,
+    changefreq: 'weekly',
+    priority: 0.9,
+  }));
+
+  return generateSitemapXML(urls);
+};
+
+// 利用可能な年月リストの取得
+export const getAvailableMonths = (): Array<{ year: string; month: string }> => {
+  const monthsSet = new Set<string>();
+  
+  allArticles.forEach(article => {
+    const date = new Date(article.publishedAt);
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    monthsSet.add(`${year}-${month}`);
+  });
+
+  return Array.from(monthsSet)
+    .sort((a, b) => b.localeCompare(a)) // 新しい月順
+    .map(yearMonth => {
+      const [year, month] = yearMonth.split('-');
+      return { year, month };
+    });
+};
+
+// 指定月の最終更新日取得
+export const getLastModForMonth = (year: string, month: string): string => {
+  const targetYearMonth = `${year}-${month.padStart(2, '0')}`;
+  
+  const monthArticles = allArticles.filter(article => {
+    const articleYearMonth = article.publishedAt.substring(0, 7);
+    return articleYearMonth === targetYearMonth;
+  });
+
+  if (monthArticles.length === 0) {
+    return new Date().toISOString();
+  }
+
+  // その月の最新記事の日付を返す
+  const latestArticle = monthArticles.sort((a, b) => 
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  )[0];
+
+  return latestArticle.publishedAt;
+};
+
+// 既存のXML生成関数
 export const generateSitemapXML = (urls: SitemapUrl[]): string => {
   const urlElements = urls.map((url) => {
     return `  <url>
@@ -77,4 +162,55 @@ export const generateSitemapXML = (urls: SitemapUrl[]): string => {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urlElements}
 </urlset>`;
+};
+
+// 既存の単一サイトマップ関数（後方互換性のため保持）
+export const generateSitemap = (baseUrl: string): SitemapUrl[] => {
+  // 既存の実装をそのまま維持
+  const sitemap: SitemapUrl[] = [];
+  const currentDate = new Date().toISOString();
+
+  sitemap.push({
+    loc: baseUrl,
+    lastmod: currentDate,
+    changefreq: 'daily',
+    priority: 1.0,
+  });
+
+  sitemap.push({
+    loc: `${baseUrl}/about`,
+    lastmod: currentDate,
+    changefreq: 'monthly',
+    priority: 0.8,
+  });
+
+  allArticles.forEach((article) => {
+    sitemap.push({
+      loc: `${baseUrl}/news/${article.slug}`,
+      lastmod: article.publishedAt,
+      changefreq: 'weekly',
+      priority: 0.9,
+    });
+  });
+
+  categories.forEach((category) => {
+    sitemap.push({
+      loc: `${baseUrl}/category/${category.slug}`,
+      lastmod: currentDate,
+      changefreq: 'daily',
+      priority: 0.8,
+    });
+  });
+
+  const popularTags = getAllTags().slice(0, 30);
+  popularTags.forEach(({ tag }) => {
+    sitemap.push({
+      loc: `${baseUrl}/tag/${encodeURIComponent(tag)}`,
+      lastmod: currentDate,
+      changefreq: 'weekly',
+      priority: 0.6,
+    });
+  });
+
+  return sitemap;
 };
