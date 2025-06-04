@@ -44,7 +44,6 @@ ${sitemaps.join('\n')}
 </sitemapindex>`;
 };
 
-
 // 固定ページサイトマップの生成
 // 修正された生成関数
 export const generatePagesSitemap = (baseUrl: string): string => {
