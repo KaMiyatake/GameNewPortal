@@ -29,10 +29,10 @@ export const generateSitemapIndex = (baseUrl: string): string => {
       <lastmod>${currentDate}</lastmod>
     </sitemap>`,
     
-    // 年月別記事サイトマップ（新しい命名規則）
+    // 年月別記事サイトマップ（新しいディレクトリ形式）
     ...availableMonths.map(({ year, month }) => 
       `<sitemap>
-        <loc>${cleanBaseUrl}/sitemap-articles-${year}-${month}.xml</loc>
+        <loc>${cleanBaseUrl}/sitemap-articles/${year}-${month}.xml</loc>
         <lastmod>${getLastModForMonth(year, month)}</lastmod>
       </sitemap>`
     )
@@ -43,6 +43,7 @@ export const generateSitemapIndex = (baseUrl: string): string => {
 ${sitemaps.join('\n')}
 </sitemapindex>`;
 };
+
 
 // 固定ページサイトマップの生成
 // 修正された生成関数
