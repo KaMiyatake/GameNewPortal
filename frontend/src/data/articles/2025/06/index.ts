@@ -1,11 +1,11 @@
-import { sf6ElenaY12 } from './sf6-elena-y12';
-import { deltaruneCh34Launch } from './deltarune-ch34-launch';
-import { eldenRingNightreignPatch1011 } from './elden-ring-nightreign-patch1011';
-import { switch2Launch } from './switch2-launch';
+import { comp25060301 } from './25060301-sf6';
+import { comp25060302 } from './25060302-deltarune';
+import { comp25060303 } from './25060303-elden-ring';
+import { comp25060501 } from './25060501-switch2';
 
 export const articles202506 = [
-  sf6ElenaY12,
-  switch2Launch,
-  eldenRingNightreignPatch1011,
-  deltaruneCh34Launch,
+  comp25060301,
+  comp25060501,
+  comp25060303,
+  comp25060302,
 ];

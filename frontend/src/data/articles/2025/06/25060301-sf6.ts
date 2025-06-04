@@ -1,8 +1,8 @@
-// src/data/articles/2025/06/sf6-elena-y12.ts
+// src/data/articles/2025/06/25060301-sf6.ts
 import { ArticleDetail } from '../../../utils/types';
 import { getArticleImagePath } from '../../../../utils/image-paths';
 
-export const sf6ElenaY12: ArticleDetail = {
+export const comp25060301: ArticleDetail = {
   id: 25060301,
   title: '『ストリートファイター6』にエレナ参戦、“Years 1-2 Fighters Edition”も発売決定',
   summary:
@@ -14,7 +14,7 @@ export const sf6ElenaY12: ArticleDetail = {
     <p>『ストIII』シリーズ以来の参戦となるエレナは、<em>長いリーチの足技</em>とリズミカルな連撃が持ち味。<br />
     シリーズおなじみの回復スーパーアーツ「Healing」も<strong>Driveシステムに最適化</strong>され再登場します。</p>
 
-    <img src="${getArticleImagePath('2025','06','sf6-elena-y12','screenshot-1.jpg')}" alt="エレナのバトルシーン" />
+    <img src="${getArticleImagePath('2025','06','25060301-sf6','screenshot-1.jpg')}" alt="エレナのバトルシーン" />
 
     <h2>“Years 1-2 Fighters Edition” とは？</h2>
     <ul>
@@ -25,13 +25,13 @@ export const sf6ElenaY12: ArticleDetail = {
 
     <p>これから始めるプレイヤー向けの<strong>オールインワンパッケージ</strong>で、Switch 2 版を含む全プラットフォームに同時発売されます。</p>
 
-    <img src="${getArticleImagePath('2025','06','sf6-elena-y12','screenshot-2.jpg')}" alt="Y12FE パッケージアート" />
+    <img src="${getArticleImagePath('2025','06','25060301-sf6','screenshot-2.jpg')}" alt="Y12FE パッケージアート" />
   `,
-  imageUrl: getArticleImagePath('2025', '06', 'sf6-elena-y12', 'main.jpg'),
+  imageUrl: getArticleImagePath('2025', '06', '25060301-sf6', 'main.jpg'),
   categories: ['PlayStation', 'Xbox', 'PC', 'Switch'],
   tags: ['ストリートファイター6', 'エレナ', 'DLC', 'Fighting', 'カプコン'],
   publishedAt: '2025-06-05',
-  slug: 'sf6-elena-y12',
+  slug: '25060301-sf6',
   author: 'ゲーム賛否編集部',
   featured: true,
   popular: true,

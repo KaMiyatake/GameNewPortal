@@ -1,7 +1,7 @@
 import { ArticleDetail } from '../../../utils/types';
 import { getArticleImagePath } from '../../../../utils/image-paths';
 
-export const eldenRingNightreignPatch1011: ArticleDetail = {
+export const comp25060303: ArticleDetail = {
   id: 25060303,
   title: '『ELDEN RING: Nightreign』パッチ1.01.1配信――ソロ報酬50%増＆自動復活など大幅調整',
   summary:
@@ -11,7 +11,7 @@ export const eldenRingNightreignPatch1011: ArticleDetail = {
     <strong>パッチ1.01.1</strong>を配信しました。本パッチでは<strong>ソロプレイ体験の底上げ</strong>と、
     発売直後から指摘されていた安定性の問題が重点的に修正されています。</p>
 
-    <img src="${getArticleImagePath('2025', '06', 'elden-ring-nightreign-patch1011', 'screenshot-1.jpg')}" alt="パッチ1.01.1ゲームプレイシーン" />
+    <img src="${getArticleImagePath('2025', '06', '25060303-elden-ring', 'screenshot-1.jpg')}" alt="パッチ1.01.1ゲームプレイシーン" />
 
     <h2>主な変更点</h2>
     <ul>
@@ -22,7 +22,7 @@ export const eldenRingNightreignPatch1011: ArticleDetail = {
       <li>一部武器の&nbsp;Hit&nbsp;Box 調整、テキスト誤表記を修正。</li>
     </ul>
 
-    <img src="${getArticleImagePath('2025', '06', 'elden-ring-nightreign-patch1011', 'screenshot-2.jpg')}" alt="Nightreign キーアート" />
+    <img src="${getArticleImagePath('2025', '06', '25060303-elden-ring', 'screenshot-2.jpg')}" alt="Nightreign キーアート" />
 
     <h2>次回アップデート予告</h2>
     <p>公式サイトによれば、<em>パッチ1.02</em>ではデュオ用マッチとウルトラワイド対応を
@@ -32,11 +32,11 @@ export const eldenRingNightreignPatch1011: ArticleDetail = {
     ぜひアップデートを適用して、新たな夜の狭間に挑みましょう。</p>
   `,
   // メイン画像
-  imageUrl: getArticleImagePath('2025', '06', 'elden-ring-nightreign-patch1011', 'main.jpg'),
+  imageUrl: getArticleImagePath('2025', '06', '25060303-elden-ring', 'main.jpg'),
   categories: ['PlayStation', 'Xbox', 'PC'],
   tags: ['ELDEN RING', 'Nightreign', 'パッチ1.01.1', 'アップデート', 'FromSoftware'],
   publishedAt: '2025-06-03',
-  slug: 'elden-ring-nightreign-patch1011',
+  slug: '25060303-elden-ring',
   author: 'ゲーム賛否編集部',
   featured: true,
   popular: true,

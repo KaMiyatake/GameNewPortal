@@ -1,7 +1,7 @@
 import { ArticleDetail } from '../../../utils/types';
 import { getArticleImagePath } from '../../../../utils/image-paths';
 
-export const switch2Launch: ArticleDetail = {
+export const comp25060501: ArticleDetail = {
   id: 25060501,
   title: 'Nintendo Switch 2 本日発売！ 4K＆120fps対応の次世代ハイブリッド機がついに登場',
   summary:
@@ -12,7 +12,7 @@ export const switch2Launch: ArticleDetail = {
     <em>最大4K120fps</em> 出力をサポートし、内蔵ストレージは 256GB に拡張。新設計の<strong>Joy-Con 2</strong>は磁気接続となり、
     HD振動も高精細化しています。</p>
 
-    <img src="${getArticleImagePath('2025', '06', 'switch2-launch', 'screenshot-1.jpg')}" alt="Switch2 本体とJoy-Con 2" />
+    <img src="${getArticleImagePath('2025', '06', '25060501-switch2', 'screenshot-1.jpg')}" alt="Switch2 本体とJoy-Con 2" />
 
     <h2>主なスペック</h2>
     <ul>
@@ -24,7 +24,7 @@ export const switch2Launch: ArticleDetail = {
       <li>無線：Wi-Fi 7 / Bluetooth 5.4 / NFC</li>
     </ul>
 
-    <img src="${getArticleImagePath('2025', '06', 'switch2-launch', 'screenshot-2.jpg')}" alt="4K120fps対応のゲームプレイ画面" />
+    <img src="${getArticleImagePath('2025', '06', '25060501-switch2', 'screenshot-2.jpg')}" alt="4K120fps対応のゲームプレイ画面" />
 
     <h2>ローンチタイトル一覧（一部）</h2>
     <ol>
@@ -40,18 +40,18 @@ export const switch2Launch: ArticleDetail = {
     <p>初回セットアップ時に旧 Switch 本体を近づけるだけで、<strong>セーブデータ・ユーザー・eショップ残高</strong>を
     ワイヤレス転送できます。また、物理ソフトは後方互換により 4Kアップスケールでプレイ可能。</p>
 
-    <img src="${getArticleImagePath('2025', '06', 'switch2-launch', 'screenshot-3.jpg')}" alt="セットアップUIと転送画面" />
+    <img src="${getArticleImagePath('2025', '06', '25060501-switch2', 'screenshot-3.jpg')}" alt="セットアップUIと転送画面" />
 
     <h2>今後のアップデートロードマップ</h2>
     <p>任天堂は 2025年秋に<strong>VRモード</strong>（別売ヘッドセット）と<strong>クラウドセーブ自動同期</strong>を
     ファームウェアアップデートで実装予定と発表しています。</p>
   `,
   // メイン画像
-  imageUrl: getArticleImagePath('2025', '06', 'switch2-launch', 'main.jpg'),
+  imageUrl: getArticleImagePath('2025', '06', '25060501-switch2', 'main.jpg'),
   categories: ['Switch'],
   tags: ['Nintendo Switch 2', '新ハード', 'ローンチ', '任天堂'],
   publishedAt: '2025-06-05',
-  slug: 'switch2-launch',
+  slug: '25060501-switch2',
   author: 'ゲーム賛否編集部',
   featured: true,
   popular: true,

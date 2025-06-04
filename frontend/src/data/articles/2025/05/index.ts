@@ -1,4 +1,4 @@
-import { zeldaTOTKNewDLC } from './zelda-totk-new-dlc';
+import { comp25052302 } from './25052302-zelda-totk';
 import { eldenRingShadowKingdom } from './elden-ring-shadow-kingdom';
 import { gtaVIOfficialRelease } from './gta-vi-official-release';
 import { fortniteJapanTheme } from './fortnite-japan-theme';
@@ -8,7 +8,7 @@ import { splatoon3SummerFest } from './splatoon-3-summer-fest';
 import { eldenRingNightreignLaunch } from './elden-ring-nightreign-launch';
 
 export const articles202505 = [
-  zeldaTOTKNewDLC,
+  comp25052302,
   eldenRingNightreignLaunch,
   eldenRingShadowKingdom,
   gtaVIOfficialRelease,
