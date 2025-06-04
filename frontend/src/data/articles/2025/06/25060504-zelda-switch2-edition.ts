@@ -67,7 +67,7 @@ export const comp25060504: ArticleDetail = {
     <p>果てなく広がるハイラルの世界が、Nintendo Switch 2の性能でより美しく、より快適に楽しめるようになりました。既存プレイヤーも新規プレイヤーも、進化した冒険体験をお楽しみください。</p>
   `,
   imageUrl: getArticleImagePath('2025', '06', '25060504-zelda-switch2-edition', 'main.jpg'),
-  categories: ['Switch', 'Nintendo'],
+  categories: ['Switch'],
   tags: ['ゼルダの伝説', '任天堂', 'Switch2', 'Nintendo Switch 2 Edition', 'ブレスオブザワイルド', 'ティアーズオブザキングダム', 'HDR'],
   publishedAt: '2025-06-05',
   slug: '25060504-zelda-switch2-edition',
