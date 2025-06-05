@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 1200px; /* home containerと同じ最大幅 */
   margin: 0 auto; /* 中央揃え */
-  padding: 0.75rem 15px 0 15px; /* home containerと同じ左右パディング */
+  padding: 0.75rem 10px 0 10px; /* 左右の余白を縮小 */
   background-color: var(--background-color);
 }
 
@@ -15,7 +15,7 @@
   width: 100%;
   max-width: 100%; /* 1400pxから100%に変更 */
   margin: 0 auto;
-  padding: 0 2rem; /* 左右の余白を確保 */
+  padding: 0 1rem; /* 左右余白を縮小 */
 }
 
 .swiper {
@@ -170,7 +170,7 @@
 /* レスポンシブ対応 */
 @media (max-width: 1200px) {
   .sliderContainer {
-    padding: 0 1.5rem;
+    padding: 0 0.75rem;
   }
 
   .swiper {
@@ -194,7 +194,7 @@
 
 @media (max-width: 992px) {
   .heroSlider {
-    padding: 0.75rem 10px 0 10px; /* タブレットでパディング調整 */
+    padding: 0.75rem 5px 0 5px; /* タブレットでパディング調整 */
   }
 
   .newsTitle {
@@ -224,11 +224,11 @@
 
 @media (max-width: 768px) {
   .heroSlider {
-    padding: 0.5rem 10px 0 10px; /* モバイルでパディング調整 */
+    padding: 0.5rem 5px 0 5px; /* モバイルでパディング調整 */
   }
 
   .sliderContainer {
-    padding: 0 1rem;
+    padding: 0 0.5rem;
   }
 
   .newsTitle {
@@ -272,11 +272,11 @@
 
 @media (max-width: 576px) {
   .heroSlider {
-    padding: 0.4rem 10px 0 10px; /* 最小画面でパディング調整 */
+    padding: 0.4rem 5px 0 5px; /* 最小画面でパディング調整 */
   }
 
   .sliderContainer {
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
   }
 
   .newsInfo {
@@ -320,7 +320,7 @@
   }
 
   .heroSlider {
-    padding: 0.4rem 10px 0 10px;
+    padding: 0.4rem 5px 0 5px;
   }
 }
 
@@ -366,7 +366,7 @@
 .heroGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 1rem;
   background: white;
   border-radius: 8px;

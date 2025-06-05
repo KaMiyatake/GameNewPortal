@@ -20,8 +20,8 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
       <div className={styles.sliderContainer}>
         <Swiper
           modules={[Autoplay, Navigation]}
-          spaceBetween={12}
-          slidesPerView={4}
+          spaceBetween={6}
+          slidesPerView={3}
           loop={true}
           autoplay={{
             delay: 4000,
@@ -36,19 +36,19 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
           breakpoints={{
             320: {
               slidesPerView: 1,
-              spaceBetween: 8,
+              spaceBetween: 4,
             },
             576: {
               slidesPerView: 2,
-              spaceBetween: 10,
+              spaceBetween: 5,
             },
             768: {
               slidesPerView: 3,
-              spaceBetween: 12,
+              spaceBetween: 6,
             },
             1024: {
-              slidesPerView: 4,
-              spaceBetween: 12,
+              slidesPerView: 3,
+              spaceBetween: 6,
             },
           }}
           className={styles.swiper}
