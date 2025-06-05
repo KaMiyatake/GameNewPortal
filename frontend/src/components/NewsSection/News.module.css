@@ -490,6 +490,10 @@
     gap: 1rem;
   }
 
+  .newsHeaderList {
+    margin-bottom: 0.2rem;
+  }
+
   .newsCardList {
     min-height: 110px;
     height: auto;
@@ -502,12 +506,12 @@
   }
 
   .contentContainerList {
-    padding: 0.6rem;
+    padding: 0.5rem;
     width: 75%;
   }
 
   .newsTitleList {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .newsTitleList span {
@@ -523,6 +527,12 @@
   .category {
     font-size: 0.55rem !important;
     padding: 1px 4px !important;
+  }
+
+  .categoryTagSmall,
+  .categoryTagMoreSmall {
+    font-size: 0.5rem;
+    padding: 0.08rem 0.2rem;
   }
 
   .newsDateList, 
@@ -557,12 +567,12 @@
   }
 
   .contentContainerList {
-    padding: 0.5rem;
+    padding: 0.4rem;
     width: 75%;
   }
 
   .newsTitleList {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .newsTitleList span {
@@ -574,7 +584,7 @@
   }
 
   .newsHeaderList {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.15rem;
   }
 
   .categoryList,
@@ -602,12 +612,12 @@
   }
 
   .contentContainerList {
-    padding: 0.4rem;
+    padding: 0.3rem;
     width: 75%;
   }
 
   .newsTitleList {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .newsTitleList span {
@@ -621,12 +631,18 @@
     padding: 1px 3px !important;
   }
 
+  .categoryTagSmall,
+  .categoryTagMoreSmall {
+    font-size: 0.45rem;
+    padding: 0.05rem 0.2rem;
+  }
+
   .newsDateList {
     font-size: 0.55rem;
   }
 
   .newsHeaderList {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
   }
 }
 
@@ -823,7 +839,7 @@
   
   .categoryTagSmall,
   .categoryTagMoreSmall {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     padding: 0.1rem 0.25rem;
   }
   
