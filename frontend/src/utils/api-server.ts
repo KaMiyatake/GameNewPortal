@@ -1,6 +1,8 @@
 // サーバーサイド用の同期API関数
 import { 
   getPaginatedArticles,
+  getPaginatedArticlesByCategory,
+  getPaginatedArticlesByTag,
   getFeaturedArticles,
   getPopularArticles,
   getArticleBySlug,
@@ -75,4 +77,30 @@ export const getNewsDetailSync = (slug: string) => {
 export const getNewsByCategorySync = (categorySlug: string) => {
   const articles = getArticlesByCategory(categorySlug);
   return articles.map(convertToNewsItem);
+};
+
+// カテゴリ別記事取得（ページ付き・同期版）
+export const getNewsByCategoryPaginatedSync = (
+  categorySlug: string,
+  page: number = 1,
+  limit: number = 10
+) => {
+  const result = getPaginatedArticlesByCategory(categorySlug, page, limit);
+  return {
+    data: result.data.map(convertToNewsItem),
+    pagination: result.pagination,
+  };
+};
+
+// タグ別記事取得（ページ付き・同期版）
+export const getNewsByTagPaginatedSync = (
+  tag: string,
+  page: number = 1,
+  limit: number = 10
+) => {
+  const result = getPaginatedArticlesByTag(tag, page, limit);
+  return {
+    data: result.data.map(convertToNewsItem),
+    pagination: result.pagination,
+  };
 };

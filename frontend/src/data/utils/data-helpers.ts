@@ -18,6 +18,27 @@ export const getPaginatedArticles = (page: number, limit: number) => {
   };
 };
 
+// カテゴリ別記事取得（ページ付き）
+export const getPaginatedArticlesByCategory = (
+  categorySlug: string,
+  page: number,
+  limit: number
+) => {
+  const articles = getArticlesByCategory(categorySlug);
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  return {
+    data: articles.slice(startIndex, endIndex),
+    pagination: {
+      currentPage: page,
+      totalPages: Math.ceil(articles.length / limit),
+      totalItems: articles.length,
+      itemsPerPage: limit,
+    },
+  };
+};
+
 // カテゴリ別記事取得（複数カテゴリ対応版）
 export const getArticlesByCategory = (categorySlug: string) => {
   // スラッグからカテゴリ名に変換
@@ -74,9 +95,30 @@ export const searchArticles = (query: string) => {
 
 // タグ別記事取得
 export const getArticlesByTag = (tag: string) => {
-  return allArticles.filter(article => 
+  return allArticles.filter(article =>
     article.tags.some(t => t.toLowerCase() === tag.toLowerCase())
   );
+};
+
+// タグ別記事取得（ページ付き）
+export const getPaginatedArticlesByTag = (
+  tag: string,
+  page: number,
+  limit: number
+) => {
+  const articles = getArticlesByTag(tag);
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+
+  return {
+    data: articles.slice(startIndex, endIndex),
+    pagination: {
+      currentPage: page,
+      totalPages: Math.ceil(articles.length / limit),
+      totalItems: articles.length,
+      itemsPerPage: limit,
+    },
+  };
 };
 
 // 全タグ取得（使用回数順）

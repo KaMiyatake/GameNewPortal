@@ -1,11 +1,13 @@
 import { 
   getPaginatedArticles,
   getArticlesByCategory,
+  getPaginatedArticlesByCategory,
   getFeaturedArticles,
   getPopularArticles,
   getArticleBySlug,
   getRelatedArticles,
-  getArticlesByTag
+  getArticlesByTag,
+  getPaginatedArticlesByTag
 } from '../data/utils/data-helpers';
 import { categories } from '../data/categories/categories';
 import { NewsItem, NewsItemDetail, Category } from '../types';
@@ -45,6 +47,19 @@ export const getLatestNewsPaginated = async (page: number = 1, limit: number = 1
 export const getNewsByCategory = async (categorySlug: string) => {
   const articles = getArticlesByCategory(categorySlug);
   return articles.map(convertToNewsItem);
+};
+
+// カテゴリ別記事取得（ページ付き）
+export const getNewsByCategoryPaginated = async (
+  categorySlug: string,
+  page: number = 1,
+  limit: number = 10
+) => {
+  const result = getPaginatedArticlesByCategory(categorySlug, page, limit);
+  return {
+    data: result.data.map(convertToNewsItem),
+    pagination: result.pagination,
+  };
 };
 
 // 注目記事取得
@@ -98,4 +113,17 @@ export interface PaginatedResponse<T> {
 export const getNewsByTag = async (tag: string): Promise<NewsItem[]> => {
   const articles = getArticlesByTag(tag);
   return articles.map(convertToNewsItem);
+};
+
+// タグ別記事取得（ページ付き）
+export const getNewsByTagPaginated = async (
+  tag: string,
+  page: number = 1,
+  limit: number = 10
+) => {
+  const result = getPaginatedArticlesByTag(tag, page, limit);
+  return {
+    data: result.data.map(convertToNewsItem),
+    pagination: result.pagination,
+  };
 };
