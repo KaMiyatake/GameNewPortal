@@ -2,16 +2,18 @@
 
 .heroSlider {
   position: relative;
-  width: 100vw; /* ビューポート幅いっぱい */
-  margin-left: calc(-50vw + 50%); /* 中央揃えを保ちながら画面幅いっぱいに */
-  padding: 0.75rem 0 0 0; /* 上部パディングを1.5remから0.75remに半分に */
+  /* width: 100vw を削除して、containerの幅に制限 */
+  width: 100%;
+  max-width: 1200px; /* home containerと同じ最大幅 */
+  margin: 0 auto; /* 中央揃え */
+  padding: 0.75rem 15px 0 15px; /* home containerと同じ左右パディング */
   background-color: var(--background-color);
 }
 
 .sliderContainer {
   position: relative;
   width: 100%;
-  max-width: 1400px;
+  max-width: 100%; /* 1400pxから100%に変更 */
   margin: 0 auto;
   padding: 0 2rem; /* 左右の余白を確保 */
 }
@@ -105,11 +107,11 @@
 }
 
 .newsTitle {
-  font-size: 1rem; /* サイズを少し大きくして視認性向上 */
+  font-size: 1rem;
   margin: 0;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* 3行まで表示可能に */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 600;
@@ -192,7 +194,7 @@
 
 @media (max-width: 992px) {
   .heroSlider {
-    padding: 0.75rem 0 0 0; /* タブレットでも同じ上部パディング */
+    padding: 0.75rem 10px 0 10px; /* タブレットでパディング調整 */
   }
 
   .newsTitle {
@@ -222,7 +224,7 @@
 
 @media (max-width: 768px) {
   .heroSlider {
-    padding: 0.5rem 0 0 0; /* モバイルでは1remから0.5remに半分 */
+    padding: 0.5rem 10px 0 10px; /* モバイルでパディング調整 */
   }
 
   .sliderContainer {
@@ -270,7 +272,7 @@
 
 @media (max-width: 576px) {
   .heroSlider {
-    padding: 0.4rem 0 0 0; /* 最小画面では0.8remから0.4remに半分 */
+    padding: 0.4rem 10px 0 10px; /* 最小画面でパディング調整 */
   }
 
   .sliderContainer {
@@ -318,7 +320,14 @@
   }
 
   .heroSlider {
-    padding: 0.4rem 0 0 0; /* 極小画面でも上部パディングは維持 */
+    padding: 0.4rem 10px 0 10px;
+  }
+}
+
+/* 広告表示時の調整 - 広告と重ならないように */
+@media (min-width: 1401px) {
+  .heroSlider {
+    max-width: 1170px; /* 広告スペースを考慮してさらに縮小 */
   }
 }
 
@@ -408,11 +417,11 @@
 }
 
 .cardContent .title {
-  font-size: 1rem; /* サイズを少し大きくして視認性向上 */
+  font-size: 1rem;
   margin: 0;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* 3行まで表示可能に */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 600;
@@ -423,7 +432,7 @@
   .newsTitle,
   .cardContent .title {
     font-size: 0.9rem;
-    -webkit-line-clamp: 2; /* モバイルでは2行に制限 */
+    -webkit-line-clamp: 2;
   }
 }
 

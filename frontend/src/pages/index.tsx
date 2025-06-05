@@ -1,10 +1,11 @@
-// pages/index.tsx - 修正版（HeroSlider常時表示対応）
+// pages/index.tsx - 広告スペース追加版
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout/Layout';
 import HeroSlider from '../components/HeroSlider';
 import NewsSection from '../components/NewsSection/NewsSection';
 import Sidebar from '../components/Sidebar/Sidebar';
+import SideAd from '../components/Advertisement/SideAd'; // 追加
 import SEOHead from '../components/SEO/SEOHead';
 import { 
   getLatestNewsPaginated, 
@@ -13,7 +14,7 @@ import {
   getFeaturedNews,
   PaginatedResponse
 } from '../utils/api';
-import { getPopularTags } from '../data/utils/data-helpers'; // 追加
+import { getPopularTags } from '../data/utils/data-helpers';
 import { NewsItem, Category } from '../types';
 import styles from '../styles/Home.module.css';
 
@@ -23,7 +24,7 @@ interface HomeProps {
   popularNews: NewsItem[];
   categories: Category[];
   currentPage: number;
-  popularTags: { tag: string; count: number }[]; // 追加
+  popularTags: { tag: string; count: number }[];
 }
 
 const Home: React.FC<HomeProps> = ({
@@ -32,12 +33,11 @@ const Home: React.FC<HomeProps> = ({
   popularNews,
   categories,
   currentPage,
-  popularTags // 追加
+  popularTags
 }) => {
   const router = useRouter();
 
   const handlePageChange = (page: number) => {
-    // Next.js routerを使用してクエリパラメータ付きで遷移
     router.push({
       pathname: '/',
       query: page > 1 ? { page: page.toString() } : {}
@@ -53,6 +53,10 @@ const Home: React.FC<HomeProps> = ({
         canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}${currentPage > 1 ? `?page=${currentPage}` : ''}`}
       />
       <Layout>
+        {/* サイド広告 */}
+        {/* <SideAd position="left" adSlot="home-left" />
+        <SideAd position="right" adSlot="home-right" /> */}
+        
         {/* HeroSliderを全ページで表示 */}
         <HeroSlider featuredNews={featuredNews} />
         
@@ -71,10 +75,10 @@ const Home: React.FC<HomeProps> = ({
             </div>
             <div className={styles.sidebarContent}>
               <Sidebar 
-              popularNews={popularNews} 
-              categories={categories}
-              popularTags={popularTags} // 追加
-               />
+                popularNews={popularNews} 
+                categories={categories}
+                popularTags={popularTags}
+              />
             </div>
           </div>
         </div>
@@ -94,10 +98,9 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query 
       getCategories(),
       getPopularNews(),
       getFeaturedNews(),
-      Promise.resolve(getPopularTags(15)), // 人気タグ15個を取得
+      Promise.resolve(getPopularTags(15)),
     ]);
 
-    // ページ番号が範囲外の場合は404
     if (page < 1 || page > newsData.pagination.totalPages) {
       return {
         notFound: true,
@@ -111,7 +114,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query 
         popularNews: popularNewsData,
         categories: categoriesData,
         currentPage: page,
-        popularTags: popularTagsData, // 追加
+        popularTags: popularTagsData,
       },
     };
   } catch (error) {
