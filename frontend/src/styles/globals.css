@@ -7,6 +7,10 @@
   --light-text: #f8f9fa;
   --border-color: #e1e1e1;
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --content-max-width: 1200px;
+  --content-padding: 15px;
+  --ad-gap: 10px;
+  --ad-width: 160px;
 }
 
 * {

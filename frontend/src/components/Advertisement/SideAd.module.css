@@ -1,0 +1,143 @@
+.sideAd {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  width: 160px;
+  height: 600px;
+}
+
+.left {
+  left: calc(50% - var(--content-max-width) / 2 - var(--ad-gap) - var(--ad-width));
+}
+
+.right {
+  right: calc(50% - var(--content-max-width) / 2 - var(--ad-gap) - var(--ad-width));
+}
+
+.adContainer {
+  background: #fff;
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.adContainer:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.adLabel {
+  background: var(--secondary-color, #6c5ce7);
+  color: white;
+  text-align: center;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.adContent {
+  width: 160px;
+  height: 580px;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* プレースホルダースタイル */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  height: 100%;
+}
+
+.placeholderIcon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.placeholderText {
+  color: #666;
+}
+
+.placeholderText p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+}
+
+.adSize {
+  font-size: 0.7rem !important;
+  color: #999 !important;
+  font-family: monospace;
+}
+
+/* レスポンシブ対応 */
+/* 画面幅が狭すぎる場合は非表示 */
+@media (max-width: 1540px) {
+  .sideAd {
+    display: none;
+  }
+}
+
+/* 超ワイド画面での調整 */
+@media (min-width: 1800px) {
+  .left {
+    left: calc(50% - 600px - 180px); /* より広いギャップ */
+  }
+  
+  .right {
+    right: calc(50% - 600px - 180px); /* より広いギャップ */
+  }
+}
+
+/* 4K以上の超高解像度ディスプレイ */
+@media (min-width: 2200px) {
+  .left {
+    left: calc(50% - 600px - 200px); /* さらに広いギャップ */
+  }
+  
+  .right {
+    right: calc(50% - 600px - 200px); /* さらに広いギャップ */
+  }
+}
+
+/* 印刷時は非表示 */
+@media print {
+  .sideAd {
+    display: none;
+  }
+}
+
+/* デバッグ用（開発時のみ使用） */
+/*
+.sideAd::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 1px;
+  height: 100%;
+  background: red;
+  z-index: 1000;
+}
+
+.sideAd::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 1px;
+  height: 100%;
+  background: red;
+  z-index: 1000;
+}
+*/
