@@ -5,6 +5,7 @@ import Layout from '../components/Layout/Layout';
 import HeroSlider from '../components/HeroSlider';
 import NewsSection from '../components/NewsSection/NewsSection';
 import Sidebar from '../components/Sidebar/Sidebar';
+import SideAd from '../components/Ads/SideAd';
 import SEOHead from '../components/SEO/SEOHead';
 import { 
   getLatestNewsPaginated, 
@@ -53,6 +54,8 @@ const Home: React.FC<HomeProps> = ({
         canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}${currentPage > 1 ? `?page=${currentPage}` : ''}`}
       />
       <Layout>
+        <SideAd position="left" />
+        <SideAd position="right" />
         {/* HeroSliderを全ページで表示 */}
         <HeroSlider featuredNews={featuredNews} />
         

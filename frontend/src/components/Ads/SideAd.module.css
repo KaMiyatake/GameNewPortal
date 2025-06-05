@@ -1,0 +1,31 @@
+.sideAd {
+  position: fixed;
+  top: 120px;
+  width: 160px;
+  height: 600px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  z-index: 1000;
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}
+
+.adContent {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1200px) {
+  .sideAd {
+    display: none;
+  }
+}
