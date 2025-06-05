@@ -1,37 +1,48 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { GetServerSideProps } from 'next';
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Layout from '../../components/Layout/Layout';
 import NewsSection from '../../components/NewsSection/NewsSection';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import SEOHead from '../../components/SEO/SEOHead';
-import { getNewsByTagSync, getCategoriesSync, getPopularNewsSync } from '../../utils/api-server';
-import { getAllTags, getPopularTags } from '../../data/utils/data-helpers'; // getPopularTags追加
+import { getNewsByTagPaginated, getCategories, getPopularNews, PaginatedResponse } from '../../utils/api';
+import { getPopularTags } from '../../data/utils/data-helpers'; // getPopularTags追加
 import { NewsItem, Category } from '../../types';
 import styles from '../../styles/Tag.module.css';
 
 interface TagPageProps {
-  news: NewsItem[];
+  newsData: PaginatedResponse<NewsItem>;
   categories: Category[];
   popularNews: NewsItem[];
   popularTags: { tag: string; count: number }[]; // 追加
   currentTag: string;
+  currentPage: number;
 }
 
 const TagPage: React.FC<TagPageProps> = ({
-  news,
+  newsData,
   categories,
   popularNews,
   popularTags, // 追加
-  currentTag
+  currentTag,
+  currentPage
 }) => {
+  const router = useRouter();
+
+  const handlePageChange = (page: number) => {
+    router.push({
+      pathname: `/tag/${encodeURIComponent(currentTag)}`,
+      query: page > 1 ? { page: page.toString() } : {},
+    });
+  };
   return (
     <>
       <SEOHead
-        title={`${currentTag}の記事一覧 | ゲーム賛否`}
+        title={`${currentTag}の記事一覧 | ゲーム賛否${currentPage > 1 ? ` | ページ ${currentPage}` : ''}`}
         description={`「${currentTag}」に関連するゲーム記事の一覧です。賛否両論の視点で最新ゲーム情報をお届けします。`}
         keywords={[currentTag, 'ゲーム賛否', 'ゲームレビュー', '賛否両論', '最新ゲーム']}
-        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/tag/${encodeURIComponent(currentTag)}`}
+        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/tag/${encodeURIComponent(currentTag)}${currentPage > 1 ? `?page=${currentPage}` : ''}`}
       />
       <Layout>
         <div className={styles.container}>
@@ -49,17 +60,21 @@ const TagPage: React.FC<TagPageProps> = ({
               {currentTag}
             </h1>
             <p className={styles.tagDescription}>
-              「{currentTag}」に関連する記事 {news.length}件
+              「{currentTag}」に関連する記事 {newsData.pagination.totalItems}件
             </p>
           </div>
           
           <div className={styles.tagLayout}>
             <div className={styles.mainContent}>
-              {news.length > 0 ? (
-                <NewsSection 
-                  title={`「${currentTag}」の記事一覧`}
-                  newsItems={news}
+              {newsData.data.length > 0 ? (
+                <NewsSection
+                  title={`「${currentTag}」の記事一覧${currentPage > 1 ? ` (${currentPage}ページ目)` : ''}`}
+                  newsItems={newsData.data}
                   layout="list"
+                  showPagination={true}
+                  currentPage={newsData.pagination.currentPage}
+                  totalPages={newsData.pagination.totalPages}
+                  onPageChange={handlePageChange}
                 />
               ) : (
                 <div className={styles.noResults}>
@@ -85,49 +100,36 @@ const TagPage: React.FC<TagPageProps> = ({
   );
 };
 
-// SSG: 人気タグのパスを事前生成
-export const getStaticPaths: GetStaticPaths = async () => {
-  // 人気タグ上位30個のみを事前生成（SEO効果が高いもの）
-  const popularTags = getAllTags().slice(0, 30);
-  
-  const paths = popularTags.map(({ tag }) => ({
-    params: { tag: encodeURIComponent(tag) },
-  }));
-
-  return {
-    paths,
-    fallback: 'blocking', // 他のタグは初回アクセス時に動的生成
-  };
-};
-
-// SSG: ビルド時に各タグのデータを取得
-export const getStaticProps: GetStaticProps<TagPageProps> = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<TagPageProps> = async ({ params, query }) => {
   try {
     const tag = decodeURIComponent(params?.tag as string);
-    
-    const [news, categories, popularNews, popularTags] = await Promise.all([
-      Promise.resolve(getNewsByTagSync(tag)),
-      Promise.resolve(getCategoriesSync()),
-      Promise.resolve(getPopularNewsSync()),
-      Promise.resolve(getPopularTags(15)), // 追加
+    const page = parseInt(query.page as string) || 1;
+    const limit = 10;
+
+    const [newsData, categories, popularNews, popularTags] = await Promise.all([
+      getNewsByTagPaginated(tag, page, limit),
+      getCategories(),
+      getPopularNews(),
+      Promise.resolve(getPopularTags(15)),
     ]);
+
+    if (page < 1 || page > newsData.pagination.totalPages) {
+      return { notFound: true };
+    }
 
     return {
       props: {
-        news,
+        newsData,
         categories,
         popularNews,
-        popularTags, // 追加
+        popularTags,
         currentTag: tag,
+        currentPage: page,
       },
-      revalidate: 1800, // 30分ごとに再生成（タグページは更新頻度が低い）
     };
   } catch (error) {
     console.error('Error fetching tag data:', error);
-    
-    return {
-      notFound: true,
-    };
+    return { notFound: true };
   }
 };
 
