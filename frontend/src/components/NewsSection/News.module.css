@@ -112,7 +112,7 @@
   left: 8px;
   background-color: var(--secondary-color) !important;
   color: white !important;
-  padding: 3px 8px !important;
+  padding: 0 8px !important;
   border-radius: 3px !important;
   font-size: 0.65rem !important;
   font-weight: 600 !important;
@@ -153,7 +153,7 @@
 .newsHeaderCategory {
   background-color: var(--secondary-color) !important;
   color: white !important;
-  padding: 3px 8px !important;
+  padding: 0 8px !important;
   border-radius: 3px !important;
   font-size: 0.65rem !important;
   font-weight: 600 !important;
@@ -319,7 +319,7 @@
 .categoryList {
   background-color: var(--secondary-color) !important;
   color: white !important;
-  padding: 3px 8px !important;
+  padding: 0 8px !important;
   border-radius: 3px !important;
   font-size: 0.65rem !important;
   font-weight: 600 !important;
@@ -479,7 +479,8 @@
   }
 
   .newsCard {
-    height: 320px;
+    min-height: 320px;
+    height: auto;
   }
   
   .imageContainer {
@@ -490,8 +491,13 @@
     gap: 1rem;
   }
 
+  .newsHeaderList {
+    margin-bottom: 0.2rem;
+  }
+
   .newsCardList {
-    height: 90px;
+    min-height: 110px;
+    height: auto;
   }
 
   .imageContainerList {
@@ -501,23 +507,37 @@
   }
 
   .contentContainerList {
-    padding: 0.6rem;
+    padding: 0.5rem;
     width: 75%;
   }
 
   .newsTitleList {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .newsTitle span {
+    -webkit-line-clamp: 4;
+  }
+
+  .newsTitleList span {
+    -webkit-line-clamp: 4;
   }
 
   .newsTitle {
     font-size: 0.95rem;
   }
 
-  .categoryList, 
+  .categoryList,
   .newsHeaderCategory,
   .category {
-    font-size: 0.6rem !important;
-    padding: 2px 6px !important;
+    font-size: 0.55rem !important;
+    padding: 1px 4px !important;
+  }
+
+  .categoryTagSmall,
+  .categoryTagMoreSmall {
+    font-size: 0.5rem;
+    padding: 0.08rem 0.2rem;
   }
 
   .newsDateList, 
@@ -540,49 +560,53 @@
 }
 
 @media (max-width: 480px) {
-  .newsCardList {
-    height: 80px;
+  .newsCard {
+    min-height: 240px; /* さらに最小高さを縮小 */
   }
 
-  .imageContainerList {
-    width: 25%;
-    height: 80px;
-    min-width: 60px;
+  .imageContainer {
+    height: 120px; /* 画像高さも縮小 */
   }
 
-  .contentContainerList {
-    padding: 0.5rem;
-    width: 75%;
+  .contentContainer {
+    padding: 0.4rem;
   }
 
-  .newsTitleList {
-    font-size: 0.85rem;
+  .categoriesSmall {
+    margin-bottom: 0.1rem;
+    margin-top: 0;
+  }
+
+  .newsHeader {
+    margin-bottom: 0.1rem;
+    margin-top: 0;
+  }
+
+  .newsTitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0;
+  }
+
+  .newsTitle span {
     -webkit-line-clamp: 2;
   }
 
-  .newsListContainer {
-    gap: 0.8rem;
-  }
-
-  .newsHeaderList {
-    margin-bottom: 0.3rem;
-  }
-
-  .categoryList,
-  .newsHeaderCategory,
-  .category {
-    font-size: 0.55rem !important;
-    padding: 1px 4px !important;
-  }
-
-  .newsDateList {
-    font-size: 0.6rem;
+  .newsSummary {
+    font-size: 0.75rem;
+    margin-bottom: 0.6rem;
+    -webkit-line-clamp: 1; /* 1行に削減 */
   }
 }
 
 @media (max-width: 360px) {
+  .newsCard {
+    min-height: 320px;
+    height: auto;
+  }
   .newsCardList {
-    height: 75px;
+    min-height: 120px;
+    height: auto;
   }
 
   .imageContainerList {
@@ -592,20 +616,33 @@
   }
 
   .contentContainerList {
-    padding: 0.4rem;
+    padding: 0.3rem;
     width: 75%;
   }
 
   .newsTitleList {
-    font-size: 0.8rem;
-    -webkit-line-clamp: 2;
+    font-size: 0.75rem;
+  }
+
+  .newsTitleList span {
+    -webkit-line-clamp: 4;
+  }
+
+  .newsTitle span {
+    -webkit-line-clamp: 4;
   }
 
   .categoryList,
   .newsHeaderCategory,
   .category {
     font-size: 0.5rem !important;
-    padding: 1px 3px !important;
+    padding: 0 3px !important;
+  }
+
+  .categoryTagSmall,
+  .categoryTagMoreSmall {
+    font-size: 0.45rem;
+    padding: 0 0.2rem;
   }
 
   .newsDateList {
@@ -613,16 +650,17 @@
   }
 
   .newsHeaderList {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
   }
 }
 
-/* 複数カテゴリ用スタイル */
+/* 複数カテゴリ用スタイル - 上下余白を削除 */
 .categories {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
+  margin-top: 0; /* 上余白を削除 */
 }
 
 .categoriesSmall {
@@ -630,6 +668,7 @@
   flex-wrap: wrap;
   gap: 0.3rem;
   margin-bottom: 0.3rem;
+  margin-top: 0; /* 上余白を削除 */
 }
 
 .categoryTag {
@@ -647,7 +686,7 @@
 .categoryTagSmall {
   background-color: var(--category-color, var(--secondary-color));
   color: white;
-  padding: 0.2rem 0.4rem;
+  padding: 0 0.4rem;
   border-radius: 3px;
   font-size: 0.7rem;
   font-weight: 500;
@@ -734,7 +773,7 @@
 .categoryTagMoreSmall {
   background-color: var(--category-color, var(--secondary-color));
   color: white;
-  padding: 0.2rem 0.4rem;
+  padding: 0 0.4rem;
   border-radius: 3px;
   font-size: 0.7rem;
   font-weight: 500;
@@ -753,21 +792,23 @@
   transform: translateY(-1px);
 }
 
-/* ヘッダー部分の調整 */
+/* ヘッダー部分の調整 - 上下余白を削除 */
 .newsHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.8rem;
-  min-height: 28px; /* 一定の高さを確保 */
+  margin-bottom: 0.5rem; /* 0.8remから0.5remに縮小 */
+  margin-top: 0; /* 上余白を削除 */
+  min-height: 28px;
 }
 
 .newsHeaderList {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.5rem;
-  min-height: 24px; /* 一定の高さを確保 */
+  margin-bottom: 0.3rem; /* 0.5remから0.3remに縮小 */
+  margin-top: 0; /* 上余白を削除 */
+  min-height: 24px;
 }
 
 .newsHeaderDate,
@@ -779,11 +820,77 @@
   flex-shrink: 0; /* 日付が縮まないように */
 }
 
-/* レスポンシブ対応 */
+/* リストレイアウトの調整 */
 @media (max-width: 768px) {
+  .newsCardList {
+    height: auto; /* 固定高さを解除 */
+    min-height: 80px; /* 最小高さを設定 */
+  }
+
+  .contentContainerList {
+    padding: 0.6rem;
+    width: 75%;
+  }
+
+  .newsHeaderList {
+    margin-bottom: 0.2rem;
+    margin-top: 0;
+  }
+
+  .newsTitleList {
+    font-size: 1rem;
+    margin-top: 0;
+  }
+
+  .newsTitleList span {
+    -webkit-line-clamp: 2; /* タイトルを2行に制限 */
+  }
+}
+
+@media (max-width: 576px) {
+  .newsCardList {
+    min-height: 70px;
+  }
+
+  .contentContainerList {
+    padding: 0.4rem;
+  }
+
+  .newsHeaderList {
+    margin-bottom: 0.1rem;
+    margin-top: 0;
+  }
+
+  .newsTitleList {
+    font-size: 0.9rem;
+    margin-top: 0;
+  }
+}
+
+/* レスポンシブ対応 - モバイルでのカード高さ調整 */
+@media (max-width: 768px) {
+  .newsCard {
+    height: auto; /* 固定高さを解除してコンテンツに応じて調整 */
+    min-height: 280px; /* 最小高さを設定 */
+  }
+
+  .imageContainer {
+    height: 160px;
+  }
+
+  .contentContainer {
+    padding: 0.6rem; /* 0.8remから0.6remに縮小 */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* カテゴリの上下余白をさらに削除 */
   .categoriesSmall {
     gap: 0.2rem;
-    max-width: calc(100% - 60px); /* 日付用のスペースを確保 */
+    max-width: calc(100% - 60px);
+    margin-bottom: 0.2rem; /* 0.3remから0.2remに縮小 */
+    margin-top: 0;
   }
   
   .categoryTagSmall,
@@ -795,17 +902,53 @@
   .newsHeader {
     align-items: flex-start;
     gap: 0.5rem;
+    margin-bottom: 0.3rem; /* さらに縮小 */
+    margin-top: 0;
   }
   
   .newsHeaderList {
     align-items: flex-start;
     gap: 0.5rem;
+    margin-bottom: 0.2rem; /* さらに縮小 */
+    margin-top: 0;
+  }
+
+  /* タイトル部分の調整 */
+  .newsTitle {
+    font-size: 1rem;
+    margin-bottom: 0.5rem; /* 0.8remから0.5remに縮小 */
+    margin-top: 0;
+    line-height: 1.3;
+  }
+
+  .newsTitle span {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.3;
   }
 }
 
 @media (max-width: 576px) {
+  .newsCard {
+    height: auto; /* コンテンツに応じて調整 */
+    min-height: 260px; /* 最小高さを少し縮小 */
+  }
+  
+  .imageContainer {
+    height: 140px;
+  }
+
+  .contentContainer {
+    padding: 0.5rem; /* さらに縮小 */
+  }
+
+  /* カテゴリの余白をさらに削除 */
   .categoriesSmall {
-    max-width: calc(100% - 50px); /* より狭い画面での調整 */
+    max-width: calc(100% - 50px);
+    margin-bottom: 0.1rem; /* さらに縮小 */
+    margin-top: 0;
   }
   
   .categoryTagSmall,
@@ -813,9 +956,26 @@
     font-size: 0.6rem;
     padding: 0.1rem 0.25rem;
   }
-  
-  .newsHeaderDate,
-  .newsDateList {
-    font-size: 0.7rem;
+
+  .newsHeader {
+    margin-bottom: 0.2rem; /* さらに縮小 */
+    margin-top: 0;
+  }
+
+  .newsTitle {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem; /* さらに縮小 */
+    margin-top: 0;
+  }
+
+  /* タイトルが短い場合の行数制限 */
+  .newsTitle span {
+    -webkit-line-clamp: 2; /* 3行から2行に削減 */
+  }
+
+  .newsSummary {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+    -webkit-line-clamp: 2;
   }
 }
