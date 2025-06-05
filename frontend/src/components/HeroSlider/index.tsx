@@ -34,7 +34,7 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
       <div className={styles.heroSlider}>
         <div className={styles.staticHero}>
           <div className={styles.heroGrid}>
-            {featuredNews.slice(0, 4).map((news) => (
+            {featuredNews.slice(0, 3).map((news) => (
               <div key={news.id} className={styles.heroCard}>
                 <Link href={`/news/${news.slug}`}>
                   <div className={styles.imageContainer}>
