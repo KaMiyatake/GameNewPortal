@@ -6,6 +6,7 @@ import { comp25060502 } from './25060502-mk-world';
 import { comp25060503 } from './25060503-mp4';
 import { comp25060504 } from './25060504-zelda-switch2-edition';
 import { comp25060601 } from './25060601-sf6-202506-balance';
+import { comp25060602 } from './25060602-fft-ivalice-chronicles';
 
 
 
@@ -19,4 +20,5 @@ export const articles202506 = [
   comp25060503,
   comp25060504,
   comp25060601,
+  comp25060602,
 ];
