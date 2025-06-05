@@ -3,13 +3,13 @@ import styles from './SideAd.module.css';
 
 interface SideAdProps {
   position: 'left' | 'right';
-  adSlot?: string;
+  // adSlot?: string;
   className?: string;
 }
 
 const SideAd: React.FC<SideAdProps> = ({ 
   position, 
-  adSlot = 'placeholder',
+  // adSlot = 'placeholder',
   className 
 }) => {
   return (

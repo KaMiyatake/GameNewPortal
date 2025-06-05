@@ -5,7 +5,7 @@ import Layout from '../components/Layout/Layout';
 import HeroSlider from '../components/HeroSlider';
 import NewsSection from '../components/NewsSection/NewsSection';
 import Sidebar from '../components/Sidebar/Sidebar';
-import SideAd from '../components/Advertisement/SideAd'; // 追加
+// import SideAd from '../components/Advertisement/SideAd'; // 追加
 import SEOHead from '../components/SEO/SEOHead';
 import { 
   getLatestNewsPaginated, 
