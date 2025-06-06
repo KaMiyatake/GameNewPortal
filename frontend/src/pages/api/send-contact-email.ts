@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import nodemailer from 'nodemailer';  // 追加: nodemailerのimport
 
 interface ContactFormData {
   name: string;
@@ -91,7 +92,7 @@ export default async function handler(
 
 // メール送信関数
 async function sendContactEmail(data: ContactFormData) {
-  const nodemailer = require('nodemailer');
+  //const nodemailer = require('nodemailer');
 
   // SMTPトランスポーターの設定
   const transporter = nodemailer.createTransport({
