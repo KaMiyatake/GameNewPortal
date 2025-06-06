@@ -9,6 +9,7 @@ import { comp25060601 } from './25060601-sf6-202506-balance';
 import { comp25060602 } from './25060602-fft-ivalice-chronicles';
 import { comp25060603 } from './25060603-marvel-tokon-fighting-souls';
 import { comp25060701 } from './25060701-hearthstone-ungoro-last-sanctuary';
+import { comp25060702 } from './25060702-007-first-light';
 
 
 
@@ -25,4 +26,5 @@ export const articles202506 = [
   comp25060602,
   comp25060603,
   comp25060701,
+  comp25060702,
 ];
