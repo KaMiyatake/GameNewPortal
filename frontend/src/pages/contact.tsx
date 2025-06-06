@@ -28,6 +28,7 @@ const Contact: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string>('');
 
   // バリデーション関数
   const validateForm = (): boolean => {
@@ -70,25 +71,34 @@ const Contact: React.FC = () => {
     }
 
     setIsSubmitting(true);
+    setSubmitError('');
 
     try {
-      // TODO: 実際のAPI呼び出しに置き換える
-      // 現在はデモ用の遅延処理
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log('フォームデータ送信:', formData);
-      
-      setIsSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        category: '',
-        message: ''
+      const response = await fetch('/api/send-contact-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setIsSubmitted(true);
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          category: '',
+          message: ''
+        });
+      } else {
+        setSubmitError(result.message || '送信中にエラーが発生しました。');
+      }
     } catch (error) {
       console.error('送信エラー:', error);
-      alert('送信中にエラーが発生しました。しばらく後でもう一度お試しください。');
+      setSubmitError('送信中にエラーが発生しました。しばらく後でもう一度お試しください。');
     } finally {
       setIsSubmitting(false);
     }
@@ -102,6 +112,11 @@ const Contact: React.FC = () => {
     // エラーがある場合はクリア
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+    
+    // 送信エラーもクリア
+    if (submitError) {
+      setSubmitError('');
     }
   };
 
@@ -119,6 +134,7 @@ const Contact: React.FC = () => {
               <h1 className={styles.successTitle}>お問い合わせありがとうございました</h1>
               <p className={styles.successMessage}>
                 お問い合わせを正常に受け付けました。<br />
+                contact@gamesanpi.com に送信されました。<br />
                 3営業日以内にご返信いたします。
               </p>
               <button 
@@ -148,12 +164,19 @@ const Contact: React.FC = () => {
             <div className={styles.heroSection}>
               <h1 className={styles.pageTitle}>お問い合わせ</h1>
               <p className={styles.heroText}>
-                ご質問・ご意見など、お気軽にお問い合わせください
+                ご質問・ご意見・取材依頼など、お気軽にお問い合わせください
               </p>
             </div>
 
             <div className={styles.formSection}>
               <div className={styles.formContainer}>
+                {submitError && (
+                  <div className={styles.errorAlert}>
+                    <span className={styles.errorIcon}>⚠️</span>
+                    {submitError}
+                  </div>
+                )}
+                
                 <form onSubmit={handleSubmit} className={styles.contactForm}>
                   <div className={styles.formGroup}>
                     <label htmlFor="name" className={styles.label}>
@@ -182,7 +205,7 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       className={`${styles.input} ${errors.email ? styles.error : ''}`}
-                      placeholder="example@gamesanpi.com"
+                      placeholder="example@example.com"
                     />
                     {errors.email && <span className={styles.errorMessage}>{errors.email}</span>}
                   </div>
@@ -264,7 +287,11 @@ const Contact: React.FC = () => {
                   <h3 className={styles.infoTitle}>お問い合わせについて</h3>
                   <div className={styles.infoContent}>
                     <div className={styles.infoItem}>
-                      <strong>📧 返信時期:</strong>
+                      <strong>📧 連絡先:</strong>
+                      <p>contact@gamesanpi.com</p>
+                    </div>
+                    <div className={styles.infoItem}>
+                      <strong>📅 返信時期:</strong>
                       <p>3営業日以内にご返信いたします</p>
                     </div>
                     <div className={styles.infoItem}>
