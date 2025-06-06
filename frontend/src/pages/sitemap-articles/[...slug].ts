@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params, res }) =>
   console.log(`Parsed - Year: ${year}, Month: ${month}`);
   
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://game-new-portal.vercel.app';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com';
     
     // 実際の記事サイトマップを生成
     const sitemapXML = generateArticleSitemap(baseUrl, year, month);

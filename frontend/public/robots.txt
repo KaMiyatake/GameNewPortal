@@ -5,7 +5,7 @@ Allow: /
 
 # サイトマップの場所を指定
 # Sitemap: https://gamesanpi.com/sitemap.xml
-Sitemap: https://game-new-portal.vercel.app/sitemap.xml
+Sitemap: https://gamesanpi.com/sitemap.xml
 
 # クロール頻度の調整（オプション）
 Crawl-delay: 1

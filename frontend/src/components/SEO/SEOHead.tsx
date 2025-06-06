@@ -35,7 +35,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   author,
   canonicalUrl,
 }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://game-new-portal.vercel.app/';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com/';
   //const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com';
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
   const siteName = 'ゲーム賛否';

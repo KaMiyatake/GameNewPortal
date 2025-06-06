@@ -6,7 +6,7 @@ export default function PagesSitemap() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://game-new-portal.vercel.app/';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com/';
   //const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com';
   
   try {
