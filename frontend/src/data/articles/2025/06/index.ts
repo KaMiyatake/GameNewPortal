@@ -13,6 +13,7 @@ import { comp25060702 } from './25060702-007-first-light';
 import { comp25060801 } from './25060801-sf6-year3-characters';
 import { comp25060802 } from './25060802-biohazard-9-announcement';
 import { comp25060803 } from './25060803-rgg-studio-stranger-than-heaven';
+import { comp25060804 } from './25060804-elden-ring-nightreign-tips';
 
 
 export const articles202506 = [
@@ -31,4 +32,5 @@ export const articles202506 = [
   comp25060801,
   comp25060802,
   comp25060803,
+  comp25060804,
 ];
