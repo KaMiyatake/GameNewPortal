@@ -10,8 +10,9 @@ import { comp25060602 } from './25060602-fft-ivalice-chronicles';
 import { comp25060603 } from './25060603-marvel-tokon-fighting-souls';
 import { comp25060701 } from './25060701-hearthstone-ungoro-last-sanctuary';
 import { comp25060702 } from './25060702-007-first-light';
-
-
+import { comp25060801 } from './25060801-sf6-year3-characters';
+import { comp25060802 } from './25060802-biohazard-9-announcement';
+import { comp25060803 } from './25060803-rgg-studio-stranger-than-heaven';
 
 
 export const articles202506 = [
@@ -27,4 +28,7 @@ export const articles202506 = [
   comp25060603,
   comp25060701,
   comp25060702,
+  comp25060801,
+  comp25060802,
+  comp25060803,
 ];
