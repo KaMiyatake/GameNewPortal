@@ -14,26 +14,42 @@
   min-width: 40px;
   height: 40px;
   border: 1px solid var(--border-color);
-  background-color: white;
+  background-color: var(--card-background);
   color: var(--text-color);
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .pageButton:hover:not(.disabled) {
   background-color: var(--secondary-color);
   color: white;
   border-color: var(--secondary-color);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ダークモード時のホバー効果調整 */
+[data-theme="dark"] .pageButton:hover:not(.disabled) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .pageButton:focus {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
+}
+
+.pageButton:active:not(.disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .pageButton:active:not(.disabled) {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .numberButton {
@@ -44,31 +60,53 @@
 .nextButton {
   padding: 0 0.5rem;
   font-weight: 600;
+  font-size: 1rem;
+}
+
+.prevButton::before {
+  content: '‹';
+  font-size: 1.2rem;
+}
+
+.nextButton::before {
+  content: '›';
+  font-size: 1.2rem;
 }
 
 .active {
   background-color: var(--secondary-color);
   color: white;
   border-color: var(--secondary-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .active:hover {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .disabled {
-  background-color: #f5f5f5;
-  color: #ccc;
-  border-color: #e0e0e0;
+  background-color: var(--border-color);
+  color: var(--text-color);
+  opacity: 0.4;
+  border-color: var(--border-color);
   cursor: not-allowed;
   transform: none !important;
+  box-shadow: none !important;
 }
 
 .disabled:hover {
-  background-color: #f5f5f5;
-  color: #ccc;
-  border-color: #e0e0e0;
+  background-color: var(--border-color);
+  color: var(--text-color);
+  opacity: 0.4;
+  border-color: var(--border-color);
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .ellipsis {
@@ -77,9 +115,23 @@
   justify-content: center;
   min-width: 40px;
   height: 40px;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.6;
   font-weight: 500;
   user-select: none;
+  transition: color 0.3s ease;
+}
+
+/* ダークモード特有の調整 */
+[data-theme="dark"] .pageButton {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .ellipsis {
+  color: var(--text-color);
+  opacity: 0.7;
 }
 
 /* レスポンシブ対応 */
@@ -87,6 +139,7 @@
   .pagination {
     gap: 0.3rem;
     flex-wrap: wrap;
+    margin-top: 1.5rem;
   }
 
   .pageButton {
@@ -97,6 +150,16 @@
 
   .numberButton {
     min-width: 36px;
+  }
+
+  .prevButton,
+  .nextButton {
+    font-size: 0.9rem;
+  }
+
+  .prevButton::before,
+  .nextButton::before {
+    font-size: 1.1rem;
   }
 
   .ellipsis {
@@ -104,21 +167,44 @@
     height: 36px;
     font-size: 0.85rem;
   }
+
+  /* モバイル時のホバー効果を軽減 */
+  .pageButton:hover:not(.disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="dark"] .pageButton:hover:not(.disabled) {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 }
 
 @media (max-width: 480px) {
   .pagination {
     gap: 0.2rem;
+    margin-top: 1rem;
   }
 
   .pageButton {
     min-width: 32px;
     height: 32px;
     font-size: 0.8rem;
+    border-radius: 4px;
   }
 
   .numberButton {
     min-width: 32px;
+  }
+
+  .prevButton,
+  .nextButton {
+    font-size: 0.8rem;
+    padding: 0 0.3rem;
+  }
+
+  .prevButton::before,
+  .nextButton::before {
+    font-size: 1rem;
   }
 
   .ellipsis {
@@ -134,5 +220,74 @@
   
   .ellipsis {
     font-size: 1rem;
+  }
+
+  /* 極小画面でのホバー効果を無効化 */
+  .pageButton:hover:not(.disabled) {
+    transform: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  [data-theme="dark"] .pageButton:hover:not(.disabled) {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .pageButton {
+    border-width: 2px;
+  }
+  
+  .active {
+    border-width: 2px;
+  }
+  
+  .disabled {
+    border-style: dashed;
+  }
+}
+
+/* アニメーション無効化設定対応 */
+@media (prefers-reduced-motion: reduce) {
+  .pageButton {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .pageButton:hover:not(.disabled) {
+    transform: none;
+  }
+  
+  .pageButton:active:not(.disabled) {
+    transform: none;
+  }
+}
+
+/* フォーカス表示の改善 */
+.pageButton:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+}
+
+[data-theme="dark"] .pageButton:focus-visible {
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+}
+
+/* ページネーション全体の改善 */
+.pagination {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* モバイル時のページネーション背景調整 */
+@media (max-width: 768px) {
+  .pagination {
+    background-color: transparent;
+    border: none;
+    padding: 0.8rem 0;
   }
 }

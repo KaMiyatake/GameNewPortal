@@ -5,16 +5,21 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  showInfo?: boolean; // ページ情報表示オプション
 }
 
 const Pagination: React.FC<PaginationProps> = ({ 
   currentPage, 
   totalPages, 
-  onPageChange 
+  onPageChange,
+  showInfo = false
 }) => {
   // ページ番号のリストを生成
   const getPageNumbers = () => {
     const pages = [];
+    
+    // 1ページしかない場合は空配列を返す
+    if (totalPages <= 1) return [];
     
     // 常に最初のページを表示
     pages.push(1);
@@ -50,57 +55,76 @@ const Pagination: React.FC<PaginationProps> = ({
 
   const pageNumbers = getPageNumbers();
 
+  // 1ページしかない場合は何も表示しない
+  if (totalPages <= 1) {
+    return null;
+  }
+
   return (
-    <div className={styles.pagination}>
-      {/* 前のページボタン */}
-      <button
-        className={`${styles.pageButton} ${styles.prevButton} ${
-          currentPage === 1 ? styles.disabled : ''
-        }`}
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        aria-label="前のページ"
-      >
-        &lt;
-      </button>
+    <div className={styles.paginationWrapper}>
+      {/* ページ情報表示 */}
+      {showInfo && (
+        <div className={styles.pageInfo}>
+          <span>
+            ページ {currentPage} / {totalPages}
+          </span>
+        </div>
+      )}
+      
+      <div className={styles.pagination}>
+        {/* 前のページボタン */}
+        <button
+          className={`${styles.pageButton} ${styles.prevButton} ${
+            currentPage === 1 ? styles.disabled : ''
+          }`}
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          aria-label="前のページ"
+          title="前のページ"
+        >
+          <span className={styles.buttonText}>前へ</span>
+        </button>
 
-      {/* ページ番号ボタン */}
-      {pageNumbers.map((page, index) => {
-        if (page === '...') {
+        {/* ページ番号ボタン */}
+        {pageNumbers.map((page, index) => {
+          if (page === '...') {
+            return (
+              <span key={`ellipsis-${index}`} className={styles.ellipsis}>
+                ⋯
+              </span>
+            );
+          }
+
+          const pageNum = page as number;
           return (
-            <span key={`ellipsis-${index}`} className={styles.ellipsis}>
-              ...
-            </span>
+            <button
+              key={pageNum}
+              className={`${styles.pageButton} ${styles.numberButton} ${
+                currentPage === pageNum ? styles.active : ''
+              }`}
+              onClick={() => onPageChange(pageNum)}
+              aria-label={`ページ ${pageNum}`}
+              aria-current={currentPage === pageNum ? 'page' : undefined}
+              title={`ページ ${pageNum}`}
+            >
+              {pageNum}
+            </button>
           );
-        }
+        })}
 
-        const pageNum = page as number;
-        return (
-          <button
-            key={pageNum}
-            className={`${styles.pageButton} ${styles.numberButton} ${
-              currentPage === pageNum ? styles.active : ''
-            }`}
-            onClick={() => onPageChange(pageNum)}
-            aria-label={`ページ ${pageNum}`}
-            aria-current={currentPage === pageNum ? 'page' : undefined}
-          >
-            {pageNum}
-          </button>
-        );
-      })}
-
-      {/* 次のページボタン */}
-      <button
-        className={`${styles.pageButton} ${styles.nextButton} ${
-          currentPage === totalPages ? styles.disabled : ''
-        }`}
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        aria-label="次のページ"
-      >
-        &gt;
-      </button>
+        {/* 次のページボタン */}
+        <button
+          className={`${styles.pageButton} ${styles.nextButton} ${
+            currentPage === totalPages ? styles.disabled : ''
+          }`}
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          aria-label="次のページ"
+          title="次のページ"
+        >
+          <span className={styles.buttonText}>次へ</span>
+        </button>
+      </div>
     </div>
   );
 };
