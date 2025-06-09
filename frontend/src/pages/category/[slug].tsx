@@ -51,15 +51,20 @@ const CategoryPage: React.FC<CategoryPageProps> = ({
       />
       <Layout>
         <div className={styles.container}>
-          {/* カテゴリーヘッダー */}
+          {/* カテゴリーヘッダー（タグページと同様のスタイル） */}
           <div className={styles.categoryHeader}>
             <h1 
               className={styles.categoryTitle}
               style={{ '--category-color': category.color } as React.CSSProperties}
             >
+              <span className={styles.categoryIcon}>
+                {getCategoryIcon(category.slug)}
+              </span>
               {category.name}
             </h1>
-            <p className={styles.categoryDescription}>{category.description}</p>
+            <p className={styles.categoryDescription}>
+              「{category.name}」に関連する記事 {newsData.pagination.totalItems}件
+            </p>
           </div>
 
           {/* メインコンテンツ */}
@@ -131,6 +136,22 @@ export const getServerSideProps: GetServerSideProps<CategoryPageProps> = async (
     console.error('Error fetching category page data:', error);
     return { notFound: true };
   }
+};
+
+// カテゴリーアイコンを取得する関数
+const getCategoryIcon = (slug: string): string => {
+  const icons: { [key: string]: string } = {
+    'playstation': '🎮',
+    'switch': '🕹️',
+    'pc': '💻',
+    'mobile': '📱',
+    'xbox': '🎯',
+    'pros-cons': '⚖️',
+    'vr': '🥽',
+    'entertainment': '🎭',
+    'industry': '📰'
+  };
+  return icons[slug] || '🎯';
 };
 
 export default CategoryPage;

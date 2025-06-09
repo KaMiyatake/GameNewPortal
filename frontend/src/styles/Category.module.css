@@ -1,39 +1,135 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 2rem 15px;
 }
 
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-radius: 50%;
+  border-top-color: var(--secondary-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  transition: color 0.3s ease;
+}
+
+.breadcrumbs span {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.breadcrumbs span:hover {
+  color: var(--secondary-color);
+  opacity: 1;
+}
+
+.separator {
+  margin: 0 0.5rem;
+  color: var(--text-color);
+  opacity: 0.5;
+  cursor: default !important;
+}
+
+.separator:hover {
+  color: var(--text-color) !important;
+  opacity: 0.5 !important;
+}
+
+.current {
+  color: var(--text-color);
+  font-weight: 500;
+  cursor: default !important;
+  opacity: 1;
+}
+
+.current:hover {
+  color: var(--text-color) !important;
+}
+
+/* タグページと同様のスタイルに統一 */
 .categoryHeader {
+  margin-bottom: 1.5rem;
+  padding: 2.5rem 0;
   text-align: center;
-  padding: 1.5rem 0; /* 上下のパディングを減らす */
-  background: linear-gradient(135deg, var(--category-color, var(--primary-color)), var(--secondary-color));
+  background: linear-gradient(135deg, var(--card-background) 0%, var(--border-color) 100%);
   border-radius: 12px;
-  color: white;
-  margin: 1rem 0; /* ヘッダーとの間に空白を追加 */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.categoryHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--category-color, var(--secondary-color)), var(--accent-color));
 }
 
 .categoryTitle {
-  font-size: 2.8rem;
-  margin-bottom: 0.8rem; /* タイトル下のマージンを調整 */
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
   font-weight: 700;
-  line-height: 1.2;
+}
+
+.categoryIcon {
+  color: var(--category-color, var(--secondary-color));
+  font-weight: 600;
+  font-size: 2.8rem;
+  line-height: 1;
 }
 
 .categoryDescription {
   font-size: 1.1rem;
-  opacity: 0.9;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin: 0;
   max-width: 600px;
   margin: 0 auto;
-  line-height: 1.5;
+  transition: color 0.3s ease;
 }
 
 .mainContent {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
-  padding: 1rem 0; /* メインコンテンツ上部のパディングを追加 */
+  padding: 0;
 }
 
 .newsContent {
@@ -41,54 +137,244 @@
 }
 
 .sidebarContent {
-  /* サイドバー用のスタイル */
+  /* サイドバーのスタイルはSidebar.module.cssで管理 */
+}
+
+.noResults {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.noResults h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.noResults p {
+  font-size: 1rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  transition: color 0.3s ease;
+}
+
+.backToHome {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.backToHome:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .backToHome:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ダークモード特有の調整 */
+[data-theme="dark"] .categoryHeader {
+  background: linear-gradient(135deg, var(--card-background) 0%, #21262d 100%);
+}
+
+[data-theme="dark"] .noResults {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+/* アニメーション効果 */
+.categoryTitle {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.categoryDescription {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ホバーエフェクト */
+.categoryHeader:hover .categoryIcon {
+  transform: scale(1.1) rotate(5deg);
+  transition: transform 0.3s ease;
+}
+
+.categoryHeader:hover .categoryTitle {
+  color: var(--category-color, var(--secondary-color));
+  transition: color 0.3s ease;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 992px) {
   .mainContent {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .categoryHeader {
-    padding: 1.2rem 1rem; /* モバイルでさらにパディングを減らす */
-    margin: 1.5rem 0; /* モバイルでマージンを調整 */
+    gap: 1.5rem;
   }
   
   .categoryTitle {
-    font-size: 2.2rem;
-    margin-bottom: 0.6rem;
+    font-size: 2rem;
+  }
+  
+  .categoryIcon {
+    font-size: 2.3rem;
+  }
+}
+
+/* モバイル表示時にbreadcrumbsを非表示 */
+@media (max-width: 768px) {
+  .breadcrumbs {
+    display: none; /* モバイル表示時は非表示 */
+  }
+
+  .categoryHeader {
+    padding: 2rem 1rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .categoryTitle {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .categoryIcon {
+    font-size: 2rem;
   }
   
   .categoryDescription {
     font-size: 1rem;
   }
-  
-  .container {
-    padding: 0 10px;
-  }
 
-  .mainContent {
-    padding: 0.5rem 0;
+  .container {
+    padding: 1.5rem 15px;
+  }
+  
+  .noResults {
+    padding: 3rem 1.5rem;
+  }
+  
+  /* モバイル時のホバー効果を軽減 */
+  .categoryHeader:hover .categoryIcon {
+    transform: scale(1.05);
+  }
+  
+  .backToHome:hover {
+    transform: translateY(-1px);
   }
 }
 
 @media (max-width: 576px) {
-  .categoryHeader {
-    padding: 1rem 0.8rem;
-    margin: 1rem 0;
-    border-radius: 8px;
+  .container {
+    padding: 1.5rem 15px;
   }
   
   .categoryTitle {
+    font-size: 1.6rem;
+  }
+  
+  .categoryIcon {
     font-size: 1.8rem;
-    margin-bottom: 0.5rem;
   }
   
   .categoryDescription {
     font-size: 0.9rem;
-    line-height: 1.4;
+  }
+  
+  .noResults {
+    padding: 2.5rem 1rem;
+  }
+
+  .categoryHeader {
+    margin-bottom: 1rem;
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .backToHome {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  /* 小画面でのホバー効果を無効化 */
+  .categoryHeader:hover .categoryIcon,
+  .categoryHeader:hover .categoryTitle {
+    transform: none;
+    color: var(--text-color);
+  }
+  
+  .backToHome:hover {
+    transform: none;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .categoryTitle,
+  .categoryDescription {
+    animation: none;
+  }
+  
+  .categoryHeader:hover .categoryIcon,
+  .categoryHeader:hover .categoryTitle,
+  .backToHome:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .categoryHeader,
+  .noResults {
+    border-width: 2px;
+  }
+  
+  .backToHome {
+    border: 2px solid var(--secondary-color);
+  }
+}
+
+/* フォーカス対応 */
+.backToHome:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* 検索結果の空の状態のアニメーション */
+.noResults {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
