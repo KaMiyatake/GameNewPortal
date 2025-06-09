@@ -184,6 +184,17 @@ const Header: React.FC = () => {
               </span>
             </Link>
           </li>
+          <li className={styles.mobileNavItem}>
+            <Link href="/contact">
+              <span 
+                className={styles.mobileNavLink}
+                onClick={closeMenu}
+              >
+                <span className={styles.categoryIcon}>📧</span>
+                お問い合わせ
+              </span>
+            </Link>
+          </li>
         </ul>
       </div>
     </header>
