@@ -38,8 +38,9 @@ const ArticleImage: React.FC<ArticleImageProps> = ({
   const imageStyle: React.CSSProperties = {
     objectFit,
     objectPosition,
-    width: '100%',
-    height: '100%',
+    width: fill ? '100%' : width,    // fillに基づいて幅を設定
+    height: fill ? '100%' : height,   // fillに基づいて高さを設定
+    position: fill ? 'absolute' : 'relative',  // fillがtrueの場合は絶対配置
   };
 
   return (
