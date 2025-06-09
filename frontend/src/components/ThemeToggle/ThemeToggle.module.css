@@ -1,0 +1,115 @@
+.themeToggle {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 24px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.themeToggle:hover {
+  background-color: var(--border-color);
+}
+
+.toggleContainer {
+  position: relative;
+  width: 56px;
+  height: 28px;
+  background-color: var(--border-color);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px;
+  transition: background-color 0.3s ease;
+}
+
+.toggleIcon {
+  font-size: 16px;
+  transition: all 0.3s ease;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+}
+
+.toggleIcon.active {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.toggleSlider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+.toggleSlider.dark {
+  transform: translateX(28px);
+}
+
+/* ライトモード時の色調整 */
+[data-theme="light"] .toggleContainer {
+  background-color: #e1e8ed;
+}
+
+[data-theme="light"] .toggleSlider {
+  background-color: #6c5ce7;
+}
+
+/* ダークモード時の色調整 */
+[data-theme="dark"] .toggleContainer {
+  background-color: #30363d;
+}
+
+[data-theme="dark"] .toggleSlider {
+  background-color: #8b5cf6;
+}
+
+/* ホバー効果 */
+.themeToggle:hover .toggleContainer {
+  background-color: var(--accent-color);
+  opacity: 0.8;
+}
+
+/* アクセシビリティ */
+.themeToggle:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .toggleContainer {
+    width: 48px;
+    height: 24px;
+    border-radius: 12px;
+  }
+  
+  .toggleIcon {
+    font-size: 14px;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .toggleSlider {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .toggleSlider.dark {
+    transform: translateX(24px);
+  }
+}

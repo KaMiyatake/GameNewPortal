@@ -1,120 +1,52 @@
-.tagList {
-  margin-bottom: 2rem;
+.tagListContainer {
+  margin-bottom: 1.5rem;
 }
 
 .tagListTitle {
-  font-size: 1.3rem;
-  color: var(--primary-color);
+  font-size: 1.1rem;
   margin-bottom: 1rem;
-  position: relative;
-  padding-bottom: 0.5rem;
+  color: var(--text-color); /* テーマ対応 */
+  font-weight: 600;
+  transition: color 0.3s ease; /* 追加 */
 }
 
-.tagListTitle::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-}
-
-.tags {
+.tagList {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
 .tagItem {
-  display: inline-flex;
-  align-items: center;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  color: var(--text-color);
+  display: inline-block;
+  background-color: var(--border-color); /* テーマ対応 */
+  color: var(--text-color); /* テーマ対応 */
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
   font-size: 0.8rem;
-  font-weight: 500;
   text-decoration: none;
-  cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid var(--border-color);
-  position: relative;
-  overflow: hidden;
-  z-index: 1; /* z-indexを追加 */
-}
-
-/* ホバー時の背景アニメーションを修正 */
-.tagItem::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-  transition: left 0.3s ease;
-  z-index: -1; /* 背景を後ろに配置 */
-}
-
-.tagItem:hover::before {
-  left: 0;
+  cursor: pointer;
+  border: 1px solid var(--border-color); /* 追加 */
 }
 
 .tagItem:hover {
-  color: white; /* テキスト色を明示的に白に設定 */
-  border-color: var(--secondary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
-}
-
-/* テキストとカウント部分を前面に配置 */
-.tagItem span,
-.tagCount {
-  position: relative;
-  z-index: 2; /* テキストを最前面に */
-  color: inherit; /* 親の色を継承 */
-}
-
-.tagItem:hover span,
-.tagItem:hover .tagCount {
-  color: white !important; /* ホバー時は確実に白色 */
-}
-
-.tagCount {
-  margin-left: 0.3rem;
-  font-size: 0.7rem;
-  opacity: 0.8;
-  font-weight: 400;
-}
-
-/* タグが多い場合の表示制限（拡張可能にする場合） */
-.tags:not(.expanded) .tagItem:nth-child(n+13) {
-  display: none;
-}
-
-/* 展開ボタン（オプション） */
-.expandButton {
-  display: inline-flex;
-  align-items: center;
-  background: transparent;
-  color: var(--secondary-color);
-  padding: 0.4rem 0.8rem;
-  border: 1px dashed var(--secondary-color);
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.expandButton:hover {
-  background: var(--secondary-color);
+  background-color: var(--secondary-color);
   color: white;
+  transform: translateY(-1px);
+}
+
+.tagCount {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  margin-left: 0.3rem;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
+  .tagList {
+    gap: 0.4rem;
+  }
+  
   .tagItem {
     font-size: 0.75rem;
     padding: 0.3rem 0.6rem;
@@ -122,34 +54,5 @@
   
   .tagCount {
     font-size: 0.65rem;
-  }
-  
-  .tagListTitle {
-    font-size: 1.1rem;
-  }
-  
-  /* モバイルでは12個まで表示 */
-  .tags:not(.expanded) .tagItem:nth-child(n+13) {
-    display: none;
-  }
-}
-
-@media (max-width: 576px) {
-  .tags {
-    gap: 0.3rem;
-  }
-  
-  .tagItem {
-    font-size: 0.7rem;
-    padding: 0.25rem 0.5rem;
-  }
-  
-  .tagCount {
-    font-size: 0.6rem;
-  }
-  
-  /* 最小画面では10個まで表示 */
-  .tags:not(.expanded) .tagItem:nth-child(n+11) {
-    display: none;
   }
 }

@@ -1,9 +1,11 @@
-import React from 'react';
 import type { AppProps } from 'next/app';
+import { ThemeProvider } from '../contexts/ThemeContext'; // 追加
 import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <ThemeProvider>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
-
-export default MyApp;

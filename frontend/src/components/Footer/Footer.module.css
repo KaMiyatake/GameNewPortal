@@ -1,7 +1,9 @@
 .footer {
-  background-color: var(--primary-color);
-  color: var(--light-text);
-  padding: 3rem 0 1.5rem;
+  background-color: var(--card-background); /* テーマ対応 */
+  border-top: 1px solid var(--border-color); /* テーマ対応 */
+  padding: 2rem 0 1rem;
+  margin-top: 3rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* 追加 */
 }
 
 .container {
@@ -12,133 +14,146 @@
 
 .footerContent {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
 }
 
-.footerSection h3 {
-  font-size: 1.3rem;
+.footerSection {
   margin-bottom: 1rem;
-  color: var(--light-text);
 }
 
 .footerTitle {
-  position: relative;
-  padding-bottom: 0.5rem;
-}
-
-.footerTitle::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-color); /* テーマ対応 */
+  transition: color 0.3s ease; /* 追加 */
 }
 
 .footerDescription {
+  font-size: 0.9rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 1rem;
+  color: var(--text-color); /* テーマ対応 */
+  opacity: 0.8; /* 追加 */
+  transition: color 0.3s ease; /* 追加 */
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li {
+  margin-bottom: 0.5rem;
+}
+
+.categoryLink {
+  color: var(--text-color); /* テーマ対応 */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.categoryLink:hover {
+  color: var(--secondary-color);
+}
+
+.infoLink {
+  color: var(--text-color); /* テーマ対応 */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.infoLink:hover {
+  color: var(--secondary-color);
 }
 
 .socialLinks {
   display: flex;
   gap: 1rem;
-}
-
-.socialLinks a {
-  font-size: 1.5rem;
-  transition: transform 0.3s ease;
-}
-
-.socialLinks a:hover {
-  transform: scale(1.2);
-}
-
-.footerLinks {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.footerLinks li {
-  margin-bottom: 0.8rem;
-}
-
-.categoryLink,
-.infoLink {
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  padding: 0.2rem 0;
-}
-
-.categoryLink:hover {
-  color: var(--category-color, var(--accent-color));
-  transform: translateX(5px);
-}
-
-.infoLink:hover {
-  color: var(--accent-color);
-  transform: translateX(3px);
+  margin-top: 1rem;
 }
 
 .copyright {
   text-align: center;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border-color); /* テーマ対応 */
+  color: var(--text-color); /* テーマ対応 */
+  opacity: 0.7; /* 追加 */
+  transition: color 0.3s ease, border-color 0.3s ease; /* 追加 */
 }
 
 .copyright p {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
-  margin: 0.3rem 0;
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 .tagline {
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.8rem;
   font-style: italic;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
 }
 
 /* レスポンシブ対応 */
-@media (max-width: 992px) {
-  .footerContent {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-}
-
 @media (max-width: 768px) {
+  .footer {
+    padding: 1.5rem 0 1rem;
+  }
+  
   .footerContent {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   
-  .footer {
-    padding: 2rem 0 1rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    padding: 0 10px;
+  .footerTitle {
+    font-size: 1rem;
   }
   
-  .footerSection h3 {
-    font-size: 1.1rem;
+  .footerDescription {
+    font-size: 0.85rem;
   }
   
   .categoryLink,
   .infoLink {
     font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer {
+    padding: 1rem 0 0.5rem;
+  }
+  
+  .footerContent {
+    gap: 1rem;
+  }
+  
+  .footerTitle {
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .footerDescription {
+    font-size: 0.8rem;
+  }
+  
+  .categoryLink,
+  .infoLink {
+    font-size: 0.8rem;
+  }
+  
+  .copyright {
+    padding-top: 1rem;
+  }
+  
+  .copyright p {
+    font-size: 0.75rem;
+  }
+  
+  .tagline {
+    font-size: 0.7rem;
   }
 }

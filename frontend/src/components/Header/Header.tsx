@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { categories } from '../../data/categories/categories';
+import ThemeToggle from '../ThemeToggle/ThemeToggle'; // 追加
 import styles from './Header.module.css';
 
 const Header: React.FC = () => {
@@ -121,22 +122,35 @@ const Header: React.FC = () => {
                 <span className={styles.navLink}>サイトについて</span>
               </Link>
             </li>
+            <li className={styles.navItem}>
+              <Link href="/contact">
+                <span className={styles.navLink}>お問い合わせ</span>
+              </Link>
+            </li>
           </ul>
         </nav>
 
-        {/* モバイルハンバーガーメニューボタン */}
-        {isMobile && (
-          <button 
-            className={`${styles.mobileMenuButton} ${isMenuOpen ? styles.active : ''}`}
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
-            aria-expanded={isMenuOpen}
-          >
-            <span className={styles.hamburgerLine}></span>
-            <span className={styles.hamburgerLine}></span>
-            <span className={styles.hamburgerLine}></span>
-          </button>
-        )}
+        {/* テーマ切り替えボタンとモバイルメニューボタン */}
+        <div className={styles.headerActions}>
+          {/* テーマ切り替えボタン */}
+          <div className={styles.themeToggleContainer}>
+            <ThemeToggle />
+          </div>
+
+          {/* モバイルハンバーガーメニューボタン */}
+          {isMobile && (
+            <button 
+              className={`${styles.mobileMenuButton} ${isMenuOpen ? styles.active : ''}`}
+              onClick={toggleMenu}
+              aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
+              aria-expanded={isMenuOpen}
+            >
+              <span className={styles.hamburgerLine}></span>
+              <span className={styles.hamburgerLine}></span>
+              <span className={styles.hamburgerLine}></span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* モバイルメニューオーバーレイ */}
@@ -174,6 +188,17 @@ const Header: React.FC = () => {
               >
                 <span className={styles.categoryIcon}>ℹ️</span>
                 サイトについて
+              </span>
+            </Link>
+          </li>
+          <li className={styles.mobileNavItem}>
+            <Link href="/contact">
+              <span 
+                className={styles.mobileNavLink}
+                onClick={closeMenu}
+              >
+                <span className={styles.categoryIcon}>📧</span>
+                お問い合わせ
               </span>
             </Link>
           </li>

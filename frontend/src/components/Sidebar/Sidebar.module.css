@@ -1,284 +1,18 @@
-/* 既存のスタイルを維持し、以下の部分を修正 */
-
-.popularInfo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* カテゴリを左、日付を右に配置 */
-  gap: 0.5rem;
-  flex-wrap: nowrap; /* 改行を防ぐ */
-  width: 100%; /* 幅を100%に設定 */
-}
-
-.popularCategory {
-  background-color: var(--category-color, var(--secondary-color));
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  text-decoration: none;
-  white-space: nowrap; /* テキストの改行を防ぐ */
-  flex-shrink: 0; /* カテゴリタグが縮まないように */
-}
-
-.popularCategory:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.multiCategoryIndicator {
-  background-color: rgba(255, 255, 255, 0.3);
-  padding: 0.1rem 0.3rem;
-  border-radius: 2px;
-  font-size: 0.6rem;
-  margin-left: 0.2rem;
-}
-
-.popularDate {
-  font-size: 0.7rem;
-  color: #888;
-  white-space: nowrap;
-  flex-shrink: 0; /* 日付が縮まないように */
-  margin-left: auto; /* 右端に寄せる */
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 992px) {
-  .sidebar {
-    position: static;
-    margin-top: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    padding: 1rem;
-  }
-  
-  .popularRank {
-    width: 20px;
-    height: 20px;
-    font-size: 0.7rem;
-  }
-  
-  .popularTitle {
-    font-size: 0.85rem;
-  }
-  
-  .popularCategory {
-    font-size: 0.65rem;
-    padding: 0.15rem 0.3rem;
-  }
-  
-  .multiCategoryIndicator {
-    font-size: 0.55rem;
-    padding: 0.1rem 0.2rem;
-  }
-  
-  .popularDate {
-    font-size: 0.65rem;
-  }
-  
-  .popularInfo {
-    justify-content: space-between; /* 左右配置を維持 */
-    gap: 0.4rem; /* ギャップを少し狭める */
-  }
-
-  .categoryLink {
-    padding: 0.5rem 0.6rem;
-    font-size: 0.9rem;
-  }
-  
-  .categoryIcon {
-    font-size: 1rem;
-    margin-right: 0.6rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .popularInfo {
-    justify-content: space-between; /* 左右配置を維持 */
-    flex-wrap: nowrap; /* 最小サイズでも改行しない */
-    gap: 0.3rem; /* ギャップをさらに狭める */
-  }
-  
-  .popularCategory {
-    font-size: 0.6rem;
-    padding: 0.1rem 0.25rem;
-    min-width: auto; /* 最小幅制限を解除 */
-  }
-  
-  .multiCategoryIndicator {
-    font-size: 0.5rem;
-    padding: 0.05rem 0.15rem;
-  }
-  
-  .popularDate {
-    font-size: 0.6rem;
-    margin-left: auto; /* 右端寄せを維持 */
-  }
-  
-  .sidebarTitle {
-    font-size: 1.1rem;
-  }
-  
-  .popularTitle {
-    font-size: 0.8rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .categoryLink {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.85rem;
-  }
-  
-  .categoryIcon {
-    font-size: 0.9rem;
-    margin-right: 0.5rem;
-  }
-}
-
-/* 極小画面（360px以下）での調整 */
-@media (max-width: 360px) {
-  .popularInfo {
-    justify-content: space-between; /* 左右配置を維持 */
-    gap: 0.2rem;
-  }
-  
-  .popularCategory {
-    font-size: 0.55rem;
-    padding: 0.08rem 0.2rem;
-  }
-  
-  .popularDate {
-    font-size: 0.55rem;
-    margin-left: auto; /* 右端寄せを維持 */
-  }
-  
-  .multiCategoryIndicator {
-    font-size: 0.45rem;
-    padding: 0.03rem 0.1rem;
-  }
-}
-
-/* その他の既存スタイルは維持 */
 .sidebar {
-  background: white;
+  background-color: var(--sidebar-background); /* テーマ対応 */
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: var(--card-shadow);
-  height: fit-content;
-  position: sticky;
-  top: 2rem;
+  box-shadow: var(--card-shadow); /* テーマ対応 */
+  border: 1px solid var(--border-color); /* 追加 */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 追加 */
 }
 
 .sidebarTitle {
-  font-size: 1.3rem;
-  color: var(--primary-color);
+  font-size: 1.2rem;
   margin-bottom: 1rem;
-  position: relative;
-  padding-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.sidebarTitle::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-}
-
-.newsCount {
-  font-size: 0.8rem;
-  color: #666;
-  font-weight: normal;
-}
-
-.popularNews {
-  margin-bottom: 2rem;
-}
-
-.popularList {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.popularItem {
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 1rem;
-}
-
-.popularItem:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.popularLink {
-  display: flex;
-  gap: 0.8rem;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  text-decoration: none;
-  color: inherit;
-}
-
-.popularLink:hover {
-  transform: translateX(3px);
-}
-
-.popularRank {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
-  color: white;
-  border-radius: 50%;
-  font-size: 0.8rem;
-  font-weight: 700;
-  flex-shrink: 0;
-  margin-top: 0.2rem;
-}
-
-.popularContent {
-  flex: 1;
-  min-width: 0;
-}
-
-.popularTitle {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  margin: 0 0 0.5rem 0;
-  color: var(--text-color);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  transition: color 0.3s ease;
-}
-
-.popularLink:hover .popularTitle {
-  color: var(--secondary-color);
-}
-
-.noPopularNews {
-  text-align: center;
-  color: #666;
-  font-style: italic;
-  padding: 1rem 0;
+  color: var(--text-color); /* テーマ対応 */
+  font-weight: 600;
+  transition: color 0.3s ease; /* 追加 */
 }
 
 .categoryList {
@@ -295,75 +29,52 @@
   margin-bottom: 0.5rem;
 }
 
-.categoryItem:last-child {
-  margin-bottom: 0;
-}
-
 .categoryLink {
   display: flex;
   align-items: center;
-  color: var(--text-color);
+  padding: 0.5rem;
+  border-radius: 6px;
   text-decoration: none;
-  padding: 0.6rem 0.8rem;
-  transition: all 0.3s ease;
-  border-left: 3px solid transparent;
-  border-radius: 4px;
-  font-weight: 500;
-  position: relative;
-  overflow: hidden;
-}
-
-.categoryLink::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background-color: var(--category-color, var(--secondary-color));
-  opacity: 0.1;
-  transition: width 0.3s ease;
-  z-index: 0;
-}
-
-.categoryLink:hover::before {
-  width: 100%;
+  color: var(--text-color); /* テーマ対応 */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .categoryLink:hover {
-  color: var(--category-color, var(--secondary-color));
-  border-left-color: var(--category-color, var(--accent-color));
-  transform: translateX(5px);
-}
-
-.categoryLink > * {
-  position: relative;
-  z-index: 1;
+  background-color: var(--border-color); /* テーマ対応 */
+  color: var(--secondary-color);
 }
 
 .categoryIcon {
-  margin-right: 0.8rem;
-  font-size: 1.1rem;
-  min-width: 20px;
-  text-align: center;
+  margin-right: 0.5rem;
+  font-size: 1rem;
 }
 
-/* タグセクション */
 .tagSection {
   margin-bottom: 2rem;
 }
 
 .adBanner {
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border: 2px dashed #dee2e6;
+  background-color: var(--border-color); /* テーマ対応 */
   border-radius: 8px;
-  padding: 2rem 1rem;
+  padding: 1rem;
   text-align: center;
-  margin-top: 2rem;
+  border: 1px solid var(--border-color); /* 追加 */
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* 追加 */
 }
 
-.adContent p {
-  color: #6c757d;
-  font-size: 0.9rem;
-  margin: 0;
+.adContent {
+  color: var(--text-color); /* テーマ対応 */
+  opacity: 0.7; /* 追加 */
+  transition: color 0.3s ease; /* 追加 */
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 1rem;
+  }
+  
+  .sidebarTitle {
+    font-size: 1.1rem;
+  }
 }

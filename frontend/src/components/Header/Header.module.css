@@ -372,3 +372,69 @@
 body.menu-open {
   overflow: hidden;
 }
+
+/* ヘッダーアクション部分の追加 */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.themeToggleContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* ヘッダーの背景色をテーマに対応 */
+.header {
+  background-color: var(--header-background);
+  color: var(--header-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* 既存のスタイルを維持 */
+}
+
+/* ナビゲーションリンクの色調整 */
+.navLink {
+  color: var(--header-text);
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: var(--secondary-color);
+}
+
+/* モバイルメニューの背景色調整 */
+.mobileMenu {
+  background-color: var(--header-background);
+  border-color: var(--border-color);
+}
+
+.mobileNavLink {
+  color: var(--header-text);
+}
+
+/* ドロップダウンメニューの調整 */
+.dropdownContent {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+.dropdownItem {
+  color: var(--text-color);
+}
+
+.dropdownItem:hover {
+  background-color: var(--border-color);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .headerActions {
+    gap: 0.5rem;
+  }
+  
+  .themeToggleContainer {
+    order: -1; /* テーマボタンをハンバーガーボタンの前に配置 */
+  }
+}

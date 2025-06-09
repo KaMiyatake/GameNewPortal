@@ -1,3 +1,4 @@
+/* ライトモードの変数 */
 :root {
   --primary-color: #1e1e2c;
   --secondary-color: #6c5ce7;
@@ -11,6 +12,36 @@
   --content-padding: 15px;
   --ad-gap: 10px;
   --ad-width: 160px;
+  
+  /* 追加のライトモード変数 */
+  --card-background: #ffffff;
+  --sidebar-background: #ffffff;
+  --header-background: #ffffff;
+  --header-text: #333;
+  --input-background: #ffffff;
+  --input-border: #e1e1e1;
+  --button-text: #ffffff;
+}
+
+/* ダークモードの変数 (Deep Dark Theme) */
+[data-theme="dark"] {
+  --primary-color: #58a6ff;
+  --secondary-color: #8b5cf6;
+  --accent-color: #39d353;
+  --background-color: #0d1117;
+  --text-color: #c9d1d9;
+  --light-text: #f0f6fc;
+  --border-color: #30363d;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  
+  /* 追加のダークモード変数 */
+  --card-background: #161b22;
+  --sidebar-background: #161b22;
+  --header-background: #161b22;
+  --header-text: #c9d1d9;
+  --input-background: #21262d;
+  --input-border: #30363d;
+  --button-text: #ffffff;
 }
 
 * {
@@ -32,6 +63,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -65,7 +97,7 @@ button {
   cursor: pointer;
   border: none;
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--button-text);
   padding: 8px 16px;
   border-radius: 4px;
   font-weight: 500;
@@ -97,4 +129,27 @@ a[href*="/category/"] span {
 /* カテゴリボタンのホバー効果を確実に適用 */
 a[href*="/category/"]:hover span {
   text-decoration: none !important;
+}
+
+/* テーマ切り替えのスムーズなトランジション */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* カードやコンテナ用のスタイル */
+.card, .news-card, .sidebar {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
+/* インプット要素のスタイル */
+input, textarea, select {
+  background-color: var(--input-background);
+  border-color: var(--input-border);
+  color: var(--text-color);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--secondary-color);
 }

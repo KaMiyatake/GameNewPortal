@@ -45,10 +45,12 @@
 }
 
 .formContainer {
-  background: white;
+  background: var(--card-background); /* テーマ対応 */
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--card-shadow); /* テーマ対応 */
+  border: 1px solid var(--border-color); /* 追加 */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 追加 */
 }
 
 .contactForm {
@@ -65,11 +67,12 @@
 .label {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--text-color); /* テーマ対応 */
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  transition: color 0.3s ease; /* 追加 */
 }
 
 .required {
@@ -81,11 +84,12 @@
 .select,
 .textarea {
   padding: 0.8rem 1rem;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--border-color); /* テーマ対応 */
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  background: white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  background: var(--input-background); /* テーマ対応 */
+  color: var(--text-color); /* テーマ対応 */
 }
 
 .input:focus,
@@ -172,20 +176,22 @@
 }
 
 .infoCard {
-  background: white;
+  background: var(--card-background); /* テーマ対応 */
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: var(--card-shadow);
-  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow); /* テーマ対応 */
+  border: 1px solid var(--border-color); /* 追加 */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 追加 */
 }
 
 .infoTitle {
   font-size: 1.2rem;
-  color: var(--primary-color);
+  color: var(--text-color); /* テーマ対応 */
   margin-bottom: 1rem;
   font-weight: 600;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color); /* テーマ対応 */
   padding-bottom: 0.5rem;
+  transition: color 0.3s ease, border-color 0.3s ease; /* 追加 */
 }
 
 .infoContent {
@@ -199,17 +205,44 @@
 }
 
 .infoItem strong {
-  color: var(--primary-color);
+  color: var(--text-color); /* テーマ対応 */
   display: block;
   margin-bottom: 0.3rem;
   font-size: 0.95rem;
+  transition: color 0.3s ease; /* 追加 */
 }
 
 .infoItem p {
   margin: 0;
-  color: #666;
+  color: var(--text-color); /* テーマ対応 */
+  opacity: 0.8; /* 追加 */
   font-size: 0.9rem;
   line-height: 1.5;
+  transition: color 0.3s ease; /* 追加 */
+}
+
+/* エラーアラートのスタイル */
+.errorAlert {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+[data-theme="dark"] .errorAlert {
+  background-color: #4c1d1d;
+  border-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+.errorIcon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 /* 送信完了画面 */
@@ -217,10 +250,12 @@
   max-width: 600px;
   margin: 4rem auto;
   text-align: center;
-  background: white;
+  background: var(--card-background); /* テーマ対応 */
   padding: 3rem 2rem;
   border-radius: 12px;
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--card-shadow); /* テーマ対応 */
+  border: 1px solid var(--border-color); /* 追加 */
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 追加 */
 }
 
 .successIcon {
@@ -230,16 +265,19 @@
 
 .successTitle {
   font-size: 2rem;
-  color: var(--primary-color);
+  color: var(--text-color); /* テーマ対応 */
   margin-bottom: 1rem;
   font-weight: 600;
+  transition: color 0.3s ease; /* 追加 */
 }
 
 .successMessage {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-color); /* テーマ対応 */
+  opacity: 0.8; /* 追加 */
   line-height: 1.6;
   margin-bottom: 2rem;
+  transition: color 0.3s ease; /* 追加 */
 }
 
 .homeButton {
@@ -325,22 +363,4 @@
   .successTitle {
     font-size: 1.4rem;
   }
-}
-
-/* エラーアラートのスタイル */
-.errorAlert {
-  background-color: #fee2e2;
-  border: 1px solid #fecaca;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  color: #dc2626;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.errorIcon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
 }
