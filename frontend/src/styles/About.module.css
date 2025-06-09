@@ -18,6 +18,7 @@
   border-radius: 12px;
   color: white;
   margin-bottom: 3rem;
+  transition: all 0.3s ease;
 }
 
 .pageTitle {
@@ -39,10 +40,12 @@
 }
 
 .contentSection {
-  background: white;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
   box-shadow: var(--card-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .section {
@@ -55,10 +58,11 @@
 
 .sectionTitle {
   font-size: 2rem;
-  color: var(--primary-color);
+  color: var(--text-color);
   margin-bottom: 1.5rem;
   position: relative;
   padding-bottom: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .sectionTitle::after {
@@ -75,14 +79,22 @@
 .sectionContent {
   line-height: 1.8;
   color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .sectionContent p {
   margin-bottom: 1.2rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .sectionContent p:last-child {
   margin-bottom: 0;
+}
+
+.sectionContent strong {
+  color: var(--text-color);
+  font-weight: 600;
 }
 
 .featureGrid {
@@ -93,35 +105,44 @@
 }
 
 .featureCard {
-  background: #f8f9fa;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   padding: 1.5rem;
   border-radius: 8px;
   text-align: center;
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .featureCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: var(--secondary-color);
+}
+
+[data-theme="dark"] .featureCard:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .featureIcon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  display: block;
 }
 
 .featureCard h3 {
   font-size: 1.3rem;
-  color: var(--primary-color);
+  color: var(--text-color);
   margin-bottom: 0.8rem;
+  transition: color 0.3s ease;
 }
 
 .featureCard p {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 .policyGrid {
@@ -132,23 +153,28 @@
 }
 
 .policyItem {
-  background: #f8f9fa;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   padding: 1.5rem;
   border-radius: 8px;
   border-left: 4px solid var(--secondary-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .policyItem h3 {
   font-size: 1.2rem;
   margin-bottom: 0.8rem;
-  color: var(--primary-color);
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .policyItem p {
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
+  transition: color 0.3s ease;
 }
 
 .contentList {
@@ -161,6 +187,8 @@
   border-bottom: 1px solid var(--border-color);
   position: relative;
   padding-left: 1.5rem;
+  color: var(--text-color);
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .contentList li:last-child {
@@ -175,6 +203,11 @@
   font-size: 0.8rem;
 }
 
+.contentList li strong {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
 .editorialPolicy {
   display: grid;
   gap: 1.5rem;
@@ -182,51 +215,142 @@
 }
 
 .policyPoint {
-  background: #f8f9fa;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   padding: 1.2rem;
   border-radius: 8px;
-  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .policyPoint h4 {
-  color: var(--primary-color);
+  color: var(--text-color);
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .policyPoint p {
   margin: 0;
   font-size: 0.95rem;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
   line-height: 1.6;
+  transition: color 0.3s ease;
 }
 
 .contactInfo {
-  background: #f8f9fa;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   padding: 1.5rem;
   border-radius: 8px;
   margin: 1.5rem 0;
-  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .contactInfo p {
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .contactInfo p:last-child {
   margin-bottom: 0;
 }
 
+.contactInfo strong {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
 .thankYou {
   font-weight: 500;
-  color: var(--primary-color);
+  color: var(--text-color);
   text-align: center;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   margin-top: 2rem;
-  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.thankYou::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+}
+
+/* ダークモード特有の調整 */
+[data-theme="dark"] .heroSection {
+  background: linear-gradient(135deg, #1e1e2c, var(--secondary-color));
+}
+
+[data-theme="dark"] .pageTitle {
+  background: linear-gradient(90deg, var(--accent-color), #f0f6fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="dark"] .featureCard {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .policyItem {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .policyPoint {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .contactInfo {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .thankYou {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+/* ホバーエフェクトの強化 */
+.featureCard:hover .featureIcon {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.policyItem:hover {
+  border-left-color: var(--accent-color);
+  transform: translateX(5px);
+  transition: all 0.3s ease;
+}
+
+.policyPoint:hover {
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.contentList li:hover {
+  color: var(--secondary-color);
+  padding-left: 2rem;
+  transition: all 0.3s ease;
+}
+
+.contentList li:hover::before {
+  color: var(--accent-color);
+  transform: scale(1.2);
 }
 
 /* レスポンシブ対応 */
@@ -258,10 +382,37 @@
 
   .featureGrid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .policyGrid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .featureCard {
+    padding: 1.2rem;
+  }
+
+  .policyItem {
+    padding: 1.2rem;
+  }
+
+  .policyPoint {
+    padding: 1rem;
+  }
+
+  /* モバイル時のホバー効果を軽減 */
+  .featureCard:hover {
+    transform: translateY(-2px);
+  }
+
+  .policyItem:hover {
+    transform: translateX(2px);
+  }
+
+  .policyPoint:hover {
+    transform: translateY(-1px);
   }
 }
 
@@ -285,4 +436,79 @@
   .sectionTitle {
     font-size: 1.4rem;
   }
+
+  .featureCard {
+    padding: 1rem;
+  }
+
+  .featureIcon {
+    font-size: 2rem;
+  }
+
+  .policyItem {
+    padding: 1rem;
+  }
+
+  .policyPoint {
+    padding: 0.8rem;
+  }
+
+  .contactInfo {
+    padding: 1rem;
+  }
+
+  .thankYou {
+    padding: 1rem;
+  }
+
+  /* 小画面でのホバー効果を無効化 */
+  .featureCard:hover,
+  .policyItem:hover,
+  .policyPoint:hover {
+    transform: none;
+  }
+
+  .contentList li:hover {
+    padding-left: 1.5rem;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .featureCard,
+  .policyItem,
+  .policyPoint,
+  .contentList li {
+    transition: none;
+  }
+
+  .featureCard:hover,
+  .policyItem:hover,
+  .policyPoint:hover,
+  .contentList li:hover {
+    transform: none;
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .featureCard,
+  .policyItem,
+  .policyPoint,
+  .contactInfo,
+  .thankYou {
+    border-width: 2px;
+  }
+
+  .sectionTitle::after {
+    height: 4px;
+  }
+}
+
+/* フォーカス対応 */
+.featureCard:focus-within,
+.policyItem:focus-within,
+.policyPoint:focus-within {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }

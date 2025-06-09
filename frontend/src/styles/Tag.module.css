@@ -10,12 +10,14 @@
   align-items: center;
   justify-content: center;
   height: 60vh;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(0, 0, 0, 0.1);
+  border: 4px solid var(--border-color);
   border-radius: 50%;
   border-top-color: var(--secondary-color);
   animation: spin 1s ease-in-out infinite;
@@ -33,61 +35,90 @@
   align-items: center;
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.7;
+  transition: color 0.3s ease;
 }
 
 .breadcrumbs span {
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .breadcrumbs span:hover {
   color: var(--secondary-color);
+  opacity: 1;
 }
 
 .separator {
   margin: 0 0.5rem;
-  color: #999;
+  color: var(--text-color);
+  opacity: 0.5;
   cursor: default !important;
+}
+
+.separator:hover {
+  color: var(--text-color) !important;
+  opacity: 0.5 !important;
 }
 
 .current {
-  color: #333;
+  color: var(--text-color);
   font-weight: 500;
   cursor: default !important;
+  opacity: 1;
 }
 
 .current:hover {
-  color: #333 !important;
+  color: var(--text-color) !important;
 }
 
 .tagHeader {
-  margin-bottom: 1.5rem; /* 2remから1.5remに縮小 */
-  padding: 2rem 0;
+  margin-bottom: 1.5rem;
+  padding: 2.5rem 0;
   text-align: center;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, var(--card-background) 0%, var(--border-color) 100%);
   border-radius: 12px;
   border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.tagHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
 }
 
 .tagTitle {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  color: var(--primary-color);
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .tagIcon {
   color: var(--secondary-color);
   font-weight: 600;
+  font-size: 2.8rem;
+  line-height: 1;
 }
 
 .tagDescription {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.7;
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 .tagLayout {
@@ -96,24 +127,37 @@
   gap: 2rem;
 }
 
+.mainContent {
+  min-height: 400px;
+}
+
+.sidebarContent {
+  /* サイドバーのスタイルはSidebar.module.cssで管理 */
+}
+
 .noResults {
   text-align: center;
   padding: 4rem 2rem;
-  background-color: white;
-  border-radius: 8px;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
   box-shadow: var(--card-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .noResults h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--primary-color);
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
 .noResults p {
   font-size: 1rem;
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.7;
   margin-bottom: 2rem;
+  transition: color 0.3s ease;
 }
 
 .backToHome {
@@ -121,24 +165,79 @@
   padding: 0.8rem 1.5rem;
   background-color: var(--secondary-color);
   color: white;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.9rem;
 }
 
 .backToHome:hover {
   background-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .backToHome:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ダークモード特有の調整 */
+[data-theme="dark"] .tagHeader {
+  background: linear-gradient(135deg, var(--card-background) 0%, #21262d 100%);
+}
+
+[data-theme="dark"] .noResults {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+/* アニメーション効果 */
+.tagTitle {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.tagDescription {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ホバーエフェクト */
+.tagHeader:hover .tagIcon {
+  transform: scale(1.1) rotate(5deg);
+  transition: transform 0.3s ease;
+}
+
+.tagHeader:hover .tagTitle {
+  color: var(--secondary-color);
+  transition: color 0.3s ease;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 992px) {
   .tagLayout {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
   .tagTitle {
     font-size: 2rem;
+  }
+  
+  .tagIcon {
+    font-size: 2.3rem;
   }
 }
 
@@ -149,7 +248,7 @@
   }
 
   .tagHeader {
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem;
     margin-bottom: 1.2rem;
   }
   
@@ -159,12 +258,29 @@
     gap: 0.2rem;
   }
   
+  .tagIcon {
+    font-size: 2rem;
+  }
+  
   .tagDescription {
     font-size: 1rem;
   }
 
   .container {
     padding: 1.5rem 15px;
+  }
+  
+  .noResults {
+    padding: 3rem 1.5rem;
+  }
+  
+  /* モバイル時のホバー効果を軽減 */
+  .tagHeader:hover .tagIcon {
+    transform: scale(1.05);
+  }
+  
+  .backToHome:hover {
+    transform: translateY(-1px);
   }
 }
 
@@ -177,11 +293,83 @@
     font-size: 1.6rem;
   }
   
+  .tagIcon {
+    font-size: 1.8rem;
+  }
+  
+  .tagDescription {
+    font-size: 0.9rem;
+  }
+  
   .noResults {
-    padding: 3rem 1rem;
+    padding: 2.5rem 1rem;
   }
 
   .tagHeader {
     margin-bottom: 1rem;
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .backToHome {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  /* 小画面でのホバー効果を無効化 */
+  .tagHeader:hover .tagIcon,
+  .tagHeader:hover .tagTitle {
+    transform: none;
+    color: var(--text-color);
+  }
+  
+  .backToHome:hover {
+    transform: none;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .tagTitle,
+  .tagDescription {
+    animation: none;
+  }
+  
+  .tagHeader:hover .tagIcon,
+  .tagHeader:hover .tagTitle,
+  .backToHome:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .tagHeader,
+  .noResults {
+    border-width: 2px;
+  }
+  
+  .backToHome {
+    border: 2px solid var(--secondary-color);
+  }
+}
+
+/* フォーカス対応 */
+.backToHome:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* 検索結果の空の状態のアニメーション */
+.noResults {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

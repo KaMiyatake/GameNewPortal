@@ -111,6 +111,11 @@ const Header: React.FC = () => {
                   <span className={styles.navLink}>サイトについて</span>
                 </Link>
               </li>
+              <li className={styles.navItem}>
+                <Link href="/contact">
+                  <span className={styles.navLink}>お問い合わせ</span>
+                </Link>
+              </li>
             </ul>
           </nav>
 
