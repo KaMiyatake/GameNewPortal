@@ -11,14 +11,14 @@
 }
 
 .themeToggle:hover {
-  background-color: var(--border-color);
+  background-color: rgba(139, 92, 246, 0.1); /* ライト・ダーク共通のホバー色 */
 }
 
 .toggleContainer {
   position: relative;
   width: 56px;
   height: 28px;
-  background-color: var(--border-color);
+  background-color: #30363d; /* ライト・ダーク共通の背景色 */
   border-radius: 14px;
   display: flex;
   align-items: center;
@@ -37,11 +37,13 @@
   align-items: center;
   justify-content: center;
   opacity: 0.5;
+  color: #c9d1d9; /* ライト・ダーク共通のアイコン色 */
 }
 
 .toggleIcon.active {
   opacity: 1;
   transform: scale(1.1);
+  color: #ffffff; /* アクティブ時は白色 */
 }
 
 .toggleSlider {
@@ -50,44 +52,80 @@
   left: 2px;
   width: 24px;
   height: 24px;
-  background-color: var(--secondary-color);
+  background-color: #8b5cf6; /* ライト・ダーク共通のスライダー色 */
   border-radius: 50%;
   transition: transform 0.3s ease;
   z-index: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .toggleSlider.dark {
   transform: translateX(28px);
 }
 
-/* ライトモード時の色調整 */
-[data-theme="light"] .toggleContainer {
-  background-color: #e1e8ed;
+/* ライトモード時の色調整を削除し、ダークモード時と統一 */
+.toggleContainer {
+  background-color: #30363d; /* 常に同じ背景色 */
 }
 
-[data-theme="light"] .toggleSlider {
-  background-color: #6c5ce7;
-}
-
-/* ダークモード時の色調整 */
-[data-theme="dark"] .toggleContainer {
-  background-color: #30363d;
-}
-
-[data-theme="dark"] .toggleSlider {
-  background-color: #8b5cf6;
+.toggleSlider {
+  background-color: #8b5cf6; /* 常に同じスライダー色 */
 }
 
 /* ホバー効果 */
 .themeToggle:hover .toggleContainer {
-  background-color: var(--accent-color);
-  opacity: 0.8;
+  background-color: #484f58; /* より明るいグレー */
+  opacity: 1;
+}
+
+.themeToggle:hover .toggleSlider {
+  background-color: #a855f7; /* より明るい紫 */
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
 }
 
 /* アクセシビリティ */
 .themeToggle:focus {
-  outline: 2px solid var(--secondary-color);
+  outline: 2px solid #8b5cf6;
   outline-offset: 2px;
+}
+
+.themeToggle:focus .toggleContainer {
+  background-color: #484f58;
+}
+
+.themeToggle:focus .toggleSlider {
+  background-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+/* アクティブ状態（クリック時） */
+.themeToggle:active .toggleSlider {
+  background-color: #7c3aed; /* より濃い紫 */
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+.toggleSlider.dark:active {
+  transform: translateX(28px) scale(0.95);
+}
+
+/* アイコンの追加スタイル */
+.sunIcon {
+  filter: drop-shadow(0 0 2px rgba(255, 193, 7, 0.5));
+}
+
+.moonIcon {
+  filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.5));
+}
+
+.toggleIcon.active.sunIcon {
+  color: #ffc107; /* 太陽アイコンが活性時は黄色 */
+  filter: drop-shadow(0 0 4px rgba(255, 193, 7, 0.8));
+}
+
+.toggleIcon.active.moonIcon {
+  color: #e0e7ff; /* 月アイコンが活性時は淡い紫 */
+  filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.8));
 }
 
 /* モバイル対応 */
@@ -96,6 +134,7 @@
     width: 48px;
     height: 24px;
     border-radius: 12px;
+    background-color: #30363d; /* モバイルでも同じ色 */
   }
   
   .toggleIcon {
@@ -107,9 +146,152 @@
   .toggleSlider {
     width: 20px;
     height: 20px;
+    background-color: #8b5cf6; /* モバイルでも同じ色 */
   }
   
   .toggleSlider.dark {
     transform: translateX(24px);
   }
+  
+  .toggleSlider.dark:active {
+    transform: translateX(24px) scale(0.95);
+  }
+
+  /* モバイル時のホバー効果を軽減 */
+  .themeToggle:hover .toggleContainer {
+    background-color: #3d4450;
+  }
+  
+  .themeToggle:hover .toggleSlider {
+    box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .toggleContainer {
+    width: 44px;
+    height: 22px;
+    border-radius: 11px;
+  }
+  
+  .toggleIcon {
+    font-size: 12px;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .toggleSlider {
+    width: 18px;
+    height: 18px;
+    top: 2px;
+    left: 2px;
+  }
+  
+  .toggleSlider.dark {
+    transform: translateX(22px);
+  }
+  
+  .toggleSlider.dark:active {
+    transform: translateX(22px) scale(0.95);
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .toggleContainer {
+    border: 2px solid #8b5cf6;
+    background-color: #21262d;
+  }
+  
+  .toggleSlider {
+    border: 2px solid #ffffff;
+  }
+  
+  .toggleIcon {
+    color: #ffffff;
+  }
+  
+  .toggleIcon.active {
+    color: #ffffff;
+    background-color: rgba(139, 92, 246, 0.2);
+    border-radius: 50%;
+  }
+}
+
+/* アニメーション無効化設定対応 */
+@media (prefers-reduced-motion: reduce) {
+  .toggleContainer,
+  .toggleSlider,
+  .toggleIcon,
+  .themeToggle {
+    transition: none;
+  }
+  
+  .toggleIcon.active {
+    transform: none;
+  }
+  
+  .themeToggle:active .toggleSlider {
+    transform: translateX(28px); /* ダークモード時の位置 */
+  }
+  
+  .toggleSlider.dark {
+    transform: translateX(28px);
+  }
+}
+
+/* ツールチップ風の情報表示 */
+.themeToggle::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #21262d;
+  color: #c9d1d9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.themeToggle:hover::after {
+  opacity: 1;
+}
+
+/* アニメーション効果 */
+@keyframes slideToggle {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: translateX(28px);
+  }
+}
+
+@keyframes slideToggleReverse {
+  0% {
+    transform: translateX(28px);
+  }
+  50% {
+    transform: translateX(28px) scale(1.1);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.toggleSlider.animating {
+  animation: slideToggle 0.3s ease;
+}
+
+.toggleSlider.animatingReverse {
+  animation: slideToggleReverse 0.3s ease;
 }
