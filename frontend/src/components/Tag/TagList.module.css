@@ -293,7 +293,7 @@
 [data-theme="dark"] .tagItem {
   /* 背景が暗いことを確認 */
   background-color: var(--card-background); /* #161b22 */
-  color: var(--text-color); /* #c9d1d9 */
+  color: var(--text-color); /* #e1e1e1 */
 }
 
 [data-theme="dark"] .tagItem:hover {

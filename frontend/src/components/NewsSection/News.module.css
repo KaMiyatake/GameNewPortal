@@ -794,7 +794,7 @@
 
 [data-theme="dark"] .newsTitle span,
 [data-theme="dark"] .newsTitleList span {
-  color: #c9d1d9 !important; /* ダークモード時は確実に白色 */
+  color: #e1e1e1 !important; /* ダークモード時は確実に白色 */
 }
 
 [data-theme="light"] .newsTitle span:hover,
@@ -858,7 +858,7 @@
 /* ダークモード時の確実な適用 */
 [data-theme="dark"] .newsTitle span,
 [data-theme="dark"] .newsTitleList span {
-  color: #c9d1d9;
+  color: #e1e1e1;
 }
 
 /* ホバー時の確実な紫色適用 */

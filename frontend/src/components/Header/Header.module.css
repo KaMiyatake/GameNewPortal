@@ -1,6 +1,6 @@
 .header {
   background-color: #161b22; /* 常に黒系背景 */
-  color: #c9d1d9; /* 常に明るいテキスト */
+  color: #e1e1e1; /* 常に明るいテキスト */
   padding: 1rem 0;
   position: relative;
   z-index: 1000;
@@ -120,7 +120,7 @@
 }
 
 .navLink {
-  color: #c9d1d9; /* 常に明るいテキスト */
+  color: #e1e1e1; /* 常に明るいテキスト */
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
@@ -190,7 +190,7 @@
 .dropdownItem {
   display: block;
   padding: 0.8rem 1rem;
-  color: #c9d1d9; /* 明るいテキスト */
+  color: #e1e1e1; /* 明るいテキスト */
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -242,7 +242,7 @@
 .hamburgerLine {
   width: 25px;
   height: 3px;
-  background-color: #c9d1d9; /* 明るいライン */
+  background-color: #e1e1e1; /* 明るいライン */
   margin: 3px 0;
   transition: all 0.3s ease;
   transform-origin: center;
@@ -311,7 +311,7 @@
 .mobileNavLink {
   display: flex;
   align-items: center;
-  color: #c9d1d9; /* 明るいテキスト */
+  color: #e1e1e1; /* 明るいテキスト */
   text-decoration: none;
   padding: 1.2rem 1.5rem;
   font-weight: 500;

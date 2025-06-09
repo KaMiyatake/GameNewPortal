@@ -37,7 +37,7 @@
   align-items: center;
   justify-content: center;
   opacity: 0.5;
-  color: #c9d1d9; /* ライト・ダーク共通のアイコン色 */
+  color: #e1e1e1; /* ライト・ダーク共通のアイコン色 */
 }
 
 .toggleIcon.active {
@@ -248,7 +248,7 @@
   left: 50%;
   transform: translateX(-50%);
   background-color: #21262d;
-  color: #c9d1d9;
+  color: #e1e1e1;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
