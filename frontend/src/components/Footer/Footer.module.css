@@ -1,9 +1,9 @@
 .footer {
-  background-color: var(--card-background); /* テーマ対応 */
-  border-top: 1px solid var(--border-color); /* テーマ対応 */
-  padding: 2rem 0 1rem;
+  background-color: #161b22; /* 常に黒系背景 */
+  border-top: 1px solid #30363d;
+  padding: 3rem 0 1.5rem;
   margin-top: 3rem;
-  transition: background-color 0.3s ease, border-color 0.3s ease; /* 追加 */
+  color: #c9d1d9; /* 常に明るいテキスト */
 }
 
 .container {
@@ -15,7 +15,7 @@
 .footerContent {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: 2.5rem;
   margin-bottom: 2rem;
 }
 
@@ -24,19 +24,30 @@
 }
 
 .footerTitle {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--text-color); /* テーマ対応 */
-  transition: color 0.3s ease; /* 追加 */
+  margin-bottom: 1.2rem;
+  color: #f0f6fc; /* 明るい白色 */
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.footerTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+  border-radius: 2px;
 }
 
 .footerDescription {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--text-color); /* テーマ対応 */
-  opacity: 0.8; /* 追加 */
-  transition: color 0.3s ease; /* 追加 */
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #8b949e; /* 薄いグレー */
+  margin-bottom: 1.5rem;
 }
 
 .footerLinks {
@@ -46,98 +57,154 @@
 }
 
 .footerLinks li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
 }
 
 .categoryLink {
-  color: var(--text-color); /* テーマ対応 */
+  color: #c9d1d9; /* 明るいテキスト */
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
 }
 
 .categoryLink:hover {
   color: var(--secondary-color);
+  transform: translateX(5px);
 }
 
 .infoLink {
-  color: var(--text-color); /* テーマ対応 */
+  color: #c9d1d9; /* 明るいテキスト */
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
 }
 
 .infoLink:hover {
   color: var(--secondary-color);
+  transform: translateX(3px);
 }
 
 .socialLinks {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #21262d; /* 黒系背景 */
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .copyright {
   text-align: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-color); /* テーマ対応 */
-  color: var(--text-color); /* テーマ対応 */
-  opacity: 0.7; /* 追加 */
-  transition: color 0.3s ease, border-color 0.3s ease; /* 追加 */
+  padding-top: 2rem;
+  border-top: 1px solid #30363d;
+  color: #8b949e; /* 薄いグレー */
 }
 
 .copyright p {
-  margin: 0;
-  font-size: 0.8rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.85rem;
 }
 
 .tagline {
   font-style: italic;
   margin-top: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  color: #6e7681; /* より薄いグレー */
+}
+
+/* ホバーエフェクトの追加 */
+.footerSection:hover .footerTitle {
+  color: var(--secondary-color);
+}
+
+.footerSection:hover .footerTitle::after {
+  width: 60px;
+  transition: width 0.3s ease;
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .footer {
-    padding: 1.5rem 0 1rem;
+    padding: 2rem 0 1rem;
   }
   
   .footerContent {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
   }
   
   .footerTitle {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
   
   .footerDescription {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
   }
   
   .categoryLink,
   .infoLink {
     font-size: 0.85rem;
   }
+  
+  .socialLinks {
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+  }
+  
+  .socialLink {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 576px) {
   .footer {
-    padding: 1rem 0 0.5rem;
+    padding: 1.5rem 0 1rem;
   }
   
   .footerContent {
-    gap: 1rem;
+    gap: 1.5rem;
   }
   
   .footerTitle {
-    font-size: 0.95rem;
+    font-size: 1rem;
     margin-bottom: 0.8rem;
   }
   
   .footerDescription {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
   }
   
   .categoryLink,
@@ -146,14 +213,42 @@
   }
   
   .copyright {
-    padding-top: 1rem;
+    padding-top: 1.5rem;
   }
   
   .copyright p {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
   
   .tagline {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
+  }
+  
+  .socialLinks {
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+  
+  .socialLink {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* アクセシビリティ向上 */
+@media (prefers-reduced-motion: reduce) {
+  .categoryLink:hover,
+  .infoLink:hover {
+    transform: none;
+  }
+  
+  .socialLink:hover {
+    transform: none;
+  }
+  
+  .footerSection:hover .footerTitle::after {
+    width: 40px;
+    transition: none;
   }
 }
