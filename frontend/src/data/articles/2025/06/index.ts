@@ -16,6 +16,7 @@ import { comp25060803 } from './25060803-rgg-studio-stranger-than-heaven';
 import { comp25060804 } from './25060804-elden-ring-nightreign-tips';
 import { comp25060901 } from './25060901-persona4-revival';
 import { comp25060902 } from './25060902-ninja-gaiden4';
+import { comp25060903 } from './25060903-zenless-zone-zero-ver2';
 
 
 export const articles202506 = [
@@ -37,4 +38,5 @@ export const articles202506 = [
   comp25060804,
   comp25060901,
   comp25060902,
+  comp25060903,
 ];
