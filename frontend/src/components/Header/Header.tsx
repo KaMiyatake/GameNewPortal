@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import { categories } from '../../data/categories/categories';
-import ThemeToggle from '../ThemeToggle/ThemeToggle'; // 追加
 import styles from './Header.module.css';
 
 const Header: React.FC = () => {
@@ -86,27 +86,17 @@ const Header: React.FC = () => {
           </Link>
         </div>
         
-        {/* デスクトップナビゲーション */}
-        <nav className={styles.nav}>
-          <ul className={styles.navList}>
-            {categories.slice(0, 6).map((category) => (
-              <li key={category.id} className={styles.navItem}>
-                <Link href={`/category/${category.slug}`}>
-                  <span 
-                    className={styles.navLink}
-                    style={{ '--category-color': category.color } as React.CSSProperties}
-                  >
-                    {category.name}
-                  </span>
-                </Link>
-              </li>
-            ))}
-            {categories.length > 6 && (
+        {/* ヘッダーアクション（ナビゲーション + テーマトグル） */}
+        <div className={styles.headerActions}>
+          {/* デスクトップナビゲーション */}
+          <nav className={styles.nav}>
+            <ul className={styles.navList}>
+              {/* カテゴリ検索ドロップダウン */}
               <li className={styles.navItem}>
                 <div className={styles.dropdown}>
-                  <span className={styles.navLink}>その他</span>
+                  <span className={styles.navLink}>カテゴリ検索</span>
                   <div className={styles.dropdownContent}>
-                    {categories.slice(6).map((category) => (
+                    {categories.map((category) => (
                       <Link key={category.id} href={`/category/${category.slug}`}>
                         <span className={styles.dropdownItem}>
                           {getCategoryIcon(category.slug)} {category.name}
@@ -116,23 +106,15 @@ const Header: React.FC = () => {
                   </div>
                 </div>
               </li>
-            )}
-            <li className={styles.navItem}>
-              <Link href="/about">
-                <span className={styles.navLink}>サイトについて</span>
-              </Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/contact">
-                <span className={styles.navLink}>お問い合わせ</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+              <li className={styles.navItem}>
+                <Link href="/about">
+                  <span className={styles.navLink}>サイトについて</span>
+                </Link>
+              </li>
+            </ul>
+          </nav>
 
-        {/* テーマ切り替えボタンとモバイルメニューボタン */}
-        <div className={styles.headerActions}>
-          {/* テーマ切り替えボタン */}
+          {/* テーマ切り替えボタン（デスクトップ） */}
           <div className={styles.themeToggleContainer}>
             <ThemeToggle />
           </div>
@@ -163,7 +145,13 @@ const Header: React.FC = () => {
 
       {/* モバイルメニュー */}
       <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ''}`}>
+        {/* モバイルメニューヘッダー（テーマトグル） */}
+        <div className={styles.mobileMenuHeader}>
+          <ThemeToggle />
+        </div>
+        
         <ul className={styles.mobileNavList}>
+          {/* 全カテゴリを個別に表示 */}
           {categories.map((category) => (
             <li key={category.id} className={styles.mobileNavItem}>
               <Link href={`/category/${category.slug}`}>
@@ -188,17 +176,6 @@ const Header: React.FC = () => {
               >
                 <span className={styles.categoryIcon}>ℹ️</span>
                 サイトについて
-              </span>
-            </Link>
-          </li>
-          <li className={styles.mobileNavItem}>
-            <Link href="/contact">
-              <span 
-                className={styles.mobileNavLink}
-                onClick={closeMenu}
-              >
-                <span className={styles.categoryIcon}>📧</span>
-                お問い合わせ
               </span>
             </Link>
           </li>
