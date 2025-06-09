@@ -1,23 +1,44 @@
+/* ArticleImage.module.css */
 .image {
-  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.3s ease;
+  border-radius: inherit;
+}
+
+.imageLink {
   display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
-.image:hover {
-  transform: scale(1.02);
+.imageLink:hover .image {
+  transform: scale(1.05);
 }
 
-/* 画像がエラーの場合のスタイル */
-.image[data-error="true"] {
-  background-color: #f0f0f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 0.9rem;
+/* ダークモード対応 */
+[data-theme="dark"] .image {
+  filter: brightness(0.9);
 }
 
-.image[data-error="true"]::before {
-  content: "画像を読み込めませんでした";
+[data-theme="dark"] .imageLink:hover .image {
+  filter: brightness(1);
+}
+
+/* アクセシビリティ */
+.imageLink:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .imageLink:hover .image {
+    transform: scale(1.02);
+  }
 }

@@ -68,13 +68,225 @@
   transition: color 0.3s ease; /* 追加 */
 }
 
+/* Sidebar.module.css - 人気記事セクション追加 */
+
+/* 人気記事セクション */
+.popularNews {
+  margin-bottom: 2rem;
+}
+
+.newsCount {
+  font-size: 0.8rem;
+  color: var(--text-color);
+  opacity: 0.6;
+  font-weight: normal;
+  margin-left: 0.5rem;
+}
+
+.popularList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.popularItem {
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+}
+
+.popularItem:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow);
+  border-color: var(--secondary-color);
+}
+
+.popularLink {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.8rem;
+  text-decoration: none;
+  color: inherit;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.popularRank {
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.popularContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.popularTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 0.4rem 0;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.popularLink:hover .popularTitle {
+  color: var(--secondary-color);
+}
+
+.popularInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.popularCategory {
+  background-color: var(--category-color, var(--secondary-color));
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  white-space: nowrap;
+}
+
+.popularCategory:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.multiCategoryIndicator {
+  font-size: 0.6rem;
+  opacity: 0.8;
+  margin-left: 0.2rem;
+}
+
+.popularDate {
+  font-size: 0.7rem;
+  color: var(--text-color);
+  opacity: 0.6;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.noPopularNews {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-color);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* ダークモード特有の調整 */
+[data-theme="dark"] .popularItem {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .popularItem:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .popularRank {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .popularTitle {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .popularDate {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
-  .sidebar {
-    padding: 1rem;
+  .popularList {
+    gap: 0.6rem;
   }
   
-  .sidebarTitle {
-    font-size: 1.1rem;
+  .popularLink {
+    padding: 0.6rem;
+    gap: 0.6rem;
+  }
+  
+  .popularRank {
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+  }
+  
+  .popularTitle {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .popularCategory {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+  }
+  
+  .popularDate {
+    font-size: 0.65rem;
   }
 }
+
+@media (max-width: 576px) {
+  .popularLink {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .popularRank {
+    width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+  }
+  
+  .popularTitle {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 3;
+  }
+  
+  .popularInfo {
+    gap: 0.3rem;
+  }
+  
+  .popularCategory {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.25rem;
+  }
+  
+  .popularDate {
+    font-size: 0.6rem;
+  }
+  
+  .newsCount {
+    font-size: 0.75rem;
+  }
+}
+
