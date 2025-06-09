@@ -11,13 +11,12 @@ interface NewsCardProps {
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
-  // カテゴリーコンポーネント（モバイル対応版）
+  // CategoryTagsコンポーネント（既存のまま）
   const CategoryTags: React.FC<{ 
     categories: string[]; 
     size?: 'small' | 'normal';
     isMobile?: boolean;
   }> = ({ categories, size = 'normal', isMobile = false }) => {
-    // モバイル時の表示ロジック
     const getDisplayCategories = () => {
       if (!isMobile || categories.length <= 3) {
         return categories.map((category, index) => ({
@@ -27,10 +26,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
         }));
       }
 
-      // モバイルで4つ以上の場合：最初の2つ + 3つ目を "+N" 形式で表示
       const displayItems = [];
-      
-      // 最初の2つのカテゴリ
       displayItems.push(
         ...categories.slice(0, 2).map((category, index) => ({
           type: 'category' as const,
@@ -39,7 +35,6 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
         }))
       );
       
-      // 3つ目は "+N" 形式
       const remainingCount = categories.length - 2;
       const thirdCategory = categories[2];
       displayItems.push({
@@ -69,7 +64,6 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
               </Link>
             );
           } else {
-            // "+N" 形式の表示
             return (
               <Link key={item.index} href={getCategoryUrl(item.category)}>
                 <span 
@@ -87,7 +81,6 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
     );
   };
 
-  // モバイル判定用の状態管理
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -110,7 +103,6 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
               <ArticleImage
                 src={news.imageUrl}
                 alt={news.title}
-                fill={true}
                 objectFit="cover"
                 objectPosition="center"
               />
@@ -138,18 +130,16 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
   return (
     <article className={styles.newsCard}>
       <div className={styles.imageContainer}>
-        <Link href={`/news/${news.slug}`}>
+        <Link href={`/news/${news.slug}`} className={styles.imageLink}>
           <ArticleImage
             src={news.imageUrl}
             alt={news.title}
-            fill={true}
             objectFit="cover"
             objectPosition="center"
           />
         </Link>
       </div>
       <div className={styles.contentContainer}>
-        {/* 複数カテゴリと日付のヘッダー */}
         <div className={styles.newsHeader}>
           <CategoryTags 
             categories={news.categories} 
@@ -159,17 +149,14 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
           <span className={styles.newsHeaderDate}>{news.date}</span>
         </div>
         
-        {/* タイトル */}
         <h3 className={styles.newsTitle}>
           <Link href={`/news/${news.slug}`}>
             <span>{news.title}</span>
           </Link>
         </h3>
         
-        {/* サマリ */}
         <p className={styles.newsSummary}>{news.summary}</p>
         
-        {/* フッター */}
         <div className={styles.newsFooter}>
           <span className={styles.newsDate}>{news.date}</span>
           <Link href={`/news/${news.slug}`}>

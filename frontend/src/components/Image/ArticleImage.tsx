@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { getPlaceholderImage } from '../../utils/image-paths';
 import styles from './ArticleImage.module.css';
 
@@ -36,40 +35,21 @@ const ArticleImage: React.FC<ArticleImageProps> = ({
     }
   };
 
-  const baseImageProps = {
-    src: imageSrc,
-    alt,
-    onError: handleError,
-    priority,
-    className: `${styles.image} ${className}`,
+  const imageStyle: React.CSSProperties = {
+    objectFit,
+    objectPosition,
+    width: '100%',
+    height: '100%',
   };
 
-  if (fill) {
-    return (
-      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-        <Image
-          {...baseImageProps}
-          fill
-          style={{ 
-            objectFit,
-            objectPosition
-          }}
-        />
-      </div>
-    );
-  }
-
   return (
-    <Image
-      {...baseImageProps}
-      width={width}
-      height={height}
-      style={{ 
-        objectFit,
-        objectPosition,
-        width: '100%',
-        height: '100%'
-      }}
+    <img
+      src={imageSrc}
+      alt={alt}
+      onError={handleError}
+      className={`${styles.image} ${className}`}
+      style={imageStyle}
+      loading={priority ? 'eager' : 'lazy'}
     />
   );
 };
