@@ -106,8 +106,8 @@ export const comp25061001: ArticleDetail = {
 
     <p>兎田ぺこらの金策サバイバル初日配信は、企画の雰囲気と魅力を存分に味わえる内容となっています。効率的な金策方法の発見や、他メンバーとの交流など、見どころ満載の配信をぜひご覧ください。</p>
 
-    <p><strong>▶ 兎田ぺこら「#ホロ金策サバイバル 1日目！お金持ちになるぞ！ぺこ！」</strong><br>
-    <a href="https://www.youtube.com/watch?v=_zxGRCivGxg" target="_blank">https://www.youtube.com/watch?v=_zxGRCivGxg</a></p>
+    <!-- YouTube動画埋め込み -->
+    <div data-youtube-embed="_zxGRCivGxg" data-title="【#ホロ金策サバイバル】1日目！お金持ちになるぞ！ぺこ！【ホロライブ/兎田ぺこら】"></div>
 
     <p>「ホロライブ マイクラ金策サバイバル」は、ホロライブの新たな伝説となりそうな予感に満ちた企画です。残り4日間の展開から目が離せません！</p>
   `,
