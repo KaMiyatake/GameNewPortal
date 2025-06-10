@@ -1,10 +1,21 @@
+.paginationWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 2rem;
-  padding: 1rem 0;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .pageButton {
@@ -23,9 +34,10 @@
   transition: all 0.3s ease;
   text-decoration: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
 }
 
-.pageButton:hover:not(.disabled) {
+.pageButton:hover:not(.disabled):not(.current) {
   background-color: var(--secondary-color);
   color: white;
   border-color: var(--secondary-color);
@@ -34,7 +46,7 @@
 }
 
 /* ダークモード時のホバー効果調整 */
-[data-theme="dark"] .pageButton:hover:not(.disabled) {
+[data-theme="dark"] .pageButton:hover:not(.disabled):not(.current) {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -43,51 +55,82 @@
   outline-offset: 2px;
 }
 
-.pageButton:active:not(.disabled) {
+.pageButton:active:not(.disabled):not(.current) {
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-[data-theme="dark"] .pageButton:active:not(.disabled) {
+[data-theme="dark"] .pageButton:active:not(.disabled):not(.current) {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .numberButton {
   min-width: 40px;
+  font-weight: 600;
 }
 
 .prevButton,
 .nextButton {
   padding: 0 0.5rem;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  min-width: 60px;
 }
 
-.prevButton::before {
-  content: '‹';
-  font-size: 1.2rem;
+.buttonText {
+  display: inline-block;
 }
 
-.nextButton::before {
-  content: '›';
-  font-size: 1.2rem;
+/* 現在のページスタイル（重要な変更点） */
+.active,
+.current {
+  background-color: var(--secondary-color) !important;
+  color: white !important;
+  border-color: var(--secondary-color) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  cursor: default !important; /* カーソルをデフォルトに */
+  position: relative;
 }
 
-.active {
-  background-color: var(--secondary-color);
-  color: white;
-  border-color: var(--secondary-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+/* 現在ページの特別な視覚効果 */
+.current::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+  border-radius: 8px;
+  z-index: -1;
+  opacity: 0.7;
 }
 
-.active:hover {
+.current::after {
+  content: '●';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 8px;
+  height: 8px;
   background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  transform: translateY(-1px);
+  border-radius: 50%;
+  font-size: 6px;
+  color: var(--accent-color);
 }
 
-[data-theme="dark"] .active {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+/* 現在ページのホバー効果を無効化 */
+.current:hover {
+  background-color: var(--secondary-color) !important;
+  color: white !important;
+  border-color: var(--secondary-color) !important;
+  transform: none !important;
+  cursor: default !important;
+}
+
+[data-theme="dark"] .active,
+[data-theme="dark"] .current {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
 .disabled {
@@ -122,7 +165,39 @@
   transition: color 0.3s ease;
 }
 
+/* ページ情報表示 */
+.pageInfo {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.mobilePageInfo {
+  display: none;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.currentPageIndicator {
+  font-size: 0.8rem;
+  color: var(--text-color);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
 /* ダークモード特有の調整 */
+[data-theme="dark"] .pagination {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
 [data-theme="dark"] .pageButton {
   background-color: var(--card-background);
   border-color: var(--border-color);
@@ -134,12 +209,19 @@
   opacity: 0.7;
 }
 
+[data-theme="dark"] .pageInfo,
+[data-theme="dark"] .mobilePageInfo {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .pagination {
     gap: 0.3rem;
     flex-wrap: wrap;
     margin-top: 1.5rem;
+    padding: 0.8rem;
   }
 
   .pageButton {
@@ -154,12 +236,8 @@
 
   .prevButton,
   .nextButton {
-    font-size: 0.9rem;
-  }
-
-  .prevButton::before,
-  .nextButton::before {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
+    min-width: 50px;
   }
 
   .ellipsis {
@@ -168,13 +246,21 @@
     font-size: 0.85rem;
   }
 
+  .pageInfo {
+    display: none; /* モバイルでは上部情報を非表示 */
+  }
+
+  .mobilePageInfo {
+    display: block; /* モバイルでは下部情報を表示 */
+  }
+
   /* モバイル時のホバー効果を軽減 */
-  .pageButton:hover:not(.disabled) {
+  .pageButton:hover:not(.disabled):not(.current) {
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  [data-theme="dark"] .pageButton:hover:not(.disabled) {
+  [data-theme="dark"] .pageButton:hover:not(.disabled):not(.current) {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
@@ -183,6 +269,7 @@
   .pagination {
     gap: 0.2rem;
     margin-top: 1rem;
+    padding: 0.6rem;
   }
 
   .pageButton {
@@ -198,13 +285,9 @@
 
   .prevButton,
   .nextButton {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     padding: 0 0.3rem;
-  }
-
-  .prevButton::before,
-  .nextButton::before {
-    font-size: 1rem;
+    min-width: 45px;
   }
 
   .ellipsis {
@@ -213,22 +296,17 @@
     font-size: 0.8rem;
   }
 
-  /* 小さな画面では省略記号を短くする */
-  .ellipsis::before {
-    content: '⋯';
-  }
-  
-  .ellipsis {
-    font-size: 1rem;
+  .currentPageIndicator {
+    font-size: 0.75rem;
   }
 
   /* 極小画面でのホバー効果を無効化 */
-  .pageButton:hover:not(.disabled) {
+  .pageButton:hover:not(.disabled):not(.current) {
     transform: none;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 
-  [data-theme="dark"] .pageButton:hover:not(.disabled) {
+  [data-theme="dark"] .pageButton:hover:not(.disabled):not(.current) {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 }
@@ -239,8 +317,9 @@
     border-width: 2px;
   }
   
-  .active {
-    border-width: 2px;
+  .active,
+  .current {
+    border-width: 3px;
   }
   
   .disabled {
@@ -254,12 +333,16 @@
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
   
-  .pageButton:hover:not(.disabled) {
+  .pageButton:hover:not(.disabled):not(.current) {
     transform: none;
   }
   
-  .pageButton:active:not(.disabled) {
+  .pageButton:active:not(.disabled):not(.current) {
     transform: none;
+  }
+
+  .current::before {
+    display: none; /* アニメーション効果を無効化 */
   }
 }
 
@@ -274,20 +357,22 @@
   box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
 }
 
-/* ページネーション全体の改善 */
-.pagination {
-  background-color: var(--card-background);
-  border-radius: 8px;
-  padding: 1rem;
-  border: 1px solid var(--border-color);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+/* 現在ページの明確な表示 */
+.current {
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* モバイル時のページネーション背景調整 */
-@media (max-width: 768px) {
-  .pagination {
-    background-color: transparent;
-    border: none;
-    padding: 0.8rem 0;
-  }
+[data-theme="dark"] .current {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* アクセシビリティ: スクリーンリーダー用 */
+.current[aria-current="page"]::before {
+  content: "現在のページ: ";
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }

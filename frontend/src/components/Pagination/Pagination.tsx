@@ -55,6 +55,12 @@ const Pagination: React.FC<PaginationProps> = ({
 
   const pageNumbers = getPageNumbers();
 
+  // ページ変更ハンドラー（現在ページの場合は何もしない）
+  const handlePageChange = (page: number) => {
+    if (page === currentPage) return; // 現在ページの場合は移動しない
+    onPageChange(page);
+  };
+
   // 1ページしかない場合は何も表示しない
   if (totalPages <= 1) {
     return null;
@@ -77,7 +83,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className={`${styles.pageButton} ${styles.prevButton} ${
             currentPage === 1 ? styles.disabled : ''
           }`}
-          onClick={() => onPageChange(currentPage - 1)}
+          onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           aria-label="前のページ"
           title="前のページ"
@@ -96,16 +102,19 @@ const Pagination: React.FC<PaginationProps> = ({
           }
 
           const pageNum = page as number;
+          const isCurrentPage = currentPage === pageNum;
+          
           return (
             <button
               key={pageNum}
               className={`${styles.pageButton} ${styles.numberButton} ${
-                currentPage === pageNum ? styles.active : ''
-              }`}
-              onClick={() => onPageChange(pageNum)}
-              aria-label={`ページ ${pageNum}`}
-              aria-current={currentPage === pageNum ? 'page' : undefined}
-              title={`ページ ${pageNum}`}
+                isCurrentPage ? styles.active : ''
+              } ${isCurrentPage ? styles.current : ''}`}
+              onClick={() => handlePageChange(pageNum)}
+              disabled={isCurrentPage} // 現在ページは無効化
+              aria-label={isCurrentPage ? `現在のページ ${pageNum}` : `ページ ${pageNum}`}
+              aria-current={isCurrentPage ? 'page' : undefined}
+              title={isCurrentPage ? `現在のページ ${pageNum}` : `ページ ${pageNum}に移動`}
             >
               {pageNum}
             </button>
@@ -117,7 +126,7 @@ const Pagination: React.FC<PaginationProps> = ({
           className={`${styles.pageButton} ${styles.nextButton} ${
             currentPage === totalPages ? styles.disabled : ''
           }`}
-          onClick={() => onPageChange(currentPage + 1)}
+          onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           aria-label="次のページ"
           title="次のページ"
@@ -125,6 +134,13 @@ const Pagination: React.FC<PaginationProps> = ({
           <span className={styles.buttonText}>次へ</span>
         </button>
       </div>
+
+      {/* 追加のページ情報（モバイル時） */}
+      {/* <div className={styles.mobilePageInfo}>
+        <span className={styles.currentPageIndicator}>
+          {currentPage} / {totalPages}
+        </span>
+      </div> */}
     </div>
   );
 };
