@@ -527,3 +527,154 @@ body.menu-open {
     margin-left: 15px;
   }
 }
+
+/* 検索展開時にドロップダウンを無効化 */
+.header:has(.searchContainer.expanded) .dropdown:hover .dropdownContent,
+.header:has(.searchContainer.expanded) .dropdown:focus-within .dropdownContent {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.header:has(.searchContainer.expanded) .dropdown .dropdownContent:hover {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* 検索展開時のドロップダウン矢印も無効化 */
+.header:has(.searchContainer.expanded) .dropdown:hover .navLink::after {
+  transform: none !important;
+}
+
+/* 検索展開時にナビゲーション要素を無効化 */
+.header:has(.searchContainer.expanded) .nav {
+  pointer-events: none !important;
+}
+
+.header:has(.searchContainer.expanded) .navLink {
+  pointer-events: none !important;
+  opacity: 0.3 !important;
+}
+
+.header:has(.searchContainer.expanded) .navLink:hover {
+  background-color: transparent !important;
+  color: #e1e1e1 !important;
+  transform: none !important;
+}
+
+.header:has(.searchContainer.expanded) .dropdown {
+  pointer-events: none;
+}
+
+/* 最小画面時のヘッダー調整 */
+@media (max-width: 480px) {
+  .headerActions {
+    gap: 4px; /* ギャップをさらに縮小 */
+  }
+  
+  .searchContainer {
+    margin-left: 4px; /* マージンを縮小 */
+  }
+  
+  .themeToggleContainer {
+    margin-left: 4px; /* マージンを縮小 */
+  }
+}
+
+@media (max-width: 320px) {
+  .headerActions {
+    gap: 2px;
+  }
+  
+  .searchContainer {
+    margin-left: 2px;
+  }
+  
+  .themeToggleContainer {
+    margin-left: 2px;
+  }
+}
+
+/* src/components/Header/Header.module.css に追加 */
+
+/* クラスベースでのドロップダウン制御（フォールバック） */
+.header.search-expanded .dropdown:hover .dropdownContent,
+.header.search-expanded .dropdown:focus-within .dropdownContent,
+.header.search-expanded .dropdown .dropdownContent:hover {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.header.search-expanded .nav {
+  pointer-events: none;
+}
+
+.header.search-expanded .navLink {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.header.search-expanded .dropdown {
+  pointer-events: none;
+}
+
+.header.search-expanded .dropdown:hover .navLink::after {
+  transform: none !important;
+}
+
+/* データ属性ベースでのドロップダウン完全無効化 */
+header[data-search-expanded="true"] .dropdown,
+header[data-search-expanded="true"] .dropdown:hover,
+header[data-search-expanded="true"] .dropdown:focus-within {
+  pointer-events: none !important;
+}
+
+header[data-search-expanded="true"] .dropdown .dropdownContent,
+header[data-search-expanded="true"] .dropdown:hover .dropdownContent,
+header[data-search-expanded="true"] .dropdown:focus-within .dropdownContent,
+header[data-search-expanded="true"] .dropdown .dropdownContent:hover {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(-20px) !important;
+}
+
+header[data-search-expanded="true"] .dropdown .navLink::after {
+  transform: none !important;
+}
+
+header[data-search-expanded="true"] .nav {
+  pointer-events: none !important;
+}
+
+header[data-search-expanded="true"] .navLink {
+  pointer-events: none !important;
+  opacity: 0.3 !important;
+  cursor: default !important;
+}
+
+header[data-search-expanded="true"] .navLink:hover {
+  background-color: transparent !important;
+  color: #e1e1e1 !important;
+  transform: none !important;
+}
+
+/* 追加: CSSクラスベースの制御も保持 */
+.header:has(.searchContainer.expanded) .dropdown,
+.header:has(.searchContainer.expanded) .dropdown:hover,
+.header:has(.searchContainer.expanded) .dropdown:focus-within {
+  pointer-events: none !important;
+}
+
+.header:has(.searchContainer.expanded) .dropdown .dropdownContent,
+.header:has(.searchContainer.expanded) .dropdown:hover .dropdownContent,
+.header:has(.searchContainer.expanded) .dropdown:focus-within .dropdownContent,
+.header:has(.searchContainer.expanded) .dropdown .dropdownContent:hover {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

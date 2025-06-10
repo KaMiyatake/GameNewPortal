@@ -93,9 +93,9 @@ const Header: React.FC = () => {
             <ul className={styles.navList}>
               {/* カテゴリ検索ドロップダウン */}
               <li className={styles.navItem}>
-                <div className={styles.dropdown}>
+                <div className={`${styles.dropdown} dropdown`}> {/* クラス名追加 */}
                   <span className={styles.navLink}>カテゴリ</span>
-                  <div className={styles.dropdownContent}>
+                  <div className={`${styles.dropdownContent} dropdownContent`}> {/* クラス名追加 */}
                     {categories.map((category) => (
                       <Link key={category.id} href={`/category/${category.slug}`}>
                         <span className={styles.dropdownItem}>

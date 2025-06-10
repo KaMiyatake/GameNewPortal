@@ -18,19 +18,6 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* オーバーレイ背景 */
-.searchContainer.expanded::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: -1;
-  backdrop-filter: blur(2px);
-}
-
 /* 検索アイコンボタン（閉じている状態） - ダーク統一 */
 .searchButton {
   display: flex;
@@ -260,4 +247,101 @@
 .submitButton:active:not(:disabled) {
   background-color: #39d353;
   transform: translateY(0);
+}
+
+/* 極小画面対応の追加 */
+@media (max-width: 480px) {
+  .searchContainer.expanded {
+    padding: 12px 10px; /* より小さなパディング */
+  }
+  
+  .searchForm {
+    gap: 6px; /* ギャップをさらに縮小 */
+    max-width: 100%; /* 最大幅を調整 */
+  }
+  
+  .inputContainer {
+    padding: 0 12px; /* パディングを縮小 */
+    min-width: 0; /* 最小幅を0に設定 */
+  }
+  
+  .searchInput {
+    font-size: 16px;
+    padding: 10px 0; /* パディングを縮小 */
+  }
+  
+  .submitButton {
+    padding: 8px 12px; /* より小さなパディング */
+    font-size: 12px; /* フォントサイズを縮小 */
+    min-width: 50px; /* 最小幅を縮小 */
+  }
+  
+  .closeButton {
+    width: 20px; /* サイズを縮小 */
+    height: 20px;
+    margin-left: 6px; /* マージンを縮小 */
+  }
+  
+  .closeButton svg {
+    width: 14px; /* アイコンサイズを縮小 */
+    height: 14px;
+  }
+  
+  .searchIconInInput {
+    width: 16px; /* アイコンサイズを縮小 */
+    height: 16px;
+    margin-right: 8px; /* マージンを縮小 */
+  }
+}
+
+/* 320px以下の極小画面 */
+@media (max-width: 320px) {
+  .searchContainer.expanded {
+    padding: 10px 8px;
+  }
+  
+  .searchForm {
+    gap: 4px;
+  }
+  
+  .inputContainer {
+    padding: 0 10px;
+  }
+  
+  .submitButton {
+    padding: 6px 10px;
+    font-size: 11px;
+    min-width: 45px;
+  }
+  
+  .searchInput {
+    padding: 8px 0;
+    font-size: 15px;
+  }
+}
+
+/* 検索オーバーレイ（展開時の背景） */
+.searchOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 9998; /* 検索コンテナより1つ下 */
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+}
+
+/* 既存の.searchContainer.expanded::beforeは削除し、オーバーレイに置き換え */
+.searchContainer.expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  padding: 10px 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
