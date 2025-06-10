@@ -35,7 +35,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
   popularTags
 }) => {
   const router = useRouter();
-  const { q: query, page } = router.query;
+  const { q: query } = router.query;
 
   // 検索履歴に追加
   useEffect(() => {

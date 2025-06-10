@@ -48,9 +48,9 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onClose, className }) => {
   };
 
   // Enterキーでの検索
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSearch(e as any);
+      handleSearch(e as unknown as React.FormEvent);
     } else if (e.key === 'Escape') {
       handleClose();
     }
