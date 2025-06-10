@@ -67,13 +67,14 @@ export const comp25061002: ArticleDetail = {
 
     <p>今回の『ファイナルファンタジー』シリーズの発表が行われた「Xbox Games Showcase 2025」では、他にも数多くの注目タイトルが発表されました。ペルソナ4リバイバル、NINJA GAIDEN 4の発売日決定など、JRPGファンにとって見逃せない内容となっています。</p>
 
-    <p><strong>▶ Xbox Games Showcase 2025 日本語配信</strong></p>
+    <p><strong>▶ FINAL FANTASY XVI | Now on Xbox</strong></p>
     <!-- YouTube動画埋め込み -->
     <div 
-      data-youtube-embed="iM0AEeCvqAs" 
-      data-title="Xbox Games Showcase 2025 日本語配信"
+      data-youtube-embed="2RlZZFubYXM" 
+      data-title="FINAL FANTASY XVI | Now on Xbox"
       class="youtube-embed"
     ></div>
+
     <h2>🎯 業界への影響</h2>
 
     <p>スクウェア・エニックスによる『ファイナルファンタジー』シリーズのマルチプラットフォーム展開は、ゲーム業界全体に大きな影響を与える可能性があります：</p>
