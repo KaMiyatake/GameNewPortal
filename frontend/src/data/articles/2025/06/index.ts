@@ -18,6 +18,7 @@ import { comp25060901 } from './25060901-persona4-revival';
 import { comp25060902 } from './25060902-ninja-gaiden4';
 import { comp25060903 } from './25060903-zenless-zone-zero-ver2';
 import { comp25061001 } from './25061001-hololive-goldrushmcraft';
+import { comp25061002 } from './25061002-final-fantasy-xbox';
 
 
 export const articles202506 = [
@@ -41,4 +42,5 @@ export const articles202506 = [
   comp25060902,
   comp25060903,
   comp25061001,
+  comp25061002,
 ];
