@@ -17,7 +17,7 @@ interface XEmbedProps {
 }
 
 const XEmbed: React.FC<XEmbedProps> = ({
-  tweetId,
+  //tweetId,
   tweetUrl,
   username,
   displayName,
@@ -30,7 +30,7 @@ const XEmbed: React.FC<XEmbedProps> = ({
   replies = 0,
   embedType = 'full'
 }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  //const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   // X公式埋め込みスクリプトの読み込み
@@ -46,7 +46,7 @@ const XEmbed: React.FC<XEmbedProps> = ({
       script.async = true;
       script.charset = 'utf-8';
       script.onload = () => {
-        setIsLoaded(true);
+        //setIsLoaded(true);
         if (window.twttr) {
           window.twttr.widgets.load();
         }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import YouTubeEmbed, { extractVideoId } from '../YouTubeEmbed/YouTubeEmbed';
+import YouTubeEmbed from '../YouTubeEmbed/YouTubeEmbed';
 import XEmbed from '../XEmbed/XEmbed';
 import styles from './NewsDetail.module.css';
 
