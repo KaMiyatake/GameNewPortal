@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styles from './XEmbed.module.css';
 
+// Twitterウィジェット用の型定義
+interface TwitterWidgets {
+  widgets: {
+    load: () => void;
+    createTweet: (
+      tweetId: string,
+      element: HTMLElement,
+      options?: {
+        theme?: 'light' | 'dark';
+        align?: 'left' | 'center' | 'right';
+        width?: number;
+      }
+    ) => Promise<void>;
+  };
+}
+
 interface XEmbedProps {
   tweetId?: string;
   tweetUrl?: string;
@@ -203,6 +219,6 @@ export const formatNumber = (num: number): string => {
 // グローバル型定義
 declare global {
   interface Window {
-    twttr: any;
+    twttr: TwitterWidgets;
   }
 }
