@@ -3,13 +3,13 @@ import { getArticleImagePath } from '../../../../utils/image-paths';
 
 export const comp25060502: ArticleDetail = {
   id: 25060502,
-  title: '『マリオカート ワールド』本日発売！ シリーズ初の最大20人の対戦を実現',
+  title: '『マリオカート ワールド』本日発売！ シリーズ初の最大24人の対戦を実現',
   summary:
     '任天堂は2025年6月5日、Nintendo Switch 2 向け完全新作『マリオカート ワールド』を発売しました。シリーズ初のクロスプレイと120fps対応で、世界規模のレースが開幕します。',
   content: `
     <p>任天堂は<strong>2025年6月5日</strong>、Nintendo Switch 2 のローンチタイトルとして
     『<em>マリオカート ワールド</em>』を発売しました。本作は世界各都市をモチーフにした
-    <em>48コース</em>を収録し、最大20人が同時に走る対戦を実現。
+    <em>48コース</em>を収録し、最大24人が同時に走る対戦を実現。
     4K120fps（ドック接続時）にも対応し、高精細なレース体験を提供します。</p>
 
     <img src="${getArticleImagePath('2025', '06', '25060502-mk-world', 'screenshot-1.jpg')}" alt="ニューヨークコースを走るマリオとリンク" />
