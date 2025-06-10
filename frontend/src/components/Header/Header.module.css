@@ -3,7 +3,7 @@
   color: #e1e1e1; /* 常に明るいテキスト */
   padding: 1rem 0;
   position: relative;
-  z-index: 1000;
+  z-index: 100; /* ベースとなるz-index */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid #30363d;
 }
@@ -20,7 +20,8 @@
 .logo {
   cursor: pointer;
   transition: opacity 0.3s ease;
-  z-index: 1001;
+  position: relative;
+  z-index: 1;
 }
 
 .logo:hover {
@@ -231,7 +232,8 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1001;
+  position: relative;
+  z-index: 1;
   transition: transform 0.3s ease;
 }
 
@@ -269,7 +271,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
-  z-index: 999;
+  z-index: 998;
 }
 
 /* モバイルメニュー */
@@ -282,7 +284,7 @@
   height: 100vh;
   background-color: #161b22; /* 黒系背景 */
   border-left: 1px solid #30363d;
-  z-index: 1000;
+  z-index: 999; /* 検索ボックスより低く設定 */
   transition: right 0.3s ease-in-out;
   padding-top: 0;
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
@@ -333,6 +335,14 @@
   text-align: center;
 }
 
+/* 検索展開時にヘッダー要素を後ろに配置 */
+.header:has(.searchContainer.expanded) .logo,
+.header:has(.searchContainer.expanded) .mobileMenuButton,
+.header:has(.searchContainer.expanded) .headerActions > *:not(.searchContainer) {
+  z-index: 1 !important;
+}
+
+
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .container {
@@ -364,6 +374,7 @@
 
   .mobileMenuOverlay {
     display: block;
+    z-index: 998;
   }
 
   .mobileMenu {
@@ -452,4 +463,67 @@ body.menu-open {
 
 .dropdownContent::-webkit-scrollbar-thumb:hover {
   background: #484f58;
+}
+
+/* 検索コンテナのスタイル調整 */
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  position: relative;
+  z-index: 2; /* 他のヘッダー要素より少し高く */
+}
+
+/* ヘッダーアクションの調整 */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ナビゲーションとの間隔調整 */
+.nav {
+  margin-right: 15px;
+}
+
+/* テーマトグルコンテナの調整 */
+.themeToggleContainer {
+  margin-left: 15px;
+}
+
+/* モバイルでの検索ボタン調整 */
+@media (max-width: 768px) {
+  .headerActions {
+    gap: 8px;
+  }
+  
+  .searchContainer {
+    margin-left: 8px;
+  }
+  
+  .themeToggleContainer {
+    margin-left: 8px;
+  }
+  
+  .nav {
+    display: none; /* モバイルではナビゲーションを非表示 */
+  }
+}
+
+/* デスクトップでのレイアウト調整 */
+@media (min-width: 769px) {
+  .headerActions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav {
+    margin-right: 15px;
+  }
+  
+  .themeToggleContainer {
+    margin-left: 15px;
+  }
 }

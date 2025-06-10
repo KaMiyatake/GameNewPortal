@@ -1,0 +1,241 @@
+/* src/components/Search/SearchBox.module.css */
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.searchContainer.expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999; /* より高いz-indexに設定 */
+  background-color: var(--header-background);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 15px;
+  box-shadow: var(--card-shadow);
+}
+
+/* オーバーレイ背景を追加 */
+.searchContainer.expanded::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: -1;
+  backdrop-filter: blur(2px);
+}
+
+/* 検索アイコンボタン（閉じている状態） */
+.searchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  padding: 0;
+  z-index: 1; /* ヘッダー内での重なり順 */
+}
+
+.searchButton:hover {
+  background-color: var(--border-color);
+  transform: scale(1.1);
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-color);
+}
+
+/* 検索フォーム（展開している状態） */
+.searchForm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10000; /* フォーム自体のz-index */
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  background-color: var(--input-background);
+  border: 2px solid var(--input-border);
+  border-radius: 25px;
+  padding: 0 15px;
+  transition: border-color 0.2s ease;
+  z-index: inherit;
+}
+
+.inputContainer:focus-within {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.searchIconInInput {
+  width: 18px;
+  height: 18px;
+  color: var(--text-color);
+  opacity: 0.6;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  font-size: 16px;
+  padding: 12px 0;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 50%;
+  margin-left: 8px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+  padding: 0;
+}
+
+.closeButton:hover {
+  background-color: var(--border-color);
+}
+
+.closeButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+.submitButton {
+  background-color: var(--secondary-color);
+  color: var(--button-text);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: inherit;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ローディングスピナー */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .searchContainer.expanded {
+    padding: 15px;
+    z-index: 9999; /* モバイルでも確実に最前面 */
+  }
+  
+  .searchForm {
+    gap: 8px;
+  }
+  
+  .searchInput {
+    font-size: 16px; /* iOS Safariのズーム防止 */
+  }
+  
+  .submitButton {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+/* アニメーション */
+.searchContainer:not(.expanded) {
+  animation: slideOut 0.3s ease;
+}
+
+.searchContainer.expanded {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* ヘッダー要素のz-index調整用 */
+.searchContainer.expanded ~ * {
+  z-index: 1 !important;
+}

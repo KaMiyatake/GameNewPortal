@@ -1,7 +1,9 @@
+// src/components/Header/Header.tsx の修正版
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import SearchBox from '../Search/SearchBox'; // 追加
 import { categories } from '../../data/categories/categories';
 import styles from './Header.module.css';
 
@@ -14,7 +16,7 @@ const Header: React.FC = () => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
       if (window.innerWidth > 768) {
-        setIsMenuOpen(false); // デスクトップ時はメニューを閉じる
+        setIsMenuOpen(false);
       }
     };
 
@@ -66,7 +68,6 @@ const Header: React.FC = () => {
         <div className={styles.logo}>
           <Link href="/" onClick={closeMenu}>
             <div className={styles.logoContent}>
-              {/* ロゴ画像を追加 */}
               <div className={styles.logoImageContainer}>
                 <Image
                   src="/GameSanpiLogo.png"
@@ -77,7 +78,6 @@ const Header: React.FC = () => {
                   className={styles.logoImage}
                 />
               </div>
-              {/* フォールバック用のテキストロゴ（必要に応じてコメントアウト） */}
               <div className={styles.textLogo}>
                 <h1 className={styles.siteName}>ゲーム賛否</h1>
                 <p className={styles.tagline}>賛否両論で読むゲームメディア</p>
@@ -86,7 +86,7 @@ const Header: React.FC = () => {
           </Link>
         </div>
         
-        {/* ヘッダーアクション（ナビゲーション + テーマトグル） */}
+        {/* ヘッダーアクション（ナビゲーション + 検索 + テーマトグル） */}
         <div className={styles.headerActions}>
           {/* デスクトップナビゲーション */}
           <nav className={styles.nav}>
@@ -94,7 +94,7 @@ const Header: React.FC = () => {
               {/* カテゴリ検索ドロップダウン */}
               <li className={styles.navItem}>
                 <div className={styles.dropdown}>
-                  <span className={styles.navLink}>カテゴリ検索</span>
+                  <span className={styles.navLink}>カテゴリ</span>
                   <div className={styles.dropdownContent}>
                     {categories.map((category) => (
                       <Link key={category.id} href={`/category/${category.slug}`}>
@@ -116,13 +116,21 @@ const Header: React.FC = () => {
                   <span className={styles.navLink}>お問い合わせ</span>
                 </Link>
               </li>
+              <li className={styles.navItem}>
+                <ThemeToggle />
+              </li>
             </ul>
           </nav>
 
-          {/* テーマ切り替えボタン（デスクトップ） */}
-          <div className={styles.themeToggleContainer}>
-            <ThemeToggle />
+          {/* 検索ボックス（デスクトップ＆モバイル共通） */}
+          <div className={styles.searchContainer}>
+            <SearchBox />
           </div>
+
+          {/* テーマ切り替えボタン（デスクトップ） */}
+          {/* <div className={styles.themeToggleContainer}>
+            <ThemeToggle />
+          </div> */}
 
           {/* モバイルハンバーガーメニューボタン */}
           {isMobile && (
@@ -150,13 +158,11 @@ const Header: React.FC = () => {
 
       {/* モバイルメニュー */}
       <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ''}`}>
-        {/* モバイルメニューヘッダー（テーマトグル） */}
         <div className={styles.mobileMenuHeader}>
           <ThemeToggle />
         </div>
         
         <ul className={styles.mobileNavList}>
-          {/* 全カテゴリを個別に表示 */}
           {categories.map((category) => (
             <li key={category.id} className={styles.mobileNavItem}>
               <Link href={`/category/${category.slug}`}>

@@ -20,3 +20,19 @@ export interface Category {
   name: string;
   slug: string;
 }
+
+export interface SearchResult extends NewsItem {
+  relevanceScore: number;
+  matchedFields: string[];
+}
+
+export interface SearchResponse {
+  data: NewsItem[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalItems: number;
+    itemsPerPage: number;
+  };
+  query: string;
+}

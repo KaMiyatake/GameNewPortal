@@ -153,3 +153,18 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
   border-color: var(--secondary-color);
 }
+
+/* 検索ハイライト用のグローバルスタイル */
+.search-highlight {
+  background-color: var(--accent-color);
+  color: var(--light-text);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+/* ダークモードでのハイライト調整 */
+[data-theme="dark"] .search-highlight {
+  background-color: var(--secondary-color);
+  color: var(--light-text);
+}
