@@ -1,33 +1,60 @@
 /* src/styles/Search.module.css */
 .container {
-  max-width: var(--content-max-width);
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px var(--content-padding);
+  padding: 2rem 15px;
 }
 
+/* カテゴリページと同様のヘッダースタイル */
 .searchHeader {
-  margin-bottom: 30px;
+  margin-bottom: 1.5rem;
+  padding: 2.5rem 0;
   text-align: center;
+  background: linear-gradient(135deg, var(--card-background) 0%, var(--border-color) 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.searchHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
 }
 
 .searchTitle {
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
   color: var(--text-color);
-  margin-bottom: 10px;
-  line-height: 1.4;
-}
-
-.searchQuery {
-  color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
   font-weight: 700;
 }
 
-.searchCount {
-  font-size: 0.95rem;
+.searchIcon {
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+.searchDescription {
+  font-size: 1.1rem;
   color: var(--text-color);
-  opacity: 0.8;
+  opacity: 0.7;
   margin: 0;
+  max-width: 600px;
+  margin: 0 auto;
+  transition: color 0.3s ease;
 }
 
 .pageInfo {
@@ -37,51 +64,58 @@
 
 .mainContent {
   display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 30px;
-  align-items: start;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 0;
 }
 
 .newsContent {
   min-width: 0;
+  min-height: 400px;
 }
 
 .sidebarContent {
-  position: sticky;
-  top: 20px;
+  /* サイドバーのスタイルはSidebar.module.cssで管理 */
 }
 
-/* 検索結果なしのスタイル */
+/* 検索結果なしのスタイル - カテゴリページと統一 */
 .noResults {
   text-align: center;
-  padding: 60px 20px;
+  padding: 4rem 2rem;
   background-color: var(--card-background);
-  border-radius: 12px;
   border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .noResultsIcon {
   font-size: 4rem;
   margin-bottom: 20px;
   opacity: 0.6;
+  color: var(--secondary-color);
 }
 
 .noResults h2 {
   font-size: 1.5rem;
   color: var(--text-color);
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
 }
 
 .noResults p {
   color: var(--text-color);
-  opacity: 0.8;
-  margin-bottom: 20px;
+  opacity: 0.7;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 .suggestions {
   text-align: left;
   max-width: 400px;
-  margin: 0 auto 40px;
+  margin: 0 auto 2rem;
   padding: 0;
   list-style: none;
 }
@@ -103,7 +137,7 @@
 }
 
 .popularSearches {
-  margin-top: 40px;
+  margin: 2rem 0;
 }
 
 .popularSearches h3 {
@@ -117,6 +151,7 @@
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .searchTag {
@@ -136,40 +171,127 @@
   transform: translateY(-2px);
 }
 
-/* ハイライト表示用のクラス */
-.searchHighlight {
-  background-color: var(--accent-color);
-  color: var(--light-text);
-  padding: 2px 4px;
-  border-radius: 3px;
-  font-weight: 600;
+.backToHome {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.9rem;
 }
 
-/* モバイル対応 */
-@media (max-width: 768px) {
-  .container {
-    padding: 15px;
-  }
+.backToHome:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+.backToHome:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* ダークモード特有の調整 */
+[data-theme="dark"] .searchHeader {
+  background: linear-gradient(135deg, var(--card-background) 0%, #21262d 100%);
+}
+
+[data-theme="dark"] .noResults {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .backToHome:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* アニメーション効果 */
+.searchTitle {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.searchDescription {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ホバーエフェクト */
+.searchHeader:hover .searchIcon {
+  transform: scale(1.1) rotate(5deg);
+  transition: transform 0.3s ease;
+}
+
+.searchHeader:hover .searchTitle {
+  color: var(--secondary-color);
+  transition: color 0.3s ease;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 992px) {
   .mainContent {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 1.5rem;
   }
+  
+  .searchTitle {
+    font-size: 2rem;
+  }
+  
+  .searchIcon {
+    font-size: 2.3rem;
+  }
+}
 
-  .sidebarContent {
-    position: static;
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 15px;
   }
 
   .searchHeader {
-    margin-bottom: 20px;
+    padding: 2rem 1rem;
+    margin-bottom: 1.2rem;
   }
-
+  
   .searchTitle {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .searchIcon {
+    font-size: 2rem;
+  }
+  
+  .searchDescription {
+    font-size: 1rem;
   }
 
   .noResults {
-    padding: 40px 15px;
+    padding: 3rem 1.5rem;
   }
 
   .suggestions {
@@ -183,5 +305,84 @@
   .searchTag {
     font-size: 0.8rem;
     padding: 6px 12px;
+  }
+
+  /* モバイル時のホバー効果を軽減 */
+  .searchHeader:hover .searchIcon {
+    transform: scale(1.05);
+  }
+  
+  .backToHome:hover,
+  .searchTag:hover {
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 576px) {
+  .searchTitle {
+    font-size: 1.6rem;
+  }
+  
+  .searchIcon {
+    font-size: 1.8rem;
+  }
+  
+  .searchDescription {
+    font-size: 0.9rem;
+  }
+  
+  .noResults {
+    padding: 2.5rem 1rem;
+  }
+
+  .searchHeader {
+    margin-bottom: 1rem;
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .backToHome {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  /* 小画面でのホバー効果を無効化 */
+  .searchHeader:hover .searchIcon,
+  .searchHeader:hover .searchTitle {
+    transform: none;
+    color: var(--text-color);
+  }
+  
+  .backToHome:hover,
+  .searchTag:hover {
+    transform: none;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .searchTitle,
+  .searchDescription {
+    animation: none;
+  }
+  
+  .searchHeader:hover .searchIcon,
+  .searchHeader:hover .searchTitle,
+  .backToHome:hover,
+  .searchTag:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .searchHeader,
+  .noResults {
+    border-width: 2px;
+  }
+  
+  .backToHome,
+  .searchTag {
+    border: 2px solid var(--secondary-color);
   }
 }

@@ -72,14 +72,16 @@ const SearchPage: React.FC<SearchPageProps> = ({
       />
       <Layout>
         <div className={styles.container}>
+          {/* カテゴリページと同様のヘッダースタイル */}
           <div className={styles.searchHeader}>
             <h1 className={styles.searchTitle}>
-              「<span className={styles.searchQuery}>{searchQuery}</span>」の検索結果
+              <span className={styles.searchIcon}>🔍</span>
+              「{searchQuery}」の検索結果
             </h1>
-            <p className={styles.searchCount}>
+            <p className={styles.searchDescription}>
               {totalItems > 0 ? (
                 <>
-                  <strong>{totalItems.toLocaleString()}</strong>件の記事が見つかりました
+                  「{searchQuery}」に関連する記事 <strong>{totalItems.toLocaleString()}</strong>件
                   {currentPage > 1 && (
                     <span className={styles.pageInfo}>
                       {' '}(ページ {currentPage}/{searchResults.pagination.totalPages})
@@ -96,7 +98,7 @@ const SearchPage: React.FC<SearchPageProps> = ({
             <div className={styles.newsContent}>
               {totalItems > 0 ? (
                 <NewsSection
-                  title=""
+                  title={`検索結果${currentPage > 1 ? ` (${currentPage}ページ目)` : ''}`}
                   newsItems={searchResults.data}
                   layout="list"
                   showPagination={true}
@@ -130,6 +132,13 @@ const SearchPage: React.FC<SearchPageProps> = ({
                       ))}
                     </div>
                   </div>
+                  
+                  <button
+                    className={styles.backToHome}
+                    onClick={() => router.push('/')}
+                  >
+                    ホームに戻る
+                  </button>
                 </div>
               )}
             </div>

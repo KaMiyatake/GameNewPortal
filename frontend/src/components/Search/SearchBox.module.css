@@ -11,14 +11,14 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999; /* より高いz-indexに設定 */
-  background-color: var(--header-background);
-  border-bottom: 1px solid var(--border-color);
+  z-index: 9999;
+  background-color: #161b22; /* ダーク背景で統一 */
+  border-bottom: 1px solid #30363d; /* ダークボーダー */
   padding: 10px 15px;
-  box-shadow: var(--card-shadow);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* オーバーレイ背景を追加 */
+/* オーバーレイ背景 */
 .searchContainer.expanded::before {
   content: '';
   position: fixed;
@@ -26,12 +26,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: -1;
   backdrop-filter: blur(2px);
 }
 
-/* 検索アイコンボタン（閉じている状態） */
+/* 検索アイコンボタン（閉じている状態） - ダーク統一 */
 .searchButton {
   display: flex;
   align-items: center;
@@ -40,23 +40,23 @@
   height: 40px;
   background: transparent;
   border: none;
-  color: var(--text-color);
+  color: #e1e1e1; /* ダークモードのテキスト色 */
   cursor: pointer;
   border-radius: 50%;
   transition: all 0.2s ease;
   padding: 0;
-  z-index: 1; /* ヘッダー内での重なり順 */
+  z-index: 1;
 }
 
 .searchButton:hover {
-  background-color: var(--border-color);
+  background-color: #30363d; /* ダークのホバー色 */
   transform: scale(1.1);
 }
 
 .searchIcon {
   width: 20px;
   height: 20px;
-  color: var(--text-color);
+  color: #e1e1e1; /* ダークモードのテキスト色 */
 }
 
 /* 検索フォーム（展開している状態） */
@@ -68,7 +68,7 @@
   max-width: 600px;
   margin: 0 auto;
   position: relative;
-  z-index: 10000; /* フォーム自体のz-index */
+  z-index: 10000;
 }
 
 .inputContainer {
@@ -76,23 +76,23 @@
   display: flex;
   align-items: center;
   flex: 1;
-  background-color: var(--input-background);
-  border: 2px solid var(--input-border);
+  background-color: #21262d; /* ダークの入力背景 */
+  border: 2px solid #30363d; /* ダークボーダー */
   border-radius: 25px;
   padding: 0 15px;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   z-index: inherit;
 }
 
 .inputContainer:focus-within {
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+  border-color: #6c5ce7; /* ダークモードのプライマリカラー */
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
 }
 
 .searchIconInInput {
   width: 18px;
   height: 18px;
-  color: var(--text-color);
+  color: #e1e1e1; /* ダークモードのテキスト色 */
   opacity: 0.6;
   margin-right: 10px;
   flex-shrink: 0;
@@ -102,14 +102,14 @@
   flex: 1;
   border: none;
   background: transparent;
-  color: var(--text-color);
+  color: #f0f6fc; /* ダークモードの明るいテキスト */
   font-size: 16px;
   padding: 12px 0;
   outline: none;
 }
 
 .searchInput::placeholder {
-  color: var(--text-color);
+  color: #e1e1e1; /* ダークモードのテキスト色 */
   opacity: 0.6;
 }
 
@@ -121,7 +121,7 @@
   height: 24px;
   background: transparent;
   border: none;
-  color: var(--text-color);
+  color: #e1e1e1; /* ダークモードのテキスト色 */
   cursor: pointer;
   border-radius: 50%;
   margin-left: 8px;
@@ -131,7 +131,7 @@
 }
 
 .closeButton:hover {
-  background-color: var(--border-color);
+  background-color: #30363d; /* ダークのホバー色 */
 }
 
 .closeButton svg {
@@ -140,8 +140,8 @@
 }
 
 .submitButton {
-  background-color: var(--secondary-color);
-  color: var(--button-text);
+  background-color: #6c5ce7; /* ダークモードのプライマリカラー */
+  color: #ffffff; /* 白テキスト */
   border: none;
   border-radius: 20px;
   padding: 10px 20px;
@@ -158,7 +158,7 @@
 }
 
 .submitButton:hover:not(:disabled) {
-  background-color: var(--accent-color);
+  background-color: #39d353; /* ダークモードのアクセントカラー */
   transform: translateY(-1px);
 }
 
@@ -187,7 +187,8 @@
 @media (max-width: 768px) {
   .searchContainer.expanded {
     padding: 15px;
-    z-index: 9999; /* モバイルでも確実に最前面 */
+    z-index: 9999;
+    background-color: #161b22; /* モバイルでもダーク背景 */
   }
   
   .searchForm {
@@ -238,4 +239,25 @@
 /* ヘッダー要素のz-index調整用 */
 .searchContainer.expanded ~ * {
   z-index: 1 !important;
+}
+
+/* フォーカス時の追加スタイル */
+.searchInput:focus {
+  color: #f0f6fc;
+}
+
+/* 検索ボタンのアクティブ状態 */
+.searchButton:active {
+  background-color: #30363d;
+  transform: scale(0.95);
+}
+
+.closeButton:active {
+  background-color: #30363d;
+  transform: scale(0.9);
+}
+
+.submitButton:active:not(:disabled) {
+  background-color: #39d353;
+  transform: translateY(0);
 }
