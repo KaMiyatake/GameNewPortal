@@ -1,0 +1,338 @@
+.xEmbedContainer {
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.officialEmbed {
+  width: 100%;
+}
+
+.customTweet {
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: var(--card-shadow);
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.tweetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.userDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.displayName {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.verifiedBadge {
+  color: #1d9bf0;
+  font-size: 0.85rem;
+  background-color: #1d9bf0;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.username {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  transition: color 0.3s ease;
+}
+
+.xLogo {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.xIcon {
+  width: 100%;
+  height: 100%;
+  fill: var(--text-color);
+  transition: fill 0.3s ease;
+}
+
+.tweetContent {
+  margin-bottom: 1rem;
+}
+
+.tweetText {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text-color);
+  margin: 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  transition: color 0.3s ease;
+}
+
+.tweetTime {
+  font-size: 0.8rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-bottom: 0.75rem;
+  transition: color 0.3s ease;
+}
+
+.tweetActions {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0.75rem;
+  transition: border-color 0.3s ease;
+}
+
+.actionItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-size: 0.8rem;
+  transition: color 0.3s ease;
+}
+
+.actionIcon {
+  font-size: 0.9rem;
+}
+
+.actionCount {
+  font-weight: 500;
+}
+
+.tweetFooter {
+  text-align: center;
+}
+
+.viewOnX {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #1d9bf0;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: 1px solid #1d9bf0;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.viewOnX:hover {
+  background-color: #1d9bf0;
+  color: white;
+}
+
+.errorContainer {
+  margin: 2rem 0;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.errorContent {
+  color: var(--text-color);
+}
+
+.errorContent p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.fallbackLink {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: #1d9bf0;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.fallbackLink:hover {
+  background-color: #1a8cd8;
+}
+
+/* ダークモード特有の調整 */
+[data-theme="dark"] .customTweet {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .xIcon {
+  fill: var(--text-color);
+}
+
+[data-theme="dark"] .errorContainer {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .xEmbedContainer {
+    margin: 1.5rem 0;
+  }
+  
+  .customTweet {
+    padding: 0.8rem;
+    border-radius: 12px;
+  }
+  
+  .userInfo {
+    gap: 0.5rem;
+  }
+  
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .displayName {
+    font-size: 0.9rem;
+  }
+  
+  .username {
+    font-size: 0.8rem;
+  }
+  
+  .tweetText {
+    font-size: 0.9rem;
+  }
+  
+  .tweetActions {
+    padding: 0.4rem 0;
+  }
+  
+  .actionItem {
+    font-size: 0.75rem;
+  }
+  
+  .viewOnX {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .customTweet {
+    padding: 0.6rem;
+    border-radius: 10px;
+  }
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .displayName {
+    font-size: 0.85rem;
+  }
+  
+  .username {
+    font-size: 0.75rem;
+  }
+  
+  .tweetText {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  
+  .tweetTime {
+    font-size: 0.75rem;
+  }
+  
+  .actionItem {
+    font-size: 0.7rem;
+  }
+  
+  .viewOnX {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .errorContainer {
+    padding: 1.5rem;
+  }
+  
+  .fallbackLink {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .customTweet,
+  .viewOnX,
+  .fallbackLink {
+    transition: none;
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .customTweet,
+  .errorContainer {
+    border-width: 2px;
+  }
+  
+  .viewOnX {
+    border-width: 2px;
+  }
+}
+
+/* フォーカス対応 */
+.viewOnX:focus,
+.fallbackLink:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}

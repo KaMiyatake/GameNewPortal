@@ -13,7 +13,19 @@ export const comp25061002: ArticleDetail = {
 
     <p>Xbox公式Twitterアカウントは、『Final Fantasy XVI』が"本日からXboxでプレイ可能"であることを発表しました：</p>
 
-    <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The legacy of the crystals has shaped our history for long enough.<br><br>FINAL FANTASY XVI is available today on Xbox Series X|S and Xbox on PC.<a href="https://twitter.com/hashtag/XboxGamesShowcase?src=hash&amp;ref_src=twsrc%5Etfw">#XboxGamesShowcase</a> <a href="https://t.co/LQSJpwSqVe">pic.twitter.com/LQSJpwSqVe</a></p>&mdash; Xbox (@Xbox) <a href="https://twitter.com/Xbox/status/1931774643826020836?ref_src=twsrc%5Etfw">June 9, 2025</a></blockquote>
+    <!-- X埋め込み -->
+    <div 
+      data-x-embed="https://twitter.com/Xbox/status/1931774643826020836"
+      data-username="Xbox"
+      data-display-name="Xbox"
+      data-content="The legacy of the crystals has shaped our history for long enough.
+
+FINAL FANTASY XVI is available today on Xbox Series X|S and Xbox on PC.
+
+#XboxGamesShowcase"
+      data-timestamp="June 9, 2025"
+      data-embed-type="full"
+    ></div>
 
     <p>この投稿では「クリスタルの遺産が我々の歴史を形作ってきた時代は十分に長かった」という印象的な文言とともに、『FF16』がXbox Series X|SおよびXbox on PCで即日プレイ可能であることが告知されています。</p>
 
@@ -23,7 +35,20 @@ export const comp25061002: ArticleDetail = {
 
     <p>Xbox公式の発表に続き、スクウェア・エニックス公式アカウントも『FF16』のXbox版を正式にアナウンスしました：</p>
 
-    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">『FINAL FANTASY XVI』がついにXbox Series X|S / Microsoft Store に登場！<br><br>クライヴの復讐の物語を今すぐお楽しみください。<br><br>🔗 <a href="https://t.co/5Q8Km1NrYj">https://t.co/5Q8Km1NrYj</a><a href="https://twitter.com/hashtag/FF16?src=hash&amp;ref_src=twsrc%5Etfw">#FF16</a> <a href="https://twitter.com/hashtag/XboxGamesShowcase?src=hash&amp;ref_src=twsrc%5Etfw">#XboxGamesShowcase</a> <a href="https://t.co/QHXfZCB9Zr">pic.twitter.com/QHXfZCB9Zr</a></p>&mdash; SQUARE ENIX (@SquareEnix) <a href="https://twitter.com/SquareEnix/status/1931792105451778299?ref_src=twsrc%5Etfw">June 9, 2025</a></blockquote>
+    <!-- X埋め込み -->
+    <div 
+      data-x-embed="https://twitter.com/SquareEnix/status/1931792105451778299"
+      data-username="SquareEnix"
+      data-display-name="SQUARE ENIX"
+      data-content="『FINAL FANTASY XVI』がついにXbox Series X|S / Microsoft Store に登場！
+
+クライヴの復讐の物語を今すぐお楽しみください。
+
+🔗 https://t.co/5Q8Km1NrYj
+#FF16 #XboxGamesShowcase"
+      data-timestamp="June 9, 2025"
+      data-embed-type="full"
+    ></div>
 
     <p>スクウェア・エニックスの投稿では、主人公クライヴの復讐の物語を今すぐ楽しめることが強調され、Microsoft Storeへのリンクも提供されています。</p>
 

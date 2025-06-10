@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import YouTubeEmbed from '../YouTubeEmbed/YouTubeEmbed';
+import YouTubeEmbed, { extractVideoId } from '../YouTubeEmbed/YouTubeEmbed';
+import XEmbed from '../XEmbed/XEmbed';
 import styles from './NewsDetail.module.css';
 
 interface NewsContentProps {
@@ -17,11 +18,9 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         const title = element.getAttribute('data-title') || 'YouTube video';
         
         if (videoId) {
-          // React要素を作成してマウント
           const container = document.createElement('div');
           element.parentNode?.replaceChild(container, element);
           
-          // YouTubeEmbedコンポーネントをレンダリング
           import('react-dom/client').then(({ createRoot }) => {
             const root = createRoot(container);
             root.render(
@@ -37,8 +36,44 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       });
     };
 
+    // X埋め込みプレースホルダーを実際のコンポーネントに置換
+    const processXEmbeds = () => {
+      const embedElements = document.querySelectorAll('[data-x-embed]');
+      
+      embedElements.forEach((element) => {
+        const tweetUrl = element.getAttribute('data-x-embed') ?? undefined;
+        const username = element.getAttribute('data-username') ?? undefined;
+        const displayName = element.getAttribute('data-display-name') ?? undefined;
+        const content = element.getAttribute('data-content') ?? undefined;
+        const timestamp = element.getAttribute('data-timestamp') ?? undefined;
+        const embedType = (element.getAttribute('data-embed-type') as 'full' | 'simple' | 'quote') ?? 'full';
+        
+        if (tweetUrl) {
+          const container = document.createElement('div');
+          element.parentNode?.replaceChild(container, element);
+          
+          import('react-dom/client').then(({ createRoot }) => {
+            const root = createRoot(container);
+            root.render(
+              React.createElement(XEmbed, {
+                tweetUrl,
+                username,
+                displayName,
+                content,
+                timestamp,
+                embedType
+              })
+            );
+          });
+        }
+      });
+    };
+
     // DOM更新後に実行
-    setTimeout(processYouTubeEmbeds, 100);
+    setTimeout(() => {
+      processYouTubeEmbeds();
+      processXEmbeds();
+    }, 100);
   }, [content]);
 
   return (
