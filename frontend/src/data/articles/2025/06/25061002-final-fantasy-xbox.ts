@@ -118,7 +118,7 @@ FINAL FANTASY XVI is available today on Xbox Series X|S and Xbox on PC.
     <p>Xbox Series X|Sユーザーは、今すぐ『Final Fantasy XVI』の壮大な冒険を開始することができ、今冬には『FF VII Remake Intergrade』でクラウドの物語も楽しむことができるようになります。ファイナルファンタジーシリーズの新たな章が、Xboxプラットフォームで始まりました。</p>
   `,
   imageUrl: getArticleImagePath('2025', '06', '25061002-final-fantasy-xbox', 'main.jpg'),
-  categories: ['Xbox', 'PC', 'エンタメ'],
+  categories: ['Xbox', 'PC'],
   tags: ['Final Fantasy XVI', 'Final Fantasy VII Remake', 'Xbox Series X', 'スクウェア・エニックス', 'JRPG', 'Xbox Games Showcase'],
   publishedAt: '2025-06-10',
   slug: '25061002-final-fantasy-xbox',

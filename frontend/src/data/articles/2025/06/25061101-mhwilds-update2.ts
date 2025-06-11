@@ -106,7 +106,7 @@ export const comp25061101: ArticleDetail = {
     <p>6月末の配信まで残りわずか。ハンターたちの新たな冒険が始まろうとしています。武器の重ね着装備で自分だけのスタイルを確立し、新たなモンスターとの戦いに挑む準備を整えましょう。</p>
   `,
   imageUrl: getArticleImagePath('2025', '06', '25061101-mhwilds-update2', 'main.jpg'),
-  categories: ['PlayStation', 'Xbox', 'PC', '業界ニュース'],
+  categories: ['PlayStation', 'Xbox', 'PC'],
   tags: ['モンスターハンター', 'カプコン', 'アップデート', 'PS5', 'Xbox SX', '重ね着', 'ラギアクルス'],
   publishedAt: '2025-06-11',
   slug: '25061101-mhwilds-update2',
