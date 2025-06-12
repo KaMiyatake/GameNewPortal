@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import styles from './InteractiveCharts.module.css';
+import { TooltipItem } from 'chart.js';
 
 interface ChartDataset {
   label: string;
@@ -83,24 +84,24 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
         }
         },
         tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        titleColor: '#ffffff',
-        bodyColor: '#ffffff',
-        borderColor: '#3498db',
-        borderWidth: 1,
-        callbacks: {
-            label: function(context: any) {
-            const value = context.parsed.y || context.parsed;
-            switch (config.yAxisFormat) {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleColor: '#ffffff',
+          bodyColor: '#ffffff',
+          borderColor: '#3498db',
+          borderWidth: 1,
+          callbacks: {
+            label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
+              const value = context.parsed.y || context.parsed;
+              switch (config.yAxisFormat) {
                 case 'count':
-                return `${context.label}: ${value.toLocaleString()}人`;
+                  return `${context.label}: ${value.toLocaleString()}人`;
                 case 'percentage':
-                return `${context.label}: ${value}%`;
+                  return `${context.label}: ${value}%`;
                 default:
-                return `${context.label}: ${value.toLocaleString()}`;
+                  return `${context.label}: ${value.toLocaleString()}`;
+              }
             }
-            }
-        }
+          }
         }
     },
     animation: {
@@ -122,7 +123,7 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
                 color: 'rgba(0, 0, 0, 0.1)'
               },
               ticks: {
-                callback: function(value: any) {
+                callback: function(value: number): string {
                   return formatYAxisValue(value);
                 }
               }
