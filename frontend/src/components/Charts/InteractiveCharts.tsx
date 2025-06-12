@@ -62,8 +62,10 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
   summaryData
 }) => {
   const chartRefs = useRef<(HTMLCanvasElement | null)[]>([]);
+  const chartInstancesRef = useRef<Chart[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // ダークモード用カラーパレット
   const getThemeColors = useCallback((): ThemeColors => {
@@ -102,16 +104,54 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
     }
   }, [isDarkMode]);
 
-  // モバイル検出
+  // 対策① - "存在確認付き"で安全に破棄
+  const destroyCharts = useCallback(() => {
+    chartInstancesRef.current.forEach((chart) => {
+      try {
+        /* 
+         * ① Chart インスタンスが生きているか
+         * ② ctx と canvas がまだ残っているか
+         * ③ まだ destroy 済みでないか
+         */
+        if (
+          chart &&
+          !(chart as any)._destroyed &&               // v4 では _destroyed が立つ
+          chart.ctx &&                       // ctx が null でない
+          chart.ctx.canvas                   // canvas が null でない
+        ) {
+          chart.destroy();
+        }
+      } catch (err) {
+        console.warn('Chart destruction error:', err);
+      }
+    });
+
+    // 参照をクリア
+    chartInstancesRef.current = [];
+  }, []);
+
+  // モバイル検出（デバウンス付き）- レスポンシブのみでchartは再生成しない
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      
+      resizeTimeoutRef.current = setTimeout(() => {
+        const newIsMobile = window.innerWidth < 768;
+        setIsMobile(newIsMobile);
+      }, 150);
     };
 
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener('resize', checkMobile, { passive: true });
     
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+    };
   }, []);
 
   // ダークモード検出
@@ -156,14 +196,14 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
     if (chartType === 'line') {
       adjustedDataset.borderColor = adjustedDataset.borderColor || colors.primary;
       adjustedDataset.backgroundColor = adjustedDataset.backgroundColor || 
-        `${colors.primary}20`; // 透明度20%
+        `${colors.primary}20`;
       adjustedDataset.pointBackgroundColor = adjustedDataset.pointBackgroundColor || colors.primary;
       adjustedDataset.pointBorderColor = adjustedDataset.pointBorderColor || 
         (isDarkMode ? '#161b22' : '#ffffff');
     } else if (chartType === 'bar') {
       if (!adjustedDataset.backgroundColor) {
         adjustedDataset.backgroundColor = [
-          `${colors.purple}cc`, // 透明度80%
+          `${colors.purple}cc`,
           `${colors.warning}cc`
         ];
       }
@@ -188,7 +228,7 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
       }
     } else if (chartType === 'radar') {
       adjustedDataset.backgroundColor = adjustedDataset.backgroundColor || 
-        `${colors.primary}33`; // 透明度20%
+        `${colors.primary}33`;
       adjustedDataset.borderColor = adjustedDataset.borderColor || colors.primary;
       adjustedDataset.pointBackgroundColor = adjustedDataset.pointBackgroundColor || colors.primary;
       adjustedDataset.pointBorderColor = adjustedDataset.pointBorderColor || 
@@ -198,9 +238,165 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
     return adjustedDataset;
   }, [isDarkMode]);
 
-  // チャート作成
+  // チャートオプション生成関数
+  const createChartOptions = useCallback((config: ChartConfig, colors: ThemeColors): Partial<ChartOptions> => {
+    const commonOptions: Partial<ChartOptions> = {
+      responsive: true,
+      maintainAspectRatio: false,
+      resizeDelay: 200,
+      
+      layout: {
+        padding: {
+          left: isMobile ? 5 : 10,
+          right: isMobile ? 5 : 10,
+          top: isMobile ? 5 : 10,
+          bottom: isMobile ? 5 : 10
+        }
+      },
+      
+      devicePixelRatio: typeof window !== 'undefined' ? 
+        Math.min(window.devicePixelRatio || 1, 2) : 1,
+      
+      plugins: {
+        legend: {
+          display: config.type !== 'line',
+          position: config.type === 'doughnut' ? 'bottom' : 'top',
+          labels: {
+            padding: isMobile ? 10 : 20,
+            usePointStyle: config.type === 'doughnut',
+            color: colors.text,
+            font: {
+              family: "'Segoe UI', 'Roboto', sans-serif",
+              size: isMobile ? 10 : 12
+            },
+            boxWidth: isMobile ? 10 : 12
+          }
+        },
+        tooltip: {
+          backgroundColor: colors.tooltip,
+          titleColor: '#ffffff',
+          bodyColor: '#ffffff',
+          borderColor: colors.tooltipBorder,
+          borderWidth: 1,
+          titleFont: {
+            family: "'Segoe UI', 'Roboto', sans-serif",
+            size: isMobile ? 11 : 13
+          },
+          bodyFont: {
+            family: "'Segoe UI', 'Roboto', sans-serif",
+            size: isMobile ? 10 : 12
+          },
+          caretPadding: isMobile ? 5 : 10,
+            callbacks: {
+            label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
+                let value: number;
+                
+                if ('y' in context.parsed) {
+                // 折れ線グラフ・棒グラフの場合
+                value = (context.parsed as { y: number }).y;
+                } else {
+                // ドーナツ・円・レーダーチャートの場合
+                value = context.parsed as number;
+                }
+
+                switch (config.yAxisFormat) {
+                case 'count':
+                    return `${context.label}: ${value.toLocaleString()}人`;
+                case 'percentage':
+                    return `${context.label}: ${value}%`;
+                default:
+                    return `${context.label}: ${value.toLocaleString()}`;
+                }
+            }
+            }
+        }
+      },
+      animation: {
+        duration: isMobile ? 800 : (config.type === 'bar' ? 1500 : 2000),
+        easing: config.type === 'bar' ? 'easeOutBounce' : 'easeInOutQuart'
+      },
+      
+      events: isMobile ? 
+        ['touchstart', 'touchmove', 'touchend'] : 
+        ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
+      
+      interaction: {
+        intersect: false,
+        mode: isMobile ? 'nearest' : 'index'
+      }
+    };
+
+    // タイプ別オプション
+    let typeSpecificOptions: Partial<ChartOptions> = {};
+    
+    if (config.type === 'line' || config.type === 'bar') {
+      typeSpecificOptions = {
+        scales: {
+          y: {
+            beginAtZero: config.type === 'bar',
+            max: config.yAxisMax,
+            border: { display: false },
+            grid: {
+              color: colors.grid,
+              drawOnChartArea: true
+            },
+            ticks: {
+              color: colors.textSecondary,
+              font: {
+                family: "'Segoe UI', 'Roboto', sans-serif",
+                size: isMobile ? 9 : 11
+              },
+              maxTicksLimit: isMobile ? 5 : 8,
+              callback: function(value) {
+                return formatYAxisValue(Number(value), config.yAxisFormat);
+              }
+            }
+          },
+          x: {
+            border: { display: false },
+            grid: {
+              display: config.type === 'line' ? false : true,
+              color: colors.gridLight,
+              drawOnChartArea: true
+            },
+            ticks: {
+              color: colors.textSecondary,
+              font: {
+                family: "'Segoe UI', 'Roboto', sans-serif",
+                size: isMobile ? 9 : 11
+              },
+              maxRotation: isMobile ? 45 : 0
+            }
+          }
+        }
+      };
+    } else if (config.type === 'radar') {
+      typeSpecificOptions = {
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: config.yAxisMax || 100,
+            grid: { color: colors.grid },
+            angleLines: { color: colors.grid },
+            pointLabels: {
+              color: colors.text,
+              font: {
+                size: isMobile ? 10 : 12,
+                family: "'Segoe UI', 'Roboto', sans-serif"
+              }
+            },
+            ticks: { display: false }
+          }
+        }
+      };
+    }
+
+    return { ...commonOptions, ...typeSpecificOptions };
+  }, [isMobile, formatYAxisValue]);
+
+  // 対策② - Chart.js に任せて "自前 destroy" を極力減らす
+  // チャート作成・更新（configs、isDarkModeの変更時のみ再生成）
   useEffect(() => {
-    const charts: Chart[] = [];
     const colors = getThemeColors();
 
     configs.forEach((config, index) => {
@@ -208,200 +404,93 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
       if (!canvas) return;
 
       const ctx = canvas.getContext('2d');
-      if (!ctx) return;
+      if (!ctx || !canvas.parentElement) return;
 
       // データセットの色をテーマに応じて調整
       const adjustedDatasets = config.datasets.map((dataset) => 
         adjustDatasetColors(dataset, config.type, colors)
       );
 
-        // 共通オプション（レスポンシブ強化）
-        const commonOptions: Partial<ChartOptions> = {
-        responsive: true,
-        maintainAspectRatio: false,
-        
-        // レスポンシブ設定を強化
-        layout: {
-            padding: {
-            left: isMobile ? 2 : 10,
-            right: isMobile ? 2 : 10,
-            top: isMobile ? 2 : 10,
-            bottom: isMobile ? 2 : 10
-            }
-        },
-        
-        // デバイスピクセル比の調整（モバイル最適化）
-        devicePixelRatio: typeof window !== 'undefined' ? 
-            Math.min(window.devicePixelRatio || 1, 2) : 1, // 最大2に制限
-        
-        // Chart.js レスポンシブ設定
-        resizeDelay: 100,
-        
-        plugins: {
-            legend: {
-            display: config.type !== 'line',
-            position: config.type === 'doughnut' ? 'bottom' : 'top',
-            labels: {
-                padding: isMobile ? 8 : 20,
-                usePointStyle: config.type === 'doughnut',
-                color: colors.text,
-                font: {
-                family: "'Segoe UI', 'Roboto', sans-serif",
-                size: isMobile ? 9 : 12
-                },
-                boxWidth: isMobile ? 8 : 12,
-                // モバイルでの表示最適化
-                textAlign: isMobile ? 'center' : 'left'
-            }
-            },
-            tooltip: {
-            backgroundColor: colors.tooltip,
-            titleColor: '#ffffff',
-            bodyColor: '#ffffff',
-            borderColor: colors.tooltipBorder,
-            borderWidth: 1,
-            titleFont: {
-                family: "'Segoe UI', 'Roboto', sans-serif",
-                size: isMobile ? 10 : 13
-            },
-            bodyFont: {
-                family: "'Segoe UI', 'Roboto', sans-serif",
-                size: isMobile ? 9 : 12
-            },
-            caretPadding: isMobile ? 3 : 10,
-            // モバイルでのツールチップ位置調整
-            position: isMobile ? 'nearest' : 'average',
-            callbacks: {
-                label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
-                const value = context.parsed.y || context.parsed;
-                switch (config.yAxisFormat) {
-                    case 'count':
-                    return `${context.label}: ${value.toLocaleString()}人`;
-                    case 'percentage':
-                    return `${context.label}: ${value}%`;
-                    default:
-                    return `${context.label}: ${value.toLocaleString()}`;
-                }
-                }
-            }
-            }
-        },
-        animation: {
-            duration: isMobile ? 800 : (config.type === 'bar' ? 1500 : 2000),
-            easing: config.type === 'bar' ? 'easeOutBounce' : 'easeInOutQuart'
-        },
-        
-        // モバイル対応のイベント設定
-        events: isMobile ? 
-            ['touchstart', 'touchmove', 'touchend'] : 
-            ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
-        
-        // モバイルでの操作性向上
-        interaction: {
-            intersect: false,
-            mode: isMobile ? 'nearest' : 'index'
-        }
-        };
-
-      // タイプ別の特別なオプション
-      let typeSpecificOptions: Partial<ChartOptions> = {};
-      
-      if (config.type === 'line' || config.type === 'bar') {
-        typeSpecificOptions = {
-          scales: {
-            x: {
-            type: 'category',            // Cartesian 軸に明示
-            border: {
-                display: false             // drawBorder の代替
-            },
-            grid: {
-                display: config.type === 'line' ? false : true,
-                color: colors.gridLight,
-                drawOnChartArea: true      // グリッド線を描画
-            },
-            ticks: {
-                color: colors.textSecondary,
-                font: {
-                family: "'Segoe UI', 'Roboto', sans-serif",
-                size: isMobile ? 9 : 11  // ここに “…” は不要
-                },
-                maxRotation: isMobile ? 45 : 0
-            }
-            },
-            y: {
-            beginAtZero: config.type === 'bar',
-            max: config.yAxisMax,
-
-            // 外枠線を非表示 (v4)
-            border: {
-                display: false
-            },
-
-            grid: {
-                color: colors.grid,
-                drawOnChartArea: true
-            },
-            ticks: {
-                color: colors.textSecondary,
-                font: {
-                family: "'Segoe UI', 'Roboto', sans-serif",
-                size: isMobile ? 9 : 11
-                },
-                maxTicksLimit: isMobile ? 5 : 8,
-                callback: value => formatYAxisValue(Number(value), config.yAxisFormat)
-            }
-            }
-          }
-        };
-      } else if (config.type === 'radar') {
-        typeSpecificOptions = {
-          scales: {
-            r: {
-              beginAtZero: true,
-              max: config.yAxisMax || 100,
-              grid: {
-                color: colors.grid
-              },
-              angleLines: {
-                color: colors.grid
-              },
-              pointLabels: {
-                color: colors.text,
-                font: {
-                  size: isMobile ? 10 : 12,
-                  family: "'Segoe UI', 'Roboto', sans-serif"
-                }
-              },
-              ticks: {
-                display: false
-              }
-            }
-          }
-        };
-      }
-
-      // Chart設定を型安全に組み立て
-      const chartConfig: ChartConfiguration = {
-        type: config.type,
-        data: {
-          labels: config.labels,
-          datasets: adjustedDatasets
-        },
-        options: {
-          ...commonOptions,
-          ...typeSpecificOptions
-        } as ChartOptions
+      const newData = {
+        labels: config.labels,
+        datasets: adjustedDatasets
       };
 
-      const chart = new Chart(ctx, chartConfig);
-      charts.push(chart);
+      const newOptions = createChartOptions(config, colors);
+
+      // 既存チャートがあればデータとオプションを更新
+      if (chartInstancesRef.current[index]) {
+        try {
+          const existingChart = chartInstancesRef.current[index];
+          if (
+            existingChart &&
+            !(existingChart as any)._destroyed &&
+            existingChart.ctx &&
+            existingChart.ctx.canvas
+          ) {
+            existingChart.data = newData;
+            existingChart.options = newOptions as ChartOptions;
+            existingChart.update();
+            return;
+          }
+        } catch (error) {
+          console.warn('Chart update error, recreating:', error);
+          // エラーの場合は既存チャートを削除して新規作成
+          try {
+            if (chartInstancesRef.current[index]) {
+              chartInstancesRef.current[index].destroy();
+            }
+          } catch (destroyError) {
+            console.warn('Chart destroy error:', destroyError);
+          }
+        }
+      }
+
+      // 新規チャート作成
+      try {
+        const chartConfig: ChartConfiguration = {
+          type: config.type,
+          data: newData,
+          options: newOptions as ChartOptions
+        };
+
+        const chart = new Chart(ctx, chartConfig);
+        chartInstancesRef.current[index] = chart;
+      } catch (error) {
+        console.error('Chart creation error:', error);
+      }
     });
 
-    // クリーンアップ
+    // 不要になったチャートインスタンスを削除
+    if (chartInstancesRef.current.length > configs.length) {
+      const excessCharts = chartInstancesRef.current.splice(configs.length);
+      excessCharts.forEach(chart => {
+        try {
+          if (
+            chart &&
+            !(chart as any)._destroyed &&
+            chart.ctx &&
+            chart.ctx.canvas
+          ) {
+            chart.destroy();
+          }
+        } catch (error) {
+          console.warn('Excess chart destruction error:', error);
+        }
+      });
+    }
+
+  }, [configs, isDarkMode, getThemeColors, adjustDatasetColors, createChartOptions]); // isMobileを依存配列から除外
+
+  // アンマウント時のクリーンアップのみ
+  useEffect(() => {
     return () => {
-      charts.forEach(chart => chart.destroy());
+      destroyCharts();
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
     };
-  }, [configs, isDarkMode, isMobile, getThemeColors, adjustDatasetColors, formatYAxisValue]);
+  }, [destroyCharts]);
 
   return (
     <div className={styles.chartsWrapper}>
