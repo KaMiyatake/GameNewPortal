@@ -21,6 +21,7 @@ import { comp25061001 } from './25061001-hololive-goldrushmcraft';
 import { comp25061002 } from './25061002-final-fantasy-xbox';
 import { comp25061101 } from './25061101-mhwilds-update2';
 import { comp25061102 } from './25061102-splatoon-raiders';
+import { comp25061201 } from './25061201-stellar-blade-pc';
 import { comp25061202 } from './25061202-elden-ring-nightreign';
 
 
@@ -48,5 +49,6 @@ export const articles202506 = [
   comp25061002,
   comp25061101,
   comp25061102,
+  comp25061201,
   comp25061202,
 ];
