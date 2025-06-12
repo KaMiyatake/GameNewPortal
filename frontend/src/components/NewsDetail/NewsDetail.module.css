@@ -4,6 +4,23 @@
   color: var(--text-color);
   margin: 2rem 0;
   transition: color 0.3s ease;
+
+  /* 子要素の幅制御を強化 */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 記事内の画像やメディア要素 */
+.content img,
+.content canvas,
+.content video,
+.content iframe {
+  max-width: 100% !important;
+  height: auto !important;
+  box-sizing: border-box;
 }
 
 .content p {
@@ -109,9 +126,23 @@
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .content {
-    font-size: 1rem;
+    /* モバイルでのコンテンツ幅を厳密に制御 */
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
   }
   
+  /* チャート関連要素の制御 */
+  .content div[data-interactive-charts] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
   .content img {
     max-height: 350px;
     margin: 1rem auto;
@@ -154,6 +185,18 @@
   
   .content h4 {
     font-size: 1rem;
+  }
+}
+
+/* 超小画面での追加制御 */
+@media (max-width: 480px) {
+  .mainContent {
+    /* メインコンテンツの幅制御 */
+    padding: 1rem 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
   }
 }
 

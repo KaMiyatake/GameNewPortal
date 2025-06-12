@@ -215,83 +215,93 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
         adjustDatasetColors(dataset, config.type, colors)
       );
 
-      // 共通オプション（型安全）
-      const commonOptions: Partial<ChartOptions> = {
+        // 共通オプション（レスポンシブ強化）
+        const commonOptions: Partial<ChartOptions> = {
         responsive: true,
         maintainAspectRatio: false,
         
         // レスポンシブ設定を強化
         layout: {
-          padding: {
-            left: isMobile ? 5 : 10,
-            right: isMobile ? 5 : 10,
-            top: isMobile ? 5 : 10,
-            bottom: isMobile ? 5 : 10
-          }
+            padding: {
+            left: isMobile ? 2 : 10,
+            right: isMobile ? 2 : 10,
+            top: isMobile ? 2 : 10,
+            bottom: isMobile ? 2 : 10
+            }
         },
         
-        // デバイスピクセル比の調整
-        devicePixelRatio: typeof window !== 'undefined' ? (window.devicePixelRatio || 1) : 1,
+        // デバイスピクセル比の調整（モバイル最適化）
+        devicePixelRatio: typeof window !== 'undefined' ? 
+            Math.min(window.devicePixelRatio || 1, 2) : 1, // 最大2に制限
+        
+        // Chart.js レスポンシブ設定
+        resizeDelay: 100,
         
         plugins: {
-          legend: {
+            legend: {
             display: config.type !== 'line',
             position: config.type === 'doughnut' ? 'bottom' : 'top',
             labels: {
-              padding: isMobile ? 10 : 20,
-              usePointStyle: config.type === 'doughnut',
-              color: colors.text,
-              font: {
+                padding: isMobile ? 8 : 20,
+                usePointStyle: config.type === 'doughnut',
+                color: colors.text,
+                font: {
                 family: "'Segoe UI', 'Roboto', sans-serif",
-                size: isMobile ? 10 : 12
-              },
-              boxWidth: isMobile ? 10 : 12
+                size: isMobile ? 9 : 12
+                },
+                boxWidth: isMobile ? 8 : 12,
+                // モバイルでの表示最適化
+                textAlign: isMobile ? 'center' : 'left'
             }
-          },
-          tooltip: {
+            },
+            tooltip: {
             backgroundColor: colors.tooltip,
             titleColor: '#ffffff',
             bodyColor: '#ffffff',
             borderColor: colors.tooltipBorder,
             borderWidth: 1,
             titleFont: {
-              family: "'Segoe UI', 'Roboto', sans-serif",
-              size: isMobile ? 11 : 13
+                family: "'Segoe UI', 'Roboto', sans-serif",
+                size: isMobile ? 10 : 13
             },
             bodyFont: {
-              family: "'Segoe UI', 'Roboto', sans-serif",
-              size: isMobile ? 10 : 12
+                family: "'Segoe UI', 'Roboto', sans-serif",
+                size: isMobile ? 9 : 12
             },
-            caretPadding: isMobile ? 5 : 10,
+            caretPadding: isMobile ? 3 : 10,
+            // モバイルでのツールチップ位置調整
+            position: isMobile ? 'nearest' : 'average',
             callbacks: {
-              label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
+                label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
                 const value = context.parsed.y || context.parsed;
                 switch (config.yAxisFormat) {
-                  case 'count':
+                    case 'count':
                     return `${context.label}: ${value.toLocaleString()}人`;
-                  case 'percentage':
+                    case 'percentage':
                     return `${context.label}: ${value}%`;
-                  default:
+                    default:
                     return `${context.label}: ${value.toLocaleString()}`;
                 }
-              }
+                }
             }
-          }
+            }
         },
         animation: {
-          duration: config.type === 'bar' ? 1500 : 2000,
-          easing: config.type === 'bar' ? 'easeOutBounce' : 'easeInOutQuart'
+            duration: isMobile ? 800 : (config.type === 'bar' ? 1500 : 2000),
+            easing: config.type === 'bar' ? 'easeOutBounce' : 'easeInOutQuart'
         },
         
-        // モバイル対応のイベント設定（型安全）
-        events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
+        // モバイル対応のイベント設定
+        events: isMobile ? 
+            ['touchstart', 'touchmove', 'touchend'] : 
+            ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
         
         // モバイルでの操作性向上
         interaction: {
-          intersect: false,
-          mode: 'index'
+            intersect: false,
+            mode: isMobile ? 'nearest' : 'index'
         }
-      };
+        };
 
       // タイプ別の特別なオプション
       let typeSpecificOptions: Partial<ChartOptions> = {};

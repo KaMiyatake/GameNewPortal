@@ -132,7 +132,6 @@ export const comp25061202: ArticleDetail = {
     <hr>
     
     <p><small><strong>出典:</strong><br>
-    Steam Web API: https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/<br>
     SteamCharts: https://steamcharts.com/app/2622380<br>
     Data © SteamDB</small></p>
   `,
