@@ -1,5 +1,5 @@
 // src/components/Charts/InteractiveCharts.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import styles from './InteractiveCharts.module.css';
 import { TooltipItem } from 'chart.js';
@@ -47,9 +47,67 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
   summaryData
 }) => {
   const chartRefs = useRef<(HTMLCanvasElement | null)[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // ダークモード検出
+  useEffect(() => {
+    const checkDarkMode = () => {
+      const theme = document.documentElement.getAttribute('data-theme');
+      setIsDarkMode(theme === 'dark');
+    };
+
+    checkDarkMode();
+
+    // テーマ変更の監視
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['data-theme'] 
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // ダークモード用カラーパレット
+  const getThemeColors = () => {
+    if (isDarkMode) {
+      return {
+        // ダークモード配色
+        primary: '#58a6ff',
+        secondary: '#8b5cf6', 
+        success: '#39d353',
+        warning: '#f0883e',
+        danger: '#f85149',
+        purple: '#a5a5ff',
+        text: '#e1e1e1',
+        textSecondary: '#8b949e',
+        grid: 'rgba(139, 148, 158, 0.2)',
+        gridLight: 'rgba(139, 148, 158, 0.1)',
+        tooltip: 'rgba(22, 27, 34, 0.95)',
+        tooltipBorder: '#58a6ff'
+      };
+    } else {
+      return {
+        // ライトモード配色
+        primary: '#3498db',
+        secondary: '#9b59b6',
+        success: '#2ecc71',
+        warning: '#f39c12',
+        danger: '#e74c3c',
+        purple: '#8e44ad',
+        text: '#1f2937',
+        textSecondary: '#6b7280',
+        grid: 'rgba(0, 0, 0, 0.1)',
+        gridLight: 'rgba(0, 0, 0, 0.05)',
+        tooltip: 'rgba(0, 0, 0, 0.8)',
+        tooltipBorder: '#3498db'
+      };
+    }
+  };
 
   useEffect(() => {
     const charts: Chart[] = [];
+    const colors = getThemeColors();
 
     configs.forEach((config, index) => {
       const canvas = chartRefs.current[index];
@@ -70,45 +128,105 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
         }
       };
 
-    // 共通オプション
-    const commonOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-        legend: {
-        display: config.type !== 'line',
-        position: config.type === 'doughnut' ? 'bottom' as const : 'top' as const,
-        labels: {
-            padding: 20,
-            usePointStyle: config.type === 'doughnut'
+      // データセットの色をテーマに応じて調整
+      const adjustedDatasets = config.datasets.map((dataset, datasetIndex) => {
+        const adjustedDataset = { ...dataset };
+        
+        // デフォルト色の適用
+        if (config.type === 'line') {
+          adjustedDataset.borderColor = adjustedDataset.borderColor || colors.primary;
+          adjustedDataset.backgroundColor = adjustedDataset.backgroundColor || 
+            `${colors.primary}20`; // 透明度20%
+          adjustedDataset.pointBackgroundColor = adjustedDataset.pointBackgroundColor || colors.primary;
+          adjustedDataset.pointBorderColor = adjustedDataset.pointBorderColor || 
+            (isDarkMode ? '#161b22' : '#ffffff');
+        } else if (config.type === 'bar') {
+          if (!adjustedDataset.backgroundColor) {
+            adjustedDataset.backgroundColor = [
+              `${colors.purple}cc`, // 透明度80%
+              `${colors.warning}cc`
+            ];
+          }
+          if (!adjustedDataset.borderColor) {
+            adjustedDataset.borderColor = [
+              colors.purple,
+              colors.warning
+            ];
+          }
+        } else if (config.type === 'doughnut' || config.type === 'pie') {
+          if (!adjustedDataset.backgroundColor) {
+            adjustedDataset.backgroundColor = [
+              `${colors.primary}cc`,
+              `${colors.gridLight}cc`
+            ];
+          }
+          if (!adjustedDataset.borderColor) {
+            adjustedDataset.borderColor = [
+              colors.primary,
+              colors.textSecondary
+            ];
+          }
+        } else if (config.type === 'radar') {
+          adjustedDataset.backgroundColor = adjustedDataset.backgroundColor || 
+            `${colors.primary}33`; // 透明度20%
+          adjustedDataset.borderColor = adjustedDataset.borderColor || colors.primary;
+          adjustedDataset.pointBackgroundColor = adjustedDataset.pointBackgroundColor || colors.primary;
+          adjustedDataset.pointBorderColor = adjustedDataset.pointBorderColor || 
+            (isDarkMode ? '#161b22' : '#ffffff');
         }
-        },
-        tooltip: {
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          titleColor: '#ffffff',
-          bodyColor: '#ffffff',
-          borderColor: '#3498db',
-          borderWidth: 1,
-          callbacks: {
-            label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
-              const value = context.parsed.y || context.parsed;
-              switch (config.yAxisFormat) {
-                case 'count':
-                  return `${context.label}: ${value.toLocaleString()}人`;
-                case 'percentage':
-                  return `${context.label}: ${value}%`;
-                default:
-                  return `${context.label}: ${value.toLocaleString()}`;
+
+        return adjustedDataset;
+      });
+
+      // 共通オプション
+      const commonOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: config.type !== 'line',
+            position: config.type === 'doughnut' ? 'bottom' as const : 'top' as const,
+            labels: {
+              padding: 20,
+              usePointStyle: config.type === 'doughnut',
+              color: colors.text,
+              font: {
+                family: "'Segoe UI', 'Roboto', sans-serif"
+              }
+            }
+          },
+          tooltip: {
+            backgroundColor: colors.tooltip,
+            titleColor: '#ffffff',
+            bodyColor: '#ffffff',
+            borderColor: colors.tooltipBorder,
+            borderWidth: 1,
+            titleFont: {
+              family: "'Segoe UI', 'Roboto', sans-serif"
+            },
+            bodyFont: {
+              family: "'Segoe UI', 'Roboto', sans-serif"
+            },
+            callbacks: {
+              label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
+                const value = context.parsed.y || context.parsed;
+                switch (config.yAxisFormat) {
+                  case 'count':
+                    return `${context.label}: ${value.toLocaleString()}人`;
+                  case 'percentage':
+                    return `${context.label}: ${value}%`;
+                  default:
+                    return `${context.label}: ${value.toLocaleString()}`;
+                }
               }
             }
           }
+        },
+        animation: {
+          duration: config.type === 'bar' ? 1500 : 2000,
+          easing: config.type === 'bar' ? 'easeOutBounce' as const : 'easeInOutQuart' as const
         }
-    },
-    animation: {
-        duration: config.type === 'bar' ? 1500 : 2000,
-        easing: config.type === 'bar' ? 'easeOutBounce' as const : 'easeInOutQuart' as const
-    }
-    };
+      };
 
       // タイプ別の特別なオプション
       let typeSpecificOptions = {};
@@ -120,9 +238,14 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
               beginAtZero: config.type === 'bar',
               max: config.yAxisMax,
               grid: {
-                color: 'rgba(0, 0, 0, 0.1)'
+                color: colors.grid,
+                drawBorder: false
               },
               ticks: {
+                color: colors.textSecondary,
+                font: {
+                  family: "'Segoe UI', 'Roboto', sans-serif"
+                },
                 callback: function(value: number): string {
                   return formatYAxisValue(value);
                 }
@@ -131,7 +254,14 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
             x: {
               grid: {
                 display: config.type === 'line' ? false : true,
-                color: 'rgba(0, 0, 0, 0.05)'
+                color: colors.gridLight,
+                drawBorder: false
+              },
+              ticks: {
+                color: colors.textSecondary,
+                font: {
+                  family: "'Segoe UI', 'Roboto', sans-serif"
+                }
               }
             }
           }
@@ -143,11 +273,16 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
               beginAtZero: true,
               max: config.yAxisMax || 100,
               grid: {
-                color: 'rgba(0, 0, 0, 0.1)'
+                color: colors.grid
+              },
+              angleLines: {
+                color: colors.grid
               },
               pointLabels: {
+                color: colors.text,
                 font: {
-                  size: 12
+                  size: 12,
+                  family: "'Segoe UI', 'Roboto', sans-serif"
                 }
               },
               ticks: {
@@ -162,7 +297,7 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
         type: config.type,
         data: {
           labels: config.labels,
-          datasets: config.datasets
+          datasets: adjustedDatasets
         },
         options: {
           ...commonOptions,
@@ -177,7 +312,7 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
     return () => {
       charts.forEach(chart => chart.destroy());
     };
-  }, [configs]);
+  }, [configs, isDarkMode]); // isDarkModeを依存配列に追加
 
   return (
     <div className={styles.chartsWrapper}>
