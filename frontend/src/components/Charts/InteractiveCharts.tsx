@@ -129,7 +129,7 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
       };
 
       // データセットの色をテーマに応じて調整
-      const adjustedDatasets = config.datasets.map((dataset, datasetIndex) => {
+      const adjustedDatasets = config.datasets.map((dataset) => {
         const adjustedDataset = { ...dataset };
         
         // デフォルト色の適用
