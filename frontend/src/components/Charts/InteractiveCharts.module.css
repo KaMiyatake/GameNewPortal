@@ -1,0 +1,159 @@
+/* src/components/Charts/InteractiveCharts.module.css */
+.chartsWrapper {
+  margin: 3rem 0;
+  padding: 2rem 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 16px;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.sectionTitle h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.sectionTitle p {
+  font-size: 1rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.chartSection {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.chartTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.chartContainer {
+  position: relative;
+  height: 300px;
+  margin: 1rem 0;
+}
+
+.chartCanvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chartSource {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.analysisNote {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  border-left: 4px solid #3498db;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.analysisNote h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.dataGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.dataItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.dataLabel {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.dataValue {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #3498db;
+}
+
+@media (max-width: 768px) {
+  .chartsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .chartContainer {
+    height: 250px;
+  }
+  
+  .sectionTitle h2 {
+    font-size: 1.5rem;
+  }
+  
+  .dataGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .analysisNote {
+    margin-top: 2rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dataGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chartsGrid {
+    padding: 0 0.25rem;
+  }
+  
+  .chartTitle {
+    font-size: 1.1rem;
+  }
+}

@@ -1,6 +1,8 @@
+// src/components/NewsDetail/NewsContent.tsx
 import React, { useEffect } from 'react';
 import YouTubeEmbed from '../YouTubeEmbed/YouTubeEmbed';
 import XEmbed from '../XEmbed/XEmbed';
+import InteractiveCharts from '../Charts/InteractiveCharts';
 import styles from './NewsDetail.module.css';
 
 interface NewsContentProps {
@@ -69,10 +71,47 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       });
     };
 
+    // インタラクティブチャート埋め込みを処理（共通処理）
+    const processInteractiveCharts = () => {
+      const chartElements = document.querySelectorAll('[data-interactive-charts]');
+      
+      chartElements.forEach((element) => {
+        const configsJson = element.getAttribute('data-chart-configs');
+        const sectionTitle = element.getAttribute('data-section-title') || "関連データ分析";
+        const sectionDescription = element.getAttribute('data-section-description') || "最新データに基づく詳細分析";
+        const summaryDataJson = element.getAttribute('data-summary-data');
+        
+        if (configsJson) {
+          try {
+            const configs = JSON.parse(configsJson);
+            const summaryData = summaryDataJson ? JSON.parse(summaryDataJson) : undefined;
+            
+            const container = document.createElement('div');
+            element.parentNode?.replaceChild(container, element);
+            
+            import('react-dom/client').then(({ createRoot }) => {
+              const root = createRoot(container);
+              root.render(
+                React.createElement(InteractiveCharts, {
+                  configs,
+                  sectionTitle,
+                  sectionDescription,
+                  summaryData
+                })
+              );
+            });
+          } catch (error) {
+            console.error('チャート設定のパースに失敗しました:', error);
+          }
+        }
+      });
+    };
+
     // DOM更新後に実行
     setTimeout(() => {
       processYouTubeEmbeds();
       processXEmbeds();
+      processInteractiveCharts();
     }, 100);
   }, [content]);
 
