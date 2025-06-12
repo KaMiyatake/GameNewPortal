@@ -293,28 +293,94 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
             size: isMobile ? 10 : 12
           },
           caretPadding: isMobile ? 5 : 10,
-            callbacks: {
-            label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
-                let value: number;
+        // createChartOptions関数内のtooltip.callbacks.label部分を修正
+        callbacks: {
+        label: function(context: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>) {
+            let value: number;
+            const label = context.label || '';
+            
+            // チャートタイプに応じて値を安全に取得
+            if (config.type === 'doughnut' || config.type === 'pie') {
+            // 円グラフの場合：context.parsed が直接数値
+            if (typeof context.parsed === 'number') {
+                value = context.parsed;
+            } else {
+                // フォールバック：raw データまたはデータセットから取得
+                value = typeof context.raw === 'number' ? context.raw : 0;
+            }
+            
+            // パーセンテージ計算（円グラフ用）
+            if (context.dataset.data && Array.isArray(context.dataset.data)) {
+                const dataset = context.dataset.data as number[];
+                const total = dataset.reduce((sum, val) => sum + Number(val), 0);
+                const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : '0.0';
                 
-                if ('y' in context.parsed) {
-                // 折れ線グラフ・棒グラフの場合
-                value = (context.parsed as { y: number }).y;
-                } else {
-                // ドーナツ・円・レーダーチャートの場合
-                value = context.parsed as number;
-                }
-
                 switch (config.yAxisFormat) {
                 case 'count':
-                    return `${context.label}: ${value.toLocaleString()}人`;
+                    return `${label}: ${value.toLocaleString()}人 (${percentage}%)`;
                 case 'percentage':
-                    return `${context.label}: ${value}%`;
+                    return `${label}: ${value}% (合計の${percentage}%)`;
                 default:
-                    return `${context.label}: ${value.toLocaleString()}`;
+                    return `${label}: ${value.toLocaleString()} (${percentage}%)`;
+                }
+            } else {
+                // データセットが取得できない場合のフォールバック
+                switch (config.yAxisFormat) {
+                case 'count':
+                    return `${label}: ${value.toLocaleString()}人`;
+                case 'percentage':
+                    return `${label}: ${value}%`;
+                default:
+                    return `${label}: ${value.toLocaleString()}`;
                 }
             }
+            } else if (config.type === 'radar') {
+            // レーダーチャートの場合：r値を取得
+            if (typeof context.parsed === 'object' && context.parsed !== null && 'r' in context.parsed) {
+                value = Number((context.parsed as { r: number }).r);
+            } else if (typeof context.parsed === 'number') {
+                value = context.parsed;
+            } else {
+                value = typeof context.raw === 'number' ? context.raw : 0;
             }
+            
+            switch (config.yAxisFormat) {
+                case 'count':
+                return `${label}: ${value.toLocaleString()}人`;
+                case 'percentage':
+                return `${label}: ${value}%`;
+                default:
+                return `${label}: ${value.toLocaleString()}`;
+            }
+            } else {
+            // 線グラフ・棒グラフの場合：y値を取得
+            if (typeof context.parsed === 'object' && context.parsed !== null && 'y' in context.parsed) {
+                value = Number((context.parsed as { y: number }).y);
+            } else if (typeof context.parsed === 'number') {
+                value = context.parsed;
+            } else {
+                value = typeof context.raw === 'number' ? context.raw : 0;
+            }
+            
+            switch (config.yAxisFormat) {
+                case 'count':
+                return `${label}: ${value.toLocaleString()}人`;
+                case 'percentage':
+                return `${label}: ${value}%`;
+                default:
+                return `${label}: ${value.toLocaleString()}`;
+            }
+            }
+        },
+        
+        // 円グラフ用のタイトル表示を追加
+        title: function(contexts: TooltipItem<'line' | 'bar' | 'doughnut' | 'radar' | 'pie'>[]) {
+            if (config.type === 'doughnut' || config.type === 'pie') {
+            return contexts[0]?.label || '';
+            }
+            return '';
+        }
+        }
         }
       },
       animation: {
