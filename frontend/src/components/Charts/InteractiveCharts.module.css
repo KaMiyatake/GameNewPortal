@@ -12,8 +12,8 @@
   box-sizing: border-box;
   overflow: hidden;
   
-  /* 親コンテナの幅を超えないように制限 */
-  container-type: inline-size;
+  /* モバイル対応 - 親コンテナを絶対に超えない */
+  min-width: 0;
 }
 
 /* ダークモード */
@@ -25,6 +25,8 @@
   text-align: center;
   margin-bottom: 2rem;
   padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sectionTitle h2 {
@@ -33,21 +35,17 @@
   color: var(--text-color);
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
-}
-
-@media (max-width: 768px) {
-  .sectionTitle h2 {
-    font-size: 1.5rem;
-  }
+  word-wrap: break-word;
 }
 
 .sectionTitle p {
   font-size: 1rem;
   color: var(--text-color);
   opacity: 0.7;
-  max-width: 600px;
+  max-width: 100%;
   margin: 0 auto;
   transition: color 0.3s ease;
+  word-wrap: break-word;
 }
 
 .chartsGrid {
@@ -55,24 +53,11 @@
   gap: 1.5rem;
   padding: 0 1rem;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   
-  /* レスポンシブグリッド */
-  grid-template-columns: 1fr;
-}
-
-/* より大きな画面では2列表示 */
-@container (min-width: 600px) {
-  .chartsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* 非常に大きな画面では最大2列まで */
-@media (min-width: 1400px) {
-  .chartsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  /* デスクトップ: 2列 */
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .chartSection {
@@ -83,9 +68,10 @@
   border: 1px solid var(--border-color);
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   
-  /* 幅制限 */
+  /* 幅制限を徹底 */
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -104,6 +90,8 @@
   text-align: center;
   transition: color 0.3s ease;
   line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .chartContainer {
@@ -111,21 +99,24 @@
   height: 280px;
   margin: 1rem 0;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-  .chartContainer {
-    height: 240px;
-  }
+  overflow: hidden;
+  
+  /* モバイル対応強化 */
+  min-width: 0;
 }
 
 .chartCanvas {
   width: 100% !important;
   height: 100% !important;
-  transition: opacity 0.3s ease;
   max-width: 100% !important;
+  max-height: 100% !important;
+  transition: opacity 0.3s ease;
   box-sizing: border-box;
+  
+  /* モバイルでのCanvas要素の制御 */
+  object-fit: contain;
 }
 
 .chartSource {
@@ -137,6 +128,8 @@
   font-style: italic;
   transition: color 0.3s ease;
   line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .analysisNote {
@@ -150,7 +143,9 @@
   /* 幅制限 */
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .analysisNote h3 {
@@ -160,6 +155,7 @@
   margin-bottom: 1rem;
   text-align: center;
   transition: color 0.3s ease;
+  word-wrap: break-word;
 }
 
 .dataGrid {
@@ -168,6 +164,8 @@
   gap: 1rem;
   margin-top: 1rem;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .dataItem {
@@ -181,6 +179,9 @@
   transition: background-color 0.3s ease, border-color 0.3s ease;
   text-align: center;
   min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* ダークモードでのデータアイテム */
@@ -197,6 +198,8 @@
   transition: color 0.3s ease;
   text-align: center;
   line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .dataValue {
@@ -206,36 +209,74 @@
   transition: color 0.3s ease;
   text-align: center;
   word-break: break-word;
+  overflow-wrap: break-word;
 }
 
-/* タブレット・モバイル対応 */
+/* タブレット対応 */
+@media (max-width: 992px) {
+  .chartsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 0.8rem;
+  }
+}
+
+/* モバイル対応を大幅強化 */
 @media (max-width: 768px) {
   .chartsWrapper {
     margin: 2rem 0;
     padding: 1.5rem 0;
+    /* モバイルでのマージン調整 */
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    width: calc(100% + 1rem);
+    max-width: calc(100% + 1rem);
+  }
+  
+  .sectionTitle {
+    padding: 0 1.5rem;
+  }
+  
+  .sectionTitle h2 {
+    font-size: 1.5rem;
   }
   
   .chartsGrid {
     grid-template-columns: 1fr !important;
     gap: 1rem;
-    padding: 0 0.5rem;
+    padding: 0 1rem;
+    width: 100%;
+    max-width: 100%;
   }
   
   .chartSection {
     padding: 1rem;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
   }
   
   .chartTitle {
     font-size: 1rem;
   }
   
+  .chartContainer {
+    height: 240px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.8rem 0;
+  }
+  
   .dataGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
   }
   
   .analysisNote {
     margin-top: 2rem;
     padding: 1.2rem;
+    margin-left: 0;
+    margin-right: 0;
   }
   
   .analysisNote h3 {
@@ -243,14 +284,56 @@
   }
 }
 
+/* 小さなモバイル画面対応 */
 @media (max-width: 480px) {
+  .chartsWrapper {
+    /* さらに厳しく制限 */
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+    max-width: calc(100% + 2rem);
+    padding: 1rem 0;
+  }
+  
+  .sectionTitle {
+    padding: 0 1rem;
+  }
+  
+  .sectionTitle h2 {
+    font-size: 1.3rem;
+  }
+  
   .chartsGrid {
-    padding: 0 0.25rem;
+    padding: 0 0.5rem;
+    gap: 0.8rem;
+  }
+  
+  .chartSection {
+    padding: 0.8rem;
+  }
+  
+  .chartContainer {
+    height: 200px;
+    margin: 0.5rem 0;
+  }
+  
+  .chartTitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .chartSource {
+    font-size: 0.7rem;
+    margin-top: 0.3rem;
   }
   
   .dataGrid {
     grid-template-columns: 1fr;
-    gap: 0.8rem;
+    gap: 0.6rem;
+  }
+  
+  .dataItem {
+    padding: 0.6rem;
   }
   
   .dataValue {
@@ -259,5 +342,33 @@
   
   .dataLabel {
     font-size: 0.75rem;
+  }
+  
+  .analysisNote {
+    padding: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
+/* 超小さな画面対応 */
+@media (max-width: 360px) {
+  .chartsWrapper {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    width: calc(100% + 3rem);
+    max-width: calc(100% + 3rem);
+  }
+  
+  .chartContainer {
+    height: 180px;
+  }
+  
+  .chartSection {
+    padding: 0.6rem;
+  }
+  
+  .sectionTitle h2 {
+    font-size: 1.2rem;
   }
 }
