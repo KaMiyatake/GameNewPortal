@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Chart from 'chart.js/auto';
 import styles from './InteractiveCharts.module.css';
-import type { TooltipItem, ChartOptions, ChartConfiguration } from 'chart.js';
+import type { TooltipItem, ChartOptions, ChartConfiguration, Chart as ChartType } from 'chart.js';
 
 interface ChartDataset {
   label: string;
@@ -104,10 +104,16 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
     }
   }, [isDarkMode]);
 
+    // 型拡張: Chart.jsの内部プロパティ用
+    interface ExtendedChart extends ChartType {
+    _destroyed?: boolean;
+    }
+
   // 対策① - "存在確認付き"で安全に破棄
   const destroyCharts = useCallback(() => {
     chartInstancesRef.current.forEach((chart) => {
       try {
+        const extendedChart = chart as ExtendedChart;
         /* 
          * ① Chart インスタンスが生きているか
          * ② ctx と canvas がまだ残っているか
@@ -115,7 +121,7 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
          */
         if (
           chart &&
-          !(chart as any)._destroyed &&               // v4 では _destroyed が立つ
+          !extendedChart._destroyed &&             // v4 では _destroyed が立つ
           chart.ctx &&                       // ctx が null でない
           chart.ctx.canvas                   // canvas が null でない
         ) {
@@ -421,10 +427,10 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
       // 既存チャートがあればデータとオプションを更新
       if (chartInstancesRef.current[index]) {
         try {
-          const existingChart = chartInstancesRef.current[index];
+          const existingChart = chartInstancesRef.current[index] as ExtendedChart;
           if (
             existingChart &&
-            !(existingChart as any)._destroyed &&
+            !existingChart._destroyed &&
             existingChart.ctx &&
             existingChart.ctx.canvas
           ) {
@@ -466,9 +472,10 @@ const InteractiveCharts: React.FC<InteractiveChartsProps> = ({
       const excessCharts = chartInstancesRef.current.splice(configs.length);
       excessCharts.forEach(chart => {
         try {
+          const extendedChart = chart as ExtendedChart;
           if (
             chart &&
-            !(chart as any)._destroyed &&
+            !extendedChart._destroyed &&
             chart.ctx &&
             chart.ctx.canvas
           ) {
