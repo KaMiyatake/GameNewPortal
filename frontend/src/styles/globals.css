@@ -21,6 +21,13 @@
   --input-background: #ffffff;
   --input-border: #e1e1e1;
   --button-text: #ffffff;
+
+  /* トランジション時間を少し短縮 */
+  --theme-transition-duration: 0.25s;
+  --theme-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --title-color: #333;
+  --title-hover-color: #6c5ce7;
 }
 
 /* ダークモードの変数 (Deep Dark Theme) */
@@ -42,6 +49,9 @@
   --input-background: #21262d;
   --input-border: #30363d;
   --button-text: #ffffff;
+
+  --title-color: #e1e1e1;
+  --title-hover-color: #8b5cf6;
 }
 
 * {
@@ -167,4 +177,23 @@ input:focus, textarea:focus, select:focus {
 [data-theme="dark"] .search-highlight {
   background-color: var(--secondary-color);
   color: var(--light-text);
+}
+
+/* 基本的なトランジション（パフォーマンス重視） */
+* {
+  transition: 
+    background-color var(--theme-transition-duration) var(--theme-transition-easing),
+    color var(--theme-transition-duration) var(--theme-transition-easing),
+    border-color var(--theme-transition-duration) var(--theme-transition-easing);
+}
+
+/* 特定の要素のトランジション除外（パフォーマンス向上） */
+img, video, iframe, canvas, svg, .newsImage, .newsImageList {
+  transition: none;
+}
+
+/* タイトル要素の特別なトランジション */
+.newsTitle span,
+.newsTitleList span {
+  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
 }

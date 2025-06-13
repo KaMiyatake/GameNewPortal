@@ -14,7 +14,8 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>('light');
+  // デフォルトをダークテーマに変更
+  const [theme, setTheme] = useState<Theme>('dark');
 
   // ローカルストレージから設定を読み込み
   useEffect(() => {
@@ -22,8 +23,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     if (savedTheme) {
       setTheme(savedTheme);
     } else {
-      // システムの設定を確認
+      // システムの設定を確認（デフォルトはダーク優先）
       const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      // ユーザーのシステム設定に関係なく、デフォルトはダークテーマにする
+      //setTheme('dark');
+      // もしシステム設定を尊重したい場合は以下を使用：
       setTheme(systemDarkMode ? 'dark' : 'light');
     }
   }, []);
