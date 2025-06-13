@@ -117,6 +117,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
               />
               <time className={styles.newsDateList}>{news.date}</time>
             </div>
+            {/* 修正：入れ子構造を簡潔化 */}
             <Link href={`/news/${news.slug}`} className={styles.titleLink}>
               <h3 className={styles.newsTitleList}>{news.title}</h3>
             </Link>
@@ -149,11 +150,10 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
           <span className={styles.newsHeaderDate}>{news.date}</span>
         </div>
         
-        <h3 className={styles.newsTitle}>
-          <Link href={`/news/${news.slug}`}>
-            <span>{news.title}</span>
-          </Link>
-        </h3>
+        {/* 修正：入れ子構造を簡潔化 */}
+        <Link href={`/news/${news.slug}`} className={styles.titleLink}>
+          <h3 className={styles.newsTitle}>{news.title}</h3>
+        </Link>
         
         <p className={styles.newsSummary}>{news.summary}</p>
         
