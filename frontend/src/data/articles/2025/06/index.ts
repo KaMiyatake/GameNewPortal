@@ -23,6 +23,8 @@ import { comp25061101 } from './25061101-mhwilds-update2';
 import { comp25061102 } from './25061102-splatoon-raiders';
 import { comp25061201 } from './25061201-stellar-blade-pc';
 import { comp25061202 } from './25061202-elden-ring-nightreign';
+import { comp25061301 } from './25061301-mgs-delta-fox-hunt';
+import { comp25061302 } from './25061302-shadowverse-worlds-beyond';
 
 
 export const articles202506 = [
@@ -51,4 +53,6 @@ export const articles202506 = [
   comp25061102,
   comp25061201,
   comp25061202,
+  comp25061301,
+  comp25061302,
 ];
