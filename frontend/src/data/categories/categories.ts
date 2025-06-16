@@ -63,5 +63,12 @@ export const categories: CategoryData[] = [
     slug: 'industry',
     description: 'ゲーム業界動向、企業情報、市場分析、開発者情報',
     color: '#00b894'
+  },
+  {
+    id: 10,
+    name: 'eスポーツ',
+    slug: 'esports',
+    description: 'eスポーツ大会、選手インタビュー、戦略分析',
+    color: '#d63031'
   }
 ];

@@ -217,6 +217,7 @@ const getCategoryIcon = (slug: string): string => {
     'xbox': '🎯',
     'pros-cons': '⚖️',
     'vr': '🥽',
+    'esports': '🏆',
     'entertainment': '🎭',
     'industry': '📰'
   };
