@@ -7,7 +7,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import SEOHead from '../../components/SEO/SEOHead';
 import { getNewsDetail, getCategories, getPopularNews } from '../../utils/api';
 import { allArticles } from '../../data/articles';
-import { getPopularTags } from '../../data/utils/data-helpers'; // 追加
+import { getPopularTags } from '../../data/utils/data-helpers';
 import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
 import { NewsItemDetail, Category, NewsItem } from '../../types';
 import styles from '../../styles/NewsDetail.module.css';
@@ -16,14 +16,14 @@ interface NewsDetailPageProps {
   newsDetail: NewsItemDetail;
   categories: Category[];
   popularNews: NewsItem[];
-  popularTags: { tag: string; count: number }[]; // 追加
+  popularTags: { tag: string; count: number }[];
 }
 
 const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   newsDetail,
   categories,
   popularNews,
-  popularTags // 追加
+  popularTags
 }) => {
   // 主要カテゴリ（最初のカテゴリ）を取得
   const primaryCategory = newsDetail.categories && newsDetail.categories.length > 0 
@@ -65,11 +65,13 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
             <div className={styles.mainContent}>
               <div className={styles.articleHeader}>
                 <h1 className={styles.newsTitle}>{newsDetail.title}</h1>
+                
+                {/* 理想の並び順：日付 → 著者 → カテゴリ */}
                 <div className={styles.newsInfo}>
                   <span className={styles.newsDate}>{newsDetail.date}</span>
                   <span className={styles.newsAuthor}>by {newsDetail.author}</span>
                   
-                  {/* 複数カテゴリ表示 */}
+                  {/* カテゴリをnewsInfo内に戻すが、継承を回避するため独立したコンテナに */}
                   <div className={styles.categoriesContainer}>
                     {newsDetail.categories && newsDetail.categories.map((category, index) => (
                       <Link key={index} href={getCategoryUrl(category)}>
@@ -108,7 +110,7 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
               <Sidebar 
                 popularNews={popularNews} 
                 categories={categories} 
-                popularTags={popularTags} // 追加
+                popularTags={popularTags}
               />
             </div>
           </div>
@@ -137,7 +139,7 @@ export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ para
       getNewsDetail(slug),
       getCategories(),
       getPopularNews(),
-      Promise.resolve(getPopularTags(15)), // 人気タグ15個を取得
+      Promise.resolve(getPopularTags(15)),
     ]);
 
     return {
@@ -145,7 +147,7 @@ export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ para
         newsDetail,
         categories,
         popularNews,
-        popularTags: popularTagsData, // 追加
+        popularTags: popularTagsData,
       },
       revalidate: 3600,
     };
