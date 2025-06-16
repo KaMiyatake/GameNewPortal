@@ -91,7 +91,7 @@ const About: React.FC = () => {
                     <li><strong>ゲームレビュー</strong> - 新作タイトルの詳細分析と評価</li>
                     <li><strong>業界分析</strong> - 市場動向、売上データ、トレンド分析</li>
                     <li><strong>プラットフォーム比較</strong> - PC、コンソール、モバイルゲームの横断的分析</li>
-                    <li><strong>開発者インタビュー</strong> - クリエイターの想いや開発秘話</li>
+                    <li><strong>各種エンタメ</strong> - 漫画、アニメ、YouTube</li>
                     <li><strong>eスポーツ情報</strong> - 競技シーンの最新動向</li>
                   </ul>
                 </div>
@@ -125,9 +125,9 @@ const About: React.FC = () => {
                     お気軽にお問い合わせください。
                   </p>
                   <div className={styles.contactInfo}>
-                    <p><strong>運営チーム:</strong> ゲーム賛否編集部</p>
+                    <p><strong>運営チーム:</strong> ゲーム賛否編集部（担当：Miyatake）</p>
                     <p><strong>設立:</strong> 2025年</p>
-                    <p><strong>更新頻度:</strong> 毎日更新</p>
+                    <p><strong>更新頻度:</strong> 稼働日更新</p>
                   </div>
                   <p className={styles.thankYou}>
                     皆様に愛される、価値あるゲームメディアを目指してまいります。<br />
