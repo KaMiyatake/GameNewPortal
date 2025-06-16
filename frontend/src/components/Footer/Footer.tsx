@@ -72,6 +72,16 @@ const Footer: React.FC = () => {
                   <span className={styles.infoLink}>📧 お問い合わせ</span>
                 </Link>
               </li>
+              <li>
+                <Link href="/privacy-policy">
+                  <span className={styles.infoLink}>🔒 プライバシーポリシー</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/disclaimer">
+                  <span className={styles.infoLink}>📜 免責事項</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
