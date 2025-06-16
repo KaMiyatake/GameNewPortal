@@ -82,6 +82,11 @@ const Footer: React.FC = () => {
                   <span className={styles.infoLink}>📜 免責事項</span>
                 </Link>
               </li>
+              <li>
+                <Link href="/advertising">
+                  <span className={styles.infoLink}>📋 広告掲載</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
