@@ -298,10 +298,6 @@ const Contact: React.FC = () => {
                       <strong>📝 取材依頼:</strong>
                       <p>プレスリリースや取材依頼も承っております</p>
                     </div>
-                    <div className={styles.infoItem}>
-                      <strong>🤝 提携について:</strong>
-                      <p>企業様との提携やコラボレーションもご相談ください</p>
-                    </div>
                   </div>
                 </div>
 
@@ -317,8 +313,12 @@ const Contact: React.FC = () => {
                       <p>https://gamesanpi.com</p>
                     </div>
                     <div className={styles.infoItem}>
+                      <strong>管理人:</strong>
+                      <p>Miyatake</p>
+                    </div>
+                    <div className={styles.infoItem}>
                       <strong>運営開始:</strong>
-                      <p>2025年</p>
+                      <p>2025年6月</p>
                     </div>
                   </div>
                 </div>

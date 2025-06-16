@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../components/Layout/Layout';
 import SEOHead from '../components/SEO/SEOHead';
 import styles from '../styles/About.module.css';
+import Link from 'next/link';
 
 const About: React.FC = () => {
   return (
@@ -122,12 +123,15 @@ const About: React.FC = () => {
                 <div className={styles.sectionContent}>
                   <p>
                     「ゲーム賛否」に関するご意見、ご要望、取材依頼などがございましたら、
-                    お気軽にお問い合わせください。
+                    <Link href="/contact" className={styles.inlineLink}>
+                      お問い合わせフォーム
+                    </Link>
+                    よりお気軽にご連絡ください。
                   </p>
                   <div className={styles.contactInfo}>
                     <p><strong>運営チーム:</strong> ゲーム賛否編集部（担当：Miyatake）</p>
                     <p><strong>設立:</strong> 2025年</p>
-                    <p><strong>更新頻度:</strong> 稼働日更新</p>
+                    <p><strong>更新頻度:</strong> 営業日更新</p>
                   </div>
                   <p className={styles.thankYou}>
                     皆様に愛される、価値あるゲームメディアを目指してまいります。<br />

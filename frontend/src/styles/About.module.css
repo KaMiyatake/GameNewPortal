@@ -512,3 +512,14 @@
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
+
+.inlineLink {
+  color: var(--secondary-color);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+  margin: 0 0.2em;
+}
+
+.inlineLink:hover {
+  color: var(--accent-color);
+}
