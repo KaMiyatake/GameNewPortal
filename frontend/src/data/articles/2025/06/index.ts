@@ -27,6 +27,7 @@ import { comp25061301 } from './25061301-mgs-delta-fox-hunt';
 import { comp25061302 } from './25061302-shadowverse-worlds-beyond';
 import { comp25061601 } from './25061601-ceo2025-leshar-champion';
 import { comp25061602 } from './25061602-star-rail-34-announcement';
+import { comp25061603 } from './25061603-holo-kinsaku-pekora-victory';
 
 
 export const articles202506 = [
@@ -59,4 +60,5 @@ export const articles202506 = [
   comp25061302,
   comp25061601,
   comp25061602,
+  comp25061603,
 ];
