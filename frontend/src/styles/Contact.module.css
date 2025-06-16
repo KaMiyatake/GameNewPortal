@@ -10,6 +10,7 @@
   padding: 2rem 0;
 }
 
+/* サイトについてページと同じ配色に統一 */
 .heroSection {
   text-align: center;
   margin-bottom: 3rem;
@@ -17,6 +18,7 @@
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   border-radius: 12px;
   color: white;
+  transition: all 0.3s ease;
 }
 
 .pageTitle {
@@ -37,6 +39,18 @@
   line-height: 1.6;
 }
 
+/* ダークモード時の調整 */
+[data-theme="dark"] .heroSection {
+  background: linear-gradient(135deg, #1e1e2c, var(--secondary-color));
+}
+
+[data-theme="dark"] .pageTitle {
+  background: linear-gradient(90deg, var(--accent-color), #f0f6fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .formSection {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -45,12 +59,12 @@
 }
 
 .formContainer {
-  background: var(--card-background); /* テーマ対応 */
+  background: var(--card-background);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: var(--card-shadow); /* テーマ対応 */
-  border: 1px solid var(--border-color); /* 追加 */
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 追加 */
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contactForm {
@@ -67,12 +81,12 @@
 .label {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-color); /* テーマ対応 */
+  color: var(--text-color);
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  transition: color 0.3s ease; /* 追加 */
+  transition: color 0.3s ease;
 }
 
 .required {
@@ -84,12 +98,12 @@
 .select,
 .textarea {
   padding: 0.8rem 1rem;
-  border: 2px solid var(--border-color); /* テーマ対応 */
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  background: var(--input-background); /* テーマ対応 */
-  color: var(--text-color); /* テーマ対応 */
+  background: var(--input-background);
+  color: var(--text-color);
 }
 
 .input:focus,
@@ -127,8 +141,9 @@
   font-size: 0.8rem;
 }
 
+/* HeroSectionと同じ配色コンセプトのボタン */
 .submitButton {
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -142,17 +157,33 @@
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.submitButton:hover:not(:disabled)::before {
+  left: 0;
 }
 
 .submitButton:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+  box-shadow: 0 8px 25px rgba(30, 30, 44, 0.3);
+}
+
+.submitButton span,
+.submitButton .spinner {
+  position: relative;
+  z-index: 1;
 }
 
 .submitButton:disabled {
   opacity: 0.7;
   cursor: not-allowed;
   transform: none;
+}
+
+.submitButton:disabled::before {
+  display: none;
 }
 
 .spinner {
@@ -176,22 +207,22 @@
 }
 
 .infoCard {
-  background: var(--card-background); /* テーマ対応 */
+  background: var(--card-background);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: var(--card-shadow); /* テーマ対応 */
-  border: 1px solid var(--border-color); /* 追加 */
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 追加 */
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .infoTitle {
   font-size: 1.2rem;
-  color: var(--text-color); /* テーマ対応 */
+  color: var(--text-color);
   margin-bottom: 1rem;
   font-weight: 600;
-  border-bottom: 2px solid var(--border-color); /* テーマ対応 */
+  border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.5rem;
-  transition: color 0.3s ease, border-color 0.3s ease; /* 追加 */
+  transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .infoContent {
@@ -205,20 +236,20 @@
 }
 
 .infoItem strong {
-  color: var(--text-color); /* テーマ対応 */
+  color: var(--text-color);
   display: block;
   margin-bottom: 0.3rem;
   font-size: 0.95rem;
-  transition: color 0.3s ease; /* 追加 */
+  transition: color 0.3s ease;
 }
 
 .infoItem p {
   margin: 0;
-  color: var(--text-color); /* テーマ対応 */
-  opacity: 0.8; /* 追加 */
+  color: var(--text-color);
+  opacity: 0.8;
   font-size: 0.9rem;
   line-height: 1.5;
-  transition: color 0.3s ease; /* 追加 */
+  transition: color 0.3s ease;
 }
 
 /* エラーアラートのスタイル */
@@ -250,12 +281,12 @@
   max-width: 600px;
   margin: 4rem auto;
   text-align: center;
-  background: var(--card-background); /* テーマ対応 */
+  background: var(--card-background);
   padding: 3rem 2rem;
   border-radius: 12px;
-  box-shadow: var(--card-shadow); /* テーマ対応 */
-  border: 1px solid var(--border-color); /* 追加 */
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 追加 */
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .successIcon {
@@ -265,23 +296,24 @@
 
 .successTitle {
   font-size: 2rem;
-  color: var(--text-color); /* テーマ対応 */
+  color: var(--text-color);
   margin-bottom: 1rem;
   font-weight: 600;
-  transition: color 0.3s ease; /* 追加 */
+  transition: color 0.3s ease;
 }
 
 .successMessage {
   font-size: 1.1rem;
-  color: var(--text-color); /* テーマ対応 */
-  opacity: 0.8; /* 追加 */
+  color: var(--text-color);
+  opacity: 0.8;
   line-height: 1.6;
   margin-bottom: 2rem;
-  transition: color 0.3s ease; /* 追加 */
+  transition: color 0.3s ease;
 }
 
+/* 送信完了画面のボタンも同様に */
 .homeButton {
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -290,11 +322,55 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.homeButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  transition: left 0.3s ease;
+  z-index: 0;
+}
+
+.homeButton:hover::before {
+  left: 0;
 }
 
 .homeButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+  box-shadow: 0 8px 25px rgba(30, 30, 44, 0.3);
+}
+
+.homeButton span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ダークテーマ時のボタン調整 */
+[data-theme="dark"] .submitButton {
+  background: linear-gradient(135deg, #1e1e2c, var(--secondary-color));
+}
+
+[data-theme="dark"] .submitButton:hover:not(:disabled) {
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+[data-theme="dark"] .homeButton {
+  background: linear-gradient(135deg, #1e1e2c, var(--secondary-color));
+}
+
+[data-theme="dark"] .homeButton::before {
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+}
+
+[data-theme="dark"] .homeButton:hover {
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
 }
 
 /* レスポンシブ対応 */
@@ -325,6 +401,16 @@
     padding: 1.5rem;
   }
 
+  .submitButton {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+  
+  .homeButton {
+    padding: 0.9rem 1.8rem;
+    font-size: 0.95rem;
+  }
+
   .successContainer {
     margin: 2rem auto;
     padding: 2rem 1.5rem;
@@ -352,6 +438,16 @@
     font-size: 1rem;
   }
 
+  .submitButton {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .homeButton {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
   .successContainer {
     padding: 1.5rem 1rem;
   }
@@ -363,4 +459,29 @@
   .successTitle {
     font-size: 1.4rem;
   }
+}
+
+/* アクセシビリティ：アニメーション無効化対応 */
+@media (prefers-reduced-motion: reduce) {
+  .homeButton::before {
+    transition: none;
+  }
+  
+  .submitButton:hover:not(:disabled),
+  .homeButton:hover {
+    transform: none;
+  }
+}
+
+/* フォーカス対応 */
+.submitButton:focus,
+.homeButton:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(30, 30, 44, 0.3);
 }

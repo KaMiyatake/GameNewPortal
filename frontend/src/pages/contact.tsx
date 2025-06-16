@@ -164,7 +164,7 @@ const Contact: React.FC = () => {
             <div className={styles.heroSection}>
               <h1 className={styles.pageTitle}>お問い合わせ</h1>
               <p className={styles.heroText}>
-                ご質問・ご意見・取材依頼など、お気軽にお問い合わせください
+                ご質問・ご意見・取材依頼等、お気軽にお問い合わせください
               </p>
             </div>
 
