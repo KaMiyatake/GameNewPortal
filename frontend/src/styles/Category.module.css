@@ -287,6 +287,35 @@
   .backToHome:hover {
     transform: translateY(-1px);
   }
+
+  .noArticles {
+    padding: 2rem 1rem;
+    margin: 1rem 0;
+  }
+  
+  .noArticlesIcon {
+    font-size: 3rem;
+  }
+  
+  .noArticlesTitle {
+    font-size: 1.3rem;
+  }
+  
+  .noArticlesDescription {
+    font-size: 0.9rem;
+  }
+  
+  .noArticlesActions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .backHomeButton,
+  .backButton {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 576px) {
@@ -377,4 +406,91 @@
   to {
     opacity: 1;
   }
+}
+
+/* 記事がない場合のスタイル */
+.noArticles {
+  background-color: var(--card-background);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  border: 2px dashed var(--border-color);
+  margin: 2rem 0;
+  transition: background-color var(--theme-transition-duration) var(--theme-transition-easing),
+              border-color var(--theme-transition-duration) var(--theme-transition-easing);
+}
+
+.noArticlesIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.noArticlesTitle {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 600;
+  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
+}
+
+.noArticlesDescription {
+  color: var(--text-color);
+  opacity: 0.8;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
+}
+
+.noArticlesActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.backHomeButton,
+.backButton {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.backHomeButton:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.backButton {
+  background-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.backButton:hover {
+  background-color: var(--secondary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* カテゴリヘッダーの「記事なし」バッジ */
+.noArticlesBadge {
+  background-color: var(--border-color);
+  color: var(--text-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  opacity: 0.7;
+  transition: background-color var(--theme-transition-duration) var(--theme-transition-easing),
+              color var(--theme-transition-duration) var(--theme-transition-easing);
 }
