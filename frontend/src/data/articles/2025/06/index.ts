@@ -28,6 +28,8 @@ import { comp25061302 } from './25061302-shadowverse-worlds-beyond';
 import { comp25061601 } from './25061601-ceo2025-leshar-champion';
 import { comp25061602 } from './25061602-star-rail-34-announcement';
 import { comp25061603 } from './25061603-holo-kinsaku-pekora-victory';
+import { comp25061701 } from './25061701-raidou-remastered-play-feature';
+import { comp25061702 } from './25061702-idolmaster-step3-sumika';
 
 
 export const articles202506 = [
@@ -61,4 +63,6 @@ export const articles202506 = [
   comp25061601,
   comp25061602,
   comp25061603,
+  comp25061701,
+  comp25061702,
 ];
