@@ -1,18 +1,42 @@
 .sidebar {
-  background-color: var(--sidebar-background); /* テーマ対応 */
+  background-color: var(--sidebar-background);
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: var(--card-shadow); /* テーマ対応 */
-  border: 1px solid var(--border-color); /* 追加 */
-  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; /* 追加 */
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .sidebarTitle {
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  color: var(--text-color); /* テーマ対応 */
+  color: var(--text-color);
   font-weight: 600;
-  transition: color 0.3s ease; /* 追加 */
+  transition: color 0.3s ease;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+/* タグリストと同じアンダーライン効果 */
+.sidebarTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+
+/* ホバー時にアンダーラインが伸びる効果 */
+.sidebar:hover .sidebarTitle {
+  color: var(--secondary-color);
+}
+
+.sidebar:hover .sidebarTitle::after {
+  width: 50px;
 }
 
 .categoryList {
@@ -23,30 +47,74 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .categoryItem {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
+/* カテゴリリンクに人気タグと同じ視覚効果を適用 */
 .categoryLink {
   display: flex;
   align-items: center;
-  padding: 0.5rem;
-  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  border-radius: 20px;
   text-decoration: none;
-  color: var(--text-color); /* テーマ対応 */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+/* 人気タグと同じ光る効果 */
+.categoryLink::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.categoryLink:hover::before {
+  left: 100%;
 }
 
 .categoryLink:hover {
-  background-color: var(--border-color); /* テーマ対応 */
-  color: var(--secondary-color);
+  background-color: var(--secondary-color);
+  color: white;
+  transform: translateY(-2px);
+  border-color: var(--secondary-color);
+  box-shadow: 0 4px 8px rgba(108, 92, 231, 0.3);
+}
+
+[data-theme="dark"] .categoryLink:hover {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
+  box-shadow: 0 6px 12px rgba(108, 92, 231, 0.4);
+}
+
+[data-theme="dark"] .categoryLink::before {
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.15), transparent);
 }
 
 .categoryIcon {
   margin-right: 0.5rem;
   font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.categoryLink:hover .categoryIcon {
+  transform: scale(1.1);
 }
 
 .tagSection {
@@ -54,23 +122,21 @@
 }
 
 .adBanner {
-  background-color: var(--border-color); /* テーマ対応 */
+  background-color: var(--border-color);
   border-radius: 8px;
   padding: 1rem;
   text-align: center;
-  border: 1px solid var(--border-color); /* 追加 */
-  transition: background-color 0.3s ease, border-color 0.3s ease; /* 追加 */
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .adContent {
-  color: var(--text-color); /* テーマ対応 */
-  opacity: 0.7; /* 追加 */
-  transition: color 0.3s ease; /* 追加 */
+  color: var(--text-color);
+  opacity: 0.7;
+  transition: color 0.3s ease;
 }
 
-/* Sidebar.module.css - 人気記事セクション追加 */
-
-/* 人気記事セクション */
+/* ===== 人気記事セクション（視覚効果強化） ===== */
 .popularNews {
   margin-bottom: 2rem;
 }
@@ -89,18 +155,47 @@
   gap: 0.8rem;
 }
 
+/* 人気記事アイテムに人気タグと同様の視覚効果 */
 .popularItem {
-  border-radius: 6px;
+  border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
   border: 1px solid var(--border-color);
   background-color: var(--card-background);
+  position: relative;
+}
+
+/* 人気タグと同じ光る効果を人気記事にも */
+.popularItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.05), transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.popularItem:hover::before {
+  left: 100%;
 }
 
 .popularItem:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--card-shadow);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(108, 92, 231, 0.2);
   border-color: var(--secondary-color);
+}
+
+[data-theme="dark"] .popularItem:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+}
+
+[data-theme="dark"] .popularItem::before {
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.08), transparent);
 }
 
 .popularLink {
@@ -111,8 +206,11 @@
   color: inherit;
   gap: 0.8rem;
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
 }
 
+/* ランキング番号に特別効果 */
 .popularRank {
   background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
   color: white;
@@ -126,6 +224,32 @@
   font-weight: 600;
   flex-shrink: 0;
   margin-top: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* ランキング番号にパルス効果 */
+.popularRank::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  opacity: 0.3;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.popularItem:hover .popularRank::before {
+  transform: scale(1.4);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.popularItem:hover .popularRank {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(108, 92, 231, 0.4);
 }
 
 .popularContent {
@@ -157,6 +281,7 @@
   align-items: center;
 }
 
+/* 人気記事のカテゴリにも視覚効果 */
 .popularCategory {
   background-color: var(--category-color, var(--secondary-color));
   color: white;
@@ -170,11 +295,30 @@
   align-items: center;
   gap: 0.2rem;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+/* カテゴリにも光る効果 */
+.popularCategory::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s ease;
+}
+
+.popularCategory:hover::before {
+  left: 100%;
 }
 
 .popularCategory:hover {
   opacity: 0.8;
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .multiCategoryIndicator {
@@ -203,11 +347,6 @@
 [data-theme="dark"] .popularItem {
   background-color: var(--card-background);
   border-color: var(--border-color);
-}
-
-[data-theme="dark"] .popularItem:hover {
-  border-color: var(--secondary-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] .popularRank {
@@ -253,6 +392,20 @@
   .popularDate {
     font-size: 0.65rem;
   }
+  
+  .categoryLink {
+    padding: 0.5rem 0.7rem;
+    border-radius: 16px;
+  }
+  
+  /* モバイル時の視覚効果調整 */
+  .popularItem:hover {
+    transform: translateY(-2px);
+  }
+  
+  .categoryLink:hover {
+    transform: translateY(-1px);
+  }
 }
 
 @media (max-width: 576px) {
@@ -288,5 +441,33 @@
   .newsCount {
     font-size: 0.75rem;
   }
+  
+  .categoryLink {
+    padding: 0.4rem 0.6rem;
+    border-radius: 14px;
+  }
 }
 
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .popularItem::before,
+  .categoryLink::before,
+  .popularCategory::before {
+    display: none;
+  }
+  
+  .popularItem:hover,
+  .categoryLink:hover,
+  .popularCategory:hover,
+  .popularRank:hover {
+    transform: none;
+  }
+}
+
+/* フォーカス対応 */
+.categoryLink:focus,
+.popularLink:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 8px;
+}

@@ -1,4 +1,4 @@
-/* ===== 基本セクション設定 ===== */
+/* ===== 基本セクション設定（視覚効果強化） ===== */
 .newsSection {
   padding: 1rem 0;
 }
@@ -9,6 +9,7 @@
   padding: 0;
 }
 
+/* 人気タグと同じ視覚効果を適用したセクションタイトル */
 .sectionTitle {
   font-size: 1.3rem;
   margin-bottom: 1rem;
@@ -16,18 +17,32 @@
   position: relative;
   padding-bottom: 0.5rem;
   transition: color var(--theme-transition-duration) var(--theme-transition-easing);
+  font-weight: 600;
 }
 
+/* 人気タグと同じグラデーションアンダーライン */
 .sectionTitle::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 40px;
-  height: 3px;
-  background-color: var(--accent-color);
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+  border-radius: 1px;
+  transition: width 0.3s ease;
 }
 
+/* セクション全体のホバー効果 */
+.newsSection:hover .sectionTitle {
+  color: var(--secondary-color);
+}
+
+.newsSection:hover .sectionTitle::after {
+  width: 50px;
+}
+
+/* 残りのCSSは元のまま... */
 /* ===== レイアウト設定 ===== */
 .newsGrid {
   display: grid;
@@ -145,26 +160,17 @@
   transition: color var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
-/* ===== タイトルスタイル（構造簡潔化） ===== */
+/* ===== タイトルスタイル（ちらつき対策済み） ===== */
 .newsTitle {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
   margin-top: 0;
   flex-shrink: 0;
   line-height: 1.3;
-  color: var(--title-color);
-  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
-  cursor: pointer;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-decoration: none;
-  will-change: color;
 }
 
 .newsTitle span {
-  color: var(--title-color);
+  color: var(--text-color);
   transition: color var(--theme-transition-duration) var(--theme-transition-easing);
   cursor: pointer;
   display: -webkit-box;
@@ -172,13 +178,15 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.3;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
   text-decoration: none;
-  will-change: color; /* GPU加速でちらつき防止 */
 }
 
 .newsTitle span:hover,
 .newsTitle span:focus {
-  color: var(--title-hover-color);
+  color: var(--secondary-color);
+  outline: none;
 }
 
 /* ===== サマリー・フッター ===== */
@@ -329,18 +337,10 @@
   margin-top: 0;
   flex: 1;
   overflow: hidden;
-  color: var(--title-color);
-  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
-  cursor: pointer;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  text-decoration: none;
-  will-change: color;
 }
 
 .newsTitleList span {
-  color: var(--title-color);
+  color: var(--text-color);
   transition: color var(--theme-transition-duration) var(--theme-transition-easing);
   cursor: pointer;
   display: -webkit-box;
@@ -348,25 +348,33 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.3;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
   text-decoration: none;
-  will-change: color; /* GPU加速でちらつき防止 */
 }
 
 .newsTitleList span:hover,
 .newsTitleList span:focus {
-  color: var(--title-hover-color);
+  color: var(--secondary-color);
+  outline: none;
 }
 
-/* ===== タイトルリンクのホバー効果 ===== */
+/* ===== タイトルリンク全体のスタイル ===== */
 .titleLink {
   text-decoration: none;
   color: inherit;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
   display: block;
 }
 
-.titleLink:hover .newsTitle,
-.titleLink:hover .newsTitleList {
-  color: var(--title-hover-color);
+.titleLink:focus {
+  outline: none;
+}
+
+.titleLink:hover .newsTitle span,
+.titleLink:hover .newsTitleList span {
+  color: var(--secondary-color);
 }
 
 /* ===== カテゴリタグスタイル ===== */
@@ -448,7 +456,7 @@
   transform: translateY(-1px);
 }
 
-/* ===== レスポンシブ対応 ===== */
+/* ===== レスポンシブ対応（セクションタイトル含む） ===== */
 @media (max-width: 992px) {
   .newsGrid {
     grid-template-columns: 1fr;
@@ -526,7 +534,6 @@
     font-size: 1rem;
     margin-bottom: 0.5rem;
     margin-top: 0;
-    -webkit-line-clamp: 3;
   }
 
   .newsTitle span {
@@ -536,7 +543,6 @@
   .newsTitleList {
     font-size: 1rem;
     margin-top: 0;
-    -webkit-line-clamp: 2;
   }
 
   .newsTitleList span {
@@ -601,7 +607,6 @@
     font-size: 0.95rem;
     margin-bottom: 0.4rem;
     margin-top: 0;
-    -webkit-line-clamp: 2;
   }
 
   .newsTitle span {
@@ -611,7 +616,6 @@
   .newsTitleList {
     font-size: 0.9rem;
     margin-top: 0;
-    -webkit-line-clamp: 2;
   }
 
   .newsTitleList span {
@@ -711,13 +715,26 @@
   .newsCardList {
     transition: background-color var(--theme-transition-duration) var(--theme-transition-easing);
   }
+  
+  .sectionTitle::after {
+    transition: none;
+    width: 30px;
+  }
+  
+  .newsSection:hover .sectionTitle::after {
+    width: 30px;
+  }
 }
 
 @media (prefers-contrast: high) {
   .newsTitle span:hover,
   .newsTitleList span:hover {
-    color: var(--title-hover-color);
+    color: var(--secondary-color);
     text-decoration: underline;
+  }
+  
+  .sectionTitle::after {
+    height: 3px;
   }
 }
 
