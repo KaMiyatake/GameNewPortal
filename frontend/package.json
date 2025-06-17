@@ -6,11 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-popular": "node scripts/updatePopularArticles.js"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
     "chart.js": "^4.4.9",
+    "dotenv": "^16.5.0",
     "next": "15.3.2",
     "nodemailer": "^7.0.3",
     "react": "^19.0.0",
