@@ -94,7 +94,7 @@ const Header: React.FC = () => {
               {/* カテゴリ検索ドロップダウン */}
               <li className={styles.navItem}>
                 <div className={`${styles.dropdown} dropdown`}> {/* クラス名追加 */}
-                  <span className={styles.navLink}>カテゴリ</span>
+                  <span className={styles.navLink}>カテゴリ検索</span>
                   <div className={`${styles.dropdownContent} dropdownContent`}> {/* クラス名追加 */}
                     {categories.map((category) => (
                       <Link key={category.id} href={`/category/${category.slug}`}>
@@ -105,16 +105,6 @@ const Header: React.FC = () => {
                     ))}
                   </div>
                 </div>
-              </li>
-              <li className={styles.navItem}>
-                <Link href="/about">
-                  <span className={styles.navLink}>サイトについて</span>
-                </Link>
-              </li>
-              <li className={styles.navItem}>
-                <Link href="/contact">
-                  <span className={styles.navLink}>お問い合わせ</span>
-                </Link>
               </li>
               <li className={styles.navItem}>
                 <ThemeToggle />
@@ -179,7 +169,7 @@ const Header: React.FC = () => {
               </Link>
             </li>
           ))}
-          <li className={styles.mobileNavItem}>
+          {/* <li className={styles.mobileNavItem}>
             <Link href="/about">
               <span 
                 className={styles.mobileNavLink}
@@ -200,7 +190,7 @@ const Header: React.FC = () => {
                 お問い合わせ
               </span>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </header>
