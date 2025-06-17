@@ -167,6 +167,21 @@
   margin-top: 0;
   flex-shrink: 0;
   line-height: 1.3;
+  color: var(--title-color);
+  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-decoration: none;
+  will-change: color;
+}
+
+/* spanセレクタを削除し、h3要素に直接スタイル適用 */
+.newsTitle:hover,
+.newsTitle:focus {
+  color: var(--title-hover-color);
 }
 
 .newsTitle span {
@@ -337,6 +352,20 @@
   margin-top: 0;
   flex: 1;
   overflow: hidden;
+  color: var(--title-color);
+  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-decoration: none;
+  will-change: color;
+}
+
+/* spanセレクタを削除し、h3要素に直接スタイル適用 */
+.newsTitleList:hover,
+.newsTitleList:focus {
+  color: var(--title-hover-color);
 }
 
 .newsTitleList span {
@@ -359,13 +388,17 @@
   outline: none;
 }
 
-/* ===== タイトルリンク全体のスタイル ===== */
+/* ===== タイトルリンクのホバー効果修正 ===== */
 .titleLink {
   text-decoration: none;
   color: inherit;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
   display: block;
+}
+
+/* spanセレクタではなく、h3要素に直接適用 */
+.titleLink:hover .newsTitle,
+.titleLink:hover .newsTitleList {
+  color: var(--title-hover-color);
 }
 
 .titleLink:focus {
@@ -534,6 +567,7 @@
     font-size: 1rem;
     margin-bottom: 0.5rem;
     margin-top: 0;
+    -webkit-line-clamp: 3;
   }
 
   .newsTitle span {
@@ -543,6 +577,7 @@
   .newsTitleList {
     font-size: 1rem;
     margin-top: 0;
+    -webkit-line-clamp: 2;
   }
 
   .newsTitleList span {
@@ -607,6 +642,7 @@
     font-size: 0.95rem;
     margin-bottom: 0.4rem;
     margin-top: 0;
+    -webkit-line-clamp: 2;
   }
 
   .newsTitle span {
@@ -616,6 +652,7 @@
   .newsTitleList {
     font-size: 0.9rem;
     margin-top: 0;
+    -webkit-line-clamp: 2;
   }
 
   .newsTitleList span {
