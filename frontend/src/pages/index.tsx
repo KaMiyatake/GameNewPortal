@@ -1,11 +1,10 @@
-// pages/index.tsx - 広告スペース追加版
+// pages/index.tsx - HeroSliderに人気記事を渡すように修正
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout/Layout';
 import HeroSlider from '../components/HeroSlider';
 import NewsSection from '../components/NewsSection/NewsSection';
 import Sidebar from '../components/Sidebar/Sidebar';
-// import SideAd from '../components/Advertisement/SideAd'; // 追加
 import SEOHead from '../components/SEO/SEOHead';
 import { 
   getLatestNewsPaginated, 
@@ -53,12 +52,8 @@ const Home: React.FC<HomeProps> = ({
         canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}${currentPage > 1 ? `?page=${currentPage}` : ''}`}
       />
       <Layout>
-        {/* サイド広告 */}
-        {/* <SideAd position="left" adSlot="home-left" />
-        <SideAd position="right" adSlot="home-right" /> */}
-        
-        {/* HeroSliderを全ページで表示 */}
-        <HeroSlider featuredNews={featuredNews} />
+        {/* HeroSliderに人気記事を渡す（見た目は従来のまま） */}
+        <HeroSlider featuredNews={popularNews} />
         
         <div className={styles.container}>
           <div className={styles.mainContent}>
@@ -87,7 +82,7 @@ const Home: React.FC<HomeProps> = ({
   );
 };
 
-// SSR: リクエスト時にクエリパラメータを処理
+// getServerSideProps は変更なし
 export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query }) => {
   try {
     const page = parseInt(query.page as string) || 1;
@@ -96,7 +91,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query 
     const [newsData, categoriesData, popularNewsData, featuredNewsData, popularTagsData] = await Promise.all([
       getLatestNewsPaginated(page, limit),
       getCategories(),
-      getPopularNews(),
+      getPopularNews(), // これが人気記事Top10を返す
       getFeaturedNews(),
       Promise.resolve(getPopularTags(15)),
     ]);
