@@ -1,3 +1,4 @@
+// src/components/NewsSection/NewsCard.tsx
 import React from 'react';
 import Link from 'next/link';
 import ArticleImage from '../Image/ArticleImage';
@@ -11,7 +12,7 @@ interface NewsCardProps {
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
-  // CategoryTagsコンポーネント（既存のまま）
+  // カテゴリーコンポーネント（モバイル対応版）
   const CategoryTags: React.FC<{ 
     categories: string[]; 
     size?: 'small' | 'normal';
@@ -103,6 +104,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
               <ArticleImage
                 src={news.imageUrl}
                 alt={news.title}
+                fill={true}
                 objectFit="cover"
                 objectPosition="center"
               />
@@ -117,9 +119,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
               />
               <time className={styles.newsDateList}>{news.date}</time>
             </div>
-            {/* 修正：入れ子構造を簡潔化 */}
             <Link href={`/news/${news.slug}`} className={styles.titleLink}>
-              <h3 className={styles.newsTitleList}>{news.title}</h3>
+              {/* タイトルを全文表示するように修正 */}
+              <h3 className={styles.newsTitleListFullText}>{news.title}</h3>
             </Link>
           </div>
         </div>
@@ -131,10 +133,11 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
   return (
     <article className={styles.newsCard}>
       <div className={styles.imageContainer}>
-        <Link href={`/news/${news.slug}`} className={styles.imageLink}>
+        <Link href={`/news/${news.slug}`}>
           <ArticleImage
             src={news.imageUrl}
             alt={news.title}
+            fill={true}
             objectFit="cover"
             objectPosition="center"
           />
@@ -150,10 +153,12 @@ const NewsCard: React.FC<NewsCardProps> = ({ news, layout = 'grid' }) => {
           <span className={styles.newsHeaderDate}>{news.date}</span>
         </div>
         
-        {/* 修正：入れ子構造を簡潔化 */}
-        <Link href={`/news/${news.slug}`} className={styles.titleLink}>
-          <h3 className={styles.newsTitle}>{news.title}</h3>
-        </Link>
+        {/* タイトルを全文表示するように修正 */}
+        <h3 className={styles.newsTitleFullText}>
+          <Link href={`/news/${news.slug}`}>
+            <span>{news.title}</span>
+          </Link>
+        </h3>
         
         <p className={styles.newsSummary}>{news.summary}</p>
         

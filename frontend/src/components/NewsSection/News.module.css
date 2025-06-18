@@ -780,3 +780,268 @@
 .loadMoreButton {
   display: none;
 }
+
+/* News.module.css に追加 */
+
+/* ===== タイトル全文表示用スタイル ===== */
+.newsTitleFullText {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  flex-shrink: 0;
+  line-height: 1.3;
+  color: var(--title-color);
+  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
+  cursor: pointer;
+  text-decoration: none;
+  will-change: color;
+  /* line-clampを削除してタイトル全文表示 */
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.newsTitleFullText:hover,
+.newsTitleFullText:focus {
+  color: var(--title-hover-color);
+}
+
+.newsTitleFullText span {
+  color: var(--text-color);
+  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
+  cursor: pointer;
+  line-height: 1.3;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  /* line-clampを削除してタイトル全文表示 */
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.newsTitleFullText span:hover,
+.newsTitleFullText span:focus {
+  color: var(--secondary-color);
+  outline: none;
+}
+
+/* ===== リスト用タイトル全文表示スタイル ===== */
+.newsTitleListFullText {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  margin-top: 0;
+  flex: 1;
+  color: var(--title-color);
+  transition: color var(--theme-transition-duration) var(--theme-transition-easing);
+  cursor: pointer;
+  text-decoration: none;
+  will-change: color;
+  /* line-clampを削除してタイトル全文表示 */
+  overflow: visible;
+  white-space: normal;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.newsTitleListFullText:hover,
+.newsTitleListFullText:focus {
+  color: var(--title-hover-color);
+}
+
+/* ===== カードの高さ調整（タイトル全文表示対応） ===== */
+.newsCard {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: 
+    background-color var(--theme-transition-duration) var(--theme-transition-easing),
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  /* 固定高さを削除してコンテンツに応じて伸縮 */
+  min-height: 280px;
+  height: auto;
+  border: 1px solid var(--border-color);
+}
+
+.newsCardList {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: 
+    background-color var(--theme-transition-duration) var(--theme-transition-easing),
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  /* 固定高さを削除してコンテンツに応じて伸縮 */
+  min-height: 80px;
+  height: auto;
+  border: 1px solid var(--border-color);
+}
+
+/* ===== タイトルリンクのホバー効果修正（全文表示版） ===== */
+.titleLink:hover .newsTitleFullText,
+.titleLink:hover .newsTitleListFullText {
+  color: var(--title-hover-color);
+}
+
+.titleLink:hover .newsTitleFullText span {
+  color: var(--secondary-color);
+}
+
+/* ===== レスポンシブ対応（全文表示版） ===== */
+@media (max-width: 992px) {
+  .newsCard {
+    min-height: 280px;
+    height: auto;
+  }
+
+  .newsTitleFullText {
+    font-size: 0.95rem; /* 少し小さく */
+  }
+
+  .newsTitleListFullText {
+    font-size: 0.95rem; /* 少し小さく */
+  }
+}
+
+@media (max-width: 768px) {
+  .newsCard {
+    min-height: 280px;
+    height: auto;
+  }
+
+  .newsTitleFullText {
+    font-size: 0.9rem; /* タブレット用 */
+    margin-bottom: 0.5rem;
+    line-height: 1.25; /* 行間を少し詰める */
+  }
+
+  .newsTitleListFullText {
+    font-size: 0.9rem; /* タブレット用 */
+    line-height: 1.25; /* 行間を少し詰める */
+  }
+}
+
+@media (max-width: 576px) {
+  .newsCard {
+    min-height: 260px;
+    height: auto;
+  }
+
+  .newsTitleFullText {
+    font-size: 0.85rem; /* モバイル用により小さく */
+    margin-bottom: 0.4rem;
+    line-height: 1.2; /* 行間をさらに詰める */
+    letter-spacing: -0.01em; /* 文字間隔を少し詰める */
+  }
+
+  .newsTitleListFullText {
+    font-size: 0.85rem; /* モバイル用により小さく */
+    line-height: 1.2; /* 行間をさらに詰める */
+    letter-spacing: -0.01em; /* 文字間隔を少し詰める */
+  }
+}
+
+@media (max-width: 480px) {
+  .newsCard {
+    min-height: 240px;
+    height: auto;
+  }
+
+  .newsTitleFullText {
+    font-size: 0.8rem; /* 小画面モバイル用さらに小さく */
+    margin-bottom: 0.3rem;
+    line-height: 1.15; /* 行間をより詰める */
+    letter-spacing: -0.02em; /* 文字間隔をより詰める */
+  }
+
+  .newsTitleListFullText {
+    font-size: 0.8rem; /* 小画面モバイル用さらに小さく */
+    line-height: 1.15; /* 行間をより詰める */
+    letter-spacing: -0.02em; /* 文字間隔をより詰める */
+  }
+}
+
+/* 超小画面（iPhone SE等）用の追加設定 */
+@media (max-width: 375px) {
+  .newsTitleFullText {
+    font-size: 0.75rem; /* 超小画面用最小サイズ */
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  .newsTitleListFullText {
+    font-size: 0.75rem; /* 超小画面用最小サイズ */
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* 極小画面（横向きスマホ等）用の追加設定 */
+@media (max-width: 320px) {
+  .newsTitleFullText {
+    font-size: 0.7rem; /* 極小画面用最小サイズ */
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+
+  .newsTitleListFullText {
+    font-size: 0.7rem; /* 極小画面用最小サイズ */
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+}
+
+/* News.module.css に追加 - モバイル用読みやすさの向上 */
+
+/* ===== モバイル用フォント最適化 ===== */
+@media (max-width: 768px) {
+  .newsTitleFullText,
+  .newsTitleListFullText {
+    /* 日本語フォントの最適化 */
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    font-weight: 600; /* 少し太めにして視認性向上 */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ===== モバイル用コンテナの調整 ===== */
+@media (max-width: 576px) {
+  .contentContainer {
+    padding: 0.6rem; /* パディングを少し増やして余白確保 */
+  }
+
+  .contentContainerList {
+    padding: 0.6rem; /* パディングを少し増やして余白確保 */
+  }
+
+  /* タイトル周りのマージン調整 */
+  .newsTitleFullText {
+    margin-bottom: 0.5rem; /* 下マージンを少し増やす */
+  }
+
+  .newsTitleListFullText {
+    margin-bottom: 0.3rem; /* 下マージンを適度に設定 */
+  }
+}
+
+@media (max-width: 480px) {
+  .contentContainer {
+    padding: 0.5rem; /* より小さい画面ではパディング調整 */
+  }
+
+  .contentContainerList {
+    padding: 0.5rem; /* より小さい画面ではパディング調整 */
+  }
+}
+
