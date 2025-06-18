@@ -30,6 +30,8 @@ import { comp25061602 } from './25061602-star-rail-34-announcement';
 import { comp25061603 } from './25061603-holo-kinsaku-pekora-victory';
 import { comp25061701 } from './25061701-raidou-remastered-play-feature';
 import { comp25061702 } from './25061702-idolmaster-step3-sumika';
+import { comp25061801 } from './25061801-shadowverse-worlds-beyond-release';
+import { comp25061802 } from './25061802-persona5-phantom-x-release';
 
 
 export const articles202506 = [
@@ -65,4 +67,6 @@ export const articles202506 = [
   comp25061603,
   comp25061701,
   comp25061702,
+  comp25061801,
+  comp25061802,
 ];
