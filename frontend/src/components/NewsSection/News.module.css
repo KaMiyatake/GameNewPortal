@@ -973,30 +973,30 @@
 /* 超小画面（iPhone SE等）用の追加設定 */
 @media (max-width: 375px) {
   .newsTitleFullText {
-    font-size: 0.75rem; /* 超小画面用最小サイズ */
-    line-height: 1.1;
-    letter-spacing: -0.03em;
+    font-size: 0.8rem; /* 小画面モバイル用さらに小さく */
+    line-height: 1.15; /* 行間をより詰める */
+    letter-spacing: -0.02em; /* 文字間隔をより詰める */
   }
 
   .newsTitleListFullText {
-    font-size: 0.75rem; /* 超小画面用最小サイズ */
-    line-height: 1.1;
-    letter-spacing: -0.03em;
+    font-size: 0.8rem; /* 小画面モバイル用さらに小さく */
+    line-height: 1.15; /* 行間をより詰める */
+    letter-spacing: -0.02em; /* 文字間隔をより詰める */
   }
 }
 
 /* 極小画面（横向きスマホ等）用の追加設定 */
 @media (max-width: 320px) {
   .newsTitleFullText {
-    font-size: 0.7rem; /* 極小画面用最小サイズ */
-    line-height: 1.05;
-    letter-spacing: -0.04em;
+    font-size: 0.8rem; /* 小画面モバイル用さらに小さく */
+    line-height: 1.15; /* 行間をより詰める */
+    letter-spacing: -0.02em; /* 文字間隔をより詰める */
   }
 
   .newsTitleListFullText {
-    font-size: 0.7rem; /* 極小画面用最小サイズ */
-    line-height: 1.05;
-    letter-spacing: -0.04em;
+    font-size: 0.8rem; /* 小画面モバイル用さらに小さく */
+    line-height: 1.15; /* 行間をより詰める */
+    letter-spacing: -0.02em; /* 文字間隔をより詰める */
   }
 }
 
