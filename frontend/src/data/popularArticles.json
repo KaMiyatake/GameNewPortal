@@ -1,6 +1,179 @@
 {
-  "lastUpdated": "2025-06-17T00:00:00.000Z",
-  "dataSource": "manual",
-  "timeframe": "7d",
-  "articles": []
+  "lastUpdated": "2025-06-18T00:23:46.057Z",
+  "dataSource": "calculated-score",
+  "timeframe": "dynamic",
+  "calculationMethod": "recency + category + tags + existing_flags",
+  "articles": [
+    {
+      "id": 25061601,
+      "slug": "25061601-ceo2025-leshar-champion",
+      "title": "CEO2025 SF6部門　優勝 Leshar選手――Season3初の大型大会でプレミア2連覇達成、テリーで圧巻のグランドファイナル制覇",
+      "popularityScore": 176,
+      "daysSincePublish": 2,
+      "categories": [
+        "eスポーツ",
+        "業界ニュース"
+      ],
+      "tags": [
+        "CEO2025",
+        "Leshar",
+        "ストリートファイター6"
+      ]
+    },
+    {
+      "id": 25061202,
+      "slug": "25061202-elden-ring-nightreign",
+      "title": "『エルデンリング ナイトレイン』Steamで高い人気を継続中！12万人超のプレイヤーが示すコンテンツの魅力",
+      "popularityScore": 165,
+      "daysSincePublish": 6,
+      "categories": [
+        "PC",
+        "PlayStation",
+        "Xbox",
+        "ゲーム賛否"
+      ],
+      "tags": [
+        "ELDEN RING",
+        "FromSoftware",
+        "アクション"
+      ]
+    },
+    {
+      "id": 25061701,
+      "slug": "25061701-raidou-remastered-play-feature",
+      "title": "『RAIDOU Remastered: 超力兵団奇譚』発売日迫る！Play|Play|Play|にて特集――アトラスの名作アクションRPGが現代によみがえる",
+      "popularityScore": 165,
+      "daysSincePublish": 1,
+      "categories": [
+        "PlayStation",
+        "Switch",
+        "PC"
+      ],
+      "tags": [
+        "RAIDOU",
+        "アトラス",
+        "リマスター"
+      ]
+    },
+    {
+      "id": 25061702,
+      "slug": "25061702-idolmaster-step3-sumika",
+      "title": "アイドルマスター『親愛度STEP3』紫雲清夏から6月19日実装開始！新楽曲『Love & Joy』とSSRサポートカードも同時公開",
+      "popularityScore": 151,
+      "daysSincePublish": 1,
+      "categories": [
+        "モバイル",
+        "PC",
+        "エンタメ"
+      ],
+      "tags": [
+        "学園アイドルマスター",
+        "紫雲清夏",
+        "親愛度STEP3"
+      ]
+    },
+    {
+      "id": 25060901,
+      "slug": "25060901-persona4-revival",
+      "title": "『ペルソナ4 リバイバル』ついに発表――17年の時を経て蘇る青春RPGの金字塔、賛否両論で検証する完全リメイクの意義",
+      "popularityScore": 149,
+      "daysSincePublish": 9,
+      "categories": [
+        "PlayStation",
+        "Xbox",
+        "PC",
+        "ゲーム賛否"
+      ],
+      "tags": [
+        "ペルソナ4",
+        "アトラス",
+        "リメイク"
+      ]
+    },
+    {
+      "id": 25060902,
+      "slug": "25060902-ninja-gaiden4",
+      "title": "『NINJA GAIDEN 4』発売日が10月21日に決定――13年ぶりのナンバリング新作、Team NINJA×プラチナゲームズの奇跡的コラボの光と影",
+      "popularityScore": 149,
+      "daysSincePublish": 9,
+      "categories": [
+        "PlayStation",
+        "Xbox",
+        "PC",
+        "ゲーム賛否"
+      ],
+      "tags": [
+        "NINJA GAIDEN",
+        "Team NINJA",
+        "プラチナゲームズ"
+      ]
+    },
+    {
+      "id": 25060903,
+      "slug": "25060903-zenless-zone-zero-ver2",
+      "title": "『ゼンレスゾーンゼロ』Ver.2.0「雲霞の行き着く処」大型アップデート紹介――シーズン2開幕で見えた進化と課題を賛否両論で分析",
+      "popularityScore": 149,
+      "daysSincePublish": 9,
+      "categories": [
+        "PC",
+        "モバイル",
+        "PlayStation",
+        "Xbox",
+        "ゲーム賛否"
+      ],
+      "tags": [
+        "ゼンレスゾーンゼロ",
+        "HoYoverse",
+        "アクションRPG"
+      ]
+    },
+    {
+      "id": 25061603,
+      "slug": "25061603-holo-kinsaku-pekora-victory",
+      "title": "ホロライブ金策マインクラフト優勝は兎田ぺこら――総資産2500万円超えで圧倒的勝利、各部門を制覇",
+      "popularityScore": 149,
+      "daysSincePublish": 2,
+      "categories": [
+        "エンタメ"
+      ],
+      "tags": [
+        "ホロライブ",
+        "兎田ぺこら",
+        "獅白ぼたん"
+      ]
+    },
+    {
+      "id": 25061602,
+      "slug": "25061602-star-rail-34-announcement",
+      "title": "『崩壊：スターレイル』Ver.3.4「破滅へ向かう太陽」予告番組 6/20公開予定――ファイノン情報解禁とサフェル実装へ期待高まる",
+      "popularityScore": 146,
+      "daysSincePublish": 2,
+      "categories": [
+        "モバイル",
+        "PC"
+      ],
+      "tags": [
+        "崩壊スターレイル",
+        "HoYoverse",
+        "Ver.3.4"
+      ]
+    },
+    {
+      "id": 25061301,
+      "slug": "25061301-mgs-delta-fox-hunt",
+      "title": "『メタルギア ソリッド デルタ: スネークイーター』、オンライン対戦モード「FOX HUNT」実装――KONAMI PRESS START 2025で発表された完全新作マルチプレイヤー体験",
+      "popularityScore": 142,
+      "daysSincePublish": 5,
+      "categories": [
+        "PlayStation",
+        "Xbox",
+        "PC"
+      ],
+      "tags": [
+        "メタルギア",
+        "KONAMI",
+        "オンライン対戦"
+      ]
+    }
+  ]
 }

@@ -1,40 +1,34 @@
+# .github/workflows/update-popular-articles.yml
 name: Update Popular Articles
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # 6時間ごと
-  workflow_dispatch: # 手動実行
+    - cron: '0 */6 * * *'  # 6時間ごと
+  workflow_dispatch:  # 手動実行
 
 jobs:
-  update-popular:
+  update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
+      - uses: actions/checkout@v3
+      
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
           
-      - name: Update popular articles
-        env:
-          VERCEL_ACCESS_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
-        run: |
-          cd frontend
-          npm run update-popular
-          
-      - name: Commit and push changes
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend
+        
+      - name: Update Popular Articles
+        run: npm run update-popular
+        working-directory: ./frontend
+        
+      - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add frontend/src/data/popularArticles.json
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "chore: update popular articles data [automated]"
-            git push
-          fi
+          git add src/data/popularArticles.json
+          git commit -m "🤖 人気記事データを自動更新" || exit 0
+          git push

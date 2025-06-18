@@ -12,6 +12,7 @@ import {
 import { categories } from '../data/categories/categories';
 import { NewsItem, NewsItemDetail, Category } from '../types';
 import { ArticleDetail } from '../data/utils/types';
+import { getDynamicPopularArticles } from '../data/utils/dynamic-popular';
 
 // 記事データをNewsItem形式に変換（複数カテゴリ対応）
 const convertToNewsItem = (article: ArticleDetail): NewsItem => ({
@@ -69,8 +70,13 @@ export const getFeaturedNews = async (): Promise<NewsItem[]> => {
 };
 
 // 人気記事取得（最大10件に制限）
+// export const getPopularNews = async (): Promise<NewsItem[]> => {
+//   const articles = getPopularArticles(10);
+//   return articles.map(convertToNewsItem);
+// };
+// 既存の getPopularNews 関数を以下に置き換え
 export const getPopularNews = async (): Promise<NewsItem[]> => {
-  const articles = getPopularArticles(10);
+  const articles = getDynamicPopularArticles(10);
   return articles.map(convertToNewsItem);
 };
 

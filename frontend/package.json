@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "npm run update-popular && next dev --turbopack",
+    "build": "npm run update-popular && next build",
     "start": "next start",
     "lint": "next lint",
     "update-popular": "node scripts/updatePopularArticles.js"
