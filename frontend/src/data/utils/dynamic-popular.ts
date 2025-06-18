@@ -4,6 +4,10 @@ import path from 'path';
 import { ArticleDetail } from './types';
 import { articlesBySlug, allArticles } from '../articles';
 
+interface ArticleSlug {
+  slug: string;
+}
+
 export const getDynamicPopularArticles = (limit: number = 10): ArticleDetail[] => {
   try {
     const popularArticlesPath = path.join(process.cwd(), 'src/data/popularArticles.json');
@@ -23,7 +27,7 @@ export const getDynamicPopularArticles = (limit: number = 10): ArticleDetail[] =
     // スラッグから記事を取得
     const popularArticles = popularData.articles
       .slice(0, limit)
-      .map((item: any) => articlesBySlug[item.slug])
+      .map((item: ArticleSlug) => articlesBySlug[item.slug])
       .filter(Boolean);
     
     return popularArticles;

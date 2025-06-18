@@ -3,7 +3,7 @@ import {
   getArticlesByCategory,
   getPaginatedArticlesByCategory,
   getFeaturedArticles,
-  getPopularArticles,
+  //getPopularArticles,
   getArticleBySlug,
   getRelatedArticles,
   getArticlesByTag,
