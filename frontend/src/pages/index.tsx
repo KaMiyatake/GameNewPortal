@@ -28,7 +28,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({
   initialNewsData,
-  featuredNews,
+  //featuredNews,
   popularNews,
   categories,
   currentPage,
