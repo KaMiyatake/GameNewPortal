@@ -1,8 +1,10 @@
-import React from 'react';
+// components/HeroSlider/HeroSlider.tsx（修正版）
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
-//import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
+import HeroAmazonSlide from '../Advertisement/HeroAmazonSlide';
+import { getRandomProducts } from '../../data/amazon-products';
 import styles from './HeroSlider.module.css';
 import { NewsItem } from '../../types';
 
@@ -14,7 +16,46 @@ interface HeroSliderProps {
   featuredNews: NewsItem[];
 }
 
+interface SlideItem {
+  type: 'news' | 'ad';
+  data: NewsItem | any;
+  id: string;
+}
+
 const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
+  const affiliateTag = process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || 'your-affiliate-tag';
+
+  // 記事2つ → 広告1つの比率で混合
+  const mixedSlides = useMemo((): SlideItem[] => {
+    const slides: SlideItem[] = [];
+    const amazonProducts = getRandomProducts(Math.ceil(featuredNews.length / 2));
+    let productIndex = 0;
+    let newsCount = 0;
+
+    for (let i = 0; i < featuredNews.length; i++) {
+      // 記事スライドを追加
+      slides.push({
+        type: 'news',
+        data: featuredNews[i],
+        id: `news-${featuredNews[i].id}`
+      });
+      newsCount++;
+
+      // 2つの記事の後に広告を挿入
+      if (newsCount === 2 && productIndex < amazonProducts.length) {
+        slides.push({
+          type: 'ad',
+          data: amazonProducts[productIndex],
+          id: `ad-${amazonProducts[productIndex].asin}`
+        });
+        productIndex++;
+        newsCount = 0; // カウンタをリセット
+      }
+    }
+
+    return slides;
+  }, [featuredNews]);
+
   return (
     <div className={styles.heroSlider}>
       <div className={styles.sliderContainer}>
@@ -53,22 +94,28 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
           }}
           className={styles.swiper}
         >
-          {featuredNews.map((news) => (
-            <SwiperSlide key={news.id}>
-              <div className={styles.newsItem}>
-                <Link href={`/news/${news.slug}`} passHref>
-                  <div className={styles.newsCard}>
-                    <div className={styles.imageContainer}>
-                      <img src={news.imageUrl} alt={news.title} />
-                      <div className={styles.imageOverlay}></div>
-                      <div className={styles.newsInfo}>
-                        {/* カテゴリ表示を削除し、タイトルのみ表示 */}
-                        <h3 className={styles.newsTitle}>{news.title}</h3>
+          {mixedSlides.map((slide) => (
+            <SwiperSlide key={slide.id}>
+              {slide.type === 'news' ? (
+                <div className={styles.newsItem}>
+                  <Link href={`/news/${slide.data.slug}`} passHref>
+                    <div className={styles.newsCard}>
+                      <div className={styles.imageContainer}>
+                        <img src={slide.data.imageUrl} alt={slide.data.title} />
+                        <div className={styles.imageOverlay}></div>
+                        <div className={styles.newsInfo}>
+                          <h3 className={styles.newsTitle}>{slide.data.title}</h3>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
+                  </Link>
+                </div>
+              ) : (
+                <HeroAmazonSlide 
+                  product={slide.data}
+                  affiliateTag={affiliateTag}
+                />
+              )}
             </SwiperSlide>
           ))}
         </Swiper>

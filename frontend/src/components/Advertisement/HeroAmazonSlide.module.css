@@ -1,0 +1,260 @@
+/* components/Advertisement/HeroAmazonSlide.module.css（オレンジ色完全削除版） */
+
+.heroAmazonSlide {
+  height: 100%;
+  position: relative;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background: var(--card-background);
+  border: 2px solid transparent; /* 常に透明ボーダー */
+}
+
+.heroAmazonSlide:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* オレンジを削除してグレーシャドウに */
+}
+
+.slideLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.slideContent {
+  display: flex;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.imageContainer {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  padding: 16px 8px 16px 16px;
+  box-sizing: border-box;
+}
+
+/* ダークモード時の背景 */
+[data-theme="dark"] .imageContainer {
+  background: linear-gradient(135deg, #21262d, #161b22);
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.productImage {
+  object-fit: contain;
+  object-position: center left;
+  transition: transform 0.3s ease;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.heroAmazonSlide:hover .productImage {
+  transform: scale(1.05);
+}
+
+.prBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  font-size: 0.65rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.4);
+  z-index: 3;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.heroAmazonSlide:hover .prBadge {
+  transform: scale(1.05);
+  box-shadow: 0 3px 6px rgba(255, 107, 107, 0.6);
+}
+
+.productInfo {
+  width: 50%;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  background: var(--card-background);
+  position: relative;
+  z-index: 2;
+}
+
+.productTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--text-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.heroAmazonSlide:hover .productTitle {
+  color: var(--secondary-color);
+}
+
+.buyButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff9900, #ffb84d);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 4px rgba(255, 153, 0, 0.4);
+  border: none;
+  text-decoration: none;
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.buyButton:hover {
+  background: linear-gradient(135deg, #e68a00, #ff9900);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(255, 153, 0, 0.6);
+}
+
+/* ダークモード対応 */
+[data-theme="dark"] .heroAmazonSlide {
+  background: var(--card-background);
+}
+
+[data-theme="dark"] .productInfo {
+  background: var(--card-background);
+}
+
+[data-theme="dark"] .productTitle {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .heroAmazonSlide:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* ダークモードでもグレーシャドウ */
+}
+
+[data-theme="dark"] .heroAmazonSlide:hover .productTitle {
+  color: var(--secondary-color);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .slideContent {
+    height: 180px;
+    border-radius: 8px;
+  }
+  
+  .imageContainer {
+    padding: 12px 6px 12px 12px;
+  }
+  
+  .prBadge {
+    top: 6px;
+    right: 6px;
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+  }
+  
+  .productInfo {
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .productTitle {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  .buyButton {
+    font-size: 0.65rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .slideContent {
+    height: 160px;
+    flex-direction: column;
+    border-radius: 6px;
+  }
+  
+  .imageContainer {
+    width: 100%;
+    height: 60%;
+    padding: 8px;
+  }
+  
+  .imageWrapper {
+    justify-content: center;
+  }
+  
+  .productInfo {
+    width: 100%;
+    height: 40%;
+    padding: 8px;
+    gap: 6px;
+  }
+  
+  .prBadge {
+    top: 4px;
+    right: 4px;
+    font-size: 0.55rem;
+    padding: 2px 5px;
+    border-radius: 8px;
+  }
+  
+  .productTitle {
+    font-size: 0.75rem;
+    -webkit-line-clamp: 2;
+    line-height: 1.2;
+  }
+  
+  .buyButton {
+    font-size: 0.6rem;
+    padding: 3px 8px;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .heroAmazonSlide:hover,
+  .heroAmazonSlide:hover .productImage,
+  .heroAmazonSlide:hover .prBadge,
+  .buyButton:hover {
+    transform: none;
+  }
+}
+
+/* フォーカス対応 */
+.slideLink:focus {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
