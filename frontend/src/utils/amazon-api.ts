@@ -11,12 +11,10 @@ export interface AmazonProductDetails {
 export const getProductDetails = async (asin: string): Promise<AmazonProductDetails | null> => {
   try {
     // 将来的にAPIを呼び出す
-    // const response = await fetch(`/api/amazon-product/${asin}`);
-    // const data = await response.json();
-    // return data;
-    
-    // 現在はnullを返す
-    return null;
+    const response = await fetch(`/api/amazon-product/${asin}`);
+    const data = await response.json();
+    return data;
+
   } catch (error) {
     console.error('Amazon API Error:', error);
     return null;
