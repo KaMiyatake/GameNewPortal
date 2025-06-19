@@ -1,0 +1,193 @@
+/* components/Advertisement/SmartAmazonAds.module.css */
+
+.amazonAds {
+  margin-bottom: 2rem;
+  background-color: var(--sidebar-background);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 人気記事と同じ光る効果 */
+.amazonAds::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.05), transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.amazonAds:hover::before {
+  left: 100%;
+}
+
+.amazonAds:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 8px 16px rgba(108, 92, 231, 0.2);
+}
+
+[data-theme="dark"] .amazonAds:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+}
+
+[data-theme="dark"] .amazonAds::before {
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.08), transparent);
+}
+
+.adTitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-weight: 600;
+  transition: color 0.3s ease;
+  position: relative;
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+/* サイドバータイトルと同じアンダーライン効果 */
+.adTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+
+.amazonAds:hover .adTitle {
+  color: var(--secondary-color);
+}
+
+.amazonAds:hover .adTitle::after {
+  width: 50px;
+}
+
+.adBadge {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  color: white;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* PRバッジにも光る効果 */
+.adBadge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.4s ease;
+}
+
+.adBadge:hover::before {
+  left: 100%;
+}
+
+.productGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+.disclaimer {
+  font-size: 0.75rem;
+  color: var(--text-color);
+  opacity: 0.6;
+  margin: 12px 0 0 0;
+  text-align: center;
+  font-style: italic;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+/* ダークモード対応 */
+[data-theme="dark"] .amazonAds {
+  background-color: var(--sidebar-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .adTitle {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .disclaimer {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .amazonAds {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .adTitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .productGrid {
+    gap: 0.6rem;
+  }
+  
+  .adBadge {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+}
+
+@media (max-width: 576px) {
+  .amazonAds {
+    padding: 0.8rem;
+  }
+  
+  .adTitle {
+    font-size: 1rem;
+  }
+  
+  .productGrid {
+    gap: 0.5rem;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .amazonAds::before,
+  .adBadge::before {
+    display: none;
+  }
+  
+  .amazonAds:hover {
+    transform: none;
+  }
+}

@@ -8,6 +8,14 @@ const nextConfig = {
     domains: [
       'placehold.co',
       'via.placeholder.com',
+      // Amazon関連ドメイン（包括的）
+      'm.media-amazon.com',
+      'images-amazon.com',
+      'images-na.ssl-images-amazon.com',
+      'images-eu.ssl-images-amazon.com',
+      'images-fe.ssl-images-amazon.com',
+      'ws-fe.amazon-adsystem.com',
+      'ir-na.amazon-adsystem.com',
     ],
     dangerouslyAllowSVG: true,  // SVG画像を許可
     contentDispositionType: 'attachment',  // セキュリティ対策

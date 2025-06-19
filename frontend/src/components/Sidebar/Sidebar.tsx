@@ -1,7 +1,9 @@
+// components/Sidebar/Sidebar.tsx（更新版）
 import React from 'react';
 import styles from './Sidebar.module.css';
 import PopularNews from './PopularNews';
 import TagList from '../Tag/TagList';
+import SmartAmazonAds from '../Advertisement/SmartAmazonAds';
 import { NewsItem, Category } from '../../types';
 import { getCategoryColor } from '../../utils/category-utils';
 import Link from 'next/link';
@@ -10,16 +12,30 @@ interface SidebarProps {
   popularNews: NewsItem[];
   categories: Category[];
   popularTags?: { tag: string; count: number }[];
+  currentCategory?: string; // 現在のカテゴリー
+  currentArticleTags?: string[]; // 現在の記事のタグ
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ 
   popularNews, 
   categories, 
-  popularTags = [] 
+  popularTags = [],
+  currentCategory,
+  currentArticleTags
 }) => {
+  const affiliateTag = process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || 'your-affiliate-tag';
+
   return (
     <aside className={styles.sidebar}>
-      {/* 人気記事（最大10件まで表示） */}
+      {/* Amazon広告（人気タグの前に配置） */}
+      <SmartAmazonAds
+        currentCategory={currentCategory}
+        currentArticleTags={currentArticleTags}
+        maxProducts={3}
+        affiliateTag={affiliateTag}
+      />
+
+      {/* 人気記事 */}
       <PopularNews popularNews={popularNews.slice(0, 10)} />
       
       {/* カテゴリー一覧 */}
@@ -44,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </ul>
       </div>
       
-      {/* タグ検索 - カテゴリの下に配置 */}
+      {/* タグ検索 */}
       <div className={styles.tagSection}>
         <TagList 
           tags={popularTags} 
@@ -52,18 +68,11 @@ const Sidebar: React.FC<SidebarProps> = ({
           maxTags={12}
         />
       </div>
-      
-      {/* 広告バナー */}
-      <div className={styles.adBanner}>
-        <div className={styles.adContent}>
-          <p>広告スペース</p>
-        </div>
-      </div>
     </aside>
   );
 };
 
-// カテゴリーアイコンを取得する関数
+// 既存のgetCategoryIcon関数は変更なし
 const getCategoryIcon = (slug: string): string => {
   const icons: { [key: string]: string } = {
     'playstation': '🎮',

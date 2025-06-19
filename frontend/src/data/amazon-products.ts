@@ -1,0 +1,54 @@
+// data/amazon-products.ts
+export interface GameProductLite {
+  asin: string;
+  title: string;
+  imageUrl: string;
+  categories?: string[]; // 表示制御用（オプション）
+  platforms?: string[]; // 表示制御用（オプション）
+}
+
+export const gameProducts: GameProductLite[] = [
+  {
+    asin: "B0CKYM15RJ",
+    title: "PlayStation 5 (CFI-2000A01)",
+    imageUrl: "https://m.media-amazon.com/images/I/51KBX8ycq1L._AC_SY500_.jpg",
+    categories: ["playstation", "hardware"],
+    platforms: ["PlayStation"]
+  },
+  {
+    asin: "B098B8PFXY",
+    title: "Nintendo Switch（有機ELモデル）",
+    imageUrl: "https://m.media-amazon.com/images/I/41AZYiorO6S._AC_SY500_.jpg",
+    categories: ["switch", "hardware"],
+    platforms: ["Nintendo Switch"]
+  },
+  {
+    asin: "B0BV94KXFR",
+    title: "ゼルダの伝説 ティアーズ オブ ザ キングダム",
+    imageUrl: "https://m.media-amazon.com/images/I/61uY-USWknL._AC_SY500_.jpg",
+    categories: ["switch", "action-adventure"],
+    platforms: ["Nintendo Switch"]
+  }
+];
+
+// カテゴリ別の商品取得ヘルパー関数
+export const getProductsByCategory = (category: string, limit: number = 3): GameProductLite[] => {
+  return gameProducts
+    .filter(product => product.categories?.includes(category))
+    .slice(0, limit);
+};
+
+// プラットフォーム別の商品取得ヘルパー関数
+export const getProductsByPlatform = (platform: string, limit: number = 3): GameProductLite[] => {
+  return gameProducts
+    .filter(product => product.platforms?.some(p => 
+      p.toLowerCase().includes(platform.toLowerCase())
+    ))
+    .slice(0, limit);
+};
+
+// ランダムな商品取得
+export const getRandomProducts = (limit: number = 3): GameProductLite[] => {
+  const shuffled = [...gameProducts].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, limit);
+};

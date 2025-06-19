@@ -1,0 +1,251 @@
+/* components/Advertisement/AmazonProduct.module.css */
+
+.amazonProduct {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  position: relative;
+}
+
+/* 人気記事と同じ光る効果 */
+.amazonProduct::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.05), transparent);
+  transition: left 0.6s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.amazonProduct:hover::before {
+  left: 100%;
+}
+
+.amazonProduct:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(108, 92, 231, 0.2);
+  border-color: var(--secondary-color);
+}
+
+[data-theme="dark"] .amazonProduct:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+}
+
+[data-theme="dark"] .amazonProduct::before {
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.08), transparent);
+}
+
+.productLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: flex-start;
+  padding: 0.8rem;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.productImage {
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.amazonProduct:hover .productImage {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
+}
+
+.image {
+  border-radius: 6px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.productInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.productTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 0.8rem 0;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.productLink:hover .productTitle {
+  color: var(--secondary-color);
+}
+
+.buyButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff9900, #ffb84d);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(255, 153, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Amazonボタンにも光る効果 */
+.buyButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.4s ease;
+}
+
+.buyButton:hover::before {
+  left: 100%;
+}
+
+.buyButton:hover {
+  background: linear-gradient(135deg, #e68a00, #ff9900);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 8px rgba(255, 153, 0, 0.4);
+}
+
+.buyButton:active {
+  transform: translateY(0) scale(1.02);
+}
+
+/* ダークモード対応 */
+[data-theme="dark"] .amazonProduct {
+  background-color: var(--card-background);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .productTitle {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .productImage {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .amazonProduct:hover .productImage {
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .productLink {
+    padding: 0.6rem;
+    gap: 0.6rem;
+  }
+  
+  .image {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .productTitle {
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  .buyButton {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+    border-radius: 16px;
+  }
+  
+  /* モバイル時の視覚効果調整 */
+  .amazonProduct:hover {
+    transform: translateY(-2px);
+  }
+  
+  .amazonProduct:hover .productImage {
+    transform: scale(1.03);
+  }
+  
+  .buyButton:hover {
+    transform: translateY(-1px) scale(1.03);
+  }
+}
+
+@media (max-width: 576px) {
+  .productLink {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .image {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .productTitle {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 2;
+  }
+  
+  .buyButton {
+    font-size: 0.7rem;
+    padding: 5px 8px;
+    border-radius: 14px;
+  }
+}
+
+/* アクセシビリティ対応 */
+@media (prefers-reduced-motion: reduce) {
+  .amazonProduct::before,
+  .buyButton::before {
+    display: none;
+  }
+  
+  .amazonProduct:hover,
+  .amazonProduct:hover .productImage,
+  .buyButton:hover {
+    transform: none;
+  }
+}
+
+/* フォーカス対応 */
+.productLink:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.buyButton:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
