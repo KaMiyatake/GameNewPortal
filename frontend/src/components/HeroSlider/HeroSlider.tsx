@@ -1,10 +1,10 @@
-// components/HeroSlider/HeroSlider.tsx（修正版）
+// components/HeroSlider/HeroSlider.tsx（型定義修正版）
 import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import HeroAmazonSlide from '../Advertisement/HeroAmazonSlide';
-import { getRandomProducts } from '../../data/amazon-products';
+import { getRandomProducts, GameProductLite } from '../../data/amazon-products';
 import styles from './HeroSlider.module.css';
 import { NewsItem } from '../../types';
 
@@ -16,11 +16,20 @@ interface HeroSliderProps {
   featuredNews: NewsItem[];
 }
 
-interface SlideItem {
-  type: 'news' | 'ad';
-  data: NewsItem | any;
+interface NewsSlideItem {
+  type: 'news';
+  data: NewsItem;
   id: string;
 }
+
+interface AdSlideItem {
+  type: 'ad';
+  data: GameProductLite;
+  id: string;
+}
+
+// Union型でスライドアイテムを定義
+type SlideItem = NewsSlideItem | AdSlideItem;
 
 const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
   const affiliateTag = process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || 'your-affiliate-tag';
