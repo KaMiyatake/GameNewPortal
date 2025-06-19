@@ -32,6 +32,8 @@ import { comp25061701 } from './25061701-raidou-remastered-play-feature';
 import { comp25061702 } from './25061702-idolmaster-step3-sumika';
 import { comp25061801 } from './25061801-shadowverse-worlds-beyond-release';
 import { comp25061802 } from './25061802-persona5-phantom-x-release';
+import { comp25061901 } from './25061901-donkey-kong-bananza-direct';
+import { comp25061902 } from './25061902-elden-ring-nightreign-eternal-king';
 
 
 export const articles202506 = [
@@ -69,4 +71,6 @@ export const articles202506 = [
   comp25061702,
   comp25061801,
   comp25061802,
+  comp25061901,
+  comp25061902,
 ];
