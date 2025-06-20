@@ -13,6 +13,8 @@ import { categories } from '../data/categories/categories';
 import { NewsItem, NewsItemDetail, Category } from '../types';
 import { ArticleDetail } from '../data/utils/types';
 import { getDynamicPopularArticles } from '../data/utils/dynamic-popular';
+// utils/api.ts の convertToNewsItemDetail 関数を更新
+import { getSmartRelatedArticles } from '../data/utils/data-helpers';
 
 // 記事データをNewsItem形式に変換（複数カテゴリ対応）
 const convertToNewsItem = (article: ArticleDetail): NewsItem => ({
@@ -31,7 +33,7 @@ const convertToNewsItemDetail = (article: ArticleDetail): NewsItemDetail => ({
   content: article.content || '',
   author: article.author,
   tags: article.tags,
-  relatedNews: getRelatedArticles(article.id).map(convertToNewsItem),
+  relatedNews: getSmartRelatedArticles(article.id, 4).map(convertToNewsItem), // 更新
 });
 
 // ページ付きでニュースを取得

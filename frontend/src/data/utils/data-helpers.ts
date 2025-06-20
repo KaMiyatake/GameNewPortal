@@ -1,6 +1,8 @@
 import { allArticles, articlesById, articlesBySlug } from '../articles';
 import { getCategoryName } from '../../utils/category-utils';
 import { ArticleDetail } from './types';
+// data/utils/data-helpers.ts に追加
+import { SmartRelatedArticlesManager } from '../../utils/smart-related-articles';
 
 // ページネーション用
 export const getPaginatedArticles = (page: number, limit: number) => {
@@ -67,14 +69,92 @@ export const getPopularArticles = (limit: number = 10) => {
     .slice(0, limit);
 };
 
+// スマート関連記事管理システムを初期化
+const smartRelatedManager = new SmartRelatedArticlesManager(allArticles);
+
 // 関連記事取得
+// export const getRelatedArticles = (articleId: number): ArticleDetail[] => {
+//   const article = articlesById[articleId];
+//   if (!article || !article.relatedArticleIds) return [];
+  
+//   return article.relatedArticleIds
+//     .map(id => articlesById[id])
+//     .filter(Boolean);
+// };
+
+// 既存の関連記事取得関数を更新（自動生成優先）
 export const getRelatedArticles = (articleId: number): ArticleDetail[] => {
+  const article = articlesById[articleId];
+  if (!article) return [];
+  
+  // 自動生成優先でスマート関連記事システムを使用
+  return smartRelatedManager.getSmartRelatedArticles(article, 4);
+};
+
+// 新しい関数：詳細制御版
+export const getRelatedArticlesAdvanced = (
+  articleId: number,
+  options: {
+    limit?: number;
+    autoFirst?: boolean;
+    autoCount?: number;
+    manualCount?: number;
+  } = {}
+): ArticleDetail[] => {
+  const article = articlesById[articleId];
+  if (!article) return [];
+  
+  return smartRelatedManager.getSmartRelatedArticlesAdvanced(article, options);
+};
+
+// 新しい関数：自動生成のみ
+export const getAutoRelatedArticles = (
+  articleId: number,
+  limit: number = 4
+): ArticleDetail[] => {
+  const article = articlesById[articleId];
+  if (!article) return [];
+  
+  return smartRelatedManager.getSmartRelatedArticlesAdvanced(article, {
+    limit,
+    autoFirst: true,
+    autoCount: limit,
+    manualCount: 0
+  });
+};
+
+// 新しい関数：手動設定のみ
+export const getManualRelatedArticles = (articleId: number): ArticleDetail[] => {
   const article = articlesById[articleId];
   if (!article || !article.relatedArticleIds) return [];
   
   return article.relatedArticleIds
     .map(id => articlesById[id])
     .filter(Boolean);
+};
+
+// 新しい関数：関連記事を指定件数で取得
+export const getSmartRelatedArticles = (
+  articleId: number, 
+  limit: number = 4
+): ArticleDetail[] => {
+  const article = articlesById[articleId];
+  if (!article) return [];
+  
+  return smartRelatedManager.getSmartRelatedArticles(article, limit);
+};
+
+// デバッグ用：関連記事のスコア情報付きで取得
+export const getRelatedArticlesWithScores = (articleId: number) => {
+  const article = articlesById[articleId];
+  if (!article) return [];
+  
+  // 開発環境でのみ使用
+  if (process.env.NODE_ENV === 'development') {
+    return smartRelatedManager.getSmartRelatedArticles(article, 10);
+  }
+  
+  return smartRelatedManager.getSmartRelatedArticles(article, 4);
 };
 
 // スラッグから記事取得
