@@ -5,7 +5,7 @@ import {
   getFeaturedArticles,
   //getPopularArticles,
   getArticleBySlug,
-  getRelatedArticles,
+  //getRelatedArticles,
   getArticlesByTag,
   getPaginatedArticlesByTag
 } from '../data/utils/data-helpers';

@@ -1,6 +1,6 @@
 // utils/smart-related-articles.ts
 import { ArticleDetail } from '../data/utils/types';
-import { allArticles } from '../data/articles';
+//import { allArticles } from '../data/articles';
 
 export class SmartRelatedArticlesManager {
   private articles: ArticleDetail[];
