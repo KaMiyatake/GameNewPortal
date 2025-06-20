@@ -1,14 +1,12 @@
-// components/HeroSlider/HeroSlider.tsx（型定義修正版）
+// components/HeroSlider/HeroSlider.tsx の修正版（既存ファイルを使用）
 import React, { useMemo } from 'react';
-import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
-import HeroAmazonSlide from '../Advertisement/HeroAmazonSlide';
+import HeroTile from './HeroTile';
 import { getRandomProducts, GameProductLite } from '../../data/amazon-products';
 import styles from './HeroSlider.module.css';
 import { NewsItem } from '../../types';
 
-// Swiperのスタイルをインポート
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -28,7 +26,6 @@ interface AdSlideItem {
   id: string;
 }
 
-// Union型でスライドアイテムを定義
 type SlideItem = NewsSlideItem | AdSlideItem;
 
 const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
@@ -103,30 +100,22 @@ const HeroSlider: React.FC<HeroSliderProps> = ({ featuredNews }) => {
           }}
           className={styles.swiper}
         >
-          {mixedSlides.map((slide) => (
-            <SwiperSlide key={slide.id}>
-              {slide.type === 'news' ? (
-                <div className={styles.newsItem}>
-                  <Link href={`/news/${slide.data.slug}`} passHref>
-                    <div className={styles.newsCard}>
-                      <div className={styles.imageContainer}>
-                        <img src={slide.data.imageUrl} alt={slide.data.title} />
-                        <div className={styles.imageOverlay}></div>
-                        <div className={styles.newsInfo}>
-                          <h3 className={styles.newsTitle}>{slide.data.title}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              ) : (
-                <HeroAmazonSlide 
-                  product={slide.data}
-                  affiliateTag={affiliateTag}
-                />
-              )}
-            </SwiperSlide>
-          ))}
+        {mixedSlides.map((slide) => (
+          <SwiperSlide key={slide.id}>
+            {slide.type === 'ad' ? (
+              <HeroTile
+                type="ad"
+                data={slide.data}
+                affiliateTag={affiliateTag}
+              />
+            ) : (
+              <HeroTile
+                type="news"
+                data={slide.data}
+              />
+            )}
+          </SwiperSlide>
+        ))}
         </Swiper>
 
         {/* カスタムナビゲーションボタン */}
