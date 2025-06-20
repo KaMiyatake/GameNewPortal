@@ -1,4 +1,4 @@
-/* components/Advertisement/AmazonProduct.module.css */
+/* components/Advertisement/AmazonProduct.module.css の修正版 */
 
 .amazonProduct {
   border-radius: 12px;
@@ -54,13 +54,26 @@
   z-index: 2;
 }
 
+/* HeroAmazonSlideと同じスタイルを適用 */
 .productImage {
-  flex-shrink: 0;
   position: relative;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-sizing: border-box;
   transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* ダークモード時の背景 */
+[data-theme="dark"] .productImage {
+  background: linear-gradient(135deg, #21262d, #161b22);
 }
 
 .amazonProduct:hover .productImage {
@@ -68,10 +81,24 @@
   box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
 }
 
+[data-theme="dark"] .amazonProduct:hover .productImage {
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+/* HeroAmazonSlideと同じ画像スタイル */
 .image {
-  border-radius: 6px;
-  object-fit: cover;
-  transition: all 0.3s ease;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.3s ease;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+}
+
+.amazonProduct:hover .image {
+  transform: scale(1.05);
 }
 
 .productInfo {
@@ -155,14 +182,6 @@
   color: var(--text-color);
 }
 
-[data-theme="dark"] .productImage {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .amazonProduct:hover .productImage {
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-}
-
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .productLink {
@@ -170,9 +189,10 @@
     gap: 0.6rem;
   }
   
-  .image {
+  .productImage {
     width: 80px;
     height: 80px;
+    padding: 6px;
   }
   
   .productTitle {
@@ -207,9 +227,10 @@
     gap: 0.5rem;
   }
   
-  .image {
+  .productImage {
     width: 70px;
     height: 70px;
+    padding: 5px;
   }
   
   .productTitle {
@@ -233,6 +254,7 @@
   
   .amazonProduct:hover,
   .amazonProduct:hover .productImage,
+  .amazonProduct:hover .image,
   .buyButton:hover {
     transform: none;
   }
