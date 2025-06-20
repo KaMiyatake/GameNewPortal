@@ -16,10 +16,59 @@ export const gameProducts: GameProductLite[] = [
     platforms: ["PlayStation"]
   },
   {
+    asin: "B0DJBYD71H",
+    title: "【純正品】DualSense ワイヤレスコントローラー クロマ パール（CFI-ZCT1J12）",
+    imageUrl: "https://m.media-amazon.com/images/I/61MUWPS3g6L._AC_SX679_.jpg",
+    categories: ["playstation", "accessory"],
+    platforms: ["PlayStation"]
+  },
+  {
+    asin: "B0CJT1NHWD",
+    title: "【純正品】PlayStation Portal リモートプレーヤー(CFIJ-18000)",
+    imageUrl: "https://m.media-amazon.com/images/I/51h4Rb9tr8L._AC_SX679_.jpg",
+    categories: ["playstation", "hardware"],
+    platforms: ["PlayStation"]
+  },
+  {
+    asin: "B0DT3QWDMZ",
+    title: "【純正品】PlayStation Portal リモートプレーヤー ミッドナイト ブラック(CFIJ-18001)",
+    imageUrl: "https://m.media-amazon.com/images/I/61FQfrGWodL._AC_SX679_.jpg",
+    categories: ["playstation", "hardware"],
+    platforms: ["PlayStation"]
+  },
+  {
+    asin: "B0DWZVYNM3",
+    title: "【PS5】ELDEN RING NIGHTREIGN",
+    imageUrl: "https://m.media-amazon.com/images/I/819xL53nK6L._AC_SX679_.jpg",
+    categories: ["playstation", "hardware"],
+    platforms: ["PlayStation"]
+  },
+  {
     asin: "B098B8PFXY",
     title: "Nintendo Switch（有機ELモデル）",
     imageUrl: "https://m.media-amazon.com/images/I/41AZYiorO6S._AC_SY500_.jpg",
     categories: ["switch", "hardware"],
+    platforms: ["Nintendo Switch"]
+  },
+  {
+    asin: "B01NCX3W3O",
+    title: "Nintendo Switch Pro コントローラー",
+    imageUrl: "https://m.media-amazon.com/images/I/61drpi3cYUL._AC_SY500_.jpg",
+    categories: ["switch", "accessory"],
+    platforms: ["Nintendo Switch"]
+  },
+  {
+    asin: "B07VCHKRVC",
+    title: "【任天堂純正品】Joy-Con(L) ブルー/(R) ネオンイエロー",
+    imageUrl: "https://m.media-amazon.com/images/I/51sRtKpMGIL._AC_SX679_.jpg",
+    categories: ["switch", "accessory"],
+    platforms: ["Nintendo Switch"]
+  },
+  {
+    asin: "B07D131MS4",
+    title: "Minecraft (マインクラフト) - Switch",
+    imageUrl: "https://m.media-amazon.com/images/I/81c+Z4iQAAL._AC_SY879_.jpg",
+    categories: ["switch", "action-adventure"],
     platforms: ["Nintendo Switch"]
   },
   {
