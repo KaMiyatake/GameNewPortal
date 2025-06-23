@@ -36,6 +36,8 @@ import { comp25061901 } from './25061901-donkey-kong-bananza-direct';
 import { comp25061902 } from './25061902-elden-ring-nightreign-eternal-king';
 import { comp25062001 } from './25062001-srw-y-25pv';
 import { comp25062002 } from './25062002-hololive-treasure-mountain';
+import { comp25062301 } from './25062301-ff14-patch73-info';
+import { comp25062302 } from './25062302-death-stranding2-trailer';
 
 
 export const articles202506 = [
@@ -77,4 +79,6 @@ export const articles202506 = [
   comp25061902,
   comp25062001,
   comp25062002,
+  comp25062301,
+  comp25062302,
 ];
