@@ -1,10 +1,14 @@
 # .github/workflows/update-popular-articles.yml
 name: Update Popular Articles
 
-on:
-  schedule:
-    - cron: '0 */6 * * *'  # 6時間ごと
-  workflow_dispatch:  # 手動実行
+# ワークフローを一時停止（コメントアウトまたは削除）
+#on:
+#  schedule:
+#    - cron: '0 */6 * * *'  # 6時間ごと
+#  workflow_dispatch:  # 手動実行
+
+# 完全に無効化する場合
+on: []
 
 jobs:
   update:
