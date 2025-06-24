@@ -38,6 +38,8 @@ import { comp25062001 } from './25062001-srw-y-25pv';
 import { comp25062002 } from './25062002-hololive-treasure-mountain';
 import { comp25062301 } from './25062301-ff14-patch73-info';
 import { comp25062302 } from './25062302-death-stranding2-trailer';
+import { comp25062401 } from './25062401-mingol-world-release';
+import { comp25062402 } from './25062402-nte-containment-test';
 
 
 export const articles202506 = [
@@ -81,4 +83,6 @@ export const articles202506 = [
   comp25062002,
   comp25062301,
   comp25062302,
+  comp25062401,
+  comp25062402,
 ];
