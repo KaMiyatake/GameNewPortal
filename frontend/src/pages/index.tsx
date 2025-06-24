@@ -35,6 +35,7 @@ const Home: React.FC<HomeProps> = ({
   popularTags
 }) => {
   const router = useRouter();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com';
 
   const handlePageChange = (page: number) => {
     router.push({
@@ -49,7 +50,10 @@ const Home: React.FC<HomeProps> = ({
         title={`ゲーム賛否 - 賛否両論で読む最新ゲームニュース＆レビュー${currentPage > 1 ? ` | ページ ${currentPage}` : ''}`}
         description='「ゲーム賛否」は最新ゲーム・エンタメ情報を"賛"と"否"の視点で深掘りするメディアです。速報ニュースから、データ分析コラムまで、買う前に知りたい核心をお届けします。'
         keywords={['ゲーム賛否', 'ゲームレビュー', '賛否両論', '最新ゲーム', 'PS5', 'Xbox', 'Nintendo Switch', 'PCゲーム', 'メタスコア', 'eスポーツ', 'ゲームニュース']}
-        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}${currentPage > 1 ? `?page=${currentPage}` : ''}`}
+        canonicalUrl={`${baseUrl}${currentPage > 1 ? `?page=${currentPage}` : ''}`}
+        ogImage="/ogp-default.png"
+        ogType="website"
+        twitterCard="summary_large_image"
       />
       <Layout>
         {/* HeroSliderに人気記事を渡す（見た目は従来のまま） */}

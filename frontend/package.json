@@ -7,7 +7,8 @@
     "build": "npm run update-popular && next build",
     "start": "next start",
     "lint": "next lint",
-    "update-popular": "node scripts/updatePopularArticles.js"
+    "update-popular": "node scripts/updatePopularArticles.js",
+    "x-helper": "node scripts/generate-x-posts.js"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",

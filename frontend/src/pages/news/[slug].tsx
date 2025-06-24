@@ -1,3 +1,4 @@
+// src/pages/news/[slug].tsx (OGP対応版)
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
@@ -9,6 +10,7 @@ import { getNewsDetail, getCategories, getPopularNews } from '../../utils/api';
 import { allArticles } from '../../data/articles';
 import { getPopularTags } from '../../data/utils/data-helpers';
 import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
+import { getOGPImagePathWithFallback } from '../../utils/image-paths'; // OGP画像用
 import { NewsItemDetail, Category, NewsItem } from '../../types';
 import styles from '../../styles/NewsDetail.module.css';
 
@@ -17,13 +19,15 @@ interface NewsDetailPageProps {
   categories: Category[];
   popularNews: NewsItem[];
   popularTags: { tag: string; count: number }[];
+  ogImagePath: string; // OGP専用画像パス
 }
 
 const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   newsDetail,
   categories,
   popularNews,
-  popularTags
+  popularTags,
+  ogImagePath // OGP専用
 }) => {
   // 主要カテゴリ（最初のカテゴリ）を取得
   const primaryCategory = newsDetail.categories && newsDetail.categories.length > 0 
@@ -36,11 +40,16 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
         title={`${newsDetail.title} | ゲーム賛否`}
         description={newsDetail.summary}
         keywords={[...newsDetail.tags, 'ゲーム賛否', 'ゲームレビュー', '賛否両論']}
-        ogImage={newsDetail.imageUrl}
+        ogImage={ogImagePath} // 記事のメイン画像を使用（Twitter OGP用）
+        articleSlug={newsDetail.slug} // 追加: OGP画像自動生成用
         ogType="article"
-        publishedTime={newsDetail.date}
-        author={newsDetail.author}
-        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/news/${newsDetail.slug}`}
+        twitterCard="summary_large_image" // 追加: Twitter Card設定
+        articlePublishedTime={new Date(newsDetail.date).toISOString()} // 修正: ISO形式
+        articleModifiedTime={new Date(newsDetail.date).toISOString()} // 追加: 更新日時
+        articleAuthor={newsDetail.author}
+        articleSection={primaryCategory || undefined} // 追加: 記事セクション
+        articleTags={newsDetail.tags} // 追加: 記事タグ
+        canonicalUrl={`${process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com'}/news/${newsDetail.slug}`}
       />
       <Layout>
         <div className={styles.container}>
@@ -87,6 +96,7 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
                 </div>
               </div>
 
+              {/* 既存の画像表示（変更なし） */}
               <div className={styles.featuredImage}>
                 <img src={newsDetail.imageUrl} alt={newsDetail.title} />
               </div>
@@ -135,6 +145,10 @@ export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ para
   try {
     const slug = params?.slug as string;
     
+    if (!slug) {
+      return { notFound: true };
+    }
+    
     const [newsDetail, categories, popularNews, popularTagsData] = await Promise.all([
       getNewsDetail(slug),
       getCategories(),
@@ -142,12 +156,16 @@ export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ para
       Promise.resolve(getPopularTags(15)),
     ]);
 
+    // OGP専用の画像パスを生成（記事表示には影響しない）
+    const ogImagePath = getOGPImagePathWithFallback(slug);
+
     return {
       props: {
         newsDetail,
         categories,
         popularNews,
         popularTags: popularTagsData,
+        ogImagePath, // OGP専用画像パス
       },
       revalidate: 3600,
     };

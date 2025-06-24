@@ -1,127 +1,121 @@
+// src/components/SEO/SEOHead.tsx (安全版)
 import Head from 'next/head';
+import { getOGPImagePath } from '../../utils/image-paths';
 
 interface SEOHeadProps {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   keywords?: string[];
-  ogImage?: string;
-  ogType?: 'website' | 'article';
-  publishedTime?: string;
-  modifiedTime?: string;
-  author?: string;
   canonicalUrl?: string;
+  ogImage?: string;
+  articleSlug?: string;
+  ogType?: 'website' | 'article';
+  twitterCard?: 'summary' | 'summary_large_image';
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  articleAuthor?: string;
+  articleSection?: string;
+  articleTags?: string[];
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = 'ゲーム賛否 - 賛否両論で読む最新ゲームニュース＆レビュー',
-  description = '「ゲーム賛否」は最新ゲーム・エンタメ情報を"賛"と"否"の視点で深掘りするメディアです。速報ニュースから、データ分析コラムまで、買う前に知りたい核心をお届けします。',
-  keywords = [
-    'ゲーム賛否',
-    'ゲームレビュー',
-    '賛否両論',
-    '最新ゲーム',
-    'PS5',
-    'Xbox',
-    'Nintendo Switch',
-    'PCゲーム',
-    'メタスコア',
-    'eスポーツ',
-    'ゲームニュース'
-  ],
-  ogImage = '/images/common/og-image.jpg',
-  ogType = 'website',
-  publishedTime,
-  modifiedTime,
-  author,
+  title,
+  description,
+  keywords = [],
   canonicalUrl,
+  ogImage,
+  articleSlug,
+  ogType = 'website',
+  twitterCard = 'summary_large_image',
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthor,
+  articleSection,
+  articleTags = []
 }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com/';
-  //const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com';
-  const fullOgImage = ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com';
   const siteName = 'ゲーム賛否';
+  const defaultDescription = '「ゲーム賛否」は最新ゲーム・エンタメ情報を"賛"と"否"の視点で深掘りするメディアです。';
   
+  // OG画像のURL生成（Twitter専用、記事表示には影響しない）
+  const getOgImageUrl = () => {
+    // 1. 明示的にogImageが指定されている場合
+    if (ogImage) {
+      if (ogImage.startsWith('http')) {
+        return ogImage;
+      }
+      return `${baseUrl}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
+    }
+    
+    // 2. 記事のslugが指定されている場合（Twitter OGP専用）
+    if (articleSlug) {
+      try {
+        const articleImagePath = getOGPImagePath(articleSlug);
+        return `${baseUrl}${articleImagePath}`;
+      } catch (error) {
+        console.warn(`OGP画像取得失敗: ${articleSlug}`, error);
+        // フォールバック
+        return `${baseUrl}/ogp-default.png`;
+      }
+    }
+    
+    // 3. デフォルトOG画像
+    return `${baseUrl}/ogp-default.png`;
+  };
+
+  const ogImageUrl = getOgImageUrl();
+  const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+
   return (
     <Head>
-      {/* 基本メタタグ */}
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords.join(', ')} />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="robots" content="index, follow" />
-      
-      {/* 正規URL */}
+      <title>{fullTitle}</title>
+      <meta name="description" content={description || defaultDescription} />
+      {keywords.length > 0 && (
+        <meta name="keywords" content={keywords.join(', ')} />
+      )}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       
-      {/* Open Graph */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
+      {/* Open Graph タグ（Twitter専用、記事表示には影響しない） */}
       <meta property="og:type" content={ogType} />
-      <meta property="og:image" content={fullOgImage} />
+      <meta property="og:title" content={fullTitle} />
+      <meta property="og:description" content={description || defaultDescription} />
+      <meta property="og:image" content={ogImageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={`${title} - ${siteName}`} />
+      <meta property="og:url" content={canonicalUrl || baseUrl} />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content="ja_JP" />
       
-      {/* Twitter Card */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={fullOgImage} />
-      <meta name="twitter:site" content="@game_sanhhi" />
+      {/* Twitter Card タグ（Twitter専用） */}
+      <meta name="twitter:card" content={twitterCard} />
+      <meta name="twitter:site" content={process.env.NEXT_PUBLIC_TWITTER_HANDLE || "@gamesanpi"} />
+      <meta name="twitter:creator" content={process.env.NEXT_PUBLIC_TWITTER_HANDLE || "@gamesanpi"} />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={description || defaultDescription} />
+      <meta name="twitter:image" content={ogImageUrl} />
+      <meta name="twitter:image:alt" content={`${title} - ${siteName}`} />
       
       {/* 記事固有のメタタグ */}
-      {publishedTime && <meta property="article:published_time" content={publishedTime} />}
-      {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
-      {author && <meta property="article:author" content={author} />}
-      
-      {/* ファビコン（RealFaviconGenerator対応） */}
-      <link rel="icon" href="/favicon-v2.ico" sizes="32x32" />
-      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-      <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
-      <link rel="manifest" href="/site.webmanifest" />
-      
-      {/* PWA用メタタグ */}
-      <meta name="theme-color" content="#6c5ce7" />
-      <meta name="application-name" content="ゲーム賛否" />
-      <meta name="apple-mobile-web-app-title" content="ゲーム賛否" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-      <meta name="mobile-web-app-capable" content="yes" />
-      
-      {/* JSON-LD構造化データ */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": ogType === 'article' ? 'Article' : 'WebSite',
-            "name": title,
-            "description": description,
-            "url": canonicalUrl || baseUrl,
-            "image": fullOgImage,
-            "publisher": {
-              "@type": "Organization",
-              "name": siteName,
-              "logo": {
-                "@type": "ImageObject",
-                "url": `${baseUrl}/apple-touch-icon.png` // 高解像度アイコンを使用
-              }
-            },
-            ...(ogType === 'website' && {
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                  "@type": "EntryPoint",
-                  "urlTemplate": `${baseUrl}/search?q={search_term_string}`
-                },
-                "query-input": "required name=search_term_string"
-              }
-            }),
-            ...(publishedTime && { "datePublished": publishedTime }),
-            ...(modifiedTime && { "dateModified": modifiedTime }),
-            ...(author && { "author": { "@type": "Person", "name": author } }),
-          }),
-        }}
-      />
+      {ogType === 'article' && (
+        <>
+          {articlePublishedTime && (
+            <meta property="article:published_time" content={articlePublishedTime} />
+          )}
+          {articleModifiedTime && (
+            <meta property="article:modified_time" content={articleModifiedTime} />
+          )}
+          {articleAuthor && (
+            <meta property="article:author" content={articleAuthor} />
+          )}
+          {articleSection && (
+            <meta property="article:section" content={articleSection} />
+          )}
+          {articleTags.map((tag, index) => (
+            <meta key={index} property="article:tag" content={tag} />
+          ))}
+        </>
+      )}
     </Head>
   );
 };
