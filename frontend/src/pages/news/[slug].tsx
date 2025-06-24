@@ -10,7 +10,8 @@ import { getNewsDetail, getCategories, getPopularNews } from '../../utils/api';
 import { allArticles } from '../../data/articles';
 import { getPopularTags } from '../../data/utils/data-helpers';
 import { getCategoryUrl, getCategoryColor } from '../../utils/category-utils';
-import { getOGPImagePathWithFallback } from '../../utils/image-paths'; // OGP画像用
+// サーバーサイド専用関数をインポート
+import { getOGPImagePathWithFallback } from '../../utils/image-paths-server';
 import { NewsItemDetail, Category, NewsItem } from '../../types';
 import styles from '../../styles/NewsDetail.module.css';
 
