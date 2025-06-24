@@ -1,4 +1,4 @@
-// src/utils/image-paths.ts (OGP対応拡張版)
+// src/utils/image-paths.ts (Next.js対応版)
 // 画像パスの基本設定
 export const IMAGE_BASE_PATH = '/images';
 
@@ -44,7 +44,7 @@ export const getOGPImagePath = (
   fallbackImage: string = '/ogp-default.png'
 ): string => {
   try {
-    // 最初の候補ファイルを使用（サーバーサイドでの存在チェックは後述）
+    // 最初の候補ファイルを使用
     return getArticleImagePathFromSlug(slug, preferredFilenames[0]);
   } catch (error) {
     console.warn(`OGP画像パス生成失敗: ${slug}`, error);
@@ -52,19 +52,23 @@ export const getOGPImagePath = (
   }
 };
 
-// ★ 新機能: サーバーサイド用画像存在チェック
+// ★ 新機能: サーバーサイド用画像存在チェック（動的インポート版）
 export const checkImageExistsSync = (imagePath: string): boolean => {
+  // クライアントサイドでは常にfalseを返す
   if (typeof window !== 'undefined') {
-    // クライアントサイドでは使用不可
     return false;
   }
   
   try {
+    // サーバーサイドでのみfsモジュールを動的インポート
     const fs = require('fs');
     const path = require('path');
+    
     const fullPath = path.join(process.cwd(), 'public', imagePath);
     return fs.existsSync(fullPath);
-  } catch {
+  } catch (error) {
+    // requireが失敗した場合（ビルド時など）はfalseを返す
+    console.warn('fs module not available:', error);
     return false;
   }
 };
@@ -75,6 +79,12 @@ export const getOGPImagePathWithFallback = (
   preferredFilenames: string[] = ['main.jpg', 'main.png', 'hero.jpg', 'hero.png'],
   fallbackImage: string = '/ogp-default.png'
 ): string => {
+  // クライアントサイドでは基本のパスを返す
+  if (typeof window !== 'undefined') {
+    return getOGPImagePath(slug, preferredFilenames, fallbackImage);
+  }
+
+  // サーバーサイドでファイル存在チェックを実行
   for (const filename of preferredFilenames) {
     try {
       const imagePath = getArticleImagePathFromSlug(slug, filename);
@@ -142,7 +152,11 @@ export const debugImagePaths = (slug: string): void => {
     console.log(`  年月: ${year}/${month}`);
     console.log(`  メイン画像: ${getArticleImagePathFromSlug(slug)}`);
     console.log(`  OGP画像: ${getOGPImagePath(slug)}`);
-    console.log(`  フォールバック: ${getOGPImagePathWithFallback(slug)}`);
+    
+    // サーバーサイドでのみフォールバック情報を表示
+    if (typeof window === 'undefined') {
+      console.log(`  フォールバック: ${getOGPImagePathWithFallback(slug)}`);
+    }
   } catch (error) {
     console.error(`❌ 画像パス生成エラー: ${slug}`, error);
   }
