@@ -90,7 +90,7 @@ export const comp25062402: ArticleDetail = {
     <p>基本プレイ無料でありながら高品質なコンテンツを提供する本作は、PC版のクローズドβテストを皮切りに、将来的にはモバイル版も含めて多くのプレイヤーに愛される作品となることが期待されます。まだ応募していない鑑定士の皆様は、ぜひ公式サイトから事前登録を行い、ヘテロシティでの大冒険に備えましょう！</p>
   `,
   imageUrl: getArticleImagePath('2025', '06', '25062402-nte-containment-test', 'main.jpg'),
-  categories: ['PC', 'モバイル', '業界ニュース'],
+  categories: ['PC', 'モバイル'],
   tags: ['NTE', 'Neverness to Everness', 'Hotta Studio', 'オープンワールドRPG', '基本プレイ無料', 'βテスト'],
   publishedAt: '2025-06-24',
   slug: '25062402-nte-containment-test',
