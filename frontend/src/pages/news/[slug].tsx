@@ -1,4 +1,4 @@
-// src/pages/news/[slug].tsx (OGP確実版)
+// src/pages/news/[slug].tsx (最終確実版)
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
 import Layout from '../../components/Layout/Layout';
@@ -30,11 +30,26 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
     ? newsDetail.categories[0] 
     : null;
 
-  // 確実にOGP画像URLを生成
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://gamesanpi.com';
-  const ogImageUrl = newsDetail.imageUrl.startsWith('http') 
-    ? newsDetail.imageUrl 
-    : `${baseUrl}${newsDetail.imageUrl}`;
+  const articleUrl = `${baseUrl}/news/${newsDetail.slug}`;
+  
+  // OG画像URL生成（より確実な方法）
+  const getOgImageUrl = () => {
+    if (!newsDetail.imageUrl) {
+      return `${baseUrl}/ogp-default.png`;
+    }
+    
+    // 既に絶対URLの場合
+    if (newsDetail.imageUrl.startsWith('http')) {
+      return newsDetail.imageUrl;
+    }
+    
+    // 相対URLの場合
+    const cleanPath = newsDetail.imageUrl.startsWith('/') ? newsDetail.imageUrl : `/${newsDetail.imageUrl}`;
+    return `${baseUrl}${cleanPath}`;
+  };
+
+  const ogImageUrl = getOgImageUrl();
 
   return (
     <>
@@ -42,7 +57,7 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
         title={newsDetail.title}
         description={newsDetail.summary}
         keywords={[...newsDetail.tags, ...newsDetail.categories, 'ゲーム賛否', 'ゲームレビュー', '賛否両論']}
-        ogImage={ogImageUrl} // 確実な画像URL
+        ogImage={ogImageUrl}
         ogType="article"
         twitterCard="summary_large_image"
         articlePublishedTime={new Date(newsDetail.date).toISOString()}
@@ -50,12 +65,11 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
         articleAuthor={newsDetail.author}
         articleSection={primaryCategory || undefined}
         articleTags={newsDetail.tags}
-        canonicalUrl={`${baseUrl}/news/${newsDetail.slug}`}
+        canonicalUrl={articleUrl}
       />
       
       <Layout>
         <div className={styles.container}>
-          {/* Breadcrumbs */}
           <div className={styles.breadcrumbs}>
             <Link href="/">
               <span>ホーム</span>
@@ -154,13 +168,6 @@ export const getStaticProps: GetStaticProps<NewsDetailPageProps> = async ({ para
       getPopularNews(),
       Promise.resolve(getPopularTags(15)),
     ]);
-
-    // デバッグログ
-    console.log('📰 記事詳細取得:', {
-      slug,
-      title: newsDetail.title,
-      imageUrl: newsDetail.imageUrl
-    });
 
     return {
       props: {

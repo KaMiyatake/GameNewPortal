@@ -1,4 +1,4 @@
-// src/components/SEO/SEOHead.tsx (デバッグ強化版)
+// src/components/SEO/SEOHead.tsx (確実版)
 import Head from 'next/head';
 
 interface SEOHeadProps {
@@ -7,7 +7,6 @@ interface SEOHeadProps {
   keywords?: string[];
   canonicalUrl?: string;
   ogImage?: string;
-  articleSlug?: string;
   ogType?: 'website' | 'article';
   twitterCard?: 'summary' | 'summary_large_image';
   articlePublishedTime?: string;
@@ -23,7 +22,6 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   keywords = [],
   canonicalUrl,
   ogImage,
-  articleSlug,
   ogType = 'website',
   twitterCard = 'summary_large_image',
   articlePublishedTime,
@@ -36,56 +34,12 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   const siteName = 'ゲーム賛否';
   const defaultDescription = '「ゲーム賛否」は最新ゲーム・エンタメ情報を"賛"と"否"の視点で深掘りするメディアです。';
   
-  // OG画像のURL生成（簡略化して確実に動作させる）
-  const getOgImageUrl = () => {
-    // 1. 明示的にogImageが指定されている場合
-    if (ogImage) {
-      const imageUrl = ogImage.startsWith('http') 
-        ? ogImage 
-        : `${baseUrl}${ogImage.startsWith('/') ? '' : '/'}${ogImage}`;
-      
-      // デバッグログ
-      console.log('🖼️ OGP画像URL生成:', {
-        ogImage,
-        baseUrl,
-        resultUrl: imageUrl
-      });
-      
-      return imageUrl;
-    }
-    
-    // 2. デフォルトOG画像
-    const defaultUrl = `${baseUrl}/ogp-default.png`;
-    console.log('🖼️ デフォルトOGP画像使用:', defaultUrl);
-    return defaultUrl;
-  };
-
-  const ogImageUrl = getOgImageUrl();
+  // OG画像URL - デフォルトフォールバック付き
+  const ogImageUrl = ogImage || `${baseUrl}/ogp-default.png`;
   const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
-
-  // デバッグ情報をコンソールに出力
-  if (process.env.NODE_ENV === 'development') {
-    console.log('🔍 SEOHead デバッグ情報:', {
-      title: fullTitle,
-      ogImage: ogImageUrl,
-      ogType,
-      twitterCard,
-      canonicalUrl,
-      articleSlug
-    });
-  }
 
   return (
     <Head>
-      {/* デバッグ用コメント */}
-      {process.env.NODE_ENV === 'development' && (
-        <>
-          {/* デバッグ: OGP画像URL確認用 */}
-          <meta name="debug-og-image" content={ogImageUrl} />
-          <meta name="debug-article-slug" content={articleSlug || 'none'} />
-        </>
-      )}
-      
       <title>{fullTitle}</title>
       <meta name="description" content={description || defaultDescription} />
       
@@ -136,6 +90,10 @@ const SEOHead: React.FC<SEOHeadProps> = ({
           ))}
         </>
       )}
+      
+      {/* デバッグ用（本番では除去予定） */}
+      <meta name="debug-og-final" content={ogImageUrl} />
+      <meta name="debug-title" content={fullTitle} />
     </Head>
   );
 };
