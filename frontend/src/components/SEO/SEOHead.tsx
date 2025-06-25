@@ -1,4 +1,4 @@
-// src/components/SEO/SEOHead.tsx (確実版)
+// src/components/SEO/SEOHead.tsx (動作していた設定を復元)
 import Head from 'next/head';
 
 interface SEOHeadProps {
@@ -90,10 +90,63 @@ const SEOHead: React.FC<SEOHeadProps> = ({
           ))}
         </>
       )}
-      
-      {/* デバッグ用（本番では除去予定） */}
-      <meta name="debug-og-final" content={ogImageUrl} />
-      <meta name="debug-title" content={fullTitle} />
+
+      {/* RealFaviconGenerator - 動作していた設定を復元 */}
+      <link rel="icon" href="/favicon.ico" sizes="32x32" />
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png" />
+      <link rel="manifest" href="/site.webmanifest" />
+
+      {/* PWA - 動作していた設定を復元 */}
+      <meta name="theme-color" content="#6c5ce7" />
+      <meta name="application-name" content="ゲーム賛否" />
+      <meta name="apple-mobile-web-app-title" content="ゲーム賛否" />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      <meta name="mobile-web-app-capable" content="yes" />
+
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": ogType === 'article' ? 'Article' : 'WebSite',
+            "name": fullTitle,
+            "headline": title,
+            "description": description || defaultDescription,
+            "image": ogImageUrl,
+            "url": canonicalUrl || baseUrl,
+            ...(ogType === 'article' && {
+              "datePublished": articlePublishedTime,
+              "dateModified": articleModifiedTime || articlePublishedTime,
+              "author": {
+                "@type": "Organization",
+                "name": articleAuthor || siteName
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": siteName,
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": `${baseUrl}/apple-touch-icon.png`
+                }
+              }
+            }),
+            ...(ogType === 'website' && {
+              "publisher": {
+                "@type": "Organization",
+                "name": siteName,
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": `${baseUrl}/apple-touch-icon.png`
+                }
+              }
+            })
+          })
+        }}
+      />
     </Head>
   );
 };
