@@ -7,7 +7,7 @@ console.log(`
 🖼️ OGP画像作成ガイド
 
 既存ロゴ: public/GameSanpiLogo.png
-推奨OGP画像: public/ogp-default.png
+推奨OGP画像: public/og-image.png
 
 推奨サイズ: 1200×630px (16:9比率)
 最大ファイルサイズ: 2MB以内
@@ -19,7 +19,7 @@ console.log(`
 3. GameSanpiLogo.pngを中央に配置
 4. サイト名「ゲーム賛否」を追加
 5. キャッチコピー「賛否両論で読むゲームメディア」を追加
-6. public/ogp-default.png として保存
+6. public/og-image.png として保存
 
 各記事専用のOGP画像：
 - 記事タイトル入りの画像

@@ -36,7 +36,7 @@ const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   // OG画像URL生成（より確実な方法）
   const getOgImageUrl = () => {
     if (!newsDetail.imageUrl) {
-      return `${baseUrl}/ogp-default.png`;
+      return `${baseUrl}/og-image.png`;
     }
     
     // 既に絶対URLの場合

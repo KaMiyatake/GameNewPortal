@@ -35,7 +35,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
   const defaultDescription = '「ゲーム賛否」は最新ゲーム・エンタメ情報を"賛"と"否"の視点で深掘りするメディアです。';
   
   // OG画像URL - デフォルトフォールバック付き
-  const ogImageUrl = ogImage || `${baseUrl}/ogp-default.png`;
+  const ogImageUrl = ogImage || `${baseUrl}/og-image.png`;
   const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 
   return (

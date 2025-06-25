@@ -17,7 +17,7 @@ export const checkImageExistsSync = (imagePath: string): boolean => {
 export const getOGPImagePathWithFallback = (
   slug: string,
   preferredFilenames: string[] = ['main.jpg', 'main.png', 'hero.jpg', 'hero.png'],
-  fallbackImage: string = '/ogp-default.png'
+  fallbackImage: string = '/og-image.png'
 ): string => {
   for (const filename of preferredFilenames) {
     try {

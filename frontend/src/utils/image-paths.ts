@@ -44,7 +44,7 @@ export const getOGPImagePath = (
     return getArticleImagePathFromSlug(slug, filename);
   } catch (error) {
     console.warn(`OGP画像パス生成失敗: ${slug}`, error);
-    return '/ogp-default.png';
+    return '/og-image.png';
   }
 };
 

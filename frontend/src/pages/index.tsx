@@ -51,7 +51,7 @@ const Home: React.FC<HomeProps> = ({
         description='「ゲーム賛否」は最新ゲーム・エンタメ情報を"賛"と"否"の視点で深掘りするメディアです。速報ニュースから、データ分析コラムまで、買う前に知りたい核心をお届けします。'
         keywords={['ゲーム賛否', 'ゲームレビュー', '賛否両論', '最新ゲーム', 'PS5', 'Xbox', 'Nintendo Switch', 'PCゲーム', 'メタスコア', 'eスポーツ', 'ゲームニュース']}
         canonicalUrl={`${baseUrl}${currentPage > 1 ? `?page=${currentPage}` : ''}`}
-        ogImage="/ogp-default.png"
+        ogImage="/og-image.png"
         ogType="website"
         twitterCard="summary_large_image"
       />
