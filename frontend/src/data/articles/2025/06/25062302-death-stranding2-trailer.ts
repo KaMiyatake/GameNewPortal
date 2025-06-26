@@ -21,7 +21,7 @@ export const comp25062302: ArticleDetail = {
 
     <!-- YouTube動画埋め込み -->
     <div 
-      data-youtube-embed="9XBMb9lJdeo" 
+      data-youtube-embed="sMjzryV7SYg" 
       data-title="『DEATH STRANDING 2: ON THE BEACH』 - ゲームプレイトレーラー"
       class="youtube-embed"
     ></div>
