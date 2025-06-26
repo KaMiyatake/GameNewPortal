@@ -1,7 +1,8 @@
+/* src/components/Footer/Footer.module.css (Xリンクスタイル追加版) */
 .footer {
   background-color: #161b22;
   border-top: 1px solid #30363d;
-  padding: 2rem 0 1rem; /* 高さを狭く */
+  padding: 2rem 0 1rem;
   margin-top: 3rem;
   color: #e1e1e1;
 }
@@ -16,7 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem; /* 縮小 */
+  margin-bottom: 1.5rem;
   gap: 2rem;
 }
 
@@ -31,10 +32,50 @@
   background-clip: text;
 }
 
+/* ソーシャルメディアリンクのスタイル */
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #e1e1e1;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.socialLink:hover {
+  color: #1da1f2; /* Twitter/Xブルー */
+  border-color: #1da1f2;
+  background-color: rgba(29, 161, 242, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(29, 161, 242, 0.2);
+}
+
+.socialIcon {
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: "Twitter Color Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+
+.socialText {
+  font-weight: 500;
+}
+
 .siteInfo {
   display: flex;
   align-items: center;
-  gap: 2rem; /* 横並び */
+  gap: 2rem;
   flex-wrap: wrap;
 }
 
@@ -57,7 +98,7 @@
 
 .copyright {
   text-align: center;
-  padding-top: 1.5rem; /* 縮小 */
+  padding-top: 1.5rem;
   border-top: 1px solid #30363d;
   color: #8b949e;
 }
@@ -70,7 +111,7 @@
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
   .footer {
-    padding: 1.5rem 0 1rem; /* さらに縮小 */
+    padding: 1.5rem 0 1rem;
   }
   
   .footerContent {
@@ -81,13 +122,23 @@
     margin-bottom: 1rem;
   }
   
+  .socialLinks {
+    order: 1; /* ソーシャルリンクを2番目に表示 */
+  }
+  
   .siteInfo {
     gap: 1.5rem;
     justify-content: center;
+    order: 2; /* サイト情報を3番目に表示 */
   }
   
   .siteTitle {
     font-size: 1.2rem;
+  }
+  
+  .socialLink {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
   }
   
   .infoLink {
@@ -101,7 +152,7 @@
 
 @media (max-width: 576px) {
   .footer {
-    padding: 1rem 0 0.8rem; /* 最小サイズ */
+    padding: 1rem 0 0.8rem;
   }
   
   .footerContent {
@@ -111,8 +162,17 @@
   
   .siteInfo {
     gap: 1rem;
-    flex-direction: column; /* 縦並びに変更 */
+    flex-direction: column;
     align-items: center;
+  }
+  
+  .socialLink {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .socialIcon {
+    font-size: 1rem;
   }
   
   .siteTitle {
@@ -135,13 +195,15 @@
 
 /* アクセシビリティ向上 */
 @media (prefers-reduced-motion: reduce) {
-  .infoLink:hover {
+  .infoLink:hover,
+  .socialLink:hover {
     transform: none;
   }
 }
 
 /* フォーカス対応 */
-.infoLink:focus {
+.infoLink:focus,
+.socialLink:focus {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
   border-radius: 4px;
@@ -155,4 +217,12 @@
 
 .siteTitleLink:hover {
   opacity: 0.8;
+}
+
+.socialLink:hover {
+  color: var(--hover-color, #1da1f2); /* 動的カラー対応 */
+  border-color: var(--hover-color, #1da1f2);
+  background-color: color-mix(in srgb, var(--hover-color, #1da1f2) 10%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--hover-color, #1da1f2) 20%, transparent);
 }
