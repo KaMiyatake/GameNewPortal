@@ -44,6 +44,8 @@ import { comp25062501 } from './25062501-elden-ring-nightreign-eternal-king-seco
 import { comp25062502 } from './25062502-nintendo-switch2-lottery-5th';
 import { comp25062601 } from './25062601-diablo4-season9-horadrim';
 import { comp25062602 } from './25062602-umamusume-steam-shinscenario';
+import { comp25062701 } from './25062701-sf6-sagat-announce';
+import { comp25062702 } from './25062702-mhwilds-update2-lagiacrus';
 
 
 export const articles202506 = [
@@ -93,4 +95,6 @@ export const articles202506 = [
   comp25062502,
   comp25062601,
   comp25062602,
+  comp25062701,
+  comp25062702,
 ];
