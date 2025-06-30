@@ -46,6 +46,8 @@ import { comp25062601 } from './25062601-diablo4-season9-horadrim';
 import { comp25062602 } from './25062602-umamusume-steam-shinscenario';
 import { comp25062701 } from './25062701-sf6-sagat-announce';
 import { comp25062702 } from './25062702-mhwilds-update2-lagiacrus';
+import { comp25063001 } from './25063001-gakumas-misuzu-nia';
+import { comp25063002 } from './25063002-black-desert-ps5';
 
 
 export const articles202506 = [
@@ -97,4 +99,6 @@ export const articles202506 = [
   comp25062602,
   comp25062701,
   comp25062702,
+  comp25063001,
+  comp25063002,
 ];
