@@ -1,6 +1,6 @@
 // src/components/ProductCard/AmazonProductCard.tsx
 import React, { useState } from 'react';
-import Link from 'next/link';
+//import Link from 'next/link';
 import { GameProductLite } from '../../data/amazon-products';
 import styles from './AmazonProductCard.module.css';
 
@@ -18,7 +18,7 @@ interface AmazonProductCardProps {
 const AmazonProductCard: React.FC<AmazonProductCardProps> = ({
   product,
   layout = 'detailed',
-  showDescription = true,
+  //showDescription = true,
   customTitle,
   affiliate
 }) => {
