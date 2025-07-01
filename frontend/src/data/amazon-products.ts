@@ -23,6 +23,13 @@ export const gameProducts: GameProductLite[] = [
     platforms: ["PlayStation"]
   },
   {
+    asin: "B0F6D1S76Y",
+    title: "【PS5】Ghost of Yōtei( ゴースト・オブ・ヨウテイ )コレクターズエディション【早期購入特典】",
+    imageUrl: "https://m.media-amazon.com/images/I/91OsscY1bEL._AC_SX679_.jpg",
+    categories: ["playstation", "action-adventure"],
+    platforms: ["PlayStation"]
+  },
+  {
     asin: "B0CJT1NHWD",
     title: "【純正品】PlayStation Portal リモートプレーヤー(CFIJ-18000)",
     imageUrl: "https://m.media-amazon.com/images/I/51h4Rb9tr8L._AC_SX679_.jpg",
@@ -40,7 +47,7 @@ export const gameProducts: GameProductLite[] = [
     asin: "B0DWZVYNM3",
     title: "【PS5】ELDEN RING NIGHTREIGN",
     imageUrl: "https://m.media-amazon.com/images/I/819xL53nK6L._AC_SX679_.jpg",
-    categories: ["playstation", "hardware"],
+    categories: ["playstation", "action-adventure"],
     platforms: ["PlayStation"]
   },
   {
