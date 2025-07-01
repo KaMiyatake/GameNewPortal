@@ -9,6 +9,14 @@ export const comp25070101: ArticleDetail = {
   content: `
     <p>ソニー・インタラクティブエンタテインメントは、PS5向けオープンワールドアクションアドベンチャー『<strong>Ghost of Yōtei</strong>』（ゴースト・オブ・ヨウテイ）を<strong>2025年10月2日（木）</strong>に発売することを正式発表しました。豪華特典が満載の<strong>コレクターズエディション</strong>も同時発売され、現在予約受付中です。</p>
 
+    <!-- Amazon商品表示 -->
+    <div 
+      data-amazon-product="B0F6D1S76Y" 
+      data-layout="detailed"
+      data-custom-title="『Ghost of Yōtei』コレクターズエディション - 豪華特典付き限定版"
+      class="amazon-product-embed"
+    ></div>
+
     <h2>舞台は北海道の羊蹄山（ようていざん）</h2>
     <p>
     「Ghost of Yōtei（ゴースト・オブ・ヨウテイ）」の <strong>Yōtei（羊蹄）</strong> は、北海道・後志（しりべし）地方にそびえる活火山 <strong>羊蹄山（ようていざん）</strong> を指しています。標高1,898m、円錐形の美しいシルエットから“蝦夷富士（えぞふじ）”とも呼ばれ、ニセコや倶知安（くっちゃん）エリアのランドマークになっている山です。

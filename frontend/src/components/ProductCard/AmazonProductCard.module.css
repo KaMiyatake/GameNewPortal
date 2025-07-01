@@ -1,0 +1,287 @@
+/* src/components/ProductCard/AmazonProductCard.module.css */
+.productCard {
+  margin: 24px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.detailed {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.detailed:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.cardHeader {
+  background: linear-gradient(135deg, #ff9500, #ffad33);
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.prLabel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.productContent {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.productImage {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.productImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.loading {
+  opacity: 0.5;
+}
+
+.loaded {
+  opacity: 1;
+}
+
+.imagePlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  font-size: 2rem;
+}
+
+.productDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.productTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.platforms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.platformIcon {
+  font-size: 1rem;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.categoryTag {
+  background: var(--accent-color);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.description {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.amazonButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ff9500, #ffad33);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 149, 0, 0.3);
+}
+
+.amazonButton:hover {
+  background: linear-gradient(135deg, #e6820e, #ff9500);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 149, 0, 0.4);
+}
+
+.amazonIcon {
+  font-size: 1rem;
+}
+
+.disclaimer {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+/* コンパクトレイアウト */
+.compact {
+  display: flex;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  gap: 16px;
+}
+
+.compact .productImage {
+  width: 80px;
+  height: 80px;
+}
+
+.compact .productTitle {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.compact .amazonButton {
+  padding: 8px 16px;
+  font-size: 0.75rem;
+}
+
+/* インラインレイアウト */
+.inline {
+  display: inline-block;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px;
+  margin: 0 4px;
+  vertical-align: middle;
+}
+
+.inlineContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.productImageSmall {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.productImageSmall img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.inlineInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.productTitleSmall {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inlineButton {
+  font-size: 0.625rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.inlineButton:hover {
+  text-decoration: underline;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .productContent {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .productImage {
+    width: 100%;
+    height: 200px;
+    align-self: center;
+    max-width: 300px;
+  }
+  
+  .compact {
+    flex-direction: column;
+  }
+  
+  .compact .productImage {
+    width: 100%;
+    height: 120px;
+    max-width: 200px;
+    align-self: center;
+  }
+}
+
+/* より具体的なセレクター */
+.productCard .amazonButton,
+.productCard .amazonButton:link,
+.productCard .amazonButton:visited,
+.productCard .amazonButton:hover,
+.productCard .amazonButton:active,
+.productCard .amazonButton:focus {
+  color: white;
+  text-decoration: none;
+}
+
+.productCard .amazonButton:hover {
+  background: linear-gradient(135deg, #e6820e, #ff9500);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 149, 0, 0.4);
+}

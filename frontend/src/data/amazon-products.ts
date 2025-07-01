@@ -108,3 +108,45 @@ export const getRandomProducts = (limit: number = 3): GameProductLite[] => {
   const shuffled = [...gameProducts].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, limit);
 };
+
+// src/data/amazon-products.ts に追加
+// ASINから商品を取得する関数
+export const getProductByAsin = (asin: string): GameProductLite | null => {
+  return gameProducts.find(product => product.asin === asin) || null;
+};
+
+// 複数ASINから商品を取得する関数
+export const getProductsByAsins = (asins: string[]): GameProductLite[] => {
+  return asins
+    .map(asin => getProductByAsin(asin))
+    .filter((product): product is GameProductLite => product !== null);
+};
+
+// 記事関連商品を取得する関数（カテゴリ・プラットフォーム・手動指定の組み合わせ）
+export const getArticleRelatedProducts = (
+  categories: string[],
+  platforms: string[],
+  specificAsins: string[] = [],
+  limit: number = 3
+): GameProductLite[] => {
+  // 手動指定のASINがある場合は優先
+  const specificProducts = getProductsByAsins(specificAsins);
+  
+  if (specificProducts.length >= limit) {
+    return specificProducts.slice(0, limit);
+  }
+  
+  // 不足分をカテゴリ・プラットフォームから補完
+  const remainingCount = limit - specificProducts.length;
+  const autoProducts = gameProducts
+    .filter(product => 
+      !specificAsins.includes(product.asin) && // 手動指定商品は除外
+      (
+        product.categories?.some(cat => categories.includes(cat)) ||
+        product.platforms?.some(platform => platforms.includes(platform))
+      )
+    )
+    .slice(0, remainingCount);
+  
+  return [...specificProducts, ...autoProducts];
+};
