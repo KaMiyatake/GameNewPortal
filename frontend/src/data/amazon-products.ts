@@ -51,6 +51,13 @@ export const gameProducts: GameProductLite[] = [
     platforms: ["PlayStation"]
   },
   {
+    asin: "B0DWZP6V4M",
+    title: "【PS5】ELDEN RING NIGHTREIGN コレクターズエディション【数量限定特典】",
+    imageUrl: "https://m.media-amazon.com/images/I/817MzqMhb3L._AC_SX679_.jpg",
+    categories: ["playstation", "action-adventure"],
+    platforms: ["PlayStation"]
+  },
+  {
     asin: "B098B8PFXY",
     title: "Nintendo Switch（有機ELモデル）",
     imageUrl: "https://m.media-amazon.com/images/I/41AZYiorO6S._AC_SY500_.jpg",
