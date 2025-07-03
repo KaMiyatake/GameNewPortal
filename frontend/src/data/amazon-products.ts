@@ -86,6 +86,13 @@ export const gameProducts: GameProductLite[] = [
     platforms: ["Nintendo Switch"]
   },
   {
+    asin: "B0FCG3F2W6",
+    title: "ソニックレーシング クロスワールド セガストア限定版",
+    imageUrl: "https://m.media-amazon.com/images/I/510h0NHB+uL._AC_.jpg",
+    categories: ["playstation", "racing"],
+    platforms: ["PlayStation"]
+  },
+  {
     asin: "B0BV94KXFR",
     title: "ゼルダの伝説 ティアーズ オブ ザ キングダム",
     imageUrl: "https://m.media-amazon.com/images/I/61uY-USWknL._AC_SY500_.jpg",
