@@ -4,6 +4,7 @@ import { comp25070201 } from './25070201-elden-ring-nightreign-gnoster';
 import { comp25070202 } from './25070202-street-fighter-6-aespa-collab';
 import { comp25070301 } from './25070301-sonic-racing-crossworlds-release';
 import { comp25070302 } from './25070302-mecha-break-service-start';
+import { comp25070701 } from './25070701-zenless-zone-zero-v21';
 
 export const articles202507 = [
     comp25070101,
@@ -12,4 +13,5 @@ export const articles202507 = [
     comp25070202,
     comp25070301,
     comp25070302,
+    comp25070701,
     ];
