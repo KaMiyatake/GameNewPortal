@@ -6,6 +6,7 @@ import { comp25070301 } from './25070301-sonic-racing-crossworlds-release';
 import { comp25070302 } from './25070302-mecha-break-service-start';
 import { comp25070701 } from './25070701-zenless-zone-zero-v21';
 import { comp25070702 } from './25070702-hero-academia-alls-justice';
+import { comp25070801 } from './25070801-gakuen-idolmaster-kimisemi-revival';
 
 export const articles202507 = [
     comp25070101,
@@ -16,4 +17,5 @@ export const articles202507 = [
     comp25070302,
     comp25070701,
     comp25070702,
+    comp25070801,
     ];
