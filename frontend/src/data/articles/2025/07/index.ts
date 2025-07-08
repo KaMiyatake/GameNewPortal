@@ -7,6 +7,7 @@ import { comp25070302 } from './25070302-mecha-break-service-start';
 import { comp25070701 } from './25070701-zenless-zone-zero-v21';
 import { comp25070702 } from './25070702-hero-academia-alls-justice';
 import { comp25070801 } from './25070801-gakuen-idolmaster-kimisemi-revival';
+import { comp25070802 } from './25070802-solo-leveling-karma';
 
 export const articles202507 = [
     comp25070101,
@@ -18,4 +19,5 @@ export const articles202507 = [
     comp25070701,
     comp25070702,
     comp25070801,
+    comp25070802,
     ];
