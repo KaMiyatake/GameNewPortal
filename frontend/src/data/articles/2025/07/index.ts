@@ -9,6 +9,7 @@ import { comp25070702 } from './25070702-hero-academia-alls-justice';
 import { comp25070801 } from './25070801-gakuen-idolmaster-kimisemi-revival';
 import { comp25070802 } from './25070802-solo-leveling-karma';
 import { comp25070901 } from './25070901-hearthstone-ungoro-expansion';
+import { comp25070902 } from './25070902-elden-ring-nightreign-eternal-king';
 
 export const articles202507 = [
     comp25070101,
@@ -22,4 +23,5 @@ export const articles202507 = [
     comp25070801,
     comp25070802,
     comp25070901,
+    comp25070902,
     ];
