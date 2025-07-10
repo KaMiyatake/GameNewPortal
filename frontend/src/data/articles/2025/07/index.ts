@@ -11,6 +11,7 @@ import { comp25070802 } from './25070802-solo-leveling-karma';
 import { comp25070901 } from './25070901-hearthstone-ungoro-expansion';
 import { comp25070902 } from './25070902-elden-ring-nightreign-eternal-king';
 import { comp25071001 } from './25071001-topanga-championship-final';
+import { comp25071002 } from './25071002-persona5x-metro-line';
 
 export const articles202507 = [
     comp25070101,
@@ -26,4 +27,5 @@ export const articles202507 = [
     comp25070901,
     comp25070902,
     comp25071001,
+    comp25071002,
     ];
