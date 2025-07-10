@@ -480,3 +480,31 @@
     font-size: 0.7rem;
   }
 }
+
+.content img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.content img:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* 記事内の画像の基本スタイル */
+.articleContent img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 16px auto;
+}
+
+/* クリック可能な画像のスタイル */
+.articleContent img[style*="cursor: pointer"] {
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+.articleContent img[style*="cursor: pointer"]:hover {
+  border-color: var(--accent-color, #007bff);
+}

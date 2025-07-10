@@ -1,9 +1,10 @@
 // src/components/NewsDetail/NewsContent.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import YouTubeEmbed from '../YouTubeEmbed/YouTubeEmbed';
 import XEmbed from '../XEmbed/XEmbed';
 import InteractiveCharts from '../Charts/InteractiveCharts';
 import AmazonProductCard from '../ProductCard/AmazonProductCard';
+import ImageModal from '../ImageModal/ImageModal';
 import { getProductByAsin } from '../../data/amazon-products';
 import styles from './NewsDetail.module.css';
 
@@ -12,6 +13,15 @@ interface NewsContentProps {
 }
 
 const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
+  // 画像モーダルの状態管理
+  const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null);
+  
+  // 画像クリックハンドラー（useCallbackで安定化）
+  const handleImageClick = useCallback((src: string, alt: string) => {
+    console.log('画像がクリックされました:', src);
+    setModalImage({ src, alt });
+  }, []);
+
   useEffect(() => {
     // YouTube埋め込みプレースホルダーを実際のコンポーネントに置換
     const processYouTubeEmbeds = () => {
@@ -113,7 +123,9 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
     const processAmazonProducts = () => {
       const productElements = document.querySelectorAll('[data-amazon-product]');
       
-      productElements.forEach((element) => {
+      console.log('Amazon商品要素を検索中...', productElements.length, '個見つかりました');
+      
+      productElements.forEach((element, index) => {
         const asin = element.getAttribute('data-amazon-product');
         const layout = (element.getAttribute('data-layout') as 'compact' | 'detailed' | 'inline') || 'detailed';
         const customTitle = element.getAttribute('data-custom-title') || undefined;
@@ -121,10 +133,14 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         const affiliateTag = element.getAttribute('data-affiliate-tag') || 'gamesanpi-22';
         const customUrl = element.getAttribute('data-custom-url') || undefined;
         
+        console.log(`Amazon商品処理 ${index + 1}:`, { asin, layout, customTitle });
+        
         if (asin) {
           const product = getProductByAsin(asin);
           
           if (product) {
+            console.log('商品データが見つかりました:', product);
+            
             const container = document.createElement('div');
             container.className = 'amazon-product-container';
             element.parentNode?.replaceChild(container, element);
@@ -175,7 +191,7 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       multiProductElements.forEach((element) => {
         const asinsJson = element.getAttribute('data-amazon-products');
         const layout = (element.getAttribute('data-layout') as 'compact' | 'detailed' | 'inline') || 'compact';
-        const maxProducts = parseInt(element.getAttribute('data-max-products') || '3');
+        const maxProducts = parseInt(element.getAttribute('data-max-products') || '3', 10);
         const sectionTitle = element.getAttribute('data-section-title') || '関連商品';
         const affiliateTag = element.getAttribute('data-affiliate-tag') || 'gamesanpi-22';
         
@@ -248,8 +264,10 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       const tables = document.querySelectorAll('table');
       
       tables.forEach((table) => {
+        const htmlTable = table as HTMLTableElement;
+        
         // 既に処理済みかチェック
-        if (table.parentElement?.classList.contains('responsive-table-wrapper')) {
+        if (htmlTable.parentElement?.classList.contains('responsive-table-wrapper')) {
           return;
         }
         
@@ -263,7 +281,7 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
           background: var(--card-background);
         `;
         
-        table.style.cssText = `
+        htmlTable.style.cssText = `
           width: 100%;
           border-collapse: collapse;
           margin: 0;
@@ -271,9 +289,10 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         `;
         
         // テーブルヘッダーのスタイル
-        const headers = table.querySelectorAll('th');
+        const headers = htmlTable.querySelectorAll('th');
         headers.forEach((header) => {
-          header.style.cssText = `
+          const htmlHeader = header as HTMLTableCellElement;
+          htmlHeader.style.cssText = `
             background: var(--accent-color);
             color: white;
             padding: 12px 16px;
@@ -284,17 +303,18 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         });
         
         // テーブルセルのスタイル
-        const cells = table.querySelectorAll('td');
+        const cells = htmlTable.querySelectorAll('td');
         cells.forEach((cell) => {
-          cell.style.cssText = `
+          const htmlCell = cell as HTMLTableCellElement;
+          htmlCell.style.cssText = `
             padding: 12px 16px;
             border-bottom: 1px solid var(--border-color);
             vertical-align: top;
           `;
         });
         
-        table.parentNode?.insertBefore(wrapper, table);
-        wrapper.appendChild(table);
+        htmlTable.parentNode?.insertBefore(wrapper, htmlTable);
+        wrapper.appendChild(htmlTable);
       });
     };
 
@@ -303,26 +323,28 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       const images = document.querySelectorAll('img');
       
       images.forEach((img) => {
+        const htmlImg = img as HTMLImageElement;
+        
         // 既に処理済みかチェック
-        if (img.classList.contains('processed')) {
+        if (htmlImg.classList.contains('processed')) {
           return;
         }
         
-        img.classList.add('processed');
+        htmlImg.classList.add('processed');
         
         // レスポンシブ対応
-        if (!img.style.maxWidth) {
-          img.style.maxWidth = '100%';
-          img.style.height = 'auto';
+        if (!htmlImg.style.maxWidth) {
+          htmlImg.style.maxWidth = '100%';
+          htmlImg.style.height = 'auto';
         }
         
         // 遅延読み込み
-        if ('loading' in img) {
-          img.loading = 'lazy';
+        if ('loading' in htmlImg) {
+          htmlImg.loading = 'lazy';
         }
         
         // エラーハンドリング
-        img.addEventListener('error', () => {
+        htmlImg.addEventListener('error', () => {
           const placeholder = document.createElement('div');
           placeholder.style.cssText = `
             display: flex;
@@ -340,10 +362,10 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
             <div style="text-align: center;">
               <div style="font-size: 2rem; margin-bottom: 8px;">🖼️</div>
               <div>画像を読み込めませんでした</div>
-              <div style="font-size: 12px; margin-top: 4px;">${img.alt || 'No alt text'}</div>
+              <div style="font-size: 12px; margin-top: 4px;">${htmlImg.alt || 'No alt text'}</div>
             </div>
           `;
-          img.parentNode?.replaceChild(placeholder, img);
+          htmlImg.parentNode?.replaceChild(placeholder, htmlImg);
         });
       });
     };
@@ -353,10 +375,12 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       const codeBlocks = document.querySelectorAll('pre code');
       
       codeBlocks.forEach((block) => {
-        if (!block.classList.contains('processed')) {
-          block.classList.add('processed');
+        const htmlBlock = block as HTMLElement;
+        
+        if (!htmlBlock.classList.contains('processed')) {
+          htmlBlock.classList.add('processed');
           
-          const pre = block.parentElement as HTMLPreElement;
+          const pre = htmlBlock.parentElement as HTMLPreElement;
           if (pre) {
             pre.style.cssText = `
               background: #f8f9fa;
@@ -370,7 +394,7 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
               line-height: 1.5;
             `;
             
-            (block as HTMLElement).style.cssText = `
+            htmlBlock.style.cssText = `
               color: #495057;
               background: none;
               padding: 0;
@@ -386,10 +410,12 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       const blockquotes = document.querySelectorAll('blockquote');
       
       blockquotes.forEach((quote) => {
-        if (!quote.classList.contains('processed')) {
-          quote.classList.add('processed');
+        const htmlQuote = quote as HTMLElement;
+        
+        if (!htmlQuote.classList.contains('processed')) {
+          htmlQuote.classList.add('processed');
           
-          quote.style.cssText = `
+          htmlQuote.style.cssText = `
             border-left: 4px solid var(--accent-color);
             background: var(--card-background);
             padding: 16px 20px;
@@ -408,20 +434,22 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       const links = document.querySelectorAll('a[href^="http"]');
       
       links.forEach((link) => {
-        if (!link.classList.contains('processed')) {
-          link.classList.add('processed');
+        const htmlLink = link as HTMLAnchorElement;
+        
+        if (!htmlLink.classList.contains('processed')) {
+          htmlLink.classList.add('processed');
           
           // 外部リンクのマーク追加
-          if (!link.textContent?.includes('🔗')) {
-            link.innerHTML += ' 🔗';
+          if (!htmlLink.textContent?.includes('🔗')) {
+            htmlLink.innerHTML += ' 🔗';
           }
           
           // セキュリティ属性追加
-          link.setAttribute('target', '_blank');
-          link.setAttribute('rel', 'noopener noreferrer');
+          htmlLink.setAttribute('target', '_blank');
+          htmlLink.setAttribute('rel', 'noopener noreferrer');
           
           // スタイル適用
-          (link as HTMLElement).style.cssText = `
+          htmlLink.style.cssText = `
             color: var(--accent-color);
             text-decoration: underline;
             text-decoration-color: var(--accent-color);
@@ -434,6 +462,7 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
     // DOM更新後に実行
     const timeoutId = setTimeout(() => {
       try {
+        console.log('コンテンツ処理を開始します...');
         processYouTubeEmbeds();
         processXEmbeds();
         processInteractiveCharts();
@@ -444,6 +473,7 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         processCodeBlocks();
         processBlockquotes();
         processExternalLinks();
+        console.log('コンテンツ処理が完了しました');
       } catch (error) {
         console.error('コンテンツ処理中にエラーが発生しました:', error);
       }
@@ -455,6 +485,124 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
     };
   }, [content]);
 
+  // 画像クリック処理を別のuseEffectで管理
+  useEffect(() => {
+    const handleDocumentClick = (event: Event) => {
+      const target = event.target as HTMLElement;
+      
+      // 画像要素がクリックされた場合
+      if (target.tagName === 'IMG') {
+        const img = target as HTMLImageElement;
+        
+        // 除外対象の画像をチェック
+        const isAmazonProduct = img.closest('.amazon-product-container');
+        const isYouTubeThumbnail = img.closest('.youtube-embed');
+        const isXEmbed = img.closest('.x-embed');
+        
+        if (isAmazonProduct || isYouTubeThumbnail || isXEmbed) {
+          return;
+        }
+        
+        // 記事内の画像またはメイン画像かチェック
+        const isArticleImage = img.closest(`.${styles.articleContent}`);
+        const isMainImage = img.closest('.featuredImage') || img.closest('[class*="featuredImage"]') || img.closest('[class*="newsImage"]');
+        
+        // 記事ページ内の画像かチェック（より広範囲）
+        const isNewsPageImage = img.closest('[class*="newsDetail"]') || img.closest('[class*="article"]') || img.closest('main');
+        
+        if (!isArticleImage && !isMainImage && !isNewsPageImage) {
+          return;
+        }
+        
+        event.preventDefault();
+        event.stopPropagation();
+        
+        console.log('画像がクリックされました:', img.src);
+        handleImageClick(img.src, img.alt || '画像');
+      }
+    };
+
+    // 画像のホバー効果を管理
+    const handleDocumentMouseOver = (event: Event) => {
+      const target = event.target as HTMLElement;
+      
+      if (target.tagName === 'IMG') {
+        const img = target as HTMLImageElement;
+        
+        // 除外対象の画像をチェック
+        const isAmazonProduct = img.closest('.amazon-product-container');
+        const isYouTubeThumbnail = img.closest('.youtube-embed');
+        const isXEmbed = img.closest('.x-embed');
+        
+        if (isAmazonProduct || isYouTubeThumbnail || isXEmbed) {
+          return;
+        }
+        
+        // 記事内の画像またはメイン画像かチェック
+        const isArticleImage = img.closest(`.${styles.articleContent}`);
+        const isMainImage = img.closest('.featuredImage') || img.closest('[class*="featuredImage"]') || img.closest('[class*="newsImage"]');
+        
+        // 記事ページ内の画像かチェック（より広範囲）
+        const isNewsPageImage = img.closest('[class*="newsDetail"]') || img.closest('[class*="article"]') || img.closest('main');
+        
+        if (!isArticleImage && !isMainImage && !isNewsPageImage) {
+          return;
+        }
+        
+        // スタイルを適用
+        img.style.cursor = 'pointer';
+        img.style.transition = 'all 0.3s ease';
+        img.style.transform = 'scale(1.02)';
+        img.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+        img.title = img.alt ? `${img.alt} (クリックで拡大)` : 'クリックで拡大';
+      }
+    };
+
+    const handleDocumentMouseOut = (event: Event) => {
+      const target = event.target as HTMLElement;
+      
+      if (target.tagName === 'IMG') {
+        const img = target as HTMLImageElement;
+        
+        // 除外対象の画像をチェック
+        const isAmazonProduct = img.closest('.amazon-product-container');
+        const isYouTubeThumbnail = img.closest('.youtube-embed');
+        const isXEmbed = img.closest('.x-embed');
+        
+        if (isAmazonProduct || isYouTubeThumbnail || isXEmbed) {
+          return;
+        }
+        
+        // 記事内の画像またはメイン画像かチェック
+        const isArticleImage = img.closest(`.${styles.articleContent}`);
+        const isMainImage = img.closest('.featuredImage') || img.closest('[class*="featuredImage"]') || img.closest('[class*="newsImage"]');
+        
+        // 記事ページ内の画像かチェック（より広範囲）
+        const isNewsPageImage = img.closest('[class*="newsDetail"]') || img.closest('[class*="article"]') || img.closest('main');
+        
+        if (!isArticleImage && !isMainImage && !isNewsPageImage) {
+          return;
+        }
+        
+        // スタイルをリセット
+        img.style.transform = 'scale(1)';
+        img.style.boxShadow = 'none';
+      }
+    };
+
+    // ドキュメントレベルでイベントリスナーを追加
+    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('mouseover', handleDocumentMouseOver);
+    document.addEventListener('mouseout', handleDocumentMouseOut);
+
+    // クリーンアップ
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('mouseover', handleDocumentMouseOver);
+      document.removeEventListener('mouseout', handleDocumentMouseOut);
+    };
+  }, [handleImageClick]);
+
   return (
     <div className={styles.content}>
       {/* 記事内容をHTMLとして安全にレンダリング */}
@@ -462,6 +610,16 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         dangerouslySetInnerHTML={{ __html: content }}
         className={styles.articleContent}
       />
+      
+      {/* 画像モーダル */}
+      {modalImage && (
+        <ImageModal
+          src={modalImage.src}
+          alt={modalImage.alt}
+          isOpen={!!modalImage}
+          onClose={() => setModalImage(null)}
+        />
+      )}
     </div>
   );
 };
