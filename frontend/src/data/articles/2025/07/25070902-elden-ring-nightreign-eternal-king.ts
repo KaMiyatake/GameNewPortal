@@ -87,6 +87,13 @@ export const comp25070902: ArticleDetail = {
       data-custom-title="【PS5】ELDEN RING NIGHTREIGN コレクターズエディション【数量限定特典】"
       class="amazon-product-embed"
     ></div>
+
+    <h2>記事イラスト</h3>
+    <p>かわいく擬人化した「常夜の王女」イラストを AI 生成してみました✨</p>
+    <h3>常夜の王女 part 1</h3>
+    <img src="${getArticleImagePath('2025', '07', '25070902-elden-ring-nightreign-eternal-king', 'illust1.png')}" alt="「常夜の王女」part 1" />
+    <h3>常夜の王女 part 2</h3>
+    <img src="${getArticleImagePath('2025', '07', '25070902-elden-ring-nightreign-eternal-king', 'illust2.png')}" alt="「常夜の王女」part 2" />
   `,
   imageUrl: getArticleImagePath('2025', '07', '25070902-elden-ring-nightreign-eternal-king', 'main.jpg'),
   categories: ['PC', 'PlayStation', 'Xbox'],
