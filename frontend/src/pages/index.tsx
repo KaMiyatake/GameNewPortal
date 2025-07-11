@@ -90,7 +90,7 @@ const Home: React.FC<HomeProps> = ({
 export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query }) => {
   try {
     const page = parseInt(query.page as string) || 1;
-    const limit = 10;
+    const limit = 20;
 
     const [newsData, categoriesData, popularNewsData, featuredNewsData, popularTagsData] = await Promise.all([
       getLatestNewsPaginated(page, limit),
