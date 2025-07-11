@@ -1,4 +1,4 @@
-// src/components/NewsDetail/NewsContent.tsx
+// src/components/NewsDetail/NewsContent.tsx の完全修正版
 import React, { useEffect, useState, useCallback } from 'react';
 import YouTubeEmbed from '../YouTubeEmbed/YouTubeEmbed';
 import XEmbed from '../XEmbed/XEmbed';
@@ -429,7 +429,7 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       });
     };
 
-    // 外部リンクの処理
+    // 外部リンクの処理（Amazon商品を除外）
     const processExternalLinks = () => {
       const links = document.querySelectorAll('a[href^="http"]');
       
@@ -439,7 +439,22 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         if (!htmlLink.classList.contains('processed')) {
           htmlLink.classList.add('processed');
           
-          // 外部リンクのマーク追加
+          // Amazon商品リンクかチェック
+          const isAmazonProduct = htmlLink.closest('.amazon-product-container');
+          const isSidebarAmazon = htmlLink.closest('.sidebar') || htmlLink.closest('[class*="sidebar"]');
+          const isAdvertisement = htmlLink.closest('.advertisement') || htmlLink.closest('[class*="advertisement"]') || htmlLink.closest('[class*="ad"]');
+          const isAmazonButton = htmlLink.classList.contains('amazonButton') || htmlLink.querySelector('.amazonButton') || htmlLink.getAttribute('href')?.includes('amazon');
+          
+          // Amazon関連のリンクは外部リンクマークを付けない
+          if (isAmazonProduct || isSidebarAmazon || isAdvertisement || isAmazonButton) {
+            // セキュリティ属性のみ追加（マークは付けない）
+            htmlLink.setAttribute('target', '_blank');
+            htmlLink.setAttribute('rel', 'noopener noreferrer');
+            console.log('Amazon関連リンクを検出、外部リンクマークを除外:', htmlLink.href);
+            return;
+          }
+          
+          // 通常の外部リンクのマーク追加
           if (!htmlLink.textContent?.includes('🔗')) {
             htmlLink.innerHTML += ' 🔗';
           }
@@ -472,7 +487,7 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         processImages();
         processCodeBlocks();
         processBlockquotes();
-        processExternalLinks();
+        processExternalLinks(); // Amazon商品を除外するよう修正済み
         console.log('コンテンツ処理が完了しました');
       } catch (error) {
         console.error('コンテンツ処理中にエラーが発生しました:', error);
@@ -494,12 +509,22 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       if (target.tagName === 'IMG') {
         const img = target as HTMLImageElement;
         
-        // 除外対象の画像をチェック
+        // 除外対象の画像をチェック（拡張版）
         const isAmazonProduct = img.closest('.amazon-product-container');
         const isYouTubeThumbnail = img.closest('.youtube-embed');
         const isXEmbed = img.closest('.x-embed');
+        const isSidebarAmazon = img.closest('.sidebar') || img.closest('[class*="sidebar"]');
+        const isAdvertisement = img.closest('.advertisement') || img.closest('[class*="advertisement"]') || img.closest('[class*="ad"]');
         
-        if (isAmazonProduct || isYouTubeThumbnail || isXEmbed) {
+        // Amazon関連の画像は全て除外
+        if (isAmazonProduct || isSidebarAmazon || isAdvertisement || isYouTubeThumbnail || isXEmbed) {
+          console.log('除外対象の画像がクリックされました:', {
+            isAmazonProduct: !!isAmazonProduct,
+            isSidebarAmazon: !!isSidebarAmazon,
+            isAdvertisement: !!isAdvertisement,
+            isYouTubeThumbnail: !!isYouTubeThumbnail,
+            isXEmbed: !!isXEmbed
+          });
           return;
         }
         
@@ -507,17 +532,18 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         const isArticleImage = img.closest(`.${styles.articleContent}`);
         const isMainImage = img.closest('.featuredImage') || img.closest('[class*="featuredImage"]') || img.closest('[class*="newsImage"]');
         
-        // 記事ページ内の画像かチェック（より広範囲）
-        const isNewsPageImage = img.closest('[class*="newsDetail"]') || img.closest('[class*="article"]') || img.closest('main');
+        // 記事ページのメインコンテンツ内の画像かチェック
+        const isMainContentImage = img.closest('.mainContent') || img.closest('[class*="mainContent"]') || img.closest('main');
         
-        if (!isArticleImage && !isMainImage && !isNewsPageImage) {
+        if (!isArticleImage && !isMainImage && !isMainContentImage) {
+          console.log('記事関連の画像ではないためスキップ');
           return;
         }
         
         event.preventDefault();
         event.stopPropagation();
         
-        console.log('画像がクリックされました:', img.src);
+        console.log('記事画像がクリックされました:', img.src);
         handleImageClick(img.src, img.alt || '画像');
       }
     };
@@ -529,12 +555,15 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       if (target.tagName === 'IMG') {
         const img = target as HTMLImageElement;
         
-        // 除外対象の画像をチェック
+        // 除外対象の画像をチェック（拡張版）
         const isAmazonProduct = img.closest('.amazon-product-container');
         const isYouTubeThumbnail = img.closest('.youtube-embed');
         const isXEmbed = img.closest('.x-embed');
+        const isSidebarAmazon = img.closest('.sidebar') || img.closest('[class*="sidebar"]');
+        const isAdvertisement = img.closest('.advertisement') || img.closest('[class*="advertisement"]') || img.closest('[class*="ad"]');
         
-        if (isAmazonProduct || isYouTubeThumbnail || isXEmbed) {
+        // Amazon関連の画像は全て除外
+        if (isAmazonProduct || isSidebarAmazon || isAdvertisement || isYouTubeThumbnail || isXEmbed) {
           return;
         }
         
@@ -542,10 +571,10 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         const isArticleImage = img.closest(`.${styles.articleContent}`);
         const isMainImage = img.closest('.featuredImage') || img.closest('[class*="featuredImage"]') || img.closest('[class*="newsImage"]');
         
-        // 記事ページ内の画像かチェック（より広範囲）
-        const isNewsPageImage = img.closest('[class*="newsDetail"]') || img.closest('[class*="article"]') || img.closest('main');
+        // 記事ページのメインコンテンツ内の画像かチェック
+        const isMainContentImage = img.closest('.mainContent') || img.closest('[class*="mainContent"]') || img.closest('main');
         
-        if (!isArticleImage && !isMainImage && !isNewsPageImage) {
+        if (!isArticleImage && !isMainImage && !isMainContentImage) {
           return;
         }
         
@@ -564,12 +593,15 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
       if (target.tagName === 'IMG') {
         const img = target as HTMLImageElement;
         
-        // 除外対象の画像をチェック
+        // 除外対象の画像をチェック（拡張版）
         const isAmazonProduct = img.closest('.amazon-product-container');
         const isYouTubeThumbnail = img.closest('.youtube-embed');
         const isXEmbed = img.closest('.x-embed');
+        const isSidebarAmazon = img.closest('.sidebar') || img.closest('[class*="sidebar"]');
+        const isAdvertisement = img.closest('.advertisement') || img.closest('[class*="advertisement"]') || img.closest('[class*="ad"]');
         
-        if (isAmazonProduct || isYouTubeThumbnail || isXEmbed) {
+        // Amazon関連の画像は全て除外
+        if (isAmazonProduct || isSidebarAmazon || isAdvertisement || isYouTubeThumbnail || isXEmbed) {
           return;
         }
         
@@ -577,10 +609,10 @@ const NewsContent: React.FC<NewsContentProps> = ({ content }) => {
         const isArticleImage = img.closest(`.${styles.articleContent}`);
         const isMainImage = img.closest('.featuredImage') || img.closest('[class*="featuredImage"]') || img.closest('[class*="newsImage"]');
         
-        // 記事ページ内の画像かチェック（より広範囲）
-        const isNewsPageImage = img.closest('[class*="newsDetail"]') || img.closest('[class*="article"]') || img.closest('main');
+        // 記事ページのメインコンテンツ内の画像かチェック
+        const isMainContentImage = img.closest('.mainContent') || img.closest('[class*="mainContent"]') || img.closest('main');
         
-        if (!isArticleImage && !isMainImage && !isNewsPageImage) {
+        if (!isArticleImage && !isMainImage && !isMainContentImage) {
           return;
         }
         
