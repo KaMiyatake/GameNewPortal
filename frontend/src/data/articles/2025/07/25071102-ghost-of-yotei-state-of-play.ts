@@ -119,6 +119,13 @@ export const comp25071102: ArticleDetail = {
       data-title="Ghost of Yōtei - State of Play Gameplay Deep Dive | PS5 Games"
       class="youtube-embed"
     ></div>
+
+    <h2>記事イラスト</h3>
+    <p>篤の衣装をイメージした女侍キャラをAIで描いてみました✨</p>
+    <h3>女侍 part 1</h3>
+    <img src="${getArticleImagePath('2025', '07', '25071102-ghost-of-yotei-state-of-play', 'illust1.png')}" alt="女侍 part 1" />
+    <h3>女侍 part 2</h3>
+    <img src="${getArticleImagePath('2025', '07', '25071102-ghost-of-yotei-state-of-play', 'illust2.png')}" alt="女侍 part 2" />
   `,
   imageUrl: getArticleImagePath('2025', '07', '25071102-ghost-of-yotei-state-of-play', 'main.jpg'),
   categories: ['PlayStation'],
