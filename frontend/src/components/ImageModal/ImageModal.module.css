@@ -127,6 +127,12 @@
   font-weight: 500;
 }
 
+@media (prefers-color-scheme: dark) {
+  .imageAlt {
+    color: #e2e8f0 !important; /* ダークモード時の色 */
+  }
+}
+
 .imageActions {
   display: flex;
   gap: 12px;
