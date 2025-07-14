@@ -14,6 +14,7 @@ import { comp25071001 } from './25071001-topanga-championship-final';
 import { comp25071002 } from './25071002-persona5x-metro-line';
 import { comp25071101 } from './25071101-snowbreak-2nd-anniversary';
 import { comp25071102 } from './25071102-ghost-of-yotei-state-of-play';
+import { comp25071401 } from './25071401-edens-zero-release';
 
 export const articles202507 = [
     comp25070101,
@@ -32,4 +33,5 @@ export const articles202507 = [
     comp25071002,
     comp25071101,
     comp25071102,
+    comp25071401,
     ];
