@@ -15,6 +15,7 @@ import { comp25071002 } from './25071002-persona5x-metro-line';
 import { comp25071101 } from './25071101-snowbreak-2nd-anniversary';
 import { comp25071102 } from './25071102-ghost-of-yotei-state-of-play';
 import { comp25071401 } from './25071401-edens-zero-release';
+import { comp25071501 } from './25071501-ryza-trilogy-dx';
 
 export const articles202507 = [
     comp25070101,
@@ -34,4 +35,5 @@ export const articles202507 = [
     comp25071101,
     comp25071102,
     comp25071401,
+    comp25071501,
     ];
