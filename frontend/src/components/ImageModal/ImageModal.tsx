@@ -1,4 +1,4 @@
-// src/components/ImageModal/ImageModal.tsx
+// src/components/ImageModal/ImageModal.tsx の修正版
 import React, { useEffect, useState } from 'react';
 import styles from './ImageModal.module.css';
 
@@ -48,6 +48,20 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, alt, isOpen, onClose }) =>
     };
   }, [isOpen, onClose]);
 
+  // 画像クリック時に新しいタブで開く
+  const handleImageClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.open(src, '_blank');
+  };
+
+  // 画像コンテナクリック時にモーダルを閉じる
+  const handleContainerClick = (e: React.MouseEvent) => {
+    // 画像要素以外をクリックした場合のみモーダルを閉じる
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   // モーダルが開いていない場合は何も表示しない
   if (!isOpen) {
     return null;
@@ -56,17 +70,22 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, alt, isOpen, onClose }) =>
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        {/* 閉じるボタン */}
-        <button 
-          className={styles.closeButton}
-          onClick={onClose}
-          aria-label="モーダルを閉じる"
-        >
-          ×
-        </button>
+        {/* 上部のヘッダー（画像名称 + 閉じるボタン） */}
+        <div className={styles.modalHeader}>
+          <div className={styles.imageTitle}>
+            {imageLoaded && !imageError && alt}
+          </div>
+          <button 
+            className={styles.closeButton}
+            onClick={onClose}
+            aria-label="モーダルを閉じる"
+          >
+            ×
+          </button>
+        </div>
 
         {/* 画像コンテナ */}
-        <div className={styles.imageContainer}>
+        <div className={styles.imageContainer} onClick={handleContainerClick}>
           {!imageError ? (
             <>
               {/* ローディング表示 */}
@@ -84,6 +103,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, alt, isOpen, onClose }) =>
                 className={`${styles.modalImage} ${imageLoaded ? styles.loaded : styles.loading}`}
                 onLoad={() => setImageLoaded(true)}
                 onError={() => setImageError(true)}
+                onClick={handleImageClick}
               />
             </>
           ) : (
@@ -94,29 +114,6 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, alt, isOpen, onClose }) =>
             </div>
           )}
         </div>
-
-        {/* 画像情報 */}
-        {imageLoaded && !imageError && (
-          <div className={styles.imageInfo}>
-            <p className={styles.imageAlt}>{alt}</p>
-            <div className={styles.imageActions}>
-              <button
-                className={styles.actionButton}
-                onClick={() => window.open(src, '_blank')}
-              >
-                🔗 新しいタブで開く
-              </button>
-              <a
-                href={src}
-                download
-                className={styles.actionButton}
-                onClick={(e) => e.stopPropagation()}
-              >
-                💾 画像を保存
-              </a>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
