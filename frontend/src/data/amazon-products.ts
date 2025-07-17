@@ -93,6 +93,13 @@ export const gameProducts: GameProductLite[] = [
     platforms: ["PlayStation"]
   },
   {
+    asin: "B0DYJ7RLKG",
+    title: "HUNTER×HUNTER NEN×IMPACT 限定版",
+    imageUrl: "https://m.media-amazon.com/images/I/51DNq4DhcxL._AC_.jpg",
+    categories: ["switch", "action-fighting"],
+    platforms: ["Nintendo Switch"]
+  },
+  {
     asin: "B0BV94KXFR",
     title: "ゼルダの伝説 ティアーズ オブ ザ キングダム",
     imageUrl: "https://m.media-amazon.com/images/I/61uY-USWknL._AC_SY500_.jpg",
