@@ -18,6 +18,7 @@ import { comp25071401 } from './25071401-edens-zero-release';
 import { comp25071501 } from './25071501-ryza-trilogy-dx';
 import { comp25071601 } from './25071601-gakumas-step3-hiro';
 import { comp25071701 } from './25071701-hunter-hunter-nen-impact';
+import { comp25071801 } from './25071801-towa-gst';
 
 export const articles202507 = [
     comp25070101,
@@ -40,4 +41,5 @@ export const articles202507 = [
     comp25071501,
     comp25071601,
     comp25071701,
+    comp25071801,
     ];

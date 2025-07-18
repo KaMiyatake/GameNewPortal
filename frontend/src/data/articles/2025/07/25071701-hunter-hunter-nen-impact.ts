@@ -80,9 +80,9 @@ export const comp25071701: ArticleDetail = {
     <h2>記事イラスト</h3>
     <p>ゲーム出演はないですがパクノダ風のキャラを AI で描いてみました✨</p>
     <h3>パクノダ風 part 1</h3>
-    <img src="${getArticleImagePath('2025', '07', '25071701-hunter-hunter-nen-impact', 'illust1.png')}" alt="キミとセミブルー風 part 1" />
+    <img src="${getArticleImagePath('2025', '07', '25071701-hunter-hunter-nen-impact', 'illust1.png')}" alt="パクノダ風 part 1" />
     <h3>パクノダ風 part 2</h3>
-    <img src="${getArticleImagePath('2025', '07', '25071701-hunter-hunter-nen-impact', 'illust2.png')}" alt="キミとセミブルー風 part 2" />
+    <img src="${getArticleImagePath('2025', '07', '25071701-hunter-hunter-nen-impact', 'illust2.png')}" alt="パクノダ風 part 2" />
   `,
   imageUrl: getArticleImagePath('2025', '07', '25071701-hunter-hunter-nen-impact', 'main.jpg'),
   categories: ['Switch', 'PlayStation', 'PC'],
