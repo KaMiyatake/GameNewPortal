@@ -1,4 +1,4 @@
-// src/components/Header/Header.tsx の修正版（アプリメニューを追加）
+// src/components/Header/Header.tsx の修正版
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -118,6 +118,17 @@ const Header: React.FC = () => {
             </ul>
           </nav>
 
+          {/* モバイル時のアプリアイコン */}
+          {isMobile && (
+            <div className={styles.mobileAppIcon}>
+              <Link href="/app">
+                <span className={styles.appIconLink} title="アプリページ">
+                  📱
+                </span>
+              </Link>
+            </div>
+          )}
+
           {/* 検索ボックス（デスクトップ＆モバイル共通） */}
           <div className={styles.searchContainer}>
             <SearchBox />
@@ -170,18 +181,7 @@ const Header: React.FC = () => {
               </Link>
             </li>
           ))}
-          {/* モバイルメニューにアプリリンクを追加 */}
-          <li className={styles.mobileNavItem}>
-            <Link href="/app">
-              <span 
-                className={styles.mobileNavLink}
-                onClick={closeMenu}
-              >
-                <span className={styles.categoryIcon}>📱</span>
-                アプリ
-              </span>
-            </Link>
-          </li>
+          {/* ハンバーガーメニューからアプリリンクを削除 */}
         </ul>
       </div>
     </header>

@@ -678,3 +678,86 @@ header[data-search-expanded="true"] .navLink:hover {
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+
+/* モバイル時のアプリアイコン */
+.mobileAppIcon {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.appIconLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: rgba(var(--accent-color-rgb), 0.1);
+}
+
+.appIconLink:hover {
+  background: rgba(var(--accent-color-rgb), 0.2);
+  transform: scale(1.05);
+}
+
+.appIconLink:active {
+  transform: scale(0.95);
+}
+
+/* デスクトップでは非表示 */
+@media (min-width: 769px) {
+  .mobileAppIcon {
+    display: none;
+  }
+}
+
+/* モバイルでのヘッダーアクションの調整 */
+@media (max-width: 768px) {
+  .headerActions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .nav {
+    display: none;
+  }
+  
+  .searchContainer {
+    flex: 1;
+    margin: 0 4px; /* 左右に少し余白を追加 */
+  }
+  
+  .mobileAppIcon {
+    order: -1; /* 検索ボックスの前に表示 */
+    margin-left: 4px; /* ハンバーガーメニューの左側に少し余白 */
+  }
+  
+  .mobileMenuButton {
+    order: 1; /* 最後に表示 */
+  }
+}
+
+/* さらに小さい画面での調整 */
+@media (max-width: 480px) {
+  .headerActions {
+    gap: 2px; /* より狭い間隔 */
+  }
+  
+  .mobileAppIcon {
+    margin-right: 6px; /* より狭い間隔 */
+  }
+  
+  .searchContainer {
+    margin: 0 2px;
+  }
+  
+  .mobileMenuButton {
+    margin-left: 2px;
+  }
+}
