@@ -1,9 +1,9 @@
-// src/components/Header/Header.tsx の修正版
+// src/components/Header/Header.tsx の修正版（アプリメニューを追加）
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
-import SearchBox from '../Search/SearchBox'; // 追加
+import SearchBox from '../Search/SearchBox';
 import { categories } from '../../data/categories/categories';
 import styles from './Header.module.css';
 
@@ -93,9 +93,9 @@ const Header: React.FC = () => {
             <ul className={styles.navList}>
               {/* カテゴリ検索ドロップダウン */}
               <li className={styles.navItem}>
-                <div className={`${styles.dropdown} dropdown`}> {/* クラス名追加 */}
+                <div className={`${styles.dropdown} dropdown`}>
                   <span className={styles.navLink}>カテゴリ検索</span>
-                  <div className={`${styles.dropdownContent} dropdownContent`}> {/* クラス名追加 */}
+                  <div className={`${styles.dropdownContent} dropdownContent`}>
                     {categories.map((category) => (
                       <Link key={category.id} href={`/category/${category.slug}`}>
                         <span className={styles.dropdownItem}>
@@ -105,6 +105,12 @@ const Header: React.FC = () => {
                     ))}
                   </div>
                 </div>
+              </li>
+              {/* アプリメニューを追加 */}
+              <li className={styles.navItem}>
+                <Link href="/app">
+                  <span className={styles.navLink}>📱 アプリ</span>
+                </Link>
               </li>
               <li className={styles.navItem}>
                 <ThemeToggle />
@@ -116,11 +122,6 @@ const Header: React.FC = () => {
           <div className={styles.searchContainer}>
             <SearchBox />
           </div>
-
-          {/* テーマ切り替えボタン（デスクトップ） */}
-          {/* <div className={styles.themeToggleContainer}>
-            <ThemeToggle />
-          </div> */}
 
           {/* モバイルハンバーガーメニューボタン */}
           {isMobile && (
@@ -169,28 +170,18 @@ const Header: React.FC = () => {
               </Link>
             </li>
           ))}
-          {/* <li className={styles.mobileNavItem}>
-            <Link href="/about">
+          {/* モバイルメニューにアプリリンクを追加 */}
+          <li className={styles.mobileNavItem}>
+            <Link href="/app">
               <span 
                 className={styles.mobileNavLink}
                 onClick={closeMenu}
               >
-                <span className={styles.categoryIcon}>ℹ️</span>
-                サイトについて
+                <span className={styles.categoryIcon}>📱</span>
+                アプリ
               </span>
             </Link>
           </li>
-          <li className={styles.mobileNavItem}>
-            <Link href="/contact">
-              <span 
-                className={styles.mobileNavLink}
-                onClick={closeMenu}
-              >
-                <span className={styles.categoryIcon}>📧</span>
-                お問い合わせ
-              </span>
-            </Link>
-          </li> */}
         </ul>
       </div>
     </header>
