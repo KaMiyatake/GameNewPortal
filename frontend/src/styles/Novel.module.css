@@ -187,3 +187,193 @@
 [data-theme="dark"] .buttonText {
   color: #ffffff;
 }
+
+/* src/styles/Novel.module.css に追加・更新 */
+
+.bgmControl {
+  margin: 1.5rem 0;
+}
+
+.bgmButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 0.6rem 1.2rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(5px);
+  font-size: 0.9rem;
+  min-width: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgmButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.bgmButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.bgmButton:hover::before {
+  left: 100%;
+}
+
+.bgmButton:active {
+  transform: translateY(0);
+}
+
+.bgmButton.active {
+  background: rgba(72, 187, 120, 0.3);
+  border-color: rgba(72, 187, 120, 0.6);
+  box-shadow: 0 0 20px rgba(72, 187, 120, 0.4);
+}
+
+.bgmButton.active:hover {
+  background: rgba(72, 187, 120, 0.4);
+  border-color: rgba(72, 187, 120, 0.8);
+  box-shadow: 0 0 25px rgba(72, 187, 120, 0.5);
+}
+
+.bgmIcon {
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+  animation: pulse 2s infinite;
+}
+
+.bgmButton.active .bgmIcon {
+  animation: musicNote 1.5s infinite;
+}
+
+.bgmText {
+  font-size: 0.85rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  font-weight: 500;
+  z-index: 1;
+  position: relative;
+}
+
+.bgmCredit {
+  color: #cccccc;
+  font-size: 0.75rem;
+  margin: 0.25rem 0;
+  opacity: 0.8;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* アニメーション */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes musicNote {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+  25% { 
+    transform: scale(1.1) rotate(-5deg); 
+    opacity: 0.8; 
+  }
+  75% { 
+    transform: scale(1.1) rotate(5deg); 
+    opacity: 0.8; 
+  }
+}
+
+/* モバイル対応 */
+@media (max-width: 480px) {
+  .bgmButton {
+    min-width: 160px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .bgmCredit {
+    font-size: 0.7rem;
+  }
+}
+
+/* ダークモード対応 */
+[data-theme="dark"] .bgmButton {
+  background: rgba(30, 30, 30, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .bgmButton:hover {
+  background: rgba(40, 40, 40, 0.9);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="dark"] .bgmButton.active {
+  background: rgba(72, 187, 120, 0.4);
+  border-color: rgba(72, 187, 120, 0.7);
+}
+
+/* src/styles/Novel.module.css に追加 */
+
+.novelContainer.exiting {
+  animation: fadeOut 1.5s ease-out forwards;
+}
+
+.menuButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.menuButton.exiting {
+  background: rgba(255, 200, 100, 0.2);
+  border-color: rgba(255, 200, 100, 0.5);
+}
+
+.bgmButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* BGMボタンの即座停止時のアニメーション */
+.bgmButton:not(.active) .bgmIcon {
+  animation: stopMusic 0.3s ease-out;
+}
+
+@keyframes stopMusic {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
