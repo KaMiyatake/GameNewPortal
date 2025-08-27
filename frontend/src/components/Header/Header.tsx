@@ -106,6 +106,14 @@ const Header: React.FC = () => {
                   </div>
                 </div>
               </li>
+
+              {/* ノベルゲームリンクを追加 */}
+              <li className={styles.navItem}>
+                <Link href="/novel">
+                  <span className={styles.navLink}>📖 ノベル</span>
+                </Link>
+              </li>
+
               {/* アプリメニューを追加 */}
               <li className={styles.navItem}>
                 <Link href="/app">
