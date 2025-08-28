@@ -1,0 +1,48 @@
+{
+  "id": "test_scenario",
+  "title": "テストシナリオ",
+  "description": "PixiJS実装のテストシナリオです",
+  "steps": [
+    {
+      "id": "001",
+      "type": "narration",
+      "text": "これはテストシナリオです。\nクリックまたはEnterキーで次に進みます。",
+      "next_step": "002"
+    },
+    {
+      "id": "002",
+      "type": "narration", 
+      "text": "2番目のテキストです。\nPixiJSが正常に動作しています。",
+      "next_step": "003"
+    },
+    {
+      "id": "003",
+      "type": "choice",
+      "text": "選択してください",
+      "choices": [
+        {
+          "id": "choice1",
+          "text": "選択肢1",
+          "next_step": "004"
+        },
+        {
+          "id": "choice2", 
+          "text": "選択肢2",
+          "next_step": "005"
+        }
+      ]
+    },
+    {
+      "id": "004",
+      "type": "narration",
+      "text": "選択肢1を選びました。\nテストシナリオ終了です。",
+      "next_step": null
+    },
+    {
+      "id": "005",
+      "type": "narration",
+      "text": "選択肢2を選びました。\nテストシナリオ終了です。",
+      "next_step": null
+    }
+  ]
+}

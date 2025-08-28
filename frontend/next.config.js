@@ -5,21 +5,51 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    domains: [
-      'placehold.co',
-      'via.placeholder.com',
+    // ⚠️ 警告対応：domainsをremotePatternsに変更
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
       // Amazon関連ドメイン（包括的）
-      'm.media-amazon.com',
-      'images-amazon.com',
-      'images-na.ssl-images-amazon.com',
-      'images-eu.ssl-images-amazon.com',
-      'images-fe.ssl-images-amazon.com',
-      'ws-fe.amazon-adsystem.com',
-      'ir-na.amazon-adsystem.com',
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-na.ssl-images-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-eu.ssl-images-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-fe.ssl-images-amazon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ws-fe.amazon-adsystem.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ir-na.amazon-adsystem.com',
+      },
     ],
-    dangerouslyAllowSVG: true,  // SVG画像を許可
-    contentDispositionType: 'attachment',  // セキュリティ対策
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",  // セキュリティポリシーの設定
+    // 旧domainsを削除
+    // domains: [...], // ← この行を削除
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   compress: true,
   poweredByHeader: false,
@@ -84,6 +114,16 @@ const nextConfig = {
           },
         ],
       },
+      // 🔧 favicon競合エラー対応
+      {
+        source: '/favicon.ico',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ];
   },
 
@@ -94,6 +134,16 @@ const nextConfig = {
         source: '/sitemap',
         destination: '/sitemap.xml',
         permanent: true,
+      },
+    ];
+  },
+
+  // 🔧 favicon競合エラー対応：リライト設定追加
+  async rewrites() {
+    return [
+      {
+        source: '/favicon.ico',
+        destination: '/favicon-v2.ico', // 既存のfavicon-v2.icoにリダイレクト
       },
     ];
   },

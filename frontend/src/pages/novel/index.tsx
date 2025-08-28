@@ -1,13 +1,15 @@
-// src/pages/novel/index.tsx（修正版）
+// src/pages/novel/index.tsx（router修正版）
 import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router'; // ← これを追加
 import Layout from '../../components/Layout/Layout';
 import AudioManager, { AudioManagerRef } from '../../components/Novel/AudioManager';
 import styles from '../../styles/Novel.module.css';
 
 const NovelTop: React.FC = () => {
+  const router = useRouter(); // ← これを追加
   const [bgmEnabled, setBgmEnabled] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [showBgmPrompt, setShowBgmPrompt] = useState(true);
@@ -19,7 +21,6 @@ const NovelTop: React.FC = () => {
     const handleUserInteraction = () => {
       if (!userInteracted) {
         setUserInteracted(true);
-        // 初回インタラクション時にBGMプロンプトを表示
         if (showBgmPrompt) {
           setTimeout(() => {
             const shouldPlayBGM = window.confirm(
@@ -44,8 +45,8 @@ const NovelTop: React.FC = () => {
   }, [userInteracted, showBgmPrompt]);
 
   const handleNewGame = () => {
-    console.log('New Game clicked');
-    // TODO: ゲーム開始画面に遷移
+    console.log('New Game clicked - Starting test scenario');
+    router.push('/novel/game');
   };
 
   const handleContinue = () => {
@@ -65,11 +66,10 @@ const NovelTop: React.FC = () => {
     if (bgmEnabled && audioManagerRef.current?.isPlaying) {
       audioManagerRef.current.fadeOutAndStop();
       setTimeout(() => {
-        window.location.href = '/';
-      }, 1500); // フェードアウト時間を考慮
+        router.push('/'); // window.location.href から router.push に変更
+      }, 1500);
     } else {
-      // BGMが再生されていない場合はすぐに遷移
-      window.location.href = '/';
+      router.push('/'); // window.location.href から router.push に変更
     }
   };
 
@@ -84,8 +84,8 @@ const NovelTop: React.FC = () => {
   return (
     <>
       <Head>
-        <title>ビジュアルノベル - 夏の思い出</title>
-        <meta name="description" content="オリジナルビジュアルノベルゲーム - 夏の思い出" />
+        <title>ビジュアルノベル - ゲーム賛否</title>
+        <meta name="description" content="ゲーム賛否オリジナルビジュアルノベルゲーム" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       
@@ -105,7 +105,7 @@ const NovelTop: React.FC = () => {
           {/* 背景画像 */}
           <div className={styles.backgroundContainer}>
             <Image
-              src="/images/novel/toppage.png"
+              src="/images/novel/top.png"
               alt="ノベルゲーム背景"
               fill
               style={{ objectFit: 'cover' }}
@@ -119,7 +119,7 @@ const NovelTop: React.FC = () => {
           <div className={styles.menuContainer}>
             <div className={styles.titleSection}>
               <h1 className={styles.gameTitle}>ビジュアルノベル</h1>
-              <p className={styles.gameSubtitle}>～夏の思い出～</p>
+              <p className={styles.gameSubtitle}>～ゲーム賛否物語～</p>
             </div>
 
             <nav className={styles.menuNav}>
@@ -190,9 +190,9 @@ const NovelTop: React.FC = () => {
               <p className={styles.bgmCredit}>
                 BGM: "Summer Memories" by Music-Note.jp
               </p>
-              {/* <Link href="/" className={styles.backLink}>
+              <Link href="/" className={styles.backLink}>
                 ← メインサイトに戻る
-              </Link> */}
+              </Link>
             </div>
           </div>
         </div>
