@@ -1,48 +1,250 @@
 {
-  "id": "test_scenario",
-  "title": "テストシナリオ",
-  "description": "PixiJS実装のテストシナリオです",
+  "title": "リソーステストシナリオ - 図書館での出会い",
+  "description": "背景画像・キャラクター立ち絵・表情変化をテストするシナリオ",
   "steps": [
     {
-      "id": "001",
+      "id": 1,
       "type": "narration",
-      "text": "これはテストシナリオです。\nクリックまたはEnterキーで次に進みます。",
-      "next_step": "002"
+      "character": "ナレーター",
+      "text": "放課後の図書館。静寂に包まれた空間で、あなたは一人で勉強をしていた。",
+      "background": "library",
+      "next": 2
     },
     {
-      "id": "002",
-      "type": "narration", 
-      "text": "2番目のテキストです。\nPixiJSが正常に動作しています。",
-      "next_step": "003"
+      "id": 2,
+      "type": "narration",
+      "character": "ナレーター",
+      "text": "そのとき、図書館の入り口から一人の少女が入ってきた。",
+      "background": "library",
+      "next": 3
     },
     {
-      "id": "003",
+      "id": 3,
+      "type": "narration",
+      "character": "雪",
+      "text": "あ、すみません。誰かいるとは思わなくて...",
+      "background": "library",
+      "character_image": {
+        "name": "yuki",
+        "expression": "normal",
+        "position": "center"
+      },
+      "next": 4
+    },
+    {
+      "id": 4,
       "type": "choice",
-      "text": "選択してください",
+      "text": "どう返答しますか？",
+      "background": "library",
+      "character_image": {
+        "name": "yuki",
+        "expression": "normal",
+        "position": "center"
+      },
       "choices": [
         {
-          "id": "choice1",
-          "text": "選択肢1",
-          "next_step": "004"
+          "text": "気にしないでください。どうぞ",
+          "next": 5
         },
         {
-          "id": "choice2", 
-          "text": "選択肢2",
-          "next_step": "005"
+          "text": "こんにちは。勉強ですか？",
+          "next": 6
         }
       ]
     },
     {
-      "id": "004",
+      "id": 5,
       "type": "narration",
-      "text": "選択肢1を選びました。\nテストシナリオ終了です。",
-      "next_step": null
+      "character": "雪",
+      "text": "ありがとうございます！とても助かります。",
+      "background": "library",
+      "character_image": {
+        "name": "yuki",
+        "expression": "happy",
+        "position": "center"
+      },
+      "next": 7
     },
     {
-      "id": "005",
+      "id": 6,
       "type": "narration",
-      "text": "選択肢2を選びました。\nテストシナリオ終了です。",
-      "next_step": null
+      "character": "雪",
+      "text": "はい！明日の試験に向けて復習をしようと思って。",
+      "background": "library",
+      "character_image": {
+        "name": "yuki",
+        "expression": "happy",
+        "position": "center"
+      },
+      "next": 7
+    },
+    {
+      "id": 7,
+      "type": "narration",
+      "character": "ナレーター",
+      "text": "しばらくして、もう一人の生徒が図書館にやってきた。",
+      "background": "library",
+      "next": 8
+    },
+    {
+      "id": 8,
+      "type": "narration",
+      "character": "明",
+      "text": "よう！ここにいたのか。探したぞ～",
+      "background": "library",
+      "character_image": {
+        "name": "akira",
+        "expression": "happy",
+        "position": "left"
+      },
+      "next": 9
+    },
+    {
+      "id": 9,
+      "type": "narration",
+      "character": "雪",
+      "text": "あ、明くん。図書館では静かにしなくちゃダメよ。",
+      "background": "library",
+      "character_image": {
+        "name": "yuki",
+        "expression": "normal",
+        "position": "right"
+      },
+      "next": 10
+    },
+    {
+      "id": 10,
+      "type": "narration",
+      "character": "明",
+      "text": "あ、ごめんごめん。つい癖で大きな声出しちゃった。",
+      "background": "library",
+      "character_image": {
+        "name": "akira",
+        "expression": "normal",
+        "position": "left"
+      },
+      "next": 11
+    },
+    {
+      "id": 11,
+      "type": "choice",
+      "text": "場面が和やかになってきました。どうしますか？",
+      "background": "library",
+      "character_image": {
+        "name": "yuki",
+        "expression": "happy",
+        "position": "right"
+      },
+      "choices": [
+        {
+          "text": "一緒に勉強しませんか？",
+          "next": 12
+        },
+        {
+          "text": "外で話しましょうか？",
+          "next": 15
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "type": "narration",
+      "character": "明",
+      "text": "おお、それいいね！みんなでやった方が効率いいし。",
+      "background": "library",
+      "character_image": {
+        "name": "akira",
+        "expression": "happy",
+        "position": "left"
+      },
+      "next": 13
+    },
+    {
+      "id": 13,
+      "type": "narration",
+      "character": "雪",
+      "text": "私も賛成です。みんなで勉強すると、分からないところも聞けるし。",
+      "background": "library",
+      "character_image": {
+        "name": "yuki",
+        "expression": "happy",
+        "position": "right"
+      },
+      "next": 14
+    },
+    {
+      "id": 14,
+      "type": "narration",
+      "character": "ナレーター",
+      "text": "こうして、図書館で3人の勉強会が始まった。新しい友情の始まりだった。\n\n【図書館エンド】",
+      "background": "library",
+      "next": 18
+    },
+    {
+      "id": 15,
+      "type": "narration",
+      "character": "ナレーター",
+      "text": "3人は図書館を出て、校庭のベンチに向かった。",
+      "background": "school_yard",
+      "next": 16
+    },
+    {
+      "id": 16,
+      "type": "narration",
+      "character": "明",
+      "text": "やっぱり外の方が気持ちいいな！空気も美味しいし。",
+      "background": "school_yard",
+      "character_image": {
+        "name": "akira",
+        "expression": "happy",
+        "position": "left"
+      },
+      "next": 17
+    },
+    {
+      "id": 17,
+      "type": "narration",
+      "character": "雪",
+      "text": "確かに。時々外の空気を吸うのも大事ですね。リフレッシュできます。",
+      "background": "school_yard",
+      "character_image": {
+        "name": "yuki",
+        "expression": "happy",
+        "position": "right"
+      },
+      "next": 18
+    },
+    {
+      "id": 18,
+      "type": "choice",
+      "text": "リソーステストが完了しました。次はどうしましょう？",
+      "background": "school_yard",
+      "choices": [
+        {
+          "text": "🎨 PixiJS版で実装する",
+          "next": 19
+        },
+        {
+          "text": "🔄 シナリオを最初から再生",
+          "next": 1
+        },
+        {
+          "text": "📊 テスト結果を確認",
+          "next": 20
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "type": "narration",
+      "character": "システム",
+      "text": "🎉 リソーステストが完了しました！\n\n✅ 背景画像: library.jpg, school_yard.jpg\n✅ キャラクター立ち絵: akira (happy/normal), yuki (happy/normal)\n✅ 表情変化システム\n✅ キャラクター配置 (left/center/right)\n✅ シーン遷移\n\nすべてのリソースが正常に動作することを確認しました。PixiJS版の実装準備が整いました！"
+    },
+    {
+      "id": 20,
+      "type": "narration",
+      "character": "開発者",
+      "text": "📊 **テスト結果レポート**\n\n🖼️ 背景テスト:\n- 図書館シーン: library.jpg\n- 校庭シーン: school_yard.jpg\n\n👥 キャラクターテスト:\n- 雪: normal/happy表情\n- 明: normal/happy表情\n- 配置: left/center/right\n\n📖 シナリオ機能:\n- 分岐選択システム\n- キャラクター表情変化\n- 背景切り替え\n\nすべて正常に動作中！"
     }
   ]
 }
