@@ -33,7 +33,8 @@ export default function PixiNovelGame() {
   const pixiAppRef = useRef<PIXI.Application | null>(null);
   const bgmRef = useRef<HTMLAudioElement | null>(null);
   const initDoneRef = useRef<boolean>(false);
-  const nextButtonRef = useRef<PIXI.Graphics | null>(null); // Nextボタン参照追加
+  const nextButtonRef = useRef<PIXI.Graphics | null>(null);
+  const bgmLoadedRef = useRef<boolean>(false); // BGM読み込み状態追加
   
   // PixiJS表示オブジェクトの参照
   const backgroundSpriteRef = useRef<PIXI.Sprite | null>(null);
@@ -57,6 +58,125 @@ export default function PixiNovelGame() {
     const log = `${new Date().toLocaleTimeString()}: ${message}`;
     console.log(log);
     setDebugInfo(prev => [...prev.slice(-8), log]);
+  };
+
+  // BGM制御関数を追加
+  const initializeBGM = async () => {
+    try {
+      addLog('🎵 BGM初期化開始');
+      
+      // 複数のBGMファイルパスを試す
+      const bgmPaths = [
+        '/sounds/bgm/game/summer_memories.mp3',
+        '/music/novel/summer_memories.mp3',
+        '/sounds/bgm/title/main_theme.mp3',
+        '/audio/bgm/game_main.mp3'
+      ];
+      
+      let bgmLoaded = false;
+      
+      for (const path of bgmPaths) {
+        try {
+          const audio = new Audio(path);
+          
+          // オーディオの読み込み完了を待つ
+          await new Promise((resolve, reject) => {
+            audio.addEventListener('canplaythrough', resolve, { once: true });
+            audio.addEventListener('error', reject, { once: true });
+            audio.load();
+          });
+          
+          // BGM設定
+          audio.loop = true;
+          audio.volume = 0.4;
+          audio.preload = 'auto';
+          
+          bgmRef.current = audio;
+          bgmLoadedRef.current = true;
+          bgmLoaded = true;
+          
+          addLog(`✅ BGM読み込み成功: ${path.split('/').pop()}`);
+          break;
+          
+        } catch (pathError) {
+          addLog(`⚠️ BGMパス失敗: ${path.split('/').pop()}`);
+          continue;
+        }
+      }
+      
+      if (!bgmLoaded) {
+        addLog('⚠️ すべてのBGMパスで読み込み失敗 - BGMなしで続行');
+        // BGMなしでも続行
+      }
+      
+    } catch (error) {
+      addLog(`❌ BGM初期化エラー: ${error}`);
+    }
+  };
+
+  const playBGM = async () => {
+    if (!bgmRef.current || !bgmLoadedRef.current) {
+      addLog('⚠️ BGM未準備 - 再初期化試行');
+      await initializeBGM();
+    }
+    
+    if (bgmRef.current && gameState.bgmEnabled) {
+      try {
+        // ユーザーインタラクション後の再生
+        const playPromise = bgmRef.current.play();
+        
+        if (playPromise !== undefined) {
+          await playPromise;
+          addLog('🎵 BGM再生開始');
+        }
+      } catch (playError) {
+        addLog(`❌ BGM再生エラー: ${playError}`);
+        
+        // ユーザーインタラクション待ちの場合
+        if (
+          typeof playError === 'object' &&
+          playError !== null &&
+          'name' in playError &&
+          (playError as { name: string }).name === 'NotAllowedError'
+        ) {
+          addLog('🎵 ユーザーインタラクション待ち - クリック後に再生');
+          
+          // 次回のクリックで再生を試す
+          const handleUserClick = async () => {
+            try {
+              if (bgmRef.current && gameState.bgmEnabled) {
+                await bgmRef.current.play();
+                addLog('🎵 ユーザーインタラクション後BGM再生成功');
+                document.removeEventListener('click', handleUserClick);
+              }
+            } catch (retryError) {
+              addLog(`❌ リトライ後もBGM再生失敗: ${retryError}`);
+            }
+          };
+          
+          document.addEventListener('click', handleUserClick, { once: true });
+        }
+      }
+    }
+  };
+
+  const stopBGM = () => {
+    if (bgmRef.current) {
+      bgmRef.current.pause();
+      bgmRef.current.currentTime = 0;
+      addLog('🔇 BGM停止');
+    }
+  };
+
+  const toggleBGM = async () => {
+    const newBgmEnabled = !gameState.bgmEnabled;
+    setGameState(prev => ({ ...prev, bgmEnabled: newBgmEnabled }));
+    
+    if (newBgmEnabled) {
+      await playBGM();
+    } else {
+      stopBGM();
+    }
   };
 
   // 背景表示更新
@@ -396,6 +516,17 @@ export default function PixiNovelGame() {
     }
   }, [gameState.currentStep, gameState.scenario, isReady]);
 
+  // BGM状態変更時の処理を追加
+  useEffect(() => {
+    if (isReady) {
+      if (gameState.bgmEnabled) {
+        playBGM();
+      } else {
+        stopBGM();
+      }
+    }
+  }, [gameState.bgmEnabled, isReady]);
+
   // PixiJSコンテナ要素が設定されたときの処理
   useEffect(() => {
     if (!pixiContainer || initDoneRef.current) {
@@ -407,6 +538,9 @@ export default function PixiNovelGame() {
     
     const initialize = async () => {
       try {
+        // BGM初期化を最初に実行
+        await initializeBGM();
+        
         // シナリオ読み込み
         addLog('📄 シナリオ読み込み開始');
         const response = await fetch('/data/scenarios/test_scenario.json');
@@ -453,19 +587,15 @@ export default function PixiNovelGame() {
         pixiContainer.appendChild(canvas);
         addLog('✅ キャンバス追加完了');
         
-        // BGM初期化
-        try {
-          const audio = new Audio('/music/novel/summer_memories.mp3');
-          audio.loop = true;
-          audio.volume = 0.3;
-          bgmRef.current = audio;
-          addLog('🎵 BGM準備完了');
-        } catch (bgmError) {
-          addLog('⚠️ BGM準備失敗（続行）');
-        }
-        
         addLog('🎉 PixiJS初期化完了');
         setIsReady(true);
+        
+        // 初期化完了後にBGM再生を試行
+        if (gameState.bgmEnabled) {
+          setTimeout(() => {
+            playBGM();
+          }, 1000);
+        }
         
       } catch (error) {
         addLog(`💥 初期化エラー: ${error}`);
@@ -490,6 +620,7 @@ export default function PixiNovelGame() {
         bgmRef.current.pause();
         bgmRef.current = null;
       }
+      bgmLoadedRef.current = false;
       initDoneRef.current = false;
     };
   }, []);
@@ -673,6 +804,7 @@ export default function PixiNovelGame() {
         <div><strong>🎮 PixiJS ノベルゲーム</strong></div>
         <div>ステップ: {gameState.currentStep}</div>
         <div>シナリオ: {gameState.scenario.length}個</div>
+        <div>BGM状態: {bgmLoadedRef.current ? '準備完了' : '読み込み中'}</div>
         <div>初期化: {initDoneRef.current ? '完了' : '待機中'}</div>
       </div>
       
@@ -683,16 +815,7 @@ export default function PixiNovelGame() {
         right: '20px'
       }}>
         <button
-          onClick={() => {
-            if (bgmRef.current) {
-              if (gameState.bgmEnabled) {
-                bgmRef.current.pause();
-              } else {
-                bgmRef.current.play().catch(e => console.log('BGM再生エラー:', e));
-              }
-              setGameState(prev => ({ ...prev, bgmEnabled: !prev.bgmEnabled }));
-            }
-          }}
+          onClick={toggleBGM}
           style={{
             padding: '10px 15px',
             backgroundColor: gameState.bgmEnabled ? '#28a745' : '#6c757d',
