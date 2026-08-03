@@ -50,27 +50,31 @@ function loadAllArticles() {
     // 正しいパスを指定
     const articlesBaseDir = path.join(__dirname, '../src/data/articles');
     
-    // 2025フォルダの存在確認
-    const year2025Dir = path.join(articlesBaseDir, '2025');
-    if (!fs.existsSync(year2025Dir)) {
-      console.error(`❌ ディレクトリが見つかりません: ${year2025Dir}`);
+    if (!fs.existsSync(articlesBaseDir)) {
+      console.error(`❌ ディレクトリが見つかりません: ${articlesBaseDir}`);
       return articlesData;
     }
-    
-    const months = fs.readdirSync(year2025Dir);
-    console.log(`📁 見つかった月フォルダ: ${months.join(', ')}`);
-    
-    for (const month of months) {
-      const monthDir = path.join(year2025Dir, month);
-      if (!fs.statSync(monthDir).isDirectory()) {
-        console.log(`⏭️  スキップ (ディレクトリではない): ${month}`);
-        continue;
-      }
-      
-      const files = fs.readdirSync(monthDir);
-      console.log(`📂 ${month}月のファイル数: ${files.length}`);
-      
-      for (const file of files) {
+
+    const years = fs.readdirSync(articlesBaseDir)
+      .filter(name => /^\d{4}$/.test(name))
+      .filter(name => fs.statSync(path.join(articlesBaseDir, name)).isDirectory())
+      .sort();
+    console.log(`📁 見つかった年フォルダ: ${years.join(', ')}`);
+
+    for (const year of years) {
+      const yearDir = path.join(articlesBaseDir, year);
+      const months = fs.readdirSync(yearDir)
+        .filter(name => /^\d{2}$/.test(name))
+        .filter(name => fs.statSync(path.join(yearDir, name)).isDirectory())
+        .sort();
+      console.log(`📁 ${year}年の月フォルダ: ${months.join(', ')}`);
+
+      for (const month of months) {
+        const monthDir = path.join(yearDir, month);
+        const files = fs.readdirSync(monthDir);
+        console.log(`📂 ${year}年${month}月のファイル数: ${files.length}`);
+
+        for (const file of files) {
         if (file.endsWith('.ts') && !file.includes('index')) {
           try {
             const filePath = path.join(monthDir, file);
@@ -137,6 +141,7 @@ function loadAllArticles() {
             console.warn(`❌ 記事ファイル読み込みエラー: ${file}`, error.message);
           }
         }
+        }
       }
     }
   } catch (error) {
@@ -160,7 +165,7 @@ async function updatePopularArticles() {
     if (allArticles.length === 0) {
       console.error('❌ 記事データが見つかりませんでした');
       console.log('💡 以下を確認してください:');
-      console.log('  - src/data/articles/2025/ フォルダが存在するか');
+      console.log('  - src/data/articles/ 配下に年・月フォルダが存在するか');
       console.log('  - 月別のフォルダ (05, 06など) が存在するか');
       console.log('  - .tsファイルが存在するか');
       return;
