@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend
 
-## Getting Started
+「ゲーム賛否」の Next.js フロントエンドです。Next.js 15.5.21 と React 19 を使用し、ページの大半は Pages Router（`src/pages/`）で実装されています。
 
-First, run the development server:
+## 必要環境
+
+- Node.js 20 以降
+- pnpm 10 以降
+
+依存関係は `pnpm-lock.yaml` で固定しているため、pnpm の利用を推奨します。
+
+## ローカル開発
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install --frozen-lockfile
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`http://localhost:3000` で確認できます。`dev` は起動前に人気記事データを更新します。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## コマンド
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| コマンド | 内容 |
+| --- | --- |
+| `pnpm dev` | 開発サーバーを起動（Turbopack） |
+| `pnpm build` | 人気記事を更新して本番ビルド |
+| `pnpm start` | ビルド済みアプリを起動 |
+| `pnpm update-popular` | `src/data/popularArticles.json` を再計算 |
+| `pnpm x-helper` | X 投稿用の補助スクリプトを実行 |
 
-## Learn More
+`build` と `dev` は `popularArticles.json` を更新します。意図しない差分が生じた場合は、コミット対象かどうかを確認してください。
 
-To learn more about Next.js, take a look at the following resources:
+## 環境変数
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+通常の表示・ビルドには環境変数は必須ではありません。問い合わせメールをローカルで動かす場合は、`.env.local` に以下を設定します。値はコミットしないでください。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```dotenv
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=
+SMTP_PASSWORD=
+SMTP_FROM_EMAIL=
+```
 
-## Deploy on Vercel
+## 記事データ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+記事は `src/data/articles/<YYYY>/<MM>/` に TypeScript として保存します。画像は `public/images/articles/<YYYY>/<MM>/<slug>/` に置きます。詳しい手順はリポジトリルートの [記事追加ガイド](../docs/article-publishing.md) を参照してください。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## デプロイ
+
+Vercel は GitHub の `main` ブランチを本番環境としてデプロイします。push 前に `pnpm build` を成功させ、Vercel のデプロイ画面で対象コミットが `Ready` になったことを確認してください。
