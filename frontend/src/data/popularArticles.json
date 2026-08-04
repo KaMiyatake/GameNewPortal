@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-03T04:02:12.076Z",
+  "lastUpdated": "2026-08-04T06:54:02.969Z",
   "dataSource": "calculated-score",
   "timeframe": "dynamic",
   "calculationMethod": "recency + category + tags + existing_flags",
@@ -8,8 +8,8 @@
       "id": 26080301,
       "slug": "26080301-stalker2-cost-of-hope",
       "title": "『S.T.A.L.K.E.R. 2』大型DLC「Cost of Hope」8月20日配信へ――2つの新エリアと数十時間規模の物語を追加",
-      "popularityScore": 172,
-      "daysSincePublish": 0,
+      "popularityScore": 159,
+      "daysSincePublish": 1,
       "categories": [
         "PC",
         "Xbox",
@@ -22,11 +22,26 @@
       ]
     },
     {
+      "id": 26080401,
+      "slug": "26080401-xenoblade2-switch2-edition",
+      "title": "『ゼノブレイド2 Nintendo Switch 2 Edition』配信開始――4K・60fps対応、新ブレイドやアクションモードも追加",
+      "popularityScore": 154,
+      "daysSincePublish": 0,
+      "categories": [
+        "Switch"
+      ],
+      "tags": [
+        "ゼノブレイド2",
+        "Nintendo Switch 2",
+        "モノリスソフト"
+      ]
+    },
+    {
       "id": 25060901,
       "slug": "25060901-persona4-revival",
       "title": "『ペルソナ4 リバイバル』ついに発表――17年の時を経て蘇る青春RPGの金字塔、賛否両論で検証する完全リメイクの意義",
       "popularityScore": 67,
-      "daysSincePublish": 420,
+      "daysSincePublish": 421,
       "categories": [
         "PlayStation",
         "Xbox",
@@ -44,7 +59,7 @@
       "slug": "25060902-ninja-gaiden4",
       "title": "『NINJA GAIDEN 4』発売日が10月21日に決定――13年ぶりのナンバリング新作、Team NINJA×プラチナゲームズの奇跡的コラボの光と影",
       "popularityScore": 67,
-      "daysSincePublish": 420,
+      "daysSincePublish": 421,
       "categories": [
         "PlayStation",
         "Xbox",
@@ -62,7 +77,7 @@
       "slug": "25060903-zenless-zone-zero-ver2",
       "title": "『ゼンレスゾーンゼロ』Ver.2.0「雲霞の行き着く処」大型アップデート紹介――シーズン2開幕で見えた進化と課題を賛否両論で分析",
       "popularityScore": 67,
-      "daysSincePublish": 420,
+      "daysSincePublish": 421,
       "categories": [
         "PC",
         "モバイル",
@@ -81,7 +96,7 @@
       "slug": "25061202-elden-ring-nightreign",
       "title": "『エルデンリング ナイトレイン』Steamで高い人気を継続中！12万人超のプレイヤーが示すコンテンツの魅力",
       "popularityScore": 67,
-      "daysSincePublish": 417,
+      "daysSincePublish": 418,
       "categories": [
         "PC",
         "PlayStation",
@@ -99,7 +114,7 @@
       "slug": "25061601-ceo2025-leshar-champion",
       "title": "CEO2025 SF6部門　優勝 Leshar選手――Season3初の大型大会でプレミア2連覇達成、テリーで圧巻のグランドファイナル制覇",
       "popularityScore": 60,
-      "daysSincePublish": 413,
+      "daysSincePublish": 414,
       "categories": [
         "eスポーツ",
         "業界ニュース"
@@ -115,7 +130,7 @@
       "slug": "25061801-shadowverse-worlds-beyond-release",
       "title": "「Shadowverse: Worlds Beyond」ついにリリース！Steam同接6万人突破も評価は「圧倒的に不評」――新要素「超進化」が賛否を呼ぶ",
       "popularityScore": 55,
-      "daysSincePublish": 411,
+      "daysSincePublish": 412,
       "categories": [
         "PC",
         "モバイル",
@@ -132,7 +147,7 @@
       "slug": "25070302-mecha-break-service-start",
       "title": "『Mecha BREAK』PCとXboxで7月2日サービス開始！Steam同接10万人突破！",
       "popularityScore": 55,
-      "daysSincePublish": 396,
+      "daysSincePublish": 397,
       "categories": [
         "PC",
         "Xbox",
@@ -149,7 +164,7 @@
       "slug": "25060301-sf6",
       "title": "『ストリートファイター6』にエレナ参戦、“Years 1-2 Fighters Edition”も発売決定",
       "popularityScore": 52,
-      "daysSincePublish": 424,
+      "daysSincePublish": 425,
       "categories": [
         "PlayStation",
         "Xbox",
@@ -160,24 +175,6 @@
         "ストリートファイター6",
         "エレナ",
         "DLC"
-      ]
-    },
-    {
-      "id": 25062701,
-      "slug": "25062701-sf6-sagat-announce",
-      "title": "『ストリートファイター6』「サガット」8月5日参戦決定！7体の水着コスチュームも同時配信",
-      "popularityScore": 52,
-      "daysSincePublish": 402,
-      "categories": [
-        "PC",
-        "PlayStation",
-        "Xbox",
-        "Switch"
-      ],
-      "tags": [
-        "ストリートファイター6",
-        "カプコン",
-        "サガット"
       ]
     }
   ]
