@@ -240,10 +240,13 @@ RSSにIR・人事なども含まれる可能性があるため、カテゴリま
 
 セガ配信タイトルだけでなく他社開発・海外作品の国内向け発表も含む。元開発会社の発表と重複する可能性があるため、ゲーム名、発売日、トレーラーIDを使った類似判定が重要となる。
 
+2026年8月4日のローカルPoCでは、通常のHTTPクライアントから一覧・サイトマップへアクセスするとHTTP 403となった。利用可能な公式フィード等が確認できるまで、初期設定では `enabled: false` とする。アクセス制限を回避する実装は行わない。
+
 ### 5.6 KONAMI ゲーム企業ニュース
 
 - ID: `konami-games-news`
-- 公式一覧: <https://www.konami.com/games/corporate/ja/news/>
+- 公式一覧: <https://www.konami.com/games/corporate/ja/>
+- 公式一覧データ: <https://www.konami.com/js/common/newsRoom.php?lang=ja&newsType=newsList&com=kde>
 - 個別記事URL形式: `https://www.konami.com/games/corporate/ja/news/{release|topics}/YYYYMMDD/`
 - 発行元: 株式会社コナミデジタルエンタテインメント
 - 取得方式: HTML一覧アダプター。サイトマップ利用可否も検証する
@@ -418,7 +421,7 @@ Xは速報性が高い一方、認証、料金、レート制限、仕様変更�
 
 ## 9. 初期設定案
 
-ローカルMVPでは、まず次の7情報源を有効化する。
+ローカルMVPでは6情報源を有効化し、セガは接続制限のため無効状態で登録する。
 
 ```json
 {
@@ -482,7 +485,7 @@ Xは速報性が高い一方、認証、料金、レート制限、仕様変更�
       "publisher": "SEGA",
       "type": "html-sega-topics",
       "url": "https://www.sega.jp/game/topics/?code=1-12-",
-      "enabled": true,
+      "enabled": false,
       "official": true,
       "locale": "ja-JP",
       "defaultCategories": [],
@@ -494,7 +497,7 @@ Xは速報性が高い一方、認証、料金、レート制限、仕様変更�
       "name": "KONAMI ゲーム企業ニュース",
       "publisher": "Konami Digital Entertainment",
       "type": "html-konami-news",
-      "url": "https://www.konami.com/games/corporate/ja/news/",
+      "url": "https://www.konami.com/js/common/newsRoom.php?lang=ja&newsType=newsList&com=kde",
       "enabled": true,
       "official": true,
       "locale": "ja-JP",
@@ -613,7 +616,7 @@ Step 1・2の採用率と取得漏れを確認した後に追加する。
 
 情報源カタログからMVP実装へ進む条件は次のとおりとする。
 
-- P0の7情報源について公式性を確認済み
+- P0の7情報源について公式性を確認し、接続可能な6情報源を有効化済み
 - RSS 3件のローカル疎通・解析PoCが成功
 - HTML 4件から最新10件を抽出できる
 - 各情報源の除外ルールが設定化されている

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Official Game News</title>
+    <item>
+      <guid>news-001</guid>
+      <title>『サンプルゲーム』大型DLCの配信日が決定</title>
+      <link>https://example.com/news/001/?utm_source=test</link>
+      <description><![CDATA[<p>PlayStation 5、Xbox、PC向け大型DLCを8月20日に配信します。</p>]]></description>
+      <pubDate>Tue, 04 Aug 2026 01:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

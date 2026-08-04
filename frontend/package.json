@@ -2,23 +2,32 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.15.1",
   "scripts": {
     "dev": "npm run update-popular && next dev --turbopack",
     "build": "npm run update-popular && next build",
     "start": "next start",
     "lint": "next lint",
     "update-popular": "node scripts/updatePopularArticles.js",
-    "x-helper": "node scripts/generate-x-posts.js"
+    "x-helper": "node scripts/generate-x-posts.js",
+    "news:collect": "tsx tools/news-collector/src/cli.ts collect",
+    "news:report": "tsx tools/news-collector/src/cli.ts report",
+    "news:status": "tsx tools/news-collector/src/cli.ts status",
+    "news:decide": "tsx tools/news-collector/src/cli.ts decide",
+    "news:test": "tsx --test tools/news-collector/tests/**/*.test.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
     "chart.js": "^4.4.9",
+    "cheerio": "^1.2.0",
     "dotenv": "^16.5.0",
+    "fast-xml-parser": "^5.10.1",
     "next": "15.5.21",
     "nodemailer": "^7.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "swiper": "^11.2.7"
+    "swiper": "^11.2.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -31,6 +40,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.21",
     "tailwindcss": "^4",
+    "tsx": "^4.23.5",
     "typescript": "^5"
   }
 }

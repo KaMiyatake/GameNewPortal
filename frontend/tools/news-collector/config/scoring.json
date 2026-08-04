@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "maxScore": 100,
+  "sourceKindScores": {
+    "press-release": 25,
+    "official-site": 23,
+    "platform-blog": 20
+  },
+  "freshnessScores": [
+    { "maxHours": 6, "score": 15 },
+    { "maxHours": 24, "score": 12 },
+    { "maxHours": 72, "score": 7 },
+    { "maxHours": 168, "score": 3 }
+  ],
+  "keywordRules": [
+    { "label": "新作・正式発表", "patterns": ["新作", "正式発表", "announced", "new game"], "score": 20 },
+    { "label": "発売日・配信日", "patterns": ["発売日", "配信日", "発売決定", "配信決定", "release date", "releasing"], "score": 15 },
+    { "label": "大型DLC・アップデート", "patterns": ["大型アップデート", "大型DLC", "拡張コンテンツ", "expansion", "major update"], "score": 12 },
+    { "label": "サービス開始・終了", "patterns": ["サービス開始", "サービス終了", "配信開始", "本日発売", "発売開始", "service launch", "end of service"], "score": 10 },
+    { "label": "対応機種追加", "patterns": ["対応機種", "Switch 2版", "PS5版", "Xbox版", "PC版", "coming to"], "score": 8 },
+    { "label": "通常アップデート・DLC", "patterns": ["アップデート", "DLC", "ダウンロードコンテンツ", "update"], "score": 5 }
+  ],
+  "siteFitRules": [
+    { "label": "日本語・日本向け", "patterns": ["日本", "国内", "ja-JP"], "score": 5 },
+    { "label": "複数プラットフォーム", "patterns": ["PlayStation", "PS5", "Switch", "Xbox", "Steam", "PC"], "minimumMatches": 2, "score": 3 }
+  ],
+  "penaltyRules": [
+    { "label": "特集・レビュー中心", "patterns": ["特集", "試遊レビュー", "インタビュー", "体験会", "おすすめ新作ガイド"], "score": -10 },
+    { "label": "セール中心", "patterns": ["セール", "sale", "割引"], "score": -15 },
+    { "label": "グッズ中心", "patterns": ["グッズ", "物販", "プライズ", "merchandise"], "score": -15 },
+    { "label": "定例イベント", "patterns": ["ログインボーナス", "ピックアップガチャ", "Twitch Drops", "今週の"], "score": -10 }
+  ]
+}
