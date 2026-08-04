@@ -33,9 +33,12 @@ Follow the detailed guide in `docs/article-publishing.md`.
 ## Sources and images
 
 - Use official first-party announcements and press materials as the factual basis for news articles. Record the source URL in the article.
-- Use images only when their use is explicitly permitted, such as official press assets. Do not download and reuse third-party news-site or image-search images.
-- If permitted official art is unavailable, prefer an approved embed; an original generic illustrative image is a fallback and must not be presented as an official screenshot or artwork.
-- Prefer existing permitted materials over generating images when cost or rights clarity is a concern.
+- Official promotional images may be used for editorial reporting when they come directly from the publisher, developer, platform holder, official press release, official product page, official X post, or official YouTube video. Record the exact source URL and an appropriate copyright notice in the article.
+- Prefer official press assets and official screenshots. An official YouTube thumbnail may be used as the main image when the video is directly relevant to the article; also embed or link the source video in the article.
+- Never download or reuse images from third-party news sites, blogs, aggregators, retailer listings, leaks, or image-search result pages. Image search may be used only to locate and then verify the original first-party source.
+- Aim for at least three meaningful visual elements per article, using a suitable combination of official images, official YouTube embeds, and official X embeds.
+- Do not use AI-generated or generic illustrative images for game-news articles. If suitable official visual material cannot be verified, flag the limitation for human review rather than fabricating a substitute.
+- Do not imply that the site is affiliated with or sponsored by the rights holder. Use official materials only in the context of reporting on the relevant product or announcement, without removing watermarks or copyright notices.
 
 ## Git, deployment, and secrets
 
